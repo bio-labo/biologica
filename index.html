@@ -5109,9 +5109,8 @@ function rollOneMicrobe(isPremium) {
   else if (roll < 0.1 + 0.3 + 0.5 + 39.1) { isMutant = false; fixedSense = 50; }
   else { isMutant = false; fixedSense = 0; }
 
-  const sp = isMutant
-    ? SPECIES_MASTER[Math.floor(Math.random() * SPECIES_MASTER.length)]
-    : SPECIES_MASTER[Math.floor(Math.random() * 5)];
+  // 🛡️ 全15種族（原生生物6種 ＋ 免疫細胞9種：マクロファージ、キラーT、樹状、好中球、NK、B、ヘルパーT、メモリー、マスト）から完全平等に抽選！
+  const sp = SPECIES_MASTER[Math.floor(Math.random() * SPECIES_MASTER.length)];
 
   const newM = generateMicrobeInstance({ speciesObj: sp, isMutant, fixedSense, highIv: false });
   state.box.push(newM);
@@ -5181,7 +5180,7 @@ function exchangeMedalItem(itemId) {
   const item = EXCHANGE_SHOP_ITEMS.find(i => i.id === itemId);
   if (!item || state.medals < item.cost) return;
   state.medals -= item.cost;
-  const sp = item.speciesIdx >= 0 ? SPECIES_MASTER[item.speciesIdx] : SPECIES_MASTER[Math.floor(Math.random() * 5)];
+  const sp = item.speciesIdx >= 0 ? SPECIES_MASTER[item.speciesIdx] : SPECIES_MASTER[Math.floor(Math.random() * SPECIES_MASTER.length)];
   const newM = generateMicrobeInstance({ speciesObj: sp, isMutant: item.mutant, fixedSense: item.sense, highIv: true });
   state.box.push(newM);
   state.activeId = newM.uid;
@@ -7913,12 +7912,12 @@ function renderRankingListItems(list) {
 }
 
 /* ============================================================================
-   8. 🌍 全国だれでも対戦（リアルタイム・ランダムマッチング ＆ 15秒ゴーストAI） ＆ フレンド対戦ルーム
+   8. 🌍 全国だれでも対戦（リアルタイム・ランダムマッチング ＆ 35秒じっくり待機） ＆ フレンド対戦ルーム
 ============================================================================ */
 let randomMatchmaker = {
   active: false,
   timerInterval: null,
-  remainSec: 15,
+  remainSec: 35,
   docId: null,
   unsubscribe: null
 };
@@ -7933,15 +7932,15 @@ async function startRandomMatchmaking() {
   modal.classList.add('active');
 
   randomMatchmaker.active = true;
-  randomMatchmaker.remainSec = 15;
-  timerText.textContent = `⏱️ 残り 15 秒`;
+  randomMatchmaker.remainSec = 35;
+  timerText.textContent = `⏱️ 残り 35 秒`;
 
   const presetIdx = parseInt(document.getElementById('battlePresetSelect').value || '0', 10);
   const myTeam = state.presets[presetIdx].ids.map(id => createFighter(getMicrobeById(id), 1.0));
   const myTitle = (TITLES_MASTER.find(t => t.id === state.equippedTitleId) || TITLES_MASTER[0]).name;
   const battleCat = currentBattleCategory || 'sci';
 
-  // 15秒カウントダウンタイマー
+  // 35秒カウントダウンタイマー
   randomMatchmaker.timerInterval = setInterval(() => {
     if (!randomMatchmaker.active) return;
     randomMatchmaker.remainSec--;
@@ -7955,18 +7954,18 @@ async function startRandomMatchmaking() {
   }, 1000);
 
   try {
-    const cutoff = Date.now() - 25000;
+    const cutoff = Date.now() - 40000;
+    // 単一whereでインデックス未作成エラーを完全回避！
     const snap = await db.collection('random_matches')
       .where('status', '==', 'waiting')
-      .where('category', '==', battleCat)
-      .where('createdAt', '>=', cutoff)
-      .limit(1)
+      .limit(15)
       .get();
 
     let targetDoc = null;
     snap.forEach(d => {
-      if (d.data().hostCode !== state.friendCode) {
-        targetDoc = d;
+      const data = d.data();
+      if (data.hostCode !== state.friendCode && (!data.category || data.category === battleCat) && (data.createdAt >= cutoff)) {
+        if (!targetDoc) targetDoc = d;
       }
     });
 
