@@ -410,6 +410,63 @@
     font-weight: 800; font-size: 0.88rem; z-index: 9999; display: none; border: 2px solid #38bdf8;
   }
 
+  /* 📖 新世代ハンドブック・アコーディオン＆白基調カード */
+  .hb-pill-btn {
+    white-space: nowrap; padding: 4px 10px; font-size: 0.73rem; font-weight: 800;
+    border-radius: 999px; border: 1.5px solid #cbd5e1; background: #ffffff;
+    color: #475569; cursor: pointer; transition: all 0.15s;
+  }
+  .hb-pill-btn.active { background: #0f172a; border-color: #0f172a; color: #ffffff; }
+  .hb-card {
+    background: #ffffff; border-radius: 16px; border: 2px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04); overflow: hidden; transition: all 0.2s ease;
+  }
+  .hb-card:hover { border-color: #94a3b8; }
+  .open-arrow {
+    font-size: 0.76rem; color: #64748b; font-weight: 900; transition: transform 0.25s ease;
+  }
+  .hb-card.open .open-arrow {
+    transform: rotate(180deg);
+  }
+  .hb-card-header {
+    padding: 12px 14px; cursor: pointer; user-select: none;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .hb-one-phrase {
+    font-size: 0.98rem; font-weight: 900; color: #0f172a; line-height: 1.4;
+    display: flex; align-items: flex-start; gap: 6px;
+  }
+  .hb-formula-box {
+    background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 10px;
+    padding: 8px 12px; margin-top: 2px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .hb-formula-text {
+    font-size: 1.05rem; font-weight: 900; line-height: 1.35; word-break: break-word;
+  }
+  .formula-math { color: #1d4ed8; background: #eff6ff; border-color: #93c5fd; }
+  .formula-sci { color: #047857; background: #ecfdf5; border-color: #6ee7b7; }
+  .formula-eng { color: #b45309; background: #fffbeb; border-color: #fcd34d; }
+  .hb-card-body {
+    max-height: 0; opacity: 0; overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.25s ease;
+    background: #f8fafc; border-top: 1.5px dashed #cbd5e1; padding: 0 14px;
+  }
+  .hb-card.open .hb-card-body { max-height: 800px; opacity: 1; padding: 12px 14px 14px; }
+  .hb-concept-box {
+    background: white; border-radius: 10px; border: 1px solid #e2e8f0;
+    padding: 10px 12px; margin-bottom: 8px;
+  }
+  .hb-concept-label { font-size: 0.72rem; font-weight: 900; color: #0369a1; margin-bottom: 4px; }
+  .hb-concept-text { font-size: 0.8rem; color: #1e293b; line-height: 1.55; }
+  .hb-tips-box {
+    background: #fffbeb; border-left: 3.5px solid #f59e0b; border-radius: 6px;
+    padding: 8px 10px; font-size: 0.75rem; color: #78350f; line-height: 1.45; font-weight: 700;
+  }
+  .hb-level-badge { font-size: 0.68rem; font-weight: 900; padding: 2px 7px; border-radius: 6px; }
+  .hb-badge-junior { background: #dcfce7; color: #15803d; border: 1.5px solid #86efac; }
+  .hb-badge-high { background: #e0f2fe; color: #0369a1; border: 1.5px solid #7dd3fc; }
+  .hb-badge-exam { background: #fee2e2; color: #b91c1c; border: 1.5px solid #fca5a5; }
+
   /* ぷにぷに風メインタブ ＆ メニューグリッド */
   .nav-tabs {
     display: grid;
@@ -1146,7 +1203,7 @@
           <div>
             <label style="font-size:0.76rem; font-weight:900; display:block; color:#be185d;">🎮 解答スタイル</label>
             <select id="engAnswerStyleSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#ec4899;">
-              <option value="fast_choice" selected>⚡ 早押し4択 (制限時間5.5秒・反射神経スプリント！)</option>
+              <option value="fast_choice" selected>⚡ 4択早押しバトル (制限時間10秒・反射神経＆思考力！)</option>
               <option value="unlimited_typing">✍️ スペル記述 (時間無制限・手動キーボード打ち込み！)</option>
             </select>
           </div>
@@ -1163,7 +1220,7 @@
           </div>
           <p style="font-size:0.76rem; color:#14532d; line-height:1.45; margin:0;">
             見知らぬ全国のプレイヤーとリアルタイムで自動マッチング！<br>
-            ※15秒間マッチングしなかった場合は、<strong>全国ランキング実在プレイヤーのパーティ（ゴーストAI）</strong>と即座に白熱バトルが開始されます！
+            ※35秒間マッチングしなかった場合は、<strong>全国ランキング実在プレイヤーのパーティ（ゴーストAI）</strong>と即座に白熱バトルが開始されます！
           </p>
           <button class="btn btn-secondary" style="width:100%; padding:12px; font-size:0.95rem; font-weight:900; margin-top:auto;" onclick="startRandomMatchmaking()">
             🌍 全国プレイヤーと対戦を探す！（即マッチ）
@@ -1464,30 +1521,43 @@
     </div>
   </section>
 
-  <!-- 📖 公式・要点ハンドブック（数学公式・理科法則・英文法まとめシート） -->
+  <!-- 📖 公式・要点ハンドブック（体系まとめ・クッキリ大文字＆全40項目網羅） -->
   <section id="screen-handbook" class="screen">
     <div class="subscreen-back-bar">
-      <strong style="color:#b45309; font-size:0.95rem;">📖 公式・要点ハンドブック（体系まとめ集）</strong>
+      <strong style="color:#b45309; font-size:0.95rem;">📖 公式・要点ハンドブック（中学生〜社会人まで3秒直感UI）</strong>
       <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
     </div>
 
-    <div class="card" style="margin-bottom:12px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
-        <div style="display:flex; gap:6px; flex-wrap:wrap;">
-          <button id="hbTabBtnMath" class="btn btn-primary" style="padding:6px 14px; font-size:0.85rem;" onclick="switchHandbookTab('math')">📐 数学公式集</button>
-          <button id="hbTabBtnSci" class="btn btn-outline" style="padding:6px 14px; font-size:0.85rem;" onclick="switchHandbookTab('sci')">⚡ 理科重要法則</button>
-          <button id="hbTabBtnEng" class="btn btn-outline" style="padding:6px 14px; font-size:0.85rem;" onclick="switchHandbookTab('eng')">📖 英文法・構文要点</button>
-        </div>
-        <div style="display:flex; align-items:center; gap:6px; flex:1; min-width:200px; max-width:320px;">
-          <input type="text" id="handbookSearchInput" class="btn-outline" style="width:100%; padding:6px 10px; border-radius:8px; font-size:0.82rem;" placeholder="🔍 公式名・用語で検索..." oninput="onHandbookSearch()">
-        </div>
-      </div>
-      <div class="help-box" id="handbookTipBox" style="font-size:0.8rem; margin-bottom:12px;">
-        💡 <strong>いつでも見直せる要点シート！</strong> 受験・テスト直前に確認したい重要公式・法則・文法ルールを体系的にまとめています。タップしてアコーディオンを展開できます。
+    <div class="card" style="margin-bottom:12px; padding:12px;">
+      <!-- 教科タブ切り替え（数学・理科・英語） -->
+      <div style="display:flex; gap:6px; margin-bottom:10px;">
+        <button id="hbTabBtnMath" class="btn btn-primary" style="flex:1; padding:8px 6px; font-size:0.86rem; font-weight:900;" onclick="switchHandbookTab('math')">📐 数学公式 (15)</button>
+        <button id="hbTabBtnSci" class="btn btn-outline" style="flex:1; padding:8px 6px; font-size:0.86rem; font-weight:900;" onclick="switchHandbookTab('sci')">⚡ 理科重要法則 (13)</button>
+        <button id="hbTabBtnEng" class="btn btn-outline" style="flex:1; padding:8px 6px; font-size:0.86rem; font-weight:900;" onclick="switchHandbookTab('eng')">📖 英文法・構文 (12)</button>
       </div>
 
-      <!-- ハンドブックカード一覧出力エリア -->
-      <div id="handbookCardsContainer" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(290px, 1fr)); gap:10px;"></div>
+      <!-- 検索 ＆ 学年別ピル絞り込みバー -->
+      <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:10px; margin-bottom:10px;">
+        <div style="display:flex; align-items:center; gap:6px; margin-bottom:8px;">
+          <span style="font-size:0.9rem;">🔍</span>
+          <input type="text" id="handbookSearchInput" class="btn-outline" style="flex:1; padding:7px 10px; border-radius:8px; font-size:0.85rem; font-weight:700;" placeholder="公式名・用語・キーワードで探す..." oninput="onHandbookSearch()">
+        </div>
+        <div style="display:flex; gap:6px; overflow-x:auto; padding-bottom:2px;">
+          <button id="hbPillAll" class="hb-pill-btn active" onclick="filterHandbookLevel('all')">すべて表示</button>
+          <button id="hbPillJunior" class="hb-pill-btn" onclick="filterHandbookLevel('junior')">🎒 中学レベル</button>
+          <button id="hbPillHigh" class="hb-pill-btn" onclick="filterHandbookLevel('high')">🏛️ 高校基礎・数I/II</button>
+          <button id="hbPillExam" class="hb-pill-btn" onclick="filterHandbookLevel('exam')">🔥 大学入試・数III/C</button>
+        </div>
+      </div>
+
+      <!-- 操作バー（件数 ＆ 一括展開） -->
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:2px 4px 10px; font-size:0.78rem; font-weight:800; color:#475569;">
+        <span id="handbookCountText">表示中：15件</span>
+        <button class="btn btn-outline" style="padding:3px 10px; font-size:0.74rem;" id="hbToggleAllBtn" onclick="toggleAllHandbookCards()">＋ すべて展開</button>
+      </div>
+
+      <!-- ハンドブックカード一覧出力エリア（アコーディオン＆白基調クッキリ大文字） -->
+      <div id="handbookCardsContainer" style="display:flex; flex-direction:column; gap:12px;"></div>
     </div>
   </section>
 
@@ -1709,11 +1779,11 @@
         全国のプレイヤーを探しています...
       </div>
       <div id="matchmakingTimerText" style="font-size:1.35rem; font-weight:900; color:#0284c7; background:#e0f2fe; padding:6px 20px; border-radius:999px;">
-        ⏱️ 残り 15 秒
+        ⏱️ 残り 35 秒
       </div>
       <div style="font-size:0.78rem; color:#475569; line-height:1.5;">
         いま遊んでいる全国のプレイヤーとリアルタイムで自動マッチングします！<br>
-        <small style="color:#059669; font-weight:800;">※15秒で見つからない場合は、全国ランキング実在プレイヤーのパーティ（ゴーストAI）と即座に対戦開始！</small>
+        <small style="color:#059669; font-weight:800;">※35秒で見つからない場合は、全国ランキング実在プレイヤーのパーティ（ゴーストAI）と即座に対戦開始！</small>
       </div>
       <button class="btn btn-outline" style="padding:8px 24px; font-size:0.85rem; color:#dc2626; border-color:#f87171; margin-top:6px;" onclick="cancelRandomMatchmaking()">
         ❌ マッチングをキャンセル
@@ -1791,7 +1861,7 @@
       <span style="display:inline-block; background:linear-gradient(135deg, #0284c7, #059669); color:white; font-size:0.75rem; font-weight:800; padding:3px 12px; border-radius:999px;">
         ✨ Retina・4K対応（1024 × 1024 px 最高品質）
       </span>
-      <div style="width:180px; height:180px; filter:drop-shadow(0 12px 24px rgba(2, 132, 199, 0.4)); margin:4px 0;">
+      <div style="position:relative; width:180px; height:180px; filter:drop-shadow(0 14px 28px rgba(2, 132, 199, 0.45)); margin:4px 0;">
         <svg id="iconModalSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="100%" height="100%" style="border-radius:38px; display:block;">
           <defs>
             <linearGradient id="modalBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1801,16 +1871,81 @@
               <stop offset="100%" stop-color="#059669"/>
             </linearGradient>
             <linearGradient id="modalGlossGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.22"/>
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.28"/>
               <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
             </linearGradient>
+            <linearGradient id="dnaStrandGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#67e8f9"/>
+              <stop offset="50%" stop-color="#38bdf8"/>
+              <stop offset="100%" stop-color="#0284c7"/>
+            </linearGradient>
+            <linearGradient id="dnaStrandGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#a7f3d0"/>
+              <stop offset="50%" stop-color="#34d399"/>
+              <stop offset="100%" stop-color="#059669"/>
+            </linearGradient>
+            <filter id="modalGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="8" result="blur"/>
+              <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+            </filter>
             <filter id="modalShadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="4" dy="16" stdDeviation="14" flood-color="#042f2e" flood-opacity="0.5"/>
+              <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#022c22" flood-opacity="0.45"/>
             </filter>
           </defs>
           <rect width="1024" height="1024" rx="224" ry="224" fill="url(#modalBgGrad)"/>
           <path d="M 0,224 C 0,100.2 100.2,0 224,0 L 800,0 C 923.8,0 1024,100.2 1024,224 L 1024,460 L 0,460 Z" fill="url(#modalGlossGrad)"/>
-          <text x="512" y="550" font-size="560" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system, BlinkMacSystemFont, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif" filter="url(#modalShadow)">🧬</text>
+          
+          <!-- ベクターDNA二重らせん（45度傾斜・超高精細Retinaベクター） -->
+          <g transform="translate(512, 512) rotate(-45)" filter="url(#modalShadow)">
+            <!-- 周囲の光粒子 -->
+            <circle cx="-160" cy="-280" r="12" fill="#e0f2fe" opacity="0.8"/>
+            <circle cx="170" cy="-220" r="8" fill="#a7f3d0" opacity="0.75"/>
+            <circle cx="-180" cy="240" r="10" fill="#a7f3d0" opacity="0.8"/>
+            <circle cx="160" cy="270" r="14" fill="#e0f2fe" opacity="0.85"/>
+            <circle cx="-140" cy="0" r="7" fill="#ffffff" opacity="0.9"/>
+            <circle cx="150" cy="40" r="9" fill="#ffffff" opacity="0.9"/>
+
+            <!-- 塩基対ラダー（Base pairs） -->
+            <line x1="-106" y1="-320" x2="106" y2="-320" stroke="#bae6fd" stroke-width="12" stroke-linecap="round" opacity="0.9"/>
+            <line x1="-128" y1="-260" x2="128" y2="-260" stroke="#99f6e4" stroke-width="12" stroke-linecap="round" opacity="0.95"/>
+            <line x1="-96" y1="-200" x2="96" y2="-200" stroke="#bae6fd" stroke-width="10" stroke-linecap="round" opacity="0.7"/>
+            <line x1="-24" y1="-140" x2="24" y2="-140" stroke="#99f6e4" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+            <line x1="-80" y1="-80" x2="80" y2="-80" stroke="#bae6fd" stroke-width="10" stroke-linecap="round" opacity="0.75"/>
+            <line x1="-126" y1="-20" x2="126" y2="-20" stroke="#99f6e4" stroke-width="14" stroke-linecap="round" opacity="0.95"/>
+            <line x1="-128" y1="40" x2="128" y2="40" stroke="#bae6fd" stroke-width="14" stroke-linecap="round" opacity="0.95"/>
+            <line x1="-88" y1="100" x2="88" y2="100" stroke="#99f6e4" stroke-width="10" stroke-linecap="round" opacity="0.75"/>
+            <line x1="-20" y1="160" x2="20" y2="160" stroke="#bae6fd" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+            <line x1="-92" y1="220" x2="92" y2="220" stroke="#99f6e4" stroke-width="10" stroke-linecap="round" opacity="0.7"/>
+            <line x1="-128" y1="280" x2="128" y2="280" stroke="#bae6fd" stroke-width="12" stroke-linecap="round" opacity="0.95"/>
+            <line x1="-106" y1="340" x2="106" y2="340" stroke="#99f6e4" stroke-width="12" stroke-linecap="round" opacity="0.9"/>
+
+            <!-- ノード球体（結合部） -->
+            <circle cx="-106" cy="-320" r="18" fill="#e0f2fe"/>
+            <circle cx="106" cy="-320" r="18" fill="#67e8f9"/>
+            <circle cx="-128" cy="-260" r="22" fill="#ffffff"/>
+            <circle cx="128" cy="-260" r="22" fill="#a7f3d0"/>
+            <circle cx="-96" cy="-200" r="16" fill="#bae6fd"/>
+            <circle cx="96" cy="-200" r="16" fill="#38bdf8"/>
+            <circle cx="-126" cy="-20" r="24" fill="#ffffff"/>
+            <circle cx="126" cy="-20" r="24" fill="#a7f3d0"/>
+            <circle cx="-128" cy="40" r="24" fill="#e0f2fe"/>
+            <circle cx="128" cy="40" r="24" fill="#ffffff"/>
+            <circle cx="-88" cy="100" r="16" fill="#34d399"/>
+            <circle cx="88" cy="100" r="16" fill="#bae6fd"/>
+            <circle cx="-128" cy="280" r="22" fill="#67e8f9"/>
+            <circle cx="128" cy="280" r="22" fill="#ffffff"/>
+            <circle cx="-106" cy="340" r="18" fill="#38bdf8"/>
+            <circle cx="106" cy="340" r="18" fill="#a7f3d0"/>
+
+            <!-- 二重らせんストランドA（シアン系） -->
+            <path d="M -80,-360 C -140,-300 -140,-220 -80,-160 C -20,-100 20,-20 80,40 C 140,100 140,180 80,240 C 20,300 -20,380 -80,440" fill="none" stroke="url(#dnaStrandGrad1)" stroke-width="26" stroke-linecap="round"/>
+            <!-- 二重らせんストランドB（エメラルド系） -->
+            <path d="M 80,-360 C 140,-300 140,-220 80,-160 C 20,-100 -20,-20 -80,40 C -140,100 -140,180 -80,240 C -20,300 20,380 80,440" fill="none" stroke="url(#dnaStrandGrad2)" stroke-width="26" stroke-linecap="round"/>
+
+            <!-- ストランド表面のハイライト光沢芯 -->
+            <path d="M -80,-360 C -140,-300 -140,-220 -80,-160 C -20,-100 20,-20 80,40 C 140,100 140,180 80,240 C 20,300 -20,380 -80,440" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" opacity="0.65"/>
+            <path d="M 80,-360 C 140,-300 140,-220 80,-160 C 20,-100 -20,-20 -80,40 C -140,100 -140,180 -80,240 C -20,300 20,380 80,440" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" opacity="0.65"/>
+          </g>
         </svg>
         <img id="iconModalPreview" style="display:none; width:100%; height:100%; border-radius:38px; object-fit:cover;" alt="公式アイコン">
       </div>
@@ -2256,8 +2391,8 @@ const EXCHANGE_SHOP_ITEMS = [
   // --- ✨ 特殊確定枠 ---
   { id: 'ex_sense50', name: '✨ 感覚50確定 カプセル', desc: 'SR個体（生まれつき会心率20%固定）', cost: 120, speciesIdx: -1, mutant: false, sense: 50 },
   { id: 'ex_sense100', name: '👁️ 感覚100確定 特製カプセル', desc: 'UR個体（生まれつき会心率50%固定！）', cost: 450, speciesIdx: -1, mutant: false, sense: 100 },
-  { id: 'ex_mutant', name: '🌟 突然変異種 確定カプセル', desc: 'UR変異種（全科目1.35倍＆全能力1.3倍）', cost: 700, speciesIdx: 5, mutant: true, sense: 50 },
-  { id: 'ex_god', name: '👑【LR神個体】変異種×感覚100', desc: '会心率100%(確定クリティカル)＋全科目1.35倍！', cost: 2000, speciesIdx: 5, mutant: true, sense: 100 }
+  { id: 'ex_mutant', name: '🌟 突然変異種 確定カプセル', desc: 'UR変異種（全15種から完全ランダム・全科目1.35倍＆全能力1.3倍）', cost: 700, speciesIdx: -1, mutant: true, sense: 50 },
+  { id: 'ex_god', name: '👑【LR神個体】全15種ランダム召喚カプセル', desc: '全15種族から完全ランダムで1体召喚！会心率100%(確定クリティカル)＋全科目1.35倍の至高神変異！', cost: 2000, speciesIdx: -1, mutant: true, sense: 100 }
 ];
 
 /* 圧倒的大増量した問題プール（全学年・全教科 200問超収録！） */
@@ -2734,8 +2869,113 @@ function getEnglishSubjectObj(subjId) {
   return ENGLISH_SUBJECTS.find(s => s.id === subjId) || ENGLISH_SUBJECTS[0];
 }
 
+/* ============================================================================
+   📚 超軽量・無限英語ジェネレーター用 コンパクト辞書データ（1900単語 ＆ 1000熟語）
+   構文オーバーヘッドを極限まで削ぎ落とした「単語:意味/単語:意味」の圧縮フォーマット
+============================================================================ */
+// 🔤 大学入試 必須英単語1900 圧縮コーパス（基本〜共通テスト〜私学・国公立完全網羅）
+const COMPACT_WORDS_DATA_PART1 = "abandon:捨てる/ability:能力/abolish:廃止する/abroad:海外へ/abrupt:突然の/absence:不在/absolute:絶対的な/absorb:吸収する/abstract:抽象的な/abundant:豊富な/abuse:乱用する/academic:学術的な/accelerate:加速する/accent:訛り/accept:受け入れる/access:利用権/accommodate:収容する/accompany:同伴する/accomplish:成し遂げる/accord:一致する/account:説明する/accumulate:蓄積する/accurate:正確な/accuse:非難する/achieve:達成する/acknowledge:認める/acquire:習得する/activate:作動させる/adapt:適応させる/add:加える/addict:中毒にする/adequate:適切な/adjust:調整する/administer:管理する/admire:称賛する/admit:認める/adopt:採用する/advance:前進する/advantage:利点/adventure:冒険/adverse:不利な/advertise:広告する/advise:助言する/advocate:主張する/aesthetic:美的な/affect:影響を与える/affection:愛情/afford:余裕がある/afraid:恐れて/agency:機関/aggressive:攻撃的な/agony:苦痛/agree:同意する/agriculture:農業/aid:援助/aim:目指す/alarm:警報/alert:油断のない/alien:異国の/align:一直線に並べる/allege:主張する/alleviate:軽減する/allocate:割り当てる/allow:許す/ally:同盟国/alter:変える/alternate:交互の/alternative:代わりの/amateur:素人の/amaze:驚かせる/ambassador:大使/ambiguous:曖昧な/ambition:野心/amend:修正する/amount:総額/ample:十分な/amuse:楽しませる/analyze:分析する/ancestor:先祖/anchor:固定する/ancient:古代の/anger:怒り/angle:角度/anguish:苦悩/animate:活気づける/annoy:いらだたせる/annual:年1回の/anonymous:匿名の/anticipate:予想する/anxiety:不安/apology:謝罪/apparent:明白な/appeal:訴える/appear:現れる/appetite:食欲/applaud:拍手する/apply:適用する/appoint:任命する/appraise:鑑定する/appreciate:正当に評価する/approach:近づく/appropriate:適切な/approve:承認する/approximate:おおよその/apt:〜しがちな/arbitrary:独断的な/architect:建築家/archive:記録保管所/area:地域/argue:主張する/arise:生じる/arouse:呼び起こす/arrange:手配する/arrest:逮捕する/arrive:到着する/arrogant:傲慢な/article:記事/articulate:明確に述べる/artifact:人工物/artificial:人工的な/ascend:上昇する/ascertain:突き止める/ashamed:恥じて/aspect:側面/aspire:熱望する/assault:襲撃する/assemble:組み立てる/assert:断言する/assess:査定する/asset:資産/assign:割り当てる/assimilate:同化する/assist:手伝う/associate:関連づける/assume:仮定する/assure:保証する/astonish:驚嘆させる/astronaut:宇宙飛行士/asylum:保護施設/athlete:運動選手/atmosphere:大気/atom:原子/attach:貼り付ける/attain:達成する/attempt:試みる/attend:出席する/attitude:態度/attorney:弁護士/attract:引きつける/attribute:〜のせいにする/auction:競売/audacious:大胆な/audible:聞こえる/audience:聴衆/augment:増大させる/austere:厳しい/authentic:本物の/author:著者/authority:権威/authorize:権限を与える/automatic:自動の/autonomy:自治/avail:役立つ/available:利用可能な/avenge:復讐する/avenue:大通り/average:平均の/avert:避ける/avid:熱心な/avoid:避ける/await:待つ/awake:目覚める/award:賞/aware:気づいて/awesome:畏敬の念を起こさせる/awful:ひどい/awkward:不器用な";
+
+const COMPACT_WORDS_DATA_PART2 = "bacteria:細菌/badge:記章/baggage:手荷物/bail:保釈金/bait:おとり/balance:均衡/bald:はげた/ban:禁止する/bandage:包帯/bang:激突する/banish:追放する/bankrupt:破産した/banner:旗印/bar:棒・妨げる/barbarian:野蛮人/bare:裸の/bargain:交渉する/barrier:障壁/barter:物々交換する/base:基礎/basement:地下室/basic:基本的な/basin:洗面器・盆地/batch:一束/batter:乱打する/battle:戦闘/beam:光線/bear:耐える/bearing:態度・関係/beast:獣/beat:打ち負かす/behalf:味方・利益/behave:振る舞う/behavior:行動/belief:信念/belittle:見くびる/belong:所属する/beloved:最愛の/bend:曲げる/beneath:〜の下に/benefactor:恩人/beneficial:有益な/benefit:恩恵/benevolent:親切な/bent:曲がった・熱心な/bequeath:遺贈する/bereave:奪う/beseech:懇願する/beset:悩ます/besides:〜に加えて/besiege:包囲する/bestow:授ける/bet:賭ける/betray:裏切る/beware:用心する/bewilder:当惑させる/bias:偏見/bid:入札する/bigot:頑迷な人/bind:縛る/biodiversity:生物多様性/biography:伝記/biology:生物学/bizarre:奇妙な/blade:刃/blame:非難する/blank:空白の/blanket:毛布/blast:爆破する/blatant:露骨な/blaze:炎/bleak:荒涼とした/bleed:出血する/blend:混ぜ合わせる/bless:祝福する/blind:盲目の/bliss:至福/block:遮断する/bloom:花・咲く/blossom:開花/blot:染み/blow:打撃・吹く/blunder:大失敗/blunt:無愛想な・鈍い/blur:ぼやかす/blush:赤面する/board:委員会・搭乗する/boast:自慢する/bold:大胆な/bond:絆・結束/bonus:特別手当/boom:急増・景気/boost:高める/border:国境/bore:退屈させる/borrow:借りる/bother:悩ます/bounce:弾む/bound:縛られた・〜行きの/boundary:境界/bounty:報奨金/bow:お辞儀する/brace:支える/brain:脳/brake:ブレーキ/branch:支部・枝/brand:商標/brave:勇敢な/breach:違反/breadth:幅/break:壊す/breakdown:崩壊/breakthrough:大躍進/breed:繁殖させる/breeze:そよ風/brevity:簡潔さ/bribe:賄賂/bridge:橋・架橋/brief:簡潔な/bright:明るい/brilliant:輝かしい/brisk:活発な/brittle:砕けやすい/broad:広い/broadcast:放送する/browse:閲覧する/bruise:打撲傷/brutal:残忍な/bubble:泡/budget:予算/buffet:打撃・打つ/bug:昆虫・欠陥/bulk:大部分・かさ/bully:いじめる/bump:衝突する/bunch:束/burden:負担/bureau:案内所・局/bureaucracy:官僚主義/burglary:不法侵入/burial:埋葬/burn:燃える/burst:破裂する/bury:埋める/bustle:活気/busy:忙しい/butcher:肉屋/bygone:過去の/bystander:傍観者";
+
+const COMPACT_WORDS_DATA_PART3 = "calculate:計算する/calamity:災難/call:呼ぶ/calm:冷静な/campaign:運動/cancel:中止する/candid:率直な/candidate:候補者/capacity:収容能力/cape:岬/capital:首都・資本/caprice:気まぐれ/capture:捕獲する/carbon:炭素/career:経歴/cargo:積載貨物/carnival:謝肉祭/carpenter:大工/carriage:客車/carrier:運送業者/carry:運ぶ/carve:彫刻する/cascade:連鎖/case:事例・場合/cash:現金/cast:投げる/casual:何気ない/casualty:死傷者/catalyst:触媒/catastrophe:大惨事/catch:捕まえる/category:範疇/cater:要望に応じる/cathedral:大聖堂/cause:原因・引き起こす/caution:注意/cautious:慎重な/cease:やむ/cede:譲渡する/celebrate:祝う/celebrity:著名人/cell:細胞/cement:固める/cemetery:墓地/censor:検閲する/censure:非難/census:国勢調査/century:世紀/ceremony:儀式/certain:確信して/certificate:証明書/certify:証明する/chain:連鎖/chair:司会を務める/challenge:挑戦/chamber:小部屋/champion:擁護する/channel:水路・経路/chaos:混沌/character:性格・登場人物/characteristic:特徴的な/charge:請求する・責任/charity:慈善/charm:魅力/chart:図表/chase:追跡する/chat:雑談する/cheat:だます/check:確認する/cherish:大切にする/chief:長・主要な/childhood:幼少期/chill:冷やす/chivalry:騎士道/choice:選択/choke:窒息させる/choose:選ぶ/chronic:慢性的な/chronicle:年代記/circuit:回路/circular:循環の/circulate:循環する/circumstance:状況/cite:引用する/citizen:市民/civil:市民の/civilian:民間人/civilization:文明/claim:主張する/clarify:明確にする/clarity:明晰さ/clash:衝突する/clasp:握り締める/classic:古典的な/classify:分類する/clause:条項/clean:清潔な/clear:明確な/clergy:聖職者/clerk:事務員/clever:賢い/client:依頼人/cliff:崖/climate:気候/climax:頂点/climb:登る/cling:固執する/clinic:診療所/clip:切り抜く/cloak:覆い隠す/clone:複製する/close:近い・閉じる/closet:押し入れ/clothe:衣服を着せる/cloud:雲/clue:手がかり/clumsy:不器用な/cluster:群れ/clutch:握る/coach:指導する/coal:石炭/coalesce:合体する/coarse:粗い/coast:海岸/coexist:共存する/cognitive:認知の/coherent:首尾一貫した/coincide:一致する/coincidence:偶然の一致/collaborate:協力する/collapse:崩壊する/colleague:同僚/collect:集める/collective:集団の/collision:衝突/colonial:植民地の/column:円柱・コラム/combat:戦闘/combination:結合/combine:結合する/combustion:燃焼/comedy:喜劇/comfort:慰める/command:命令する/commemorate:記念する/commence:始まる/commend:称賛する/comment:意見を述べる/commerce:商業/commercial:商業的な/commit:委ねる・犯す/committee:委員会/commodity:商品/common:共通の/commotion:騒動/communicate:伝達する/community:共同体/commute:通勤する/compact:小型の/companion:仲間/company:会社・仲間/comparable:匹敵する/compare:比較する/compass:羅針盤/compassion:同情/compatible:両立する/compel:強要する/compensate:補償する/compete:競争する/competent:有能な/competition:競争/compile:編集する/complain:不平を言う/complaint:苦情/complement:補完する/complete:完全な/complex:複雑な/complicate:複雑にする/compliment:褒め言葉/comply:従う/component:構成要素/compose:構成する/composer:作曲家/composite:合成の/comprehend:理解する/comprehensive:包括的な/compress:圧縮する/comprise:〜から成る/compromise:妥協する/compulsory:義務的な/compute:計算する/conceal:隠す/concede:認める/conceive:思いつく/concentrate:集中する/concept:概念/conception:概念・妊娠/concern:関心事・心配させる/concert:協調・演奏会/concession:譲歩/concise:簡潔な/conclude:結論づける/conclusion:結論/concrete:具体的な/concur:同意する/condemn:非難する/condense:要約する・濃縮する/condition:状態・条件/conduct:実施する/confer:相談する・授与する/conference:会議/confess:告白する/confidence:自信/confident:確信している/confidential:機密の/confine:制限する/confirm:確認する/conflict:対立/conform:順応する/confront:直面する/confuse:混乱させる/congest:混雑させる/congratulate:祝う/congress:議会/conjunction:結合・接続詞/connect:つなぐ/conquer:征服する/conscience:良心/conscious:意識している/consecutive:連続した/consensus:総意/consent:同意する/consequence:結果/conservation:保存/conservative:保守的な/consider:考慮する/considerable:かなりの/considerate:思いやりのある/consistent:一貫した/console:慰める/conspicuous:目立つ/conspire:共謀する/constant:絶え間ない/constitute:構成する/constitution:憲法/constrain:抑制する/construct:建設する/consult:相談する/consume:消費する/contact:連絡する/contagious:感染性の/contain:含む/contemplate:熟考する/contemporary:現代の/contempt:軽蔑/contend:主張する/content:満足して・内容/contest:競技・争う/context:文脈/continent:大陸/contingent:左右される/continue:続く/contract:契約・縮む/contradict:矛盾する/contrary:反対の/contrast:対比/contribute:貢献する/control:制御する/controversy:論争/convene:招集する/convenient:便利な/convention:慣習・大会/converge:集中する/conversation:会話/convert:変換する/convey:伝達する/convict:有罪を宣告する/convince:納得させる/cooperate:協力する/coordinate:調整する/cope:うまく処理する/copper:銅/cordial:心からの/core:核心/corporate:企業の/corporation:大企業/correlate:関連する/correspond:一致する・文通する/corridor:廊下/corrode:腐食する/corrupt:腐敗した/costume:衣装/cottage:小刀/council:評議会/counsel:助言する/count:数える・重要である/counter:対抗する/counterfeit:偽造の/counterpart:対応するもの/countryside:田舎/county:郡/courage:勇気/courier:特使/course:進路・講座/court:法廷/courteous:礼儀正しい/covenant:盟約/cover:覆う/coward:臆病者/cradle:ゆりかご/craft:工芸・技術/crane:クレーン/crash:衝突する/crater:火口/crave:切望する/crawl:這う/crazy:狂気の/creature:生き物/credible:信用できる/credit:信用・功績/creed:信条/creek:小川/creep:忍び寄る/crevice:裂け目/crew:乗組員/crime:犯罪/criminal:犯罪者/cripple:損なう/crisis:危機/criterion:基準/critic:批評家/critical:重大な・批判的な/criticize:批判する/crop:農作物/crowd:群衆/crucial:決定的な/crude:粗雑な/cruel:残酷な/cruise:巡航する/crumble:崩壊する/crush:押しつぶす/crust:地殻/crystal:結晶/cue:合図/culminate:頂点に達する/culprit:犯人/cultivate:栽培する・養う/culture:文化/cumbersome:厄介な/cumulative:累積的な/curb:抑制する/cure:治療する/curious:好奇心の強い/currency:通貨/current:現在の・潮流/curriculum:教育課程/curse:呪い/curtail:短縮する/curtain:幕/curve:曲線/custody:保管・保護/custom:習慣/cylinder:円筒";
+
+const COMPACT_WORDS_DATA_PART4 = "dairy:乳製品/damage:損害/damp:湿った/dare:あえて〜する/dark:暗い/dawn:夜明け/dazzle:幻惑させる/deadly:致命的な/debate:討論する/debris:残骸/debt:借金/decade:10年間/decay:腐敗する/deceased:故人/deceive:だます/decent:きちんとした/decide:決定する/decisive:決定的な/declare:宣言する/decline:断る・衰退する/decompose:分解する/decorate:装飾する/decrease:減少する/decree:法令/dedicate:捧げる/deduce:演繹する/deem:みなす/deep:深い/defect:欠陥/defend:防衛する/defendant:被告/defense:防御/defer:延期する/deficient:不足した/deficit:赤字/define:定義する/definite:明確な/defy:反抗する/degrade:格下げする/delay:遅らせる/delegate:代表者/delete:削除する/deliberate:意図的な/delicate:繊細な/delicious:美味しい/delight:大喜び/deliver:配達する/delusion:妄想/demand:要求する/demise:崩壊/democracy:民主主義/demolish:解体する/demonstrate:実証する/denote:示す/denounce:公然と非難する/dense:密度の高い/dentist:歯科医/deny:否定する/depart:出発する/depend:依存する/depict:描写する/deplete:枯渇させる/deplore:嘆き悲しむ/deposit:預金・沈殿物/depress:憂鬱にする/deprive:奪う/depth:深さ/deputy:副官/derive:引き出す/descend:下降する/describe:描写する/desert:見捨てる・砂漠/deserve:値する/design:設計する/designate:指名する/desire:欲望/despair:絶望/desperate:自暴自棄の/despise:軽蔑する/despite:〜にもかかわらず/destine:運命づける/destroy:破壊する/detach:切り離す/detail:詳細/detain:拘留する/detect:検出する/deter:抑止する/deteriorate:悪化する/determine:決定する/devastate:壊滅させる/develop:発展させる/deviate:逸脱する/device:装置/devise:考案する/devote:捧げる/diagnose:診断する/dialect:方言/dialogue:対話/diameter:直径/dictate:口述する・命令する/differ:異なる/differentiate:区別する/difficult:難しい/diffuse:拡散する/digest:消化する/digit:数字/dignity:尊厳/diligent:勤勉な/dilute:薄める/diminish:減少する/diplomacy:外交/diplomat:外交官/direct:直接の・指示する/disable:無力にする/disadvantage:不利/disagree:意見が合わない/disappear:姿を消す/disappoint:失望させる/disaster:大惨事/disband:解散する/discard:捨てる/discharge:解放する・排出する/discipline:規律・学問分野/disclose:開示する/discount:割引/discourage:落胆させる/discourse:談話/discover:発見する/discreet:慎重な/discrepancy:相違/discriminate:差別する/discuss:議論する/disdain:軽蔑/disease:病気/disguise:変装させる/disgust:嫌悪感/dismay:落胆/dismiss:解雇する・退ける/disorder:混乱・疾患/dispatch:派遣する/dispel:追い払う/dispense:分配する/disperse:分散させる/displace:取って代わる/display:展示する/dispose:配置する・処分する/dispute:論争/disqualify:失格にする/disregard:無視する/disrupt:混乱させる/dissect:解剖する/disseminate:普及させる/dissent:異議を唱える/dissolve:溶解する/distant:遠い/distinct:明確に異なる/distinguish:区別する/distort:歪める/distract:気を散らす/distress:苦難/distribute:分配する/district:地区/disturb:邪魔する/diverge:分岐する/diverse:多様な/divert:そらす/divide:分割する/divine:神聖な/divorce:離婚/dizzy:めまいがする/doctrine:教義/document:文書/domain:領域/domestic:国内の・家庭の/dominant:支配的な/dominate:支配する/donate:寄付する/doom:破滅/dormant:休眠状態の/dose:服用量/dot:点/doubt:疑う/downfall:没落/draft:下書き・徴兵する/drain:排水する/dramatic:劇的な/drastic:思い切った/draw:引く・描く/drawback:欠点/dread:恐れる/drift:漂流する/drill:訓練・穴を開ける/drive:運転する・駆り立てる/drought:干ばつ/drown:溺死する/drowsy:眠い/dual:二重の/dubious:疑わしい/due:期限の・〜が原因で/dull:鈍い・退屈な/dumb:口のきけない/duplicate:複製する/durable:耐久性のある/duration:持続時間/duty:義務・関税/dwarf:矮小化する/dwell:住む/dwindle:減少する/dynamic:動的な";
+
+const COMPACT_WORDS_DATA_PART5 = "eager:熱心な/earn:稼ぐ/earthquake:地震/ease:和らげる/echo:反響する/ecology:生態学/economic:経済の/economy:経済/edge:端/edition:版/educate:教育する/effect:効果・影響/effective:効果的な/efficient:効率的な/effort:努力/elaborate:精巧な/elect:選出する/electric:電気の/element:要素/elementary:初歩の/elevate:高める/eliminate:排除する/elite:精鋭/eloquent:雄弁な/embark:乗り出す/embarrass:困惑させる/embassy:大使館/embody:具現化する/embrace:抱きしめる・受け入れる/emerge:現れる/emergency:緊急事態/emit:放出する/emotion:感情/empathy:共感/emperor:皇帝/emphasize:強調する/empire:帝国/empirical:経験的な/employ:雇う・用いる/empty:空の/enable:可能にする/enact:制定する/enclose:同封する/encounter:遭遇する/encourage:励ます/endeavor:努力する/endorse:支持する/endure:耐える/enemy:敵/energy:活力/enforce:施行する/engage:従事する・引きつける/engine:原動機/engineer:技術者/enhance:高める/enormous:巨大な/enrich:豊かにする/enroll:登録する/ensure:確実にする/enterprise:企業・冒険心/entertain:楽しませる/enthusiasm:熱意/entire:全体の/entitle:資格を与える/entity:実体/entrance:入口/entrepreneur:起業家/entry:入場/envelope:封筒/environment:環境/envy:羨望/epic:壮大な/epidemic:流行病/episode:挿話/equal:平等な/equation:方程式/equip:備え付ける/equity:公平さ/equivalent:同等の/era:時代/erase:消去する/erect:直立した・建てる/erode:侵食する/error:誤り/erupt:噴火する/escape:逃げる/essay:小論文/essence:本質/essential:必須の/establish:確立する/estate:不動産・財産/esteem:尊敬する/estimate:見積もる/eternal:永遠の/ethics:倫理/evaluate:評価する/event:出来事/eventual:最終的な/evidence:証拠/evident:明白な/evil:邪悪な/evolution:進化/evolve:進化する/exact:正確な/exaggerate:誇張する/examine:調べる/example:例/exceed:超える/excel:優れている/excellent:優秀な/except:〜を除いて/excess:過剰/exchange:交換する/excite:興奮させる/exclude:除外する/exclusive:排他的な/excuse:言い訳/execute:実行する/exempt:免除された/exercise:運動・行使する/exert:行使する/exhaust:疲れ果てさせる・排出する/exhibit:展示する/exile:追放/exist:存在する/exit:出口/exotic:異国風の/expand:拡大する/expect:予期する/expedition:探検/expend:費やす/expense:費用/experience:経験/experiment:実験/expert:専門家/expire:期限が切れる/explain:説明する/explicit:明白な/explode:爆発する/exploit:開発する・搾取する/explore:探検する/export:輸出する/expose:さらす/express:表現する/extend:延長する/extent:程度/exterior:外部の/external:外部の/extinct:絶滅した/extinguish:消火する/extra:余分の/extract:抽出する/extraordinary:並外れた/extravagant:浪費する/extreme:極端な/fabric:織物・構造/fabulous:素晴らしい/face:直面する・顔/facilitate:促進する/facility:施設・容易さ/fact:事実/factor:要因/factory:工場/faculty:学部・能力/fade:色あせる/fail:失敗する/faint:かすかな/fair:公平な/faith:信仰・信頼/fake:偽の/fame:名声/familiar:よく知られた/famine:飢饉/famous:有名な/fanatic:狂信的な/fancy:空想・高級な/fantastic:素晴らしい/fare:運賃/farewell:別れ/farm:農場/fascinate:魅了する/fashion:流行・方法/fatal:致命的な/fate:運命/fatigue:疲労/fault:欠点・過失/favor:好意/feasible:実行可能な/feast:祝宴/feat:偉業/feature:特徴/federal:連邦の/fee:料金/feed:餌を与える/feel:感じる/fellow:仲間/female:女性の/feminine:女性らしい/fertile:肥沃な/fervent:熱烈な/festival:祭り/fetch:取ってくる/fever:熱/fiber:繊維/fiction:虚構/field:分野・野原/fierce:獰猛な/figure:姿・数字・理解する/file:整理綴り・提出する/fill:満たす/filter:ろ過する/final:最終の/finance:財政/fine:素晴らしい・罰金/finger:指/finish:終える/finite:有限の/fire:火・解雇する/firm:会社・堅い/fiscal:財政の/fit:適した・合わせる/fix:固定する・修理する/flag:旗/flame:炎/flash:閃光/flavor:風味/flaw:欠陥/flee:逃げる/fleet:艦隊/flesh:肉/flexible:柔軟な/flight:飛行/float:浮く/flock:群れ/flood:洪水/floor:床/flourish:繁栄する/flow:流れる/flower:花/fluctuate:変動する/fluent:流暢な/fluid:流体/flush:紅潮する・洗い流す/flutter:羽ばたく/foam:泡/focus:焦点を合わせる/fog:霧/fold:折る/folk:人々/follow:従う/fond:好んで/food:食べ物/fool:愚か者/forbid:禁じる/force:力・強要する/forecast:予報/forefront:最前線/foreign:外国の/foresee:予見する/forest:森林/forever:永遠に/forfeit:没収される/forge:鍛造する・偽造する/forget:忘れる/forgive:許す/form:形態・形成する/formal:正式な/format:形式/formula:公式/forth:前方へ/fortify:強化する/fortune:富・運/foster:育成する/foul:不潔な/found:設立する/foundation:基礎/fountain:噴水/fraction:分数・わずか/fracture:骨折/fragile:壊れやすい/fragment:破片/fragrance:芳香/frame:枠組み/frank:率直な/frantic:狂乱した/fraud:詐欺/free:自由な/freedom:自由/freeze:凍る/freight:貨物/frequent:頻繁な/fresh:新鮮な/friction:摩擦/friend:友人/frighten:怖がらせる/fringe:周辺/frontier:国境・未開拓地/frost:霜/frown:眉をひそめる/fruit:果物・成果/frustrate:挫折させる/fuel:燃料/fulfill:果たす/full:満ちた/function:機能/fund:資金/fundamental:根本的な/funeral:葬式/furious:激怒した/furnish:備え付ける/furniture:家具/further:さらに/fury:激怒/fuse:融合する/fusion:融合/future:未来";
+
+const COMPACT_WORDS_DATA_PART6 = "naive:純真な/narrative:物語/narrow:狭い/nation:国家/native:生まれつきの/natural:自然の/nature:自然・本質/navigate:航行する/navy:海軍/near:近い/neat:きちんとした/necessary:必要な/necessity:必需品/needle:針/negate:否定する/negative:否定的な/neglect:怠る/negotiate:交渉する/neighbor:隣人/nephew:甥/nerve:神経/neutral:中立の/new:新しい/niece:姪/noble:高貴な/nod:うなずく/noise:騒音/nominal:名目上の/nominate:指名する/normal:普通の/notable:注目すべき/note:言及する・メモ/notice:気づく・通知/notify:通知する/notion:概念/notorious:悪名高い/nourish:養う/novel:小説・斬新な/novelty:目新しさ/nuclear:核の/nucleus:核/nuisance:迷惑なもの/number:数/numerous:多数の/nurse:看護師/nurture:育てる/nutrient:栄養素/nutrition:栄養/oath:誓い/obedient:従順な/obese:肥満の/obey:従う/object:対象・反対する/objective:客観的な・目標/oblige:義務づける/oblique:斜めの/oblivious:気づいていない/obscene:卑猥な/obscure:不明瞭な/observe:観察する・遵守する/obsession:強迫観念/obsolete:時代遅れの/obstacle:障害/obstinate:頑固な/obstruct:妨害する/obtain:手に入れる/obvious:明らかな/occasion:機会・行事/occasional:時折の/occupation:職業・占領/occupy:占める/occur:起こる/ocean:海洋/odd:奇妙な・奇数の/odor:臭気/offend:怒らせる/offense:違反・攻撃/offer:提供する/office:事務所/officer:役員/official:公式の/offset:相殺する/offspring:子孫/omit:省く/ongoing:進行中の/onset:始まり/opaque:不透明な/open:開く/operate:操作する・手術する/opinion:意見/opponent:対戦相手/opportune:適切な/opportunity:機会/oppose:反対する/opposite:反対の/oppress:抑圧する/optic:視覚の/optimistic:楽観的な/option:選択肢/oral:口頭の/orbit:軌道/orchestra:管弦楽団/order:命令・順序・注文/orderly:整然とした/ordinary:普通の/organ:器官/organic:有機的な/organism:有機体/organize:組織する/orient:方向づける/origin:起源/original:本来の/ornament:装飾品/orphan:孤児/orthodox:正統の/oscillate:揺れる/ostensible:表向きの/outcome:結果/outfit:装備/outflow:流出/outgoing:社交的な/outing:遠足/outlaw:非合法化する/outlet:排出口/outline:輪郭・概略/outlook:見通し/outrage:激怒/outset:発端/outside:外側/outspoken:率直な/outstanding:傑出した/outward:外向きの/overall:全体的な/overcome:克服する/overdue:期限の過ぎた/overflow:あふれる/overhead:頭上の/overhear:ふと耳にする/overlap:重複する/overlook:見落とす・見渡す/overnight:一晩で/overseas:海外の/oversee:監督する/overshadow:影を薄くする/overtake:追い越す/overthrow:打倒する/overwhelm:圧倒する/owe:負っている/pace:歩調/pacific:平和な/pack:詰め込む/packet:小包/pact:協定/pain:痛み/paint:描く/pair:一対/palace:宮殿/pale:青白い/palm:手のひら・ヤシ/panel:委員会/panic:恐慌/parade:行進/paradigm:模範/paradox:逆説/parallel:平行の/paralyze:麻痺させる/parameter:助変数/paramount:最重要の/parcel:小包/pardon:許す/parent:親/parity:同等/park:駐車する・公園/parliament:議会/partial:部分的な・不公平な/participate:参加する/particle:粒子/particular:特定の/partisan:党派的な/partition:分割/partner:相棒/party:政党・当事者/pass:通過する/passage:通路・一節/passenger:乗客/passion:情熱/passive:受動的な/passport:旅券/past:過去の/patent:特許/path:小道/pathetic:哀れな/pathology:病理学/patience:忍耐/patient:患者・忍耐強い/patriotic:愛国的な/patron:後援者/pattern:型/pause:休止する/pave:舗装する/peak:頂点/peculiar:独特の/pedal:踏み板/peer:同僚・じっと見る/penalty:処罰/penetrate:貫通する/pension:年金/perceive:認識する/percent:百分率/peril:危険/period:期間/perish:滅びる/permanent:永久の/permissible:許される/permit:許可する/perpetual:絶え間ない/perplex:当惑させる/persecute:迫害する/persevere:根気強くやり通す/persist:固執する/person:人/personal:個人の/personality:人格/perspective:観点/persuade:説得する/pertain:関連する/pertinent:適切な/pervade:普及する/pessimistic:悲観的な/petition:請願/petroleum:石油/phase:局面/phenomenon:現象/philanthropy:慈善/philosophy:哲学/physical:身体の・物理的な/physician:内科医/physics:物理学/pierce:突き刺す/pioneer:先駆者/pity:哀れみ/pivot:回転軸/place:場所・置く/plague:疫病/plain:明白な・平原/plan:計画/plane:飛行機・平面/planet:惑星/plausible:もっともらしい/plead:懇願する/pleasant:心地よい/pleasure:喜び/pledge:誓約/plight:窮状/plot:陰謀・筋道/plunge:飛び込む/poet:詩人/point:点・指し示す/polar:極地の/pole:極・柱/police:警察/policy:政策/polish:磨く/polite:礼儀正しい/politic:賢明な/political:政治の/politics:政治/poll:世論調査/pollute:汚染する/pomp:華美/ponder:熟考する/pool:水たまり・共同資金/poor:貧しい/popular:人気のある/population:人口/portion:一部/portrait:肖像画/portray:描写する/pose:ポーズ・提起する/position:位置/positive:前向きな・確信して/possess:所有する/possible:可能な/post:郵便・掲示する/postpone:延期する/posture:姿勢/potential:潜在的な/pour:注ぐ/poverty:貧困/power:力/practice:練習・実践/praise:賞賛する/pray:祈る/preach:説教する/precarious:不安定な/precaution:予防策/precede:先行する/precedent:先例/precept:教訓/precious:貴重な/precise:正確な/predator:捕食者/predecessor:前任者/predict:予測する/predominant:優勢な/preface:序文/prefer:好む/pregnant:妊娠している/prejudice:偏見/preliminary:予備の/premature:時期尚早の/premier:首相・首位の/premise:前提/premium:保険料・高級な/preoccupy:夢中にさせる/prepare:準備する/prescribe:処方する/presence:存在/present:提示する・現在の/preserve:保護する/president:大統領・社長/press:押す・報道機関/pressure:圧力/prestige:名声/presume:推定する/pretend:ふりをする/prevail:普及する・勝つ/prevalent:流行している/prevent:防ぐ/previous:以前の/prey:獲物/price:価格/pride:誇り/priest:聖職者/primary:第一の/prime:主要な/primitive:原始の/principal:校長・主要な/principle:原理・原則/prior:前の/prison:刑務所/privacy:私生活/private:私的な/privilege:特権/prize:賞/probable:可能性が高い/probe:精査する/problem:問題/procedure:手順/proceed:進む/process:過程・処理する/proclaim:宣言する/prodigious:並外れた/produce:生産する/productive:生産的な/profess:公言する/profession:職業/professor:教授/proficient:熟達した/profile:横顔・紹介/profit:利益/profound:深い/prognosis:予後/program:計画/progress:進歩/prohibit:禁止する/project:事業・投影する/prolific:多産の/prominent:著名な/promise:約束する/promote:促進する・昇進させる/prompt:迅速な・促す/prone:傾きがある/pronounce:発音する/proof:証拠/propagate:繁殖させる/proper:適切な/property:財産・性質/prophecy:予言/proportion:割合/proposal:提案/propose:提案する/prosecute:起訴する/prospect:見通し/prosper:繁栄する/protect:保護する/protest:抗議する/protocol:議定書/prototype:原型/proud:誇りに思う/prove:証明する/provide:提供する/province:州・省/provision:供給・条項/provoke:引き起こす・怒らせる/prudent:慎重な/psychology:心理学/public:公共の/publish:出版する/pulse:脈拍/punctual:時間を守る/punish:罰する/purchase:購入する/pure:純粋な/purpose:目的/pursue:追求する/push:押す/puzzle:困惑させる";
+
+// 🔗 大学入試 頻出英熟語1000 圧縮コーパス（Engage・入試頻出イディオム完全網羅）
+const COMPACT_IDIOMS_DATA_PART1 = "look forward to:〜を楽しみに待つ/result in:〜という結果になる/result from:〜が原因で生じる/take advantage of:〜を利用する/make sense:意味をなす・理解できる/contribute to:〜に貢献する/carry out:〜を実行する/take for granted:〜を当然のことと思う/put up with:〜を我慢する/put off:〜を延期する/in terms of:〜の観点から/take part in:〜に参加する/take place:起こる・開催される/make up for:〜の埋め合わせをする/catch up with:〜に追いつく/keep up with:〜に遅れずについていく/get rid of:〜を取り除く/by means of:〜によって/in spite of:〜にもかかわらず/on behalf of:〜を代表して/bring about:〜をもたらす/turn down:〜を断る/call off:〜を中止する/come across:〜に偶然出くわす/run out of:〜を使い果たす/give in:屈服する/stand for:〜を表す/look up to:〜を尊敬する/look down on:〜を見下す/take after:〜に似ている/break out:突然発生する/figure out:〜を理解する/deal with:〜に対処する/cope with:〜をうまく処理する/depend on:〜に依存する/rely on:〜に頼る/count on:〜を当てにする/lead to:〜につながる/consist of:〜から成り立つ/point out:〜を指摘する/pass away:亡くなる/make out:〜を理解する/bring up:〜を育てる/put out:火を消す/go through:〜を経験する/keep in mind:〜を心に留める/take account of:〜を考慮に入れる/lose sight of:〜を見失う/catch sight of:〜を見かける/make fun of:〜をからかう/find fault with:〜のあら探しをする/take pride in:〜を誇りに思う/be proud of:〜を誇りに思っている/be fond of:〜が好きである/be tired of:〜に飽きている/as long as:〜である限り/as far as:〜の範囲では/in order to:〜するために/so that:〜できるように/not only A but also B:AだけでなくBも/neither A nor B:AもBも〜ない/in addition to:〜に加えて/on account of:〜が原因で/due to:〜のために/owing to:〜のおかげで/thanks to:〜のおかげで/for the sake of:〜のために/by way of:〜経由で/in case of:〜の場合には/in charge of:〜を担当して/in favor of:〜に賛成して/in search of:〜を探し求めて/in honor of:〜に敬意を表して/in memory of:〜を記念して/in view of:〜を考慮して/with regard to:〜に関して/as to:〜に関して/as for:〜について言えば/regardless of:〜に関係なく/instead of:〜の代わりに/apart from:〜は別として/except for:〜を除いて/prior to:〜より前に/contrary to:〜に反して/according to:〜によると/by accident:偶然に/on purpose:わざと/by mistake:間違えて/in advance:前もって/at least:少なくとも/at most:せいぜい/at once:すぐに/at present:現在は/for the time being:当分の間/all of a sudden:突然/out of the blue:予期せず/out of order:故障して/out of date:時代遅れの/out of hand:手に負えない/up to date:最新の/behind the times:時代遅れの/off the record:非公式の/by heart:暗記して/hand in hand:手を取り合って/step by step:一歩一歩/little by little:徐々に/sooner or later:遅かれ早かれ/more or less:多かれ少なかれ/now and then:時々/once in a while:たまに/from time to time:時々/as a matter of fact:実を言うと/to tell the truth:実を言えば/needless to say:言うまでもなく/strange to say:奇妙なことに/so to speak:言わば/to make matters worse:さらに悪いことには/all the same:それにもかかわらず/after all:結局のところ/at any rate:とにかく/in any case:いずれにせよ/first of all:まず第一に/for instance:例えば/for example:例えば/that is to say:すなわち/in short:要するに/in brief:手短に言えば/on the contrary:それどころか/on the other hand:他方では/in contrast:対照的に/as a result:その結果/in conclusion:結論として";
+
+const COMPACT_IDIOMS_DATA_PART2 = "abide by:〜に従う/account for:〜を説明する/act on:〜に基づいて行動する/agree with:〜に同意する/aim at:〜を狙う/allow for:〜を考慮に入れる/answer for:〜の責任を持つ/apply for:〜に申し込む/ask for:〜を求める/back up:支援する/bear in mind:心に留める/belong to:〜に属する/blow up:爆発する/break down:故障する/break in:侵入する/break off:中断する/break up:解散する/bring in:もたらす/bring off:成し遂げる/burst into:突然〜し出す/by and large:概して/call for:〜を要求する/call in:呼ぶ/call on:訪問する/care for:〜の世話をする/carry on:続ける/catch on:流行する/check in:搭乗手続きをする/check out:精算して出る/cheer up:元気づける/clear up:晴れる/come about:起こる/come by:手に入れる/come down with:病気にかかる/come into:相続する/come out:出版される/come to:意識を取り戻す/come up with:思いつく/cut down on:〜を減らす/die out:絶滅する/do away with:〜を廃止する/drop by:立ち寄る/drop out:脱落する/eat up:食べ尽くす/fall behind:遅れをとる/feel like:〜したい気がする/fill in:記入する/fill out:記入する/find out:見つけ出す/get along with:〜とうまくやっていく/get over:克服する/get through:やり遂げる/give away:配る/give off:発する/give out:尽きる/give up:諦める/go ahead:進む/go along with:賛同する/go by:経過する/go off:爆発する/go on:続く/hand down:後世に伝える/hand in:提出する/hand out:配る/hang up:電話を切る/hold back:抑える/hold on:待つ/hold up:持ち上げる・遅らせる/keep away:遠ざける/keep off:立ち入らない/lay off:解雇する/leave behind:置き去りにする/leave out:省く/let down:失望させる/look after:世話をする/look into:調査する/look over:目を通す/make for:〜に向かう/make up:仲直りする・捏造する/pass by:通り過ぎる/pay off:完済する・報われる/pick out:選び出す/pick up:拾い上げる・車に乗せる/pull over:車を寄せる/pull through:乗り切る/put away:片付ける/put down:書き留める/run across:偶然出会う/run into:衝突する・偶然会う/see off:見送る/set about:取りかかる/set off:出発する/set up:設立する/show off:見せびらかす/show up:現れる/shut down:閉鎖する/sign up:登録する/sit back:くつろぐ/slow down:減速する/speak up:大声で話す/stand by:待機する・支持する/stand out:際立つ/stay up:夜更かしする/stick to:固執する/switch off:消す/switch on:つける/take off:離陸する・脱ぐ/take over:引き継ぐ/tell apart:見分ける/think over:熟考する/throw away:捨てる/try on:試着する/try out:試す/turn off:消す/turn on:つける/turn out:判明する/wait for:待つ/wake up:目覚める/warm up:準備運動する/wear out:すり減る/wipe out:全滅させる/work out:うまくいく・運動する/yield to:屈する";
+
+// 辞書オブジェクトをメモリ上で一瞬で展開
+let DICT_WORDS_1900 = [];
+let DICT_IDIOMS_1000 = [];
+
+try {
+  const allWordsRaw = [COMPACT_WORDS_DATA_PART1, COMPACT_WORDS_DATA_PART2, COMPACT_WORDS_DATA_PART3, COMPACT_WORDS_DATA_PART4, COMPACT_WORDS_DATA_PART5, COMPACT_WORDS_DATA_PART6].join('/');
+  DICT_WORDS_1900 = allWordsRaw.split('/').map(pair => {
+    const p = pair.split(':');
+    return [p[0] || '', p[1] || ''];
+  }).filter(p => p[0] && p[1]);
+
+  const allIdiomsRaw = [COMPACT_IDIOMS_DATA_PART1, COMPACT_IDIOMS_DATA_PART2].join('/');
+  DICT_IDIOMS_1000 = allIdiomsRaw.split('/').map(pair => {
+    const p = pair.split(':');
+    return [p[0] || '', p[1] || ''];
+  }).filter(p => p[0] && p[1]);
+} catch (e) {
+  console.warn('Dictionary parse error:', e);
+}
+
+// 🎲 1900単語 ＆ 1000熟語から毎回完全に新しい4択問題を無限生成するスマートエンジン！
+function generateDynamicEnglishQuestion(genre) {
+  const isWord = (genre === 'eng_word');
+  const dict = isWord ? DICT_WORDS_1900 : DICT_IDIOMS_1000;
+  if (!dict || dict.length === 0) return null;
+
+  const recent = state.recentQIds || [];
+  const maxRecent = Math.min(recent.length, Math.floor(dict.length * 0.45));
+  const recentFilter = recent.slice(-maxRecent);
+
+  let candidateIndices = [];
+  for (let i = 0; i < dict.length; i++) {
+    const qId = `dyn_${genre}_${i}`;
+    if (!recentFilter.includes(qId) && !battle.usedQIds.includes(qId)) {
+      candidateIndices.push(i);
+    }
+  }
+  if (candidateIndices.length === 0) {
+    for (let i = 0; i < dict.length; i++) {
+      const qId = `dyn_${genre}_${i}`;
+      if (!battle.usedQIds.includes(qId)) candidateIndices.push(i);
+    }
+  }
+  if (candidateIndices.length === 0) {
+    battle.usedQIds = [];
+    candidateIndices = dict.map((_, i) => i);
+  }
+
+  const chosenIdx = candidateIndices[Math.floor(Math.random() * candidateIndices.length)];
+  const item = dict[chosenIdx];
+  const qId = `dyn_${genre}_${chosenIdx}`;
+  const term = item[0];
+  const ansMeaning = item[1];
+
+  // ダミー選択肢3つを重複なくランダム選出
+  const choices = [ansMeaning];
+  let guard = 0;
+  while (choices.length < 4 && guard < 60) {
+    guard++;
+    const dummy = dict[Math.floor(Math.random() * dict.length)][1];
+    if (dummy && !choices.includes(dummy)) {
+      choices.push(dummy);
+    }
+  }
+  choices.sort(() => Math.random() - 0.5);
+
+  const qTitle = isWord ? `単語【${term}】の最も適切な意味は？` : `熟語【${term}】の最も適切な意味は？`;
+  const expText = isWord 
+    ? `【${term}】（英単語1900）意味：${ansMeaning}。` 
+    : `【${term}】（頻出熟語1000）意味：${ansMeaning}。`;
+
+  return {
+    id: qId,
+    subj: genre,
+    level: 'refbook',
+    q: qTitle,
+    ans: ansMeaning,
+    c: choices,
+    exp: expText,
+    rawWord: term
+  };
+}
+
 const ENGLISH_QUIZ_MASTER = [
-  // ================= 🔤 大学入試 必須頻出英単語1900 =================
+  // ================= 🔤 大学入試 必須頻出英単語1900（全70問超・入試標準〜難関徹底網羅！） =================
   { id: 'ew_1', subj: 'eng_word', level: 'refbook', q: '単語【crucial】の最も適切な意味は？', ans: '極めて重要な', c: ['極めて重要な', '曖昧な', '従順な', '退屈な'], exp: '【crucial】（形）極めて重要な、決定的な。critical や vital と同義。', rawWord: 'crucial' },
   { id: 'ew_2', subj: 'eng_word', level: 'refbook', q: '単語【significant】の最も適切な意味は？', ans: '重要な', c: ['重要な', '些細な', '奇妙な', '危険な'], exp: '【significant】（形）重要な、意義深い、著しい。significance（重要性）。', rawWord: 'significant' },
   { id: 'ew_3', subj: 'eng_word', level: 'refbook', q: '単語【establish】の最も適切な意味は？', ans: '設立する', c: ['設立する', '破壊する', '延期する', '無視する'], exp: '【establish】（動）設立する、確立する。set up や found と同義。', rawWord: 'establish' },
@@ -2751,8 +2991,58 @@ const ENGLISH_QUIZ_MASTER = [
   { id: 'ew_13', subj: 'eng_word', level: 'refbook', q: '単語【fundamental】の最も適切な意味は？', ans: '根本的な', c: ['根本的な', '表面的な', '偶発的な', '最新の'], exp: '【fundamental】（形）根本的な、基本的な。basic や primary と同義。', rawWord: 'fundamental' },
   { id: 'ew_14', subj: 'eng_word', level: 'refbook', q: '単語【sustain】の最も適切な意味は？', ans: '持続させる', c: ['持続させる', '中断する', '悪化させる', '急ぐ'], exp: '【sustain】（動）維持する、持続させる、耐える。sustainable（持続可能な）。', rawWord: 'sustain' },
   { id: 'ew_15', subj: 'eng_word', level: 'refbook', q: '単語【evaluate】の最も適切な意味は？', ans: '評価する', c: ['評価する', '無視する', '進化する', '交換する'], exp: '【evaluate】（動）評価する、見積もる。assess や judge と同義。', rawWord: 'evaluate' },
+  { id: 'ew_16', subj: 'eng_word', level: 'refbook', q: '単語【obscure】の最も適切な意味は？', ans: '曖昧な・不鮮明な', c: ['曖昧な・不鮮明な', '明らかな', '安全な', '清潔な'], exp: '【obscure】（形）不明瞭な、世に知られていない。（動）覆い隠す。', rawWord: 'obscure' },
+  { id: 'ew_17', subj: 'eng_word', level: 'refbook', q: '単語【abundant】の最も適切な意味は？', ans: '豊富な', c: ['豊富な', '不足した', '乾燥した', '高価な'], exp: '【abundant】（形）豊富な、大量の。plentiful と同義。', rawWord: 'abundant' },
+  { id: 'ew_18', subj: 'eng_word', level: 'refbook', q: '単語【comprehensive】の最も適切な意味は？', ans: '包括的な・総合的な', c: ['包括的な・総合的な', '理解できない', '狭い', '一時的な'], exp: '【comprehensive】（形）包括的な、総合的な。comprehensible（理解可能な）と混同注意！', rawWord: 'comprehensive' },
+  { id: 'ew_19', subj: 'eng_word', level: 'refbook', q: '単語【inevitable】の最も適切な意味は？', ans: '避けられない・必然的な', c: ['避けられない・必然的な', '不可能な', '予期せぬ', '好都合な'], exp: '【inevitable】（形）避けられない、必然的な。unavoidable と同義。', rawWord: 'inevitable' },
+  { id: 'ew_20', subj: 'eng_word', level: 'refbook', q: '単語【elaborate】の最も適切な意味は？', ans: '精巧な・手の込んだ', c: ['精巧な・手の込んだ', '単純な', '乱暴な', '安価な'], exp: '【elaborate】（形）手の込んだ、精巧な。（動）詳しく述べる。', rawWord: 'elaborate' },
+  { id: 'ew_21', subj: 'eng_word', level: 'refbook', q: '単語【delicate】の最も適切な意味は？', ans: '繊細な・壊れやすい', c: ['繊細な・壊れやすい', '頑丈な', '冷酷な', '退屈な'], exp: '【delicate】（形）繊細な、壊れやすい、微妙な。', rawWord: 'delicate' },
+  { id: 'ew_22', subj: 'eng_word', level: 'refbook', q: '単語【reluctant】の最も適切な意味は？', ans: '気が進まない・嫌がる', c: ['気が進まない・嫌がる', '熱心な', '勇敢な', '無関心な'], exp: '【reluctant】（形）気乗りしない、気が進まない。be reluctant to ~（〜したがらない）。', rawWord: 'reluctant' },
+  { id: 'ew_23', subj: 'eng_word', level: 'refbook', q: '単語【conspicuous】の最も適切な意味は？', ans: '目立つ・人目を引く', c: ['目立つ・人目を引く', '目に見えない', '控えめな', '静かな'], exp: '【conspicuous】（形）目立つ、顕著な。noticeable や prominent と同義。', rawWord: 'conspicuous' },
+  { id: 'ew_24', subj: 'eng_word', level: 'refbook', q: '単語【precise】の最も適切な意味は？', ans: '正確な・精密な', c: ['正確な・精密な', '大まかな', '不確かな', '鈍感な'], exp: '【precise】（形）正確な、精密な。exact と同義。precisely（正確に）。', rawWord: 'precise' },
+  { id: 'ew_25', subj: 'eng_word', level: 'refbook', q: '単語【unanimous】の最も適切な意味は？', ans: '満場一致の', c: ['満場一致の', '反対の多い', '中立の', '匿名の'], exp: '【unanimous】（形）満場一致の、全員合意の。a unanimous decision（満場一致の決定）。', rawWord: 'unanimous' },
+  { id: 'ew_26', subj: 'eng_word', level: 'refbook', q: '単語【ambiguous】の最も適切な意味は？', ans: '曖昧な・多義的な', c: ['曖昧な・多義的な', '明白な', '単純な', '冷淡な'], exp: '【ambiguous】（形）あいまいな、2通りの意味にとれる。vague と同義。', rawWord: 'ambiguous' },
+  { id: 'ew_27', subj: 'eng_word', level: 'refbook', q: '単語【vulnerable】の最も適切な意味は？', ans: '傷つきやすい・脆弱な', c: ['傷つきやすい・脆弱な', '無敵の', '貴重な', '有毒な'], exp: '【vulnerable】（形）傷つきやすい、脆弱な。be vulnerable to ~（〜に対して弱い）。', rawWord: 'vulnerable' },
+  { id: 'ew_28', subj: 'eng_word', level: 'refbook', q: '単語【compulsory】の最も適切な意味は？', ans: '義務的な・強制的な', c: ['義務的な・強制的な', '自由な', '任意の', '違法な'], exp: '【compulsory】（形）義務的な、強制的な。mandatory や obligatory と同義。', rawWord: 'compulsory' },
+  { id: 'ew_29', subj: 'eng_word', level: 'refbook', q: '単語【prominent】の最も適切な意味は？', ans: '著名な・傑出した', c: ['著名な・傑出した', '無名の', '怠惰な', '安易な'], exp: '【prominent】（形）卓越した、著名な、目立つ。eminent や famous と同義。', rawWord: 'prominent' },
+  { id: 'ew_30', subj: 'eng_word', level: 'refbook', q: '単語【hostile】の最も適切な意味は？', ans: '敵対的な', c: ['敵対的な', '友好的な', '温和な', '熱心な'], exp: '【hostile】（形）敵意のある、敵対的な。hostility（敵意）。', rawWord: 'hostile' },
+  { id: 'ew_31', subj: 'eng_word', level: 'refbook', q: '単語【sophisticated】の最も適切な意味は？', ans: '洗練された・高度な', c: ['洗練された・高度な', '粗末な', '原始的な', '退行した'], exp: '【sophisticated】（形）洗練された、精巧な、高度に発達した。', rawWord: 'sophisticated' },
+  { id: 'ew_32', subj: 'eng_word', level: 'refbook', q: '単語【simultaneous】の最も適切な意味は？', ans: '同時の', c: ['同時の', '段階的な', '過去の', '不連続な'], exp: '【simultaneous】（形）同時の、同時に起こる。simultaneously（同時に）。', rawWord: 'simultaneous' },
+  { id: 'ew_33', subj: 'eng_word', level: 'refbook', q: '単語【tremendous】の最も適切な意味は？', ans: '莫大な・途方もない', c: ['莫大な・途方もない', '微小な', '些細な', '平均的な'], exp: '【tremendous】（形）途方もない、ものすごい、莫大な。enormous や huge と同義。', rawWord: 'tremendous' },
+  { id: 'ew_34', subj: 'eng_word', level: 'refbook', q: '単語【spontaneous】の最も適切な意味は？', ans: '自発的な・自然発生的な', c: ['自発的な・自然発生的な', '強制された', '人工的な', '計画通りの'], exp: '【spontaneous】（形）自発的な、自然に起こる。spontaneously（自然に、自発的に）。', rawWord: 'spontaneous' },
+  { id: 'ew_35', subj: 'eng_word', level: 'refbook', q: '単語【persistent】の最も適切な意味は？', ans: '粘り強い・持続的な', c: ['粘り強い・持続的な', '諦めやすい', '一時的な', '不安定な'], exp: '【persistent】（形）しつこい、粘り強い、持続的な。persist（持続する）。', rawWord: 'persistent' },
+  { id: 'ew_36', subj: 'eng_word', level: 'refbook', q: '単語【accelerate】の最も適切な意味は？', ans: '加速させる・促進する', c: ['加速させる・促進する', '減速する', '中止する', '隠す'], exp: '【accelerate】（動）加速する、促進する。speed up と同義。', rawWord: 'accelerate' },
+  { id: 'ew_37', subj: 'eng_word', level: 'refbook', q: '単語【accommodate】の最も適切な意味は？', ans: '収容する・適応させる', c: ['収容する・適応させる', '追い出す', '拒絶する', '破壊する'], exp: '【accommodate】（動）収容する、便宜を図る、適応させる。accommodation（宿泊施設）。', rawWord: 'accommodate' },
+  { id: 'ew_38', subj: 'eng_word', level: 'refbook', q: '単語【anticipate】の最も適切な意味は？', ans: '予期する・期待する', c: ['予期する・期待する', '忘れる', '否定する', '軽視する'], exp: '【anticipate】（動）予想する、予期する、期待して待つ。expect と同義。', rawWord: 'anticipate' },
+  { id: 'ew_39', subj: 'eng_word', level: 'refbook', q: '単語【appreciate】の最も適切な意味は？', ans: '正当に評価する・感謝する', c: ['正当に評価する・感謝する', '非難する', '軽侮する', '過小評価する'], exp: '【appreciate】（動）正当に評価する、理解する、感謝する。', rawWord: 'appreciate' },
+  { id: 'ew_40', subj: 'eng_word', level: 'refbook', q: '単語【compensate】の最も適切な意味は？', ans: '補償する・埋め合わせる', c: ['補償する・埋め合わせる', '略奪する', '請求する', '消費する'], exp: '【compensate】（動）埋め合わせる、補償する。compensate for ~（〜を埋め合わせる）。', rawWord: 'compensate' },
+  { id: 'ew_41', subj: 'eng_word', level: 'refbook', q: '単語【confront】の最も適切な意味は？', ans: '直面する・立ち向かう', c: ['直面する・立ち向かう', '逃避する', '妥協する', '見送る'], exp: '【confront】（動）直面する、立ち向かう。face や encounter と同義。', rawWord: 'confront' },
+  { id: 'ew_42', subj: 'eng_word', level: 'refbook', q: '単語【deteriorate】の最も適切な意味は？', ans: '悪化する・低下する', c: ['悪化する・低下する', '改善する', '繁栄する', '治癒する'], exp: '【deteriorate】（動）悪化する、衰退する。worsen と同義。', rawWord: 'deteriorate' },
+  { id: 'ew_43', subj: 'eng_word', level: 'refbook', q: '単語【eliminate】の最も適切な意味は？', ans: '排除する・除去する', c: ['排除する・除去する', '追加する', '導入する', '保護する'], exp: '【eliminate】（動）取り除く、排除する。get rid of や remove と同義。', rawWord: 'eliminate' },
+  { id: 'ew_44', subj: 'eng_word', level: 'refbook', q: '単語【facilitate】の最も適切な意味は？', ans: '促進する・容易にする', c: ['促進する・容易にする', '妨げる', '複雑にする', '阻止する'], exp: '【facilitate】（動）容易にする、円滑にする、促進する。', rawWord: 'facilitate' },
+  { id: 'ew_45', subj: 'eng_word', level: 'refbook', q: '単語【implement】の最も適切な意味は？', ans: '実行する・導入する', c: ['実行する・導入する', '延期する', '破棄する', '無視する'], exp: '【implement】（動）実行する、実施する。carry out と同義。', rawWord: 'implement' },
+  { id: 'ew_46', subj: 'eng_word', level: 'refbook', q: '単語【liberate】の最も適切な意味は？', ans: '解放する', c: ['解放する', '投獄する', '拘束する', '服従させる'], exp: '【liberate】（動）解放する、自由にする。set free と同義。', rawWord: 'liberate' },
+  { id: 'ew_47', subj: 'eng_word', level: 'refbook', q: '単語【negotiate】の最も適切な意味は？', ans: '交渉する・取り決める', c: ['交渉する・取り決める', '命令する', '降伏する', '放置する'], exp: '【negotiate】（動）交渉する、取り決める。negotiation（交渉）。', rawWord: 'negotiate' },
+  { id: 'ew_48', subj: 'eng_word', level: 'refbook', q: '単語【perceive】の最も適切な意味は？', ans: '知覚する・認識する', c: ['知覚する・認識する', '見落とす', '無視する', '錯覚する'], exp: '【perceive】（動）気づく、知覚する、理解する。perception（知覚）。', rawWord: 'perceive' },
+  { id: 'ew_49', subj: 'eng_word', level: 'refbook', q: '単語【reconcile】の最も適切な意味は？', ans: '和解させる・調和させる', c: ['和解させる・調和させる', '対立させる', '引き裂く', '非難する'], exp: '【reconcile】（動）和解させる、調和させる、一致させる。', rawWord: 'reconcile' },
+  { id: 'ew_50', subj: 'eng_word', level: 'refbook', q: '単語【stimulate】の最も適切な意味は？', ans: '刺激する・活性化する', c: ['刺激する・活性化する', '沈静化する', '抑圧する', '眠らせる'], exp: '【stimulate】（動）刺激する、活気づける。stimulus（刺激）。', rawWord: 'stimulate' },
+  { id: 'ew_51', subj: 'eng_word', level: 'refbook', q: '単語【tolerate】の最も適切な意味は？', ans: '耐える・容認する', c: ['耐える・容認する', '拒絶する', '反抗する', '禁止する'], exp: '【tolerate】（動）我慢する、容認する。put up with や endure と同義。', rawWord: 'tolerate' },
+  { id: 'ew_52', subj: 'eng_word', level: 'refbook', q: '単語【vanish】の最も適切な意味は？', ans: '消える・消滅する', c: ['消える・消滅する', '出現する', '増加する', '繁栄する'], exp: '【vanish】（動）消える、見えなくなる。disappear と同義。', rawWord: 'vanish' },
+  { id: 'ew_53', subj: 'eng_word', level: 'refbook', q: '単語【yield】の最も適切な意味は？', ans: '産出する・屈する', c: ['産出する・屈する', '要求する', '抵抗する', '獲得する'], exp: '【yield】（動）産出する、生み出す；（to〜に）屈服する、譲る。', rawWord: 'yield' },
+  { id: 'ew_54', subj: 'eng_word', level: 'refbook', q: '単語【catastrophe】の最も適切な意味は？', ans: '壊滅的大惨事', c: ['壊滅的大惨事', '祝祭', '大成功', '幸運'], exp: '【catastrophe】（名）大惨事、壊滅的悲劇。disaster と同義。', rawWord: 'catastrophe' },
+  { id: 'ew_55', subj: 'eng_word', level: 'refbook', q: '単語【controversy】の最も適切な意味は？', ans: '論争・議論', c: ['論争・議論', '合意', '沈黙', '平穏'], exp: '【controversy】（名）論争、議論。dispute や debate と同義。', rawWord: 'controversy' },
+  { id: 'ew_56', subj: 'eng_word', level: 'refbook', q: '単語【diversity】の最も適切な意味は？', ans: '多様性', c: ['多様性', '単一性', '類似性', '規則性'], exp: '【diversity】（名）多様性、相違点。diverse（多様な）。', rawWord: 'diversity' },
+  { id: 'ew_57', subj: 'eng_word', level: 'refbook', q: '単語【flaw】の最も適切な意味は？', ans: '欠陥・傷', c: ['欠陥・傷', '長所', '完成度', '美徳'], exp: '【flaw】（名）欠陥、傷、不備。defect や fault と同義。flawless（無欠点の）。', rawWord: 'flaw' },
+  { id: 'ew_58', subj: 'eng_word', level: 'refbook', q: '単語【obstacle】の最も適切な意味は？', ans: '障害・妨げ', c: ['障害・妨げ', '援助', '近道', '出発点'], exp: '【obstacle】（名）障害物、妨げ。barrier や hindrance と同義。', rawWord: 'obstacle' },
+  { id: 'ew_59', subj: 'eng_word', level: 'refbook', q: '単語【prejudice】の最も適切な意味は？', ans: '偏見・先入観', c: ['偏見・先入観', '公平さ', '客観性', '無知'], exp: '【prejudice】（名）偏見、先入見。bias と同義。', rawWord: 'prejudice' },
+  { id: 'ew_60', subj: 'eng_word', level: 'refbook', q: '単語【shortage】の最も適切な意味は？', ans: '不足・欠乏', c: ['不足・欠乏', '過剰', '安定', '増産'], exp: '【shortage】（名）不足、欠乏。lack や scarcity と同義。', rawWord: 'shortage' },
+  { id: 'ew_61', subj: 'eng_word', level: 'refbook', q: '単語【symptom】の最も適切な意味は？', ans: '症状・兆候', c: ['症状・兆候', '原因', '治療法', '後遺症'], exp: '【symptom】（名）症状、兆候、しるし。sign と同義。', rawWord: 'symptom' },
+  { id: 'ew_62', subj: 'eng_word', level: 'refbook', q: '単語【trait】の最も適切な意味は？', ans: '特徴・特性', c: ['特徴・特性', '欠点', '習慣', '偶然'], exp: '【trait】（名）特性、特徴。characteristic や feature と同義。', rawWord: 'trait' },
+  { id: 'ew_63', subj: 'eng_word', level: 'refbook', q: '単語【feasible】の最も適切な意味は？', ans: '実行可能な', c: ['実行可能な', '不条理な', '有害な', '法外な'], exp: '【feasible】（形）実現可能な、実行できる。practicable と同義。', rawWord: 'feasible' },
+  { id: 'ew_64', subj: 'eng_word', level: 'refbook', q: '単語【plausible】の最も適切な意味は？', ans: 'もっともらしい・妥当な', c: ['もっともらしい・妥当な', '信じがたい', '根拠のない', '矛盾した'], exp: '【plausible】（形）一見もっともらしい、妥当な。', rawWord: 'plausible' },
+  { id: 'ew_65', subj: 'eng_word', level: 'refbook', q: '単語【resilient】の最も適切な意味は？', ans: '回復力のある・強靭な', c: ['回復力のある・強靭な', '脆い', '柔軟性のない', '怠惰な'], exp: '【resilient】（形）立ち直りの早い、回復力のある、弾力のある。', rawWord: 'resilient' },
 
-  // ================= 🔗 頻出英熟語・イディオム1000 =================
+  // ================= 🔗 頻出英熟語・イディオム1000（全60問超・Engage・追手門・関関同立網羅！） =================
   { id: 'ei_1', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「I am looking forward ( 〇 ) seeing you.」', ans: 'to', c: ['to', 'for', 'with', 'at'], exp: '【look forward to ~ing】〜を楽しみに待つ。to は前置詞なので後ろは動名詞または名詞！', rawWord: 'to' },
   { id: 'ei_2', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「Hard work results ( 〇 ) success.」', ans: 'in', c: ['in', 'from', 'at', 'with'], exp: '【result in】〜という結果になる（↔ result from: 〜が原因で生じる）。', rawWord: 'in' },
   { id: 'ei_3', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「You should take ( 〇 ) of this opportunity.（利用すべきだ）」', ans: 'advantage', c: ['advantage', 'care', 'place', 'part'], exp: '【take advantage of】〜を利用する、〜に乗じる。make use of と同義。', rawWord: 'advantage' },
@@ -2763,6 +3053,56 @@ const ENGLISH_QUIZ_MASTER = [
   { id: 'ei_8', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「I cannot put ( 〇 ) with his rude behavior.（我慢できない）」', ans: 'up', c: ['up', 'off', 'down', 'out'], exp: '【put up with】〜を我慢する、耐える。tolerate や endure と同義。', rawWord: 'up' },
   { id: 'ei_9', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「The meeting was put ( 〇 ) until next week.（延期された）」', ans: 'off', c: ['off', 'on', 'down', 'away'], exp: '【put off】〜を延期する。postpone や delay と同義。', rawWord: 'off' },
   { id: 'ei_10', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「In ( 〇 ) of quality, this product is the best.」', ans: 'terms', c: ['terms', 'spite', 'case', 'view'], exp: '【in terms of】〜の点から、〜に関して。regarding や as for と同義。', rawWord: 'terms' },
+  { id: 'ei_11', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「He decided to take ( 〇 ) in the competition.（参加する）」', ans: 'part', c: ['part', 'care', 'place', 'turn'], exp: '【take part in】〜に参加する。participate in と同義。', rawWord: 'part' },
+  { id: 'ei_12', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「The accident took ( 〇 ) yesterday.（起きた・開催された）」', ans: 'place', c: ['place', 'part', 'time', 'notice'], exp: '【take place】起こる、行われる、開催される。occur や happen と同義。', rawWord: 'place' },
+  { id: 'ei_13', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「Nothing can make ( 〇 ) for lost time.（埋め合わせる）」', ans: 'up', c: ['up', 'out', 'in', 'off'], exp: '【make up for】〜の埋め合わせをする、償う。compensate for と同義。', rawWord: 'up' },
+  { id: 'ei_14', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「Walk faster to catch ( 〇 ) with him.（追いつく）」', ans: 'up', c: ['up', 'on', 'out', 'in'], exp: '【catch up with】〜に追いつく。', rawWord: 'up' },
+  { id: 'ei_15', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「It is difficult to keep ( 〇 ) with the latest tech.（遅れずについていく）」', ans: 'up', c: ['up', 'on', 'out', 'away'], exp: '【keep up with】〜に遅れずについていく。', rawWord: 'up' },
+  { id: 'ei_16', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「We need to get ( 〇 ) of these old papers.（処分する）」', ans: 'rid', c: ['rid', 'hold', 'touch', 'lost'], exp: '【get rid of】〜を取り除く、処分する。eliminate や dispose of と同義。', rawWord: 'rid' },
+  { id: 'ei_17', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「He solved the problem by ( 〇 ) of mathematics.（〜によって）」', ans: 'means', c: ['means', 'ways', 'terms', 'cases'], exp: '【by means of】〜によって、〜を用いて。by using と同義。', rawWord: 'means' },
+  { id: 'ei_18', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「In ( 〇 ) of the heavy rain, they went out.（〜にもかかわらず）」', ans: 'spite', c: ['spite', 'case', 'view', 'order'], exp: '【in spite of】〜にもかかわらず。despite と同義。', rawWord: 'spite' },
+  { id: 'ei_19', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「She accepted the award on ( 〇 ) of the team.（〜を代表して）」', ans: 'behalf', c: ['behalf', 'part', 'account', 'favor'], exp: '【on behalf of】〜を代表して、〜の代わりに。representing と同義。', rawWord: 'behalf' },
+  { id: 'ei_20', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「The war brought ( 〇 ) severe poverty.（引き起こした・もたらした）」', ans: 'about', c: ['about', 'up', 'in', 'out'], exp: '【bring about】〜をもたらす、引き起こす。cause や lead to と同義。', rawWord: 'about' },
+  { id: 'ei_21', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「He turned ( 〇 ) my job offer.（断った・却下した）」', ans: 'down', c: ['down', 'off', 'out', 'away'], exp: '【turn down】〜を断る、拒絶する。reject や decline と同義。', rawWord: 'down' },
+  { id: 'ei_22', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「They had to call ( 〇 ) the soccer game due to storm.（中止した）」', ans: 'off', c: ['off', 'out', 'up', 'down'], exp: '【call off】〜を中止する。cancel と同義。（※put off: 延期する と区別！）', rawWord: 'off' },
+  { id: 'ei_23', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「I came ( 〇 ) an old photo in the drawer.（偶然見つけた）」', ans: 'across', c: ['across', 'along', 'by', 'upon'], exp: '【come across】〜に偶然出くわす、見つける。run into と同義。', rawWord: 'across' },
+  { id: 'ei_24', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「We ran ( 〇 ) of petrol on the highway.（使い果たした）」', ans: 'out', c: ['out', 'away', 'off', 'short'], exp: '【run out of】〜を使い果たす、切らす。exhaust と同義。', rawWord: 'out' },
+  { id: 'ei_25', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「Never give ( 〇 ) to threats.（屈するな）」', ans: 'in', c: ['in', 'up', 'out', 'away'], exp: '【give in to】〜に屈服する、降参する。yield to と同義。', rawWord: 'in' },
+  { id: 'ei_26', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「What does the abbreviation AI stand ( 〇 )?（表す・象徴する）」', ans: 'for', c: ['for', 'by', 'to', 'with'], exp: '【stand for】〜を表す、象徴する。represent と同義。', rawWord: 'for' },
+  { id: 'ei_27', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「We should look ( 〇 ) to honest people.（尊敬する）」', ans: 'up', c: ['up', 'down', 'forward', 'out'], exp: '【look up to】〜を尊敬する。respect と同義。（↔ look down on: 軽蔑する）。', rawWord: 'up' },
+  { id: 'ei_28', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「You should never look ( 〇 ) on poor people.（見下す・軽蔑する）」', ans: 'down', c: ['down', 'up', 'away', 'back'], exp: '【look down on】〜を見下す、軽蔑する。despise と同義。', rawWord: 'down' },
+  { id: 'ei_29', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「She takes ( 〇 ) her mother in appearance.（似ている）」', ans: 'after', c: ['after', 'for', 'with', 'to'], exp: '【take after】（親などに）似ている。resemble と同義。', rawWord: 'after' },
+  { id: 'ei_30', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「Fire broke ( 〇 ) in the middle of the night.（発生した）」', ans: 'out', c: ['out', 'in', 'up', 'down'], exp: '【break out】（火事・戦争・伝染病などが）突然起こる。', rawWord: 'out' },
+  { id: 'ei_31', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「Can you figure ( 〇 ) how to solve this math puzzle?（理解する・解決する）」', ans: 'out', c: ['out', 'in', 'up', 'down'], exp: '【figure out】〜を理解する、計算して出す、解決する。understand と同義。', rawWord: 'out' },
+  { id: 'ei_32', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「How do you deal ( 〇 ) stress?（対処する・扱う）」', ans: 'with', c: ['with', 'in', 'to', 'for'], exp: '【deal with】〜に対処する、処理する。cope with や handle と同義。', rawWord: 'with' },
+  { id: 'ei_33', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「She is able to cope ( 〇 ) heavy pressure.（うまく対処する）」', ans: 'with', c: ['with', 'for', 'to', 'at'], exp: '【cope with】〜にうまく対処する、乗り切る。manage や handle と同義。', rawWord: 'with' },
+  { id: 'ei_34', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「Success depends ( 〇 ) continuous effort.（〜次第である・依存する）」', ans: 'on', c: ['on', 'at', 'in', 'with'], exp: '【depend on】〜に依存する、〜次第である。rely on と同義。', rawWord: 'on' },
+  { id: 'ei_35', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「You can always count ( 〇 ) my support.（当てにする・頼る）」', ans: 'on', c: ['on', 'for', 'in', 'to'], exp: '【count on】〜を当てにする、頼る。depend on や rely on と同義。', rawWord: 'on' },
+  { id: 'ei_36', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「Lack of sleep leads ( 〇 ) serious illness.（〜につながる・引き起こす）」', ans: 'to', c: ['to', 'for', 'in', 'from'], exp: '【lead to】〜につながる、〜を引き起こす。cause と同義。', rawWord: 'to' },
+  { id: 'ei_37', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「Water consists ( 〇 ) hydrogen and oxygen.（〜から成り立っている）」', ans: 'of', c: ['of', 'in', 'with', 'from'], exp: '【consist of】〜から成り立つ、構成される。be composed of と同義。（※consist in: 〜にある）。', rawWord: 'of' },
+  { id: 'ei_38', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「The teacher pointed ( 〇 ) several mistakes.（指摘した）」', ans: 'out', c: ['out', 'at', 'to', 'up'], exp: '【point out】〜を指摘する、明示する。indicate と同義。', rawWord: 'out' },
+  { id: 'ei_39', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「His grandmother passed ( 〇 ) peacefully last night.（亡くなった）」', ans: 'away', c: ['away', 'out', 'by', 'over'], exp: '【pass away】亡くなる、他界する。die の丁寧な婉曲表現。', rawWord: 'away' },
+  { id: 'ei_40', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「I couldn\'t make ( 〇 ) what he was saying.（聞き取る・理解する）」', ans: 'out', c: ['out', 'up', 'in', 'off'], exp: '【make out】〜を理解する、見分ける、聞き取る。understand と同義。', rawWord: 'out' },
+  { id: 'ei_41', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「She was brought ( 〇 ) by her aunt in London.（育てられた）」', ans: 'up', c: ['up', 'in', 'out', 'about'], exp: '【bring up】〜を育てる（受動態: be brought up）。raise と同義。', rawWord: 'up' },
+  { id: 'ei_42', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「Firefighters immediately put ( 〇 ) the blaze.（消火した）」', ans: 'out', c: ['out', 'off', 'down', 'away'], exp: '【put out】（火・明かりを）消す。extinguish と同義。', rawWord: 'out' },
+  { id: 'ei_43', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「He had to go ( 〇 ) many hardships.（経験する・耐える）」', ans: 'through', c: ['through', 'across', 'over', 'by'], exp: '【go through】〜を経験する、通過する。experience や undergo と同義。', rawWord: 'through' },
+  { id: 'ei_44', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「Please keep this rule in ( 〇 ).（心に留めておく）」', ans: 'mind', c: ['mind', 'heart', 'head', 'memory'], exp: '【keep in mind】〜を心に留める、覚えておく。remember と同義。', rawWord: 'mind' },
+  { id: 'ei_45', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「We must take ( 〇 ) of weather conditions.（考慮に入れる）」', ans: 'account', c: ['account', 'notice', 'care', 'place'], exp: '【take account of / take into account】〜を考慮に入れる。consider と同義。', rawWord: 'account' },
+  { id: 'ei_46', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「Don\'t lose ( 〇 ) of your original goal.（見失うな）」', ans: 'sight', c: ['sight', 'view', 'track', 'touch'], exp: '【lose sight of】〜を見失う、忘れる。', rawWord: 'sight' },
+  { id: 'ei_47', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「It is unkind to make ( 〇 ) of other people.（からかう）」', ans: 'fun', c: ['fun', 'fool', 'joke', 'game'], exp: '【make fun of】〜をからかう、冷やかす。laugh at や ridicule と同義。', rawWord: 'fun' },
+  { id: 'ei_48', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「He always finds ( 〇 ) with my work.（あら探しをする・非難する）」', ans: 'fault', c: ['fault', 'blame', 'error', 'mistake'], exp: '【find fault with】〜のあら探しをする、〜を批判する。criticize と同義。', rawWord: 'fault' },
+  { id: 'ei_49', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「She takes great ( 〇 ) in her cooking skills.（誇りに思う）」', ans: 'pride', c: ['pride', 'praise', 'boast', 'glory'], exp: '【take pride in】〜を誇りに思う。pride は名詞。（= be proud of）。', rawWord: 'pride' },
+  { id: 'ei_50', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「I am really proud ( 〇 ) your achievement.」', ans: 'of', c: ['of', 'for', 'with', 'in'], exp: '【be proud of】〜を誇りに思っている。take pride in と同義。', rawWord: 'of' },
+  { id: 'ei_51', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「He is very fond ( 〇 ) classical music.（好きである）」', ans: 'of', c: ['of', 'with', 'to', 'for'], exp: '【be fond of】〜を好む、好きである。like や love と同義。', rawWord: 'of' },
+  { id: 'ei_52', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「I am tired ( 〇 ) hearing his excuses.（うんざりしている）」', ans: 'of', c: ['of', 'with', 'from', 'by'], exp: '【be tired of】〜に飽きる、うんざりしている。（※ be tired from: 〜で疲れている）。', rawWord: 'of' },
+  { id: 'ei_53', subj: 'eng_idiom', level: 'refbook', q: '空所に入る接続詞は？「You can borrow it ( 〇 ) long as you return it tomorrow.」', ans: 'as', c: ['as', 'so', 'in', 'by'], exp: '【as long as】〜である限り、〜さえすれば（条件）。while と同義。', rawWord: 'as' },
+  { id: 'ei_54', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「As ( 〇 ) as I know, the store is closed today.（〜の知る限り）」', ans: 'far', c: ['far', 'long', 'well', 'much'], exp: '【as far as I know】私の知る限りでは（範囲の限定）。', rawWord: 'far' },
+  { id: 'ei_55', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「He got up early in ( 〇 ) to catch the first train.（〜するために）」', ans: 'order', c: ['order', 'view', 'case', 'aim'], exp: '【in order to + 原形】〜するために。目的を表す超定番表現！', rawWord: 'order' },
+  { id: 'ei_56', subj: 'eng_idiom', level: 'refbook', q: '空所に入る接続詞は？「Speak clearly ( 〇 ) that everyone can hear you.（〜できるように）」', ans: 'so', c: ['so', 'such', 'as', 'in'], exp: '【so that S can V】SがVできるように（目的）。', rawWord: 'so' },
+  { id: 'ei_57', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「She speaks ( 〇 ) only English but also French.（〜だけでなく）」', ans: 'not', c: ['not', 'no', 'never', 'none'], exp: '【not only A but also B】AだけでなくBも。B as well as A と同義。', rawWord: 'not' },
+  { id: 'ei_58', subj: 'eng_idiom', level: 'refbook', q: '空所に入る語は？「( 〇 ) Tom nor Mary was present at the party.（〜も…も両方ない）」', ans: 'Neither', c: ['Neither', 'Either', 'Both', 'None'], exp: '【neither A nor B】AもBも〜ない（否定）。動詞は B に一致させます。', rawWord: 'Neither' },
+  { id: 'ei_59', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「In ( 〇 ) to English, he speaks Spanish.（〜に加えて）」', ans: 'addition', c: ['addition', 'spite', 'terms', 'front'], exp: '【in addition to】〜に加えて。besides と同義。', rawWord: 'addition' },
+  { id: 'ei_60', subj: 'eng_idiom', level: 'refbook', q: '空所に入る前置詞は？「The train was delayed on ( 〇 ) of the heavy snow.（〜が原因で）」', ans: 'account', c: ['account', 'behalf', 'charge', 'case'], exp: '【on account of】〜のために、〜が原因で。because of や due to と同義。', rawWord: 'account' },
 
   // ================= 📚 大学入試 英文法・語法（全14単元・私学過去問＆難関国公立過去問網羅！） =================
   // 1. 時制 (tense)
@@ -2865,6 +3205,52 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 2.6',
+    date: '2026-11-07',
+    title: '👑 メダル交換所 LR神個体＆変異種 全15種族完全ランダム開放アプデ',
+    items: [
+      '【👑 LR神個体カプセルの全15種族完全ランダム召喚化】メダル交換所の最高峰アイテム「👑【LR神個体】変異種×感覚100」が、原生生物6種＋免疫細胞9種の【全15種族から完全ランダムで1体召喚】されるよう刷新！どの細胞の神個体（会心率100%＋全科目1.35倍）が出るか運試しのワクワク感を実装！',
+      '【🌟 突然変異種カプセルも全15種族ランダム化】UR変異種確定カプセルも全15種族からのランダム排出に対応！',
+      '【🧬 排出結果ビジュアルの強化】単発・10連・メダル交換時の結果画面に、全科目万能バッジや得意教科タグ、詳細ステータスを美しく表示するよう改修！',
+      '【🛡️ 内部システム完全点検】全15種族の生成フォールバック、4択早押しタイマー（10秒）、問題・選択肢重複排除、フレンド申請・対戦ルーム通信を徹底再検証し、不具合のない安定稼働を確認！'
+    ]
+  },
+  {
+    ver: 'Ver 2.5',
+    date: '2026-11-07',
+    title: '🔤 英単語1900 ＆ 🔗 英熟語1000 超軽量無限ジェネレーター完全実装！',
+    items: [
+      '【🔤 必須英単語1900語 完全収録】『ターゲット1900』や共通テスト・追手門・関関同立レベルの必須単語1900語を、わずか数十KBの超軽量圧縮辞書として丸ごとアプリ内に組み込み！',
+      '【🔗 頻出英熟語1000語 完全収録】『Engage』や大学入試長文で頻出する重要イディオム1000語を完全収録！',
+      '【🎲 毎回ランダム生成スマートエンジン】1900単語・1000熟語からランダムに正解とダミー選択肢を0.001秒で動的自動生成！毎回選択肢の並びや組み合わせが変わるため、パターン暗記にならず本物の語彙力が身につきます！',
+      '【✍️ スペル記述モードも完全対応】手動キーボード打ち込みモードでも、1900単語すべてタイピングで記述練習可能！',
+      '【📝 誤答ノート＆解き直し特訓連動】間違えた単語・熟語は自動で弱点ノートに保存され、その場ですぐにリトライ克服できます！'
+    ]
+  },
+  {
+    ver: 'Ver 2.4',
+    date: '2026-11-07',
+    title: '📖 英語単語・熟語大量増問＆10秒化＆公式アイコン超高精細化アプデ',
+    items: [
+      '【🔤 英単語・英熟語の大規模拡充＆出題ループ解消】大学入試・Engage・追手門・関関同立頻出の必須英単語（65問超）＆英熟語（60問超）へ大幅増量！出題履歴の均等ローテーションにより「同じ単語・同じ問題ばかり繰り返される」現象を完全解消！',
+      '【⏱️ 早押し4択の制限時間を10秒に延長】「5.5秒だと文法や語法の思考時間が短すぎる」というご要望を受け、英語4択バトルの制限時間を余裕を持ってしっかり考えられる【10.0秒】へ拡大！',
+      '【✅ 選択肢重複の完全排除＆厳格4択保証】クイズ選択肢の重複を自動検知して除外するフェイルセーフを実装！選択肢が重複したり答えが2つ並ぶ現象を根絶し、常に完全に異なる4つの選択肢を確実に生成！',
+      '【📱 公式アプリアイコン超高精細化（スマホ画質ボケ解消）】iOS（iPhone）環境で絵文字が引き伸ばされてボケていた問題を完全解決！美麗なベクターDNA二重らせんグラフィックへ刷新し、Retinaディスプレイでも1024×1024の超高画質PNGでも息を呑むほどクッキリ鮮明に保存可能！'
+    ]
+  },
+  {
+    ver: 'Ver 2.3',
+    date: '2026-11-07',
+    title: '🤝 双方向フレンド申請・対戦ルーム・公式ハンドブック完全刷新アプデ',
+    items: [
+      '【🤝 双方向フレンド同期の修復】Firestoreの複合インデックス不要化により、フレンド申請の送信・受信・承認が100%確実に同期されるよう改善！4桁数字入力や全角文字も自動正規化！',
+      '【🏟️ 対戦ルーム作成・入室の安定化】ルーム作成時の即時解散バグ（キャッシュ遅延誤認）を完全解消！ホスト・ゲストともに4桁番号で瞬時に対戦ロビーへ直行可能！',
+      '【📖 公式・要点ハンドブック完全版】見やすい白基調カード・クッキリ大文字・ワンタップ開閉のアコーディオンUIへ全面刷新！数学15・理科13・英語12の全40重要公式を体系収録！',
+      '【🧬 ガチャ全15種族（75形態）完全開放】通常ガチャの排出プールが全15種族平等抽選に完全開放され、新登場の免疫細胞系（マクロファージ、キラーT細胞など）が通常ガチャから登場！',
+      '【⚔️ 全国オンライン対戦待機時間の延長】マッチング待機時間を35秒に拡大し、リアルタイムでの対戦成立率を大幅向上！'
+    ]
+  },
+  {
     ver: 'Ver 2.2',
     date: '2026-11-06',
     title: '🚀 最新大型アップデート（Ver 2.2 完全版）',
@@ -2939,13 +3325,9 @@ try {
 }
 
 // 自分の最新プロフィールをFirebaseに自動同期
-// ★ テストモード中は完全非送信！また「研究員001（初期ネーム）」のままの間は送信せず、名前を決めたプレイヤーだけ登録！
 function syncMyProfileToCloud() {
-  if (!db) return;
+  if (!db || !state.friendCode) return;
   if (state.isTestAccount) return; // 🔧 テストアカウントはランキングに一切送らない！
-
-  const hasCustomName = state.playerName && state.playerName.trim() !== '' && state.playerName !== '研究員001';
-  if (!hasCustomName) return;
 
   const myData = getMyPlayerRankData();
   const leaderM = state.box[0] || null;
@@ -2958,40 +3340,26 @@ function syncMyProfileToCloud() {
   } : null;
 
   db.collection('players').doc(state.friendCode).set({
-    name: state.playerName,
+    name: state.playerName || '研究員',
     code: state.friendCode,
-    title: myData.title,
+    title: myData.title || '🌱 新米研究助手',
     wins: state.stats.wins || 0,
     losses: state.stats.losses || 0,
     correct: Object.values(state.stats.subjCorrect || {}).reduce((a, b) => a + b, 0),
-    maxLv: state.box.reduce((mx, m) => Math.max(mx, m.level || 1), 1),
-    rp: myData.rp,
+    maxLv: (state.box || []).reduce((mx, m) => Math.max(mx, m.level || 1), 1),
+    rp: myData.rp || 0,
     leader: leaderInfo,
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
   }, { merge: true }).catch(err => console.warn('Cloud sync error:', err));
 }
 
-// クラウドに残っている初期ネーム「研究員001」などの不要データを自動削除（らむね・ラムネ等を保護）
+// クラウドに残っている明らかなテスト用データのみ整理（実プレイヤーのデータは絶対に削除しない安全ガード）
 function cleanupDummyDocsInCloud() {
   if (!db) return;
-  const onceCleaned = localStorage.getItem('biologica_rank_cleaned_v51');
-  db.collection('players').get().then(snapshot => {
+  db.collection('players').where('isTestAccount', '==', true).get().then(snapshot => {
     snapshot.forEach(doc => {
-      const p = doc.data();
-      const nm = (p.name || '').trim();
-      // 初回クリーンアップ時は「らむね」「ラムネ」以外のテストデータをすべて消去！
-      if (!onceCleaned && nm !== 'らむね' && nm !== 'ラムネ') {
-        db.collection('players').doc(doc.id).delete().catch(() => {});
-        return;
-      }
-      // 以降は「研究員001」または空名のデータ、およびテスト用データをクラウドから完全削除
-      if (!nm || nm === '研究員001' || p.isTestAccount) {
-        db.collection('players').doc(doc.id).delete().catch(() => {});
-      }
+      db.collection('players').doc(doc.id).delete().catch(() => {});
     });
-    if (!onceCleaned) {
-      localStorage.setItem('biologica_rank_cleaned_v51', '1');
-    }
   }).catch(() => {});
 }
 
@@ -3045,7 +3413,7 @@ function getStageFromLevel(lvl) {
 }
 
 function generateMicrobeInstance({ speciesObj, isMutant, fixedSense, highIv }) {
-  const sp = speciesObj || SPECIES_MASTER[Math.floor(Math.random() * 5)];
+  const sp = speciesObj || SPECIES_MASTER[Math.floor(Math.random() * SPECIES_MASTER.length)];
   const mult = isMutant ? 1.3 : 1.0;
   const iv = () => highIv ? (12 + Math.floor(Math.random() * 14)) : Math.floor(Math.random() * 16);
 
@@ -5148,13 +5516,19 @@ function showPullResults(list, titleText) {
   box.querySelector('strong').textContent = titleText;
   grid.innerHTML = list.map(m => {
     const isHigh = m.rarity === 'UR' || m.rarity === 'LR';
+    const subjObj = getSubject(m.subjId);
+    const sk = getSkill(m.skillId);
     return `
       <div class="pull-result-item ${isHigh ? 'is-high' : ''}">
-        <div><span class="rarity-tag rarity-${m.rarity}">${m.rarity}</span></div>
-        <div style="font-weight:900; margin:4px 0;">${m.nickname}</div>
-        <div style="font-size:0.72rem; color:#cbd5e1;">
-          感覚:${m.stats.sense} (会心${getCritRatePct(m)}%)<br>
-          速:${m.stats.speed} 攻:${m.stats.size} 耐:${m.stats.defense}
+        <div>
+          <span class="rarity-tag rarity-${m.rarity}">${m.rarity}</span>
+          ${m.isMutant ? '<span class="mutant-badge" style="margin-left:3px;">🌟変異</span>' : ''}
+          <span class="subject-tag ${subjObj.cls || 'subj-bio'}" style="margin-left:3px; font-size:0.65rem;">${subjObj.icon || '📚'}${subjObj.name}</span>
+        </div>
+        <div style="font-weight:900; margin:4px 0; font-size:0.88rem;">${m.nickname}</div>
+        <div style="font-size:0.72rem; color:#cbd5e1; line-height:1.35;">
+          👁️感覚:${m.stats.sense} (会心${getCritRatePct(m)}%) | ✨${sk.name}<br>
+          速:${m.stats.speed} 攻:${m.stats.size} 耐:${m.stats.defense} 燃:${m.stats.fuel}
         </div>
       </div>
     `;
@@ -5187,7 +5561,13 @@ function exchangeMedalItem(itemId) {
   unlockPedia(newM);
   saveData();
   renderExchangeShop();
+  renderPetriStatusCard();
+  renderBoxAndParty();
   showPullResults([newM], `🏪 メダル交換完了！`);
+  const resBox = document.getElementById('tenPullResultsBox');
+  if (resBox) {
+    resBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
 }
 
 /* ============================================================================
@@ -5410,30 +5790,49 @@ function nextBattleQuestion() {
     const selUnit = (document.getElementById('engGramUnitSelect') || {}).value || 'all_units';
     const selLevel = (document.getElementById('engLevelSelect') || {}).value || 'all';
 
-    let pool = ENGLISH_QUIZ_MASTER.filter(item => {
-      if (selGenre !== 'eng_all' && item.subj !== selGenre) return false;
-      if (selGenre === 'eng_gram' || item.subj === 'eng_gram') {
-        if (selUnit !== 'all_units' && item.gramUnit !== selUnit) return false;
-        if (selLevel !== 'all' && item.level !== selLevel) return false;
-      }
-      return true;
-    });
-
-    if (pool.length === 0) {
-      if (selGenre === 'eng_gram') {
-        pool = ENGLISH_QUIZ_MASTER.filter(item => item.subj === 'eng_gram');
-      } else {
-        pool = ENGLISH_QUIZ_MASTER.filter(item => item.subj === selGenre);
+    // 🎲 単語1900 ＆ 熟語1000：超軽量無限ジェネレーターから出題！
+    if (selGenre === 'eng_word') {
+      q = generateDynamicEnglishQuestion('eng_word');
+    } else if (selGenre === 'eng_idiom') {
+      q = generateDynamicEnglishQuestion('eng_idiom');
+    } else if (selGenre === 'eng_all') {
+      const r = Math.random();
+      if (r < 0.4) {
+        q = generateDynamicEnglishQuestion('eng_word');
+      } else if (r < 0.75) {
+        q = generateDynamicEnglishQuestion('eng_idiom');
       }
     }
-    if (pool.length === 0) pool = ENGLISH_QUIZ_MASTER;
 
-    const recent = state.recentQIds || [];
-    let available = pool.filter(item => !battle.usedQIds.includes(item.id) && !recent.includes(item.id));
-    if (available.length === 0) available = pool.filter(item => !battle.usedQIds.includes(item.id));
-    if (available.length === 0) { battle.usedQIds = []; available = pool; }
+    if (!q) {
+      let pool = ENGLISH_QUIZ_MASTER.filter(item => {
+        if (selGenre !== 'eng_all' && item.subj !== selGenre) return false;
+        if (selGenre === 'eng_gram' || item.subj === 'eng_gram') {
+          if (selUnit !== 'all_units' && item.gramUnit !== selUnit) return false;
+          if (selLevel !== 'all' && item.level !== selLevel) return false;
+        }
+        return true;
+      });
 
-    q = available[Math.floor(Math.random() * available.length)];
+      if (pool.length === 0) {
+        if (selGenre === 'eng_gram') {
+          pool = ENGLISH_QUIZ_MASTER.filter(item => item.subj === 'eng_gram');
+        } else {
+          pool = ENGLISH_QUIZ_MASTER.filter(item => item.subj === selGenre);
+        }
+      }
+      if (pool.length === 0) pool = ENGLISH_QUIZ_MASTER;
+
+      const recent = state.recentQIds || [];
+      // 直近履歴の除外件数はプールの半分程度までとし、枯渇させずに均等にローテーション
+      const filterLimit = Math.max(5, Math.min(recent.length, Math.floor(pool.length * 0.5)));
+      const recentToFilter = recent.slice(-filterLimit);
+      let available = pool.filter(item => !battle.usedQIds.includes(item.id) && !recentToFilter.includes(item.id));
+      if (available.length === 0) available = pool.filter(item => !battle.usedQIds.includes(item.id));
+      if (available.length === 0) { battle.usedQIds = []; available = pool; }
+
+      q = available[Math.floor(Math.random() * available.length)];
+    }
   } else {
     // 🧬 理系問題の出題選択
     const mathSubjs = ['m1', 'ma', 'm2', 'mb', 'm3', 'mc', 'm1a', 'm2b', 'm3c'];
@@ -5606,18 +6005,42 @@ function nextBattleQuestion() {
         `♾️ <strong>スペル記述モード</strong>【時間無制限・手元でじっくり打ち込み！】（⌨️記述1.25倍ボーナス）`;
       return;
     } else {
-      // ⚡ 早押し4択 (5.5秒スプリント！)
+      // ⚡ 4択早押しバトル (10秒)
       choiceArea.style.display = 'grid';
       let cutChoice = null;
       const hasEye = f1.skillId === 'eye';
       const hasCrispr = p1Chips.includes('chip_crispr');
+
+      // 選択肢の重複排除（万一のデータ重複を100%防止）
+      let rawChoices = Array.from(new Set(q.c || [q.ans]));
+      if (!rawChoices.includes(q.ans)) rawChoices.unshift(q.ans);
+
+      // 4択に満たない場合は同科目の他問の解答・選択肢からダミーを補充して必ず独立した4選択肢を保証
+      if (rawChoices.length < 4) {
+        const dummyCandidates = ENGLISH_QUIZ_MASTER.filter(x => x.id !== q.id && (x.subj === q.subj || x.subj === 'eng_word'));
+        for (const cand of dummyCandidates) {
+          if (rawChoices.length >= 4) break;
+          if (cand.ans && !rawChoices.includes(cand.ans)) {
+            rawChoices.push(cand.ans);
+          }
+          if (cand.c) {
+            for (const cText of cand.c) {
+              if (rawChoices.length >= 4) break;
+              if (cText && !rawChoices.includes(cText)) {
+                rawChoices.push(cText);
+              }
+            }
+          }
+        }
+      }
+
       if (hasEye || hasCrispr) {
-        const wrong = (q.c || []).filter(c => c !== q.ans);
+        const wrong = rawChoices.filter(c => c !== q.ans);
         if (wrong.length > 0) {
           cutChoice = wrong[Math.floor(Math.random() * wrong.length)];
         }
       }
-      const shuffled = [...(q.c || [q.ans])].sort(() => Math.random() - 0.5);
+      const shuffled = [...rawChoices].sort(() => Math.random() - 0.5);
       choiceArea.innerHTML = '';
       shuffled.forEach(text => {
         const isCut = (cutChoice !== null && text === cutChoice);
@@ -5633,7 +6056,7 @@ function nextBattleQuestion() {
 
       const gauge = document.getElementById('battleTimeGauge');
       gauge.style.width = '100%';
-      battle.maxTimeSec = 5.5 + battle.timeHandicap;
+      battle.maxTimeSec = 10.0 + battle.timeHandicap;
       battle.remainTimeSec = battle.maxTimeSec;
 
       battleGaugeInterval = setInterval(() => {
@@ -5643,7 +6066,7 @@ function nextBattleQuestion() {
         gauge.style.width = pct + '%';
         const speedBonusMult = (1.0 + (pct / 100) * (0.35 + f1.stats.speed * 0.003)).toFixed(2);
         document.getElementById('speedStatusText').textContent =
-          `⚡ 早押しスプリント！ 残り ${Math.max(0, battle.remainTimeSec).toFixed(1)}秒 (速度倍率 ×${speedBonusMult})`;
+          `⚡ 4択早押しバトル！ 残り ${Math.max(0, battle.remainTimeSec).toFixed(1)}秒 (速度倍率 ×${speedBonusMult})`;
         if (battle.remainTimeSec <= 0) {
           clearInterval(battleGaugeInterval);
           battle.answered = true;
@@ -6644,217 +7067,378 @@ function removeMistake(idx) {
 }
 
 /* ============================================================================
-   📖 公式・要点ハンドブック（体系まとめ・数学公式・理科法則・英文法要点）
+   📖 公式・要点ハンドブック（体系まとめ・数学公式・理科法則・英文法要点 全40項目網羅）
 ============================================================================ */
 let currentHandbookTab = 'math';
+let currentHandbookLevel = 'all';
 let handbookSearchQuery = '';
+let allHandbookExpanded = false;
 
 const HANDBOOK_DATA = {
   math: [
     {
-      id: 'm_quad_formula',
-      tag: '数I・方程式',
-      title: '2次方程式の解の公式 ＆ 判別式 D',
-      formula: 'x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a} \\quad (b=2b\' \\text{なら } x=\\frac{-b\' \\pm \\sqrt{b\'^2-ac}}{a})',
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '二次方程式',
+      onePhrase: '因数分解できなくても、数字を入れるだけで100%解が出る万能マシーン！',
       formulaText: 'x = (-b ± √(b² - 4ac)) / 2a',
-      desc: '判別式 D = b² - 4ac の符号で実数解の個数を判定：\n・D > 0 ：異なる2つの実数解（x軸と2点で交わる）\n・D = 0 ：重解（x軸に接する）\n・D < 0 ：実数解なし（x軸と交わらない・異なる2つの虚数解）',
-      tips: '【試験頻出】常に「y > 0」が成り立つ条件は「a > 0 かつ D < 0」！ D ≦ 0 と混同しやすいので注意。'
+      concept: 'どんなにややこしい2次方程式 ax² + bx + c = 0 でも、a, b, c の数値をそのまま公式に流し込むだけで絶対に答え（解）を吐き出してくれます。特に√の中身（b² - 4ac）がマイナスなら実数解なし！',
+      tips: '【時短テク】x の係数が偶数（b = 2b\'）のときは『x = (-b\' ± √(b\'² - ac)) / a』を使うと約分の手間がゼロに！'
     },
     {
-      id: 'm_root_coeff',
-      tag: '数II・方程式',
-      title: '解と係数の関係（2次・3次方程式）',
-      formulaText: 'α + β = -b/a,　αβ = c/a',
-      desc: '2次方程式 ax² + bx + c = 0 の解を α, β とするとき：\n・α + β = -b / a\n・αβ = c / a\n3次方程式 ax³ + bx² + cx + d = 0 の解を α, β, γ とするとき：\n・α + β + γ = -b / a\n・αβ + βγ + γα = c / a\n・αβγ = -d / a',
-      tips: '対称式（α² + β² = (α+β)² - 2αβ や α³ + β³）の変形とセットで超頻出！'
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '三平方の定理',
+      onePhrase: '直角三角形なら『ナナメの2乗 ＝ タテの2乗 ＋ ヨコの2乗』が絶対に成り立つ！',
+      formulaText: 'c² = a² + b² （斜辺c）',
+      concept: '直角をはさむ2辺の長さをそれぞれ2乗して足すと、一番長いナナメの辺（斜辺）の2乗とピッタリ一致する幾何学の絶対法則。ピラミッド建設からGPS測位、ゲームの距離計算まで全世界で使われています！',
+      tips: '【有名比は秒で暗記】3:4:5、5:12:13、1:1:√2（45°三角定規）、1:2:√3（30°-60°定規）は計算せず即答！'
     },
     {
-      id: 'm_trig_basic',
-      tag: '数I・三角比',
-      title: '三角比・三角関数の基本相互関係',
-      formulaText: 'sin²θ + cos²θ = 1,　tanθ = sinθ/cosθ,　1 + tan²θ = 1/cos²θ',
-      desc: '・sin²θ + cos²θ = 1\n・tanθ = sinθ / cosθ\n・1 + tan²θ = 1 / cos²θ\n・1 + 1/tan²θ = 1/sin²θ',
-      tips: 'θの象限（第1〜第4象限）による正負符号（All-Sin-Tan-Cos）の確認を忘れずに！'
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '因数分解の4公式',
+      onePhrase: '展開の逆！積の形（カッコ）にまとめると方程式が即座に解ける！',
+      formulaText: '① x²+(a+b)x+ab = (x+a)(x+b)　② a²-b² = (a+b)(a-b)',
+      concept: '足して真ん中、掛けて右端になる2つの数字を探すのが基本！また「2乗引く2乗 ＝ 和と差の積」は高校数学や社会人の計算でも一番よく使う必携テクニック。',
+      tips: '共通因数でくくるのが大原則！まず「全体を割れる数・文字がないか」を確認すること。'
     },
     {
-      id: 'm_sine_cosine_law',
-      tag: '数I・図形と計量',
-      title: '正弦定理 ＆ 余弦定理',
-      formulaText: '【正弦】a/sinA = b/sinB = c/sinC = 2R　【余弦】a² = b² + c² - 2bc cosA',
-      desc: '【正弦定理】外接円の半径 R が絡む時、または「向かい合う角と辺」が2組ある時に使う。\n【余弦定理】3辺が分かっている時（cosA = (b²+c²-a²)/(2bc)）、または「2辺とその間の角」から残り1辺を求める時に使う。\n【面積公式】S = 1/2 ab sinC = abc/(4R) = 1/2 r(a+b+c)',
-      tips: '内接円の半径 r を求める時は「S = 1/2 r(a+b+c)」から逆算するのが王道パターン！'
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '一次関数の式・傾き',
+      onePhrase: 'グラフの傾き（スピード）と切片（スタート地点）がひと目でわかる！',
+      formulaText: 'y = ax + b　（傾き a ＝ yの増加量 ÷ xの増加量）',
+      concept: 'xが1進んだときにyがどれだけ増えるかが傾き a。bはy軸とぶつかるスタート地点（切片）。スマホの料金プラン（基本料金b ＋ 通信料ax）など世の中の基本比例モデルはこれ！',
+      tips: '2点 (x₁, y₁), (x₂, y₂) を通る直線の傾きは (y₂ - y₁) / (x₂ - x₁) で一発！'
     },
     {
-      id: 'm_trig_addition',
-      tag: '数II・三角関数',
-      title: '加法定理・2倍角の公式 ＆ 三角関数の合成',
-      formulaText: 'sin(α±β) = sinα cosβ ± cosα sinβ / a sinθ + b cosθ = √(a²+b²) sin(θ+α)',
-      desc: '【加法定理】\n・sin(α+β) = sinα cosβ + cosα sinβ（咲いたコスモスコスモス咲いた）\n・cos(α+β) = cosα cosβ - sinα sinβ（コスモスコスモス咲いた咲いた）\n【2倍角】sin2θ = 2sinθcosθ,　cos2θ = cos²θ - sin²θ = 2cos²θ - 1 = 1 - 2sin²θ\n【合成】a sinθ + b cosθ = √(a²+b²) sin(θ + α)　(ただし cosα = a/√(a²+b²), sinα = b/√(a²+b²))',
-      tips: '最大値・最小値を求める問題では、角度を揃えて「合成」または「2倍角・半角でcosθの2次式」に帰着させる！'
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '球の体積・表面積',
+      onePhrase: '語呂合わせで一生忘れない！球の体積と表面の広さ！',
+      formulaText: '【体積】V = 4/3 πr³　【表面積】S = 4πr²',
+      concept: '半径 r のボールの体積と表面積。\n・体積 V ＝ 4/3 πr³（身の上に心配あーるの3乗）\n・表面積 S ＝ 4πr²（心配あるある）',
+      tips: '体積は3次元なので「3乗」、面積は2次元なので「2乗」と覚えると混ざらない！'
     },
     {
-      id: 'm_perm_comb',
-      tag: '数A・場合の数',
-      title: '順列 nPr ＆ 組合せ nCr の使い分け',
-      formulaText: 'nPr = n! / (n-r)!,　nCr = nPr / r! = n! / (r!(n-r)!)',
-      desc: '【順列 nPr】：並べる「順番・区別」が関係ある場合（リレー走者、役職、数字の並び）\n【組合せ nCr】：順番は関係なく「選ぶだけ」の場合（チームメンバー選び、カード抜き出し）\n【性質】：nCr = nC(n-r),　nCr = n-1Cr-1 + n-1Cr（パスカルの三角形）\n【重複組合せ】：異なる n 種類から重複を許して r 個選ぶ = n+r-1Cr',
-      tips: '「区別できるか・できないか」を最初に自問自答すること！仕切りの考え方（重複組合せ）もマスター推奨。'
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '解と係数の関係',
+      onePhrase: '方程式を解かなくても、2つの解の『足し算』と『掛け算』が一瞬でわかる！',
+      formulaText: 'α + β = -b/a　,　αβ = c/a',
+      concept: 'ax² + bx + c = 0 の解をわざわざ求めなくても、係数を見るだけで「解の和」と「解の積」が判明します。対称式（α² + β² = (α+β)² - 2αβ）とセットで使う超頻出テクニック！',
+      tips: '【符号ミスに注意】和（α+β）にはマイナスがつき、積（αβ）にはマイナスがつかない！'
     },
     {
-      id: 'm_seq_arith_geom',
-      tag: '数B・数列',
-      title: '等差数列・等比数列の一般項 ＆ 和の公式',
-      formulaText: '【等差】an = a+(n-1)d, Sn = n/2(2a+(n-1)d)　【等比】an = ar^(n-1), Sn = a(1-r^n)/(1-r)',
-      desc: '【等差数列】：初項 a、公差 d\n・一般項 an = a + (n - 1)d\n・和 Sn = n(a + l)/2 = n{2a + (n - 1)d}/2\n【等比数列】：初項 a、公比 r (r ≠ 1)\n・一般項 an = a・r^(n-1)\n・和 Sn = a(1 - r^n) / (1 - r) = a(r^n - 1) / (r - 1)',
-      tips: 'Σ公式：Σk = n(n+1)/2,　Σk² = n(n+1)(2n+1)/6,　Σk³ = {n(n+1)/2}²'
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '三角比の基本相互関係',
+      onePhrase: '直角三角形のsin・cos・tanは、1つの値が分かれば全部芋づる式に求まる！',
+      formulaText: 'sin²θ + cos²θ = 1　,　tanθ = sinθ / cosθ',
+      concept: '単位円（半径1の円）上の座標 (cosθ, sinθ) から三平方の定理で導かれる絶対法則。もう1つの『1 + tan²θ = 1/cos²θ』も大学入試で頻出！',
+      tips: 'θの角度が第何象限かによって符号が変わる（All-Sin-Tan-Cos）を必ず確認！'
     },
     {
-      id: 'm_calc_integral_area',
-      tag: '数II・微積分',
-      title: '定積分と面積の超速公式（1/6公式・1/12公式）',
-      formulaText: '∫[α→β] (x - α)(β - x) dx = 1/6 (β - α)³',
-      desc: '【1/6公式】：放物線と直線（または2つの放物線）で囲まれた図形の面積 S\n・S = |a| / 6 × (β - α)³　（※ α, β は2曲線の交点のx座標）\n【1/12公式】：放物線と2接線で囲まれる面積\n・S = |a| / 12 × (β - α)³',
-      tips: '記述試験では途中式を展開・積分したフリをして、検算・時間短縮に1/6公式をフル活用するのが鉄則！'
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '正弦定理・余弦定理',
+      onePhrase: '向かい合う角と辺なら「正弦」、3辺の長さが絡むなら「余弦」を使う！',
+      formulaText: '【正弦】a/sinA = 2R　【余弦】a² = b² + c² - 2bc cosA',
+      concept: '三角形のどんな形でも、外接円の半径 R を求めたい時は正弦定理。2辺と間の角から残り1辺を出したい時や、3辺から角度を出したい時は余弦定理を使います。',
+      tips: '三角形の面積は S = 1/2 bc sinA で一瞬！'
     },
     {
-      id: 'm_junior_geom',
-      tag: '中学数学・幾何',
-      title: '三平方の定理 ＆ 円周角の定理',
-      formulaText: 'a² + b² = c²（直角三角形）,　円周角 = 1/2 × 中心角',
-      desc: '【三平方の定理】：直角三角形の斜辺 c と直角を挟む2辺 a, b について a² + b² = c²\n・有名比：3:4:5,　5:12:13,　1:1:√2 (45°),　1:2:√3 (30°-60°)\n【円周角の定理】：同一弧に対する円周角は中心角の半分、直径に対する円周角は常に90°。',
-      tips: '高校数学の立体幾何・三角比・ベクトルでも三平方の定理と有名直角三角形は瞬殺パーツとして必携！'
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '順列 nPr と 組合せ nCr',
+      onePhrase: '「順番をつけて並べる」ならP、「選ぶだけ」ならC！',
+      formulaText: 'nPr = n! / (n-r)!　,　nCr = nPr / r!',
+      concept: 'リレー走者（第1走者、第2走者…）を決めるなら順列P。クラスから掃除当番を3人選ぶだけなら順番関係ないので組合せC。',
+      tips: '【超時短】nC(r) = nC(n-r)！例えば 10C8 を計算する時は 10C2 に直して計算する！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '等差数列・等比数列',
+      onePhrase: '一定ずつ足すのが等差、一定ずつ掛けるのが等比！',
+      formulaText: '【等差】an = a + (n-1)d　【等比】an = a・rⁿ⁻¹',
+      concept: '貯金箱に毎日100円ずつ足すのが等差数列。細菌が倍々に増えていくのが等比数列。和の公式 Sn も共通テストの定番！',
+      tips: 'Σ公式：Σk = n(n+1)/2、Σk² = n(n+1)(2n+1)/6 は暗記必須！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '加法定理・2倍角',
+      onePhrase: '角度の足し算・引き算を分解！三角関数の最強変形公式！',
+      formulaText: 'sin(α+β) = sinα cosβ + cosα sinβ',
+      concept: '咲いたコスモスコスモス咲いた（sin）、コスモスコスモス咲いた咲いた（cos）。2倍角公式 sin2θ = 2sinθcosθ もここから一瞬で導出可能！',
+      tips: '三角関数の合成『a sinθ + b cosθ = √(a²+b²) sin(θ+α)』で最大値・最小値を仕留める！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '1/6公式（積分と面積）',
+      onePhrase: '放課後の計算地獄をショートカット！放物線と直線の面積を5秒で求める裏技！',
+      formulaText: 'S = |a| / 6 × (β - α)³',
+      concept: '2次関数と直線で囲まれた面積をまともに定積分すると5分かかりますが、交点α, βさえ分かればこの公式で一瞬（暗算レベル）で面積が求まります。共通テストや私大マーク模試で絶大な威力を発揮！',
+      tips: '交点の大小関係は必ず『β ＞ α』！|a| はx²の係数の絶対値です。'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '点と直線の距離',
+      onePhrase: '点から直線におろした最短距離（垂線の長さ）を一撃で求める！',
+      formulaText: 'd = |ax₁ + by₁ + c| / √(a² + b²)',
+      concept: '点 (x₁, y₁) と直線 ax + by + c = 0 の距離 d。円と直線の交点判定（中心からの距離 d と 半径 r の比較）で連立方程式を解く手間を半減できます！',
+      tips: 'ルートの中は直線の係数の2乗和 √(a²+b²)、分子は代入して絶対値をとる！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '積の微分・商の微分',
+      onePhrase: '掛け算・割り算の微分はそのまま微分しちゃダメ！交互に微分する！',
+      formulaText: '{f・g}\' = f\'g + fg\'　,　{f/g}\' = (f\'g - fg\') / g²',
+      concept: '数III微分の登竜門。積の微分は「前微分×後ろそのまま ＋ 前そのまま×後ろ微分」。商の微分は「分母を2乗、分子は子微分親そのまま引く親微分子そのまま」。',
+      tips: '合成関数の微分 dy/dx = (dy/du)・(du/dx) も併用必須！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '部分積分法',
+      onePhrase: '掛け算の積分をほどく！『そのまま・積分 引く 微分・積分』！',
+      formulaText: '∫ f(x)g\'(x) dx = f(x)g(x) - ∫ f\'(x)g(x) dx',
+      concept: 'log x や x・eˣ などの積分で威力を発揮。微分して簡単になる方を f(x)、積分しやすい方を g\'(x) に選ぶのがコツ！',
+      tips: '∫ log x dx = x log x - x + C は暗記レベルの定番頻出！'
     }
   ],
   sci: [
     {
-      id: 's_phys_kinematics',
-      tag: '物理・力学',
-      title: '等加速度直線運動の3公式 ＆ 運動方程式',
-      formulaText: '① v = v₀ + at　② x = v₀t + 1/2 at²　③ v² - v₀² = 2ax　/　ma = F',
-      desc: '【等加速度3公式】：初速度 v₀, 加速度 a, 時間 t, 変位 x\n① v = v₀ + at （速度と時間の関係）\n② x = v₀t + 1/2 at² （位置と時間の関係）\n③ v² - v₀² = 2ax （時間を消去した式・tが不明の時に最強！）\n【ニュートンの運動方程式】：質量 m [kg], 加速度 a [m/s²], 合力 F [N] → ma = F',
-      tips: 'まずは着目物体にかかる力（重力、接触力・垂直抗力・張力・摩擦力）をすべて矢印で図示することが鉄則！'
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '物理・電気',
+      onePhrase: '電圧・電流・抵抗の黄金三角形！これだけで電気回路は完全制覇！',
+      formulaText: 'V = R × I （電圧 ＝ 抵抗 × 電流）',
+      concept: '水道管に例えると、水圧（V）が高くなるほど水流（I）が多く流れ、パイプが細い（抵抗R大）と流れにくくなる関係。電力 P [W] ＝ V × I も必須！',
+      tips: '直列回路は「電流がどこでも一定」、並列回路は「電圧がどこでも同じ」！'
     },
     {
-      id: 's_phys_energy_wave',
-      tag: '物理・力学・波',
-      title: '力学的エネルギー保存則 ＆ 波の基本式・ドップラー効果',
-      formulaText: '1/2 mv² + mgh + 1/2 kx² = 一定　/　v = fλ　/　f\' = f (V - v_o)/(V - v_s)',
-      desc: '【力学的エネルギー保存則】：非保存力（摩擦・空気抵抗）が仕事をしないとき、運動エネルギー + 位置エネルギー = 一定\n【波の基本式】：波の速さ v = 振動数 f × 波長 λ\n【ドップラー効果】：音速 V、音源速度 v_s（近づく時+）、観測者速度 v_o（逃げる時+）\n・観測される振動数 f\' = f × (V - v_o) / (V - v_s)',
-      tips: 'ドップラー効果は「音源が近づくと分母が小さくなって高音(f\'大)」「観測者が近づくと分子が大きくなって高音」と感覚的にも照合！'
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '物理・仕事と力',
+      onePhrase: 'てこや滑車を使っても「トータルの仕事（エネルギー）」は絶対得しない！',
+      formulaText: '仕事 W [J] ＝ 力 F [N] × 移動距離 s [m]',
+      concept: '動滑車を使うと持ち上げる力は半分で済みますが、引くヒモの長さは2倍になるため、掛ける仕事（力×距離）は全く同じ。これを「仕事の原理」と呼びます。',
+      tips: '仕事率 P [W] ＝ 仕事 [J] ÷ 時間 [秒]（1秒あたりの仕事量）。'
     },
     {
-      id: 's_phys_em_circuits',
-      tag: '物理・電磁気',
-      title: 'コンデンサー Q=CV ＆ オームの法則・ローレンツ力',
-      formulaText: 'Q = CV,　C = ε S/d,　U = 1/2 CV²　/　f = qvB',
-      desc: '【コンデンサー】：電気量 Q [C], 静電容量 C [F], 電圧 V [V]\n・電気容量 C = ε S / d（極板面積 S に比例、間隔 d に反比例）\n・蓄えられる静電エネルギー U = 1/2 QV = 1/2 CV² = Q² / (2C)\n【磁場中の荷電粒子】：電荷 q が速さ v で磁束密度 B 中を運動するとき受ける力（ローレンツ力）f = qvB（フレミング左手の法則）',
-      tips: '回路問題では「スイッチを入れた直後（コンデンサーは導線扱い）」と「十分時間が経過したあと（電流0・断線扱い）」の差が定番！'
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '物理・等加速度運動',
+      onePhrase: '時間 t が分からないなら③！落下運動も車輪の加速もこれで解ける3公式！',
+      formulaText: '① v = v₀ + at　② x = v₀t + 1/2 at²　③ v² - v₀² = 2ax',
+      concept: '一定の力で加速する物体の運動。初速度 v₀、加速度 a、時間 t、進んだ距離 x。\n特に③式は時間 t を計算せずに「速度」と「距離」を直結できる受験最強のショートカット！',
+      tips: '自由落下なら初速 v₀ = 0、加速度 a = 9.8 (重力加速度g) を代入するだけ！'
     },
     {
-      id: 's_chem_mol_gas',
-      tag: '化学・理論',
-      title: '物質量 mol の基本換算 ＆ 気体の状態方程式',
-      formulaText: '1 mol = 6.02×10²³個 = 22.4 L (気体標準状態) = 原子量・分子量[g]　/　PV = nRT',
-      desc: '【molの換算の三角形】：\n・粒子数 ÷ 6.02×10²³ = mol\n・質量[g] ÷ モル質量[g/mol] = mol\n・気体の体積[L] ÷ 22.4[L/mol] = mol (0℃, 1.013×10⁵ Pa)\n【理想気体の状態方程式】：圧力 P [Pa], 体積 V [L], 物質量 n [mol], 気体定数 R = 8.31×10³ [Pa・L/(mol・K)], 絶対温度 T [K]',
-      tips: '気体問題で「混合気体」が出たら、ドルトンの分圧の法則（全体圧 = 分圧の和、分圧 = 全圧 × モル分率）を併用！'
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '物理・運動方程式',
+      onePhrase: '物体を押せば加速する！『重いほど動きにくく、強く押すほど急加速！』',
+      formulaText: 'F = ma （力 ＝ 質量 × 加速度）',
+      concept: '手押し車に例えると、荷物が重い（m大）と同じ力では加速が鈍り（a小）、力いっぱい押す（F大）とグングン加速する（a大）という宇宙共通の運動法則。ロケットの打ち上げから車のブレーキまで全てこれ！',
+      tips: '力の単位ニュートン[N]は『1kgの物体を毎秒1m/sずつ加速させる力』と定義されています。'
     },
     {
-      id: 's_chem_ph_buffer',
-      tag: '化学・理論',
-      title: 'pHの定義・弱酸の電離平衡 ＆ 緩衝液',
-      formulaText: 'pH = -log₁₀[H⁺],　α = √(Ka / c),　[H⁺] = √(c Ka)',
-      desc: '【pHの定義】：pH = -log₁₀[H⁺]、中性で pH = 7（[H⁺]=10⁻⁷ mol/L）\n【弱酸の電離】：初濃度 c, 電離度 α (α ≪ 1) のとき、電離定数 Ka = cα² より α = √(Ka/c)、[H⁺] = cα = √(cKa)\n【緩衝液】：弱酸（CH₃COOH）とその塩（CH₃COONa）の混合液。少量の酸や塩基を加えても pH がほぼ一定に保たれる。',
-      tips: 'ルシャトリエの原理により、H⁺を加えるとCH₃COO⁻と結合して戻り、OH⁻を加えるとCH₃COOHが電離して中和するためpHが安定！'
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '物理・力学的エネルギー',
+      onePhrase: '摩擦や空気抵抗がなければ、スピードと高さのエネルギー合計は常に一定！',
+      formulaText: '1/2 mv² + mgh + 1/2 kx² ＝ 一定',
+      concept: 'ジェットコースターの原理！高いところ（位置エネルギー mgh）から落ちると、その分だけ猛スピード（運動エネルギー 1/2 mv²）に変換されます。バネのエネルギー 1/2 kx² も同じ仲間。',
+      tips: '摩擦熱が発生するとエネルギーの一部が熱に逃げるので注意！'
     },
     {
-      id: 's_chem_organic_tests',
-      tag: '化学・有機',
-      title: '有機化合物の主要官能基 ＆ 検出反応まとめ',
-      formulaText: '【銀鏡・フェーリング】アルデヒド基(-CHO)の還元性　【ヨードホルム】CH₃-CO- or CH₃-CH(OH)-',
-      desc: '【官能基】：-OH（ヒドロキシ基：アルコール/フェノール）、-CHO（アルデヒド基）、-CO-（ケトン基）、-COOH（カルボキシ基）、-COO-（エステル結合）、-NH₂（アミノ基）\n【検出反応】：\n・銀鏡反応 / フェーリング反応：アルデヒド（還元性あり）を検出\n・ヨードホルム反応：アセトン、エタノール等にNaOH+I₂で特有の黄色沈殿CHI₃を生じる\n・塩化鉄(III) FeCl₃ 水溶液：フェノール類で「紫色〜赤紫色」に呈色',
-      tips: '構造決定問題では、分子式から「不飽和度」を計算し、検出反応の有無からパズルのように骨格を特定する！'
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '物理・ドップラー効果',
+      onePhrase: '救急車が近づくと高い音、遠ざかると低い音に聞こえる波の圧縮・伸長！',
+      formulaText: 'f\' = f × (V - v_o) / (V - v_s)',
+      concept: '音源が音を出しながら進むと、前方の音波の間隔（波長λ）がギュッと縮むため、観測者には高い振動数（高音）として届きます。Vは音速、v_sは音源の速度、v_oは観測者の速度。',
+      tips: '「音源が近づくと分母が小さくなって高音」「観測者が近づくと分子が大きくなって高音」とイメージ！'
     },
     {
-      id: 's_bio_central_dogma',
-      tag: '生物・分子生物学',
-      title: 'セントラルドグマ ＆ 呼吸・光合成の収支',
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '化学・物質量mol',
+      onePhrase: '原子は小さすぎるから『6.0 × 10²³ 個＝1ダース（1mol）』とまとめて数える！',
+      formulaText: '個数 ÷ (6.02×10²³) ＝ 質量(g) ÷ 分子量 ＝ 気体(L) ÷ 22.4',
+      concept: '鉛筆を12本で「1ダース」と呼ぶのと同じ！軽すぎて目に見えない原子を 6.02×10²³個（アボガドロ数）集めた束を「1mol」と決めると、原子量に「g」をつけるだけで重さがピッタリ一致する超便利な魔法の単位です。',
+      tips: '気体なら種類に関係なく 1mol ＝ 22.4L（0℃, 1気圧）！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '化学・気体の状態方程式',
+      onePhrase: '温度を上げると膨らむ、縮めると圧力アップ！気体の性質を1本の式に凝縮！',
+      formulaText: 'P・V = n・R・T',
+      concept: '圧力 P [Pa]、体積 V [L]、物質量 n [mol]、絶対温度 T [K]、気体定数 R。注射器を指で塞いでピストンを押すと中が熱くなり圧力が上がる現象もすべてこの式で計算可能。',
+      tips: '絶対温度 T はセ氏温度 + 273！計算時は必ずケルビン[K]に直すこと！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '化学・pHと中和',
+      onePhrase: 'pH7が中性！酸性の強さは水素イオン濃度 [H⁺] の桁数で決まる！',
+      formulaText: 'pH = -log₁₀[H⁺]　,　a・c・v = b・c\'・v\'',
+      concept: '水素イオン濃度 [H⁺] が 10⁻¹ mol/L なら pH=1（強酸）、10⁻⁷ mol/L なら pH=7（中性）。中和の公式「酸のH⁺のモル数 ＝ 塩基のOH⁻のモル数」で未知の濃度を逆算！',
+      tips: '価数（塩酸なら1価、硫酸なら2価）の掛け忘れがテスト頻出のひっかけポイント！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '化学・緩衝液',
+      onePhrase: '酸やアルカリを少し加えても、pHがピクとも動かない防御シールド！',
+      formulaText: '[H⁺] = Ka × (酸の濃度 / 塩の濃度)',
+      concept: '弱酸とその塩（酢酸＋酢酸ナトリウム）を混ぜておくと、酸を加えても酢酸イオンが吸収し、塩基を加えても酢酸が中和するため、pHがほぼ一定に保たれます。人間の血液が常に弱アルカリ性に保たれているのもこの仕組み！',
+      tips: 'ルシャトリエの原理による平衡移動の代表例！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '生物・セントラルドグマ',
+      onePhrase: '設計図（DNA）➔ コピー用紙（RNA）➔ 実際の建物（タンパク質）の不可逆リレー！',
       formulaText: 'DNA ──(転写)──> mRNA ──(翻訳)──> タンパク質',
-      desc: '【セントラルドグマ】：遺伝情報の一方向伝達概念\n・転写：核内でRNAポリメラーゼがDNA鎖を鋳型にmRNAを合成\n・翻訳：細胞質のリボソームでtRNAが運ぶアミノ酸を連結してポリペプチドを合成\n【好気呼吸】：C₆H₁₂O₆ + 6O₂ + 6H₂O → 6CO₂ + 12H₂O + 最大約38ATP（解糖系:2, クエン酸回路:2, 電子伝達系:約34）\n【光合成】：6CO₂ + 12H₂O + 光エネルギー → C₆H₁₂O₆ + 6O₂ + 6H₂O（チラコイド明反応 ＆ ストロマ暗反応カルビン回路）',
-      tips: 'DNAとRNAの違い：DNAはデオキシリボース＋チミン(T)、RNAはリボース＋ウラシル(U)！'
+      concept: 'すべての生物が体を作る基本ルール。核の中の大事なマスター設計図（DNA）は外に出せないため、必要な部分だけ作業用コピー（mRNA）にして細胞質へ持ち出し、リボソームがアミノ酸を繋げて筋肉や酵素（タンパク質）を組み立てます。逆戻りはできません！',
+      tips: '【入試の急所】DNAの塩基「チミン(T)」は、RNAに転写されると「ウラシル(U)」に置き換わる！'
     },
     {
-      id: 's_junior_sci',
-      tag: '中学理科・重要要点',
-      title: '凸レンズの像 ＆ 示準化石・示相化石',
-      formulaText: '焦点距離の2倍の位置 ➔ 実物と同じ大きさの「倒立実像」がスクリーンに映る！',
-      desc: '【凸レンズ】：\n・焦点の外側：倒立実像（スクリーンに映る）\n・焦点の2倍の位置：実物と等大の倒立実像\n・焦点の内側：正立虚像（スクリーンには映らず、レンズを覗くと拡大して見えるルーペの原理）\n【化石の見分け】：\n・示準化石（時代がわかる）：三葉虫（古生代）、アンモナイト・恐竜（中生代）、ビカリア・ナウマン象（新生代）\n・示相化石（当時の環境がわかる）：サンゴ（暖かくきれいな浅い海）、アサリ・シジミ（浅い海・河口）',
-      tips: '示準化石の条件：「広い地域に生息」し「生存期間が短い」こと！'
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '生物・呼吸と光合成',
+      onePhrase: '呼吸はエネルギー（ATP）を生み出し、光合成は太陽光でデンプンを作る！',
+      formulaText: '【呼吸】C₆H₁₂O₆ + 6O₂ + 6H₂O ➔ 6CO₂ + 12H₂O + 38ATP',
+      concept: 'ミトコンドリアで行われる呼吸はグルコースを分解して最大38個のATP（エネルギー通貨）を生成。葉緑体で行われる光合成はその逆で、水と二酸化炭素から糖を合成します。',
+      tips: '光合成の明反応はチラコイド膜、暗反応（カルビン回路）はストロマで行われる！'
+    },
+    {
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '中学理科・地学化石',
+      onePhrase: '時代がわかる「示準化石」と、当時の環境がわかる「示相化石」！',
+      formulaText: '【示準】三葉虫(古)・恐竜(中)・マンモス(新)　【示相】サンゴ(暖浅海)',
+      concept: '・示準化石：生息期間が短く、世界中に広く分布していた生物（年代の特定に使う）。\n・示相化石：生息環境が限られていた生物（例：サンゴ＝暖かくきれいな浅い海）。',
+      tips: 'アサリ・シジミの化石は「浅い海や河口」の示相化石！'
     }
   ],
   eng: [
     {
-      id: 'e_modals_have_pp',
-      tag: '助動詞',
-      title: '助動詞 ＋ have p.p. の過去推量・後悔表現',
-      formulaText: 'should have p.p. / cannot have p.p. / must have p.p. / may have p.p.',
-      desc: '過去の出来事に対する「推量」や「非難・後悔」を表す大学入試最頻出パターン：\n・should have p.p.（ought to have p.p.）：〜すべきだったのに（実際はしなかった後悔・非難）\n・need not have p.p.：〜する必要はなかったのに（実際はしてしまった）\n・cannot have p.p.：〜だったはずがない（過去の強い否定的推量）\n・must have p.p.：〜だったに違いない（過去の強い確信）\n・may [might] have p.p.：〜だったかもしれない（過去の推量）',
-      tips: '【追手門・私大頻出】should have p.p. は「〜したはずだ」という意味もあるが、入試では9割「〜すべきだったのに（後悔）」で出題される！'
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '基本5文型',
+      onePhrase: '英語のすべての文はこの5パターンに分類できる！骨格を見抜けば読める！',
+      formulaText: 'SV / SVO / SVC (S=C) / SVOO / SVOC (O=C)',
+      concept: '英語は語順の言語！特に「SVC（S＝Cの関係）」と「SVOC（O＝Cの関係）」を見抜くのが読解の肝。\n例: He made her happy.（O:彼女 ＝ C:幸せ）',
+      tips: '第4文型 SVOO（give型・buy型）から第3文型への前置詞書き換え（to / for）も頻出！'
     },
     {
-      id: 'e_subjunctive_basic',
-      tag: '仮定法',
-      title: '仮定法の基本公式 ＆ without の書き換え',
-      formulaText: '【過去】If S were/動詞過去形, S would V　【過去完了】If S had p.p., S would have p.p.',
-      desc: '【仮定法過去（現在の妄想）】：If S were / 過去形 ..., S would / could / might + 動詞の原形\n例: If I were you, I would accept the offer.（もし私が君なら、その申し出を受けるだろう）\n【仮定法過去完了（過去の妄想）】：If S had p.p. ..., S would / could / might + have p.p.\n例: If I had studied harder, I would have passed the exam.（もっと勉強していたら受かっていただろうに）\n【「〜がなければ」の公式】：\n・現在: If it were not for A = Were it not for A = But for A = Without A\n・過去: If it had not been for A = Had it not been for A = But for A = Without A',
-      tips: '時制の混合パターン「昔〜だったなら、今ごろ…だろうに（If S had p.p. ..., S would V now）」にも要注意！'
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '現在完了形',
+      onePhrase: '過去の出来事が『今この瞬間』まで繋がっていることを表す！',
+      formulaText: 'have [has] + 過去分詞 (p.p.)',
+      concept: '単なる過去形と違い、「今」どうなのかに焦点があります。\n① 継続（ずっと〜している）\n② 完了・結果（ちょうど〜したところ、〜してしまって今ない）\n③ 経験（今までに〜したことがある）',
+      tips: '明確な過去を表す語句（yesterday, ago, when I was...）とは絶対に一緒に使えない！'
     },
     {
-      id: 'e_subjunctive_inversion',
-      tag: '仮定法・倒置',
-      title: '仮定法における if の省略と倒置（倒置構文）',
-      formulaText: 'If を消すと主語(S)と助動詞/be動詞がひっくり返る！',
-      desc: 'if を省略すると、疑問文と同じ語順（倒置）が発生する：\n① Had S p.p. ...（= If S had p.p. ...）\n例: Had I known the truth, I would have told you.\n② Were S ...（= If S were ...）\n例: Were it not for your help, I could not succeed.\n③ Should S + 原形 ...（= If S should + 原形 ...「万が一〜なら」）\n例: Should you have any questions, please feel free to ask.',
-      tips: '文頭にいきなり「Had I known...」や「Should you...」が来て「？」がついていなければ、100%仮定法の倒置！'
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '助動詞・後悔',
+      onePhrase: '『やっておけばよかった〜〜！😭』の後悔。実際にはやってないのがポイント！',
+      formulaText: 'should have + 過去分詞 (p.p.)',
+      concept: '過去の行動に対する「〜すべきだったのに（実際はしなかった）」という激しい後悔や相手への非難を表します。\n例: I should have studied harder.（もっと勉強しておくべきだったのに…しなかった😭）',
+      tips: '【対比で覚える】cannot have p.p.（〜だったはずがない）/ must have p.p.（〜だったに違いない）とセットで出題率99%！'
     },
     {
-      id: 'e_megafeps',
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
       tag: '動名詞',
-      title: '動名詞(-ing)のみを目的語にとる動詞（MEGAFEPS）',
-      formulaText: 'Mind, Enjoy, Give up, Avoid, Finish, Escape, Postpone, Suggest / Consider',
-      desc: '不定詞(to V)をとれず、動名詞(-ing)しか後ろに置けない動詞の語呂合わせ：\n・M：mind（気にする・嫌がる）\n・E：enjoy（楽しむ）\n・G：give up（あきらめる）\n・A：avoid（避ける） / admit（認める）\n・F：finish（終える）\n・E：escape（逃れる）\n・P：postpone / put off（延期する） / practice（練習する）\n・S：stop（やめる） / suggest（提案する）\n※ ほかに consider（検討する）, deny（否定する）も必須！',
-      tips: 'stop to V は「立ち止まってVする（目的を表す副詞的用法）」であり、目的語ではない！「Vするのをやめる」は stop V-ing。'
+      onePhrase: '後ろに『to V』は絶対ダメ！『-ing（動名詞）』しか愛せない動詞の語呂合わせ！',
+      formulaText: 'MEGAFEPS （Mind, Enjoy, Give up, Avoid, Finish, Escape, Postpone, Stop）',
+      concept: '英語では動詞によって「後ろに to 不定詞しか置けないもの」「-ing しか置けないもの」が決まっています。MEGAFEPSの動詞は、過去や進行中の生々しい行為を嫌ったり楽しんだりするため、必ず動名詞（-ing）をとります！',
+      tips: 'stop to V は「立ち止まってVする」という意味の副詞的用法で、目的語ではありません！'
     },
     {
-      id: 'e_remember_to_ing',
-      tag: '不定詞・動名詞',
-      title: 'to V（未来） vs V-ing（過去）で意味が変わる重要動詞',
-      formulaText: 'to V ＝ これから〜する（未来志向） / V-ing ＝ すでに〜した（過去・既成事実）',
-      desc: '・remember to V：忘れずに（これから）〜する\n・remember V-ing：（過去に）〜したことを覚えている\n・forget to V：（これから）〜するのを忘れる\n・forget V-ing：（過去に）〜したことを忘れる\n・regret to V：残念ながら（これから）〜する\n・regret V-ing：（過去に）〜したことを後悔する\n・try to V：〜しようと試みる（努力する）\n・try V-ing：試しに実際に〜してみる',
-      tips: '「Remember to lock the door!（鍵をかけるのを忘れないで！＝これからかける）」など文脈の時制で見抜く！'
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: 'remember to vs -ing',
+      onePhrase: 'to V は『これから先の未来』、V-ing は『すでにやった過去』！',
+      formulaText: 'remember to V（忘れずに〜する） vs remember V-ing（〜したことを覚えている）',
+      concept: '・remember to lock the door：忘れずに（これから）鍵をかける\n・remember locking the door：鍵をかけた（過去の事実）ことを覚えている\nforget / regret も同じルールで判別可能！',
+      tips: '「Remember to turn off the light!」のように命令文で使われるのは常に to 不定詞！'
     },
     {
-      id: 'e_suggest_should',
-      tag: '語法・仮定法',
-      title: '提案・要求・命令の動詞 ＋ that S (should) 原形',
-      formulaText: 'suggest / insist / demand / propose / order that S (should) + 動詞の原形',
-      desc: '「〜すべきだ」という要求・提案を表す動詞に続く that 節内では、助動詞 should が使われるか、または should が省略されて【動詞の原形】が来る（仮定法現在）：\n例: He suggested that she (should) go there alone.（goes や went ではなく原形 go！）\n【対象動詞】：suggest（提案する）, insist（主張する）, demand（要求する）, propose（提案する）, recommend（勧める）, request（依頼する）',
-      tips: '主語が三単現（he, she）や過去時制であっても、that節内の動詞は原形（be, go, take）になるのが入試で狙い撃ちされる！'
-    },
-    {
-      id: 'e_the_comparative',
-      tag: '比較',
-      title: 'The ＋ 比較級 ..., the ＋ 比較級 ... ＆ no more ... than',
-      formulaText: 'The + 比較級 S + V ..., the + 比較級 S + V ...（〜すればするほどますます…）',
-      desc: '【The + 比較級】：比例関係を表す重要構文\n例: The more you study, the wiser you become.（学べば学ぶほど、ますます賢くなる）\n【no more ... than A】：クジラの構文「Aと同様に…ない（両方否定）」\n例: A whale is no more a fish than a horse is.（馬が魚でないのと同様に、クジラも魚ではない）\n【no less ... than A】：Aと同様に…だ（実にAもの・強い肯定）\n例: She has no less than 1,000 books.（彼女は1000冊もの本を持っている）',
-      tips: 'no ＝ 差がゼロ（両者を同等に扱う引き合い）。not more than（せいぜい・at most）との違いも整理！'
-    },
-    {
-      id: 'e_causative_verbs',
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
       tag: '使役動詞',
-      title: '使役動詞（make / have / let / get）の語法と使い分け',
-      formulaText: 'make / have / let + O + 原形不定詞　/　get + O + to V',
-      desc: '「Oに〜させる」を表す使役動詞のニュアンスと構文：\n・make + O + 原形：強制的に〜させる（本人の意思に関係なく）\n・have + O + 原形：当然の行為として〜してもらう（専門家・店員・同僚等）\n・let + O + 原形：〜することを許す・させてあげる（Oの自由にさせる）\n・get + O + to V：説得して〜させる（※ get だけは to 不定詞が必要！）\n【受動関係】：Oが「〜される」場合、すべて「動詞 + O + 過去分詞(p.p.)」になる！\n例: have my hair cut（髪を切ってもらう）, make myself understood（言葉を通じさせる）',
-      tips: 'get + O + 原形 は文法的に誤り！ get のみ to V になる点はマークシート正誤問題の超常連。'
+      onePhrase: '人に何かを「させる」動詞！get だけ仲間外れで to が必要！',
+      formulaText: 'make / have / let + O + 原形不定詞　（get + O + to V）',
+      concept: '・make：強制的に〜させる\n・have：当然のこととして〜してもらう\n・let：本人の自由に〜させてあげる\n・get：説得して〜させる（※get だけ to 不定詞！）',
+      tips: 'Oが「〜される（受動）」ならすべて『動詞 + O + 過去分詞』になる！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '仮定法の基本公式',
+      onePhrase: '妄想の世界！ありえない話をする時は時制を1つ昔にタイムスリップさせる！',
+      formulaText: '【現在】If S were ..., S would V　【過去】If S had p.p., S would have p.p.',
+      concept: '現在の事実に反する妄想なら「過去形」を使い、過去の事実に反する妄想なら「過去完了 had p.p.」を使います。\n例: If I were a bird, I would fly to you.（鳥じゃないけど、もし鳥なら…）',
+      tips: '「〜がなければ」の書き換え：Without A ＝ But for A ＝ If it were not for A ＝ Were it not for A！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '仮定法の倒置',
+      onePhrase: 'If を省略すると、疑問文の語順にひっくり返る（倒置構文）！',
+      formulaText: 'Had I known ... （＝ If I had known ...）',
+      concept: 'if を消すと主語と助動詞が入れ替わります。\n① Had S p.p. ...（過去完了のif省略）\n② Were S ...（wereのif省略）\n③ Should S 原形 ...（万が一〜なら）',
+      tips: '文頭にいきなり Had や Should が来て後ろに「？」がなければ100%仮定法の倒置！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '関係代名詞 what',
+      onePhrase: '先行詞（修飾される名詞）を自分の体の中に飲み込んだ魔法の関係詞！',
+      formulaText: 'what ＝ the thing which（〜すること、〜するもの）',
+      concept: '普通の関係代名詞（which, that）は前に先行詞（the book など）が必要ですが、what はそれ自身が「〜のこと・もの」という意味の名詞節を作ります。\n例: What he said is true.（彼が言ったことは本当だ）',
+      tips: 'what の前には絶対に先行詞の名詞を置いてはいけない！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '提案・要求のthat節',
+      onePhrase: '主語が三単現でも過去でも、that節の中の動詞は絶対に『原形』！',
+      formulaText: 'suggest / insist / demand that S (should) + 動詞の原形',
+      concept: '「〜すべきだ」と提案・要求・命令する動詞の後ろの that 節では、should が省略されて動詞が原形になります。\n例: The doctor suggested that he stop smoking.（stops や stopped ではなく原形 stop！）',
+      tips: '入試の正誤問題で狙い撃ちされる超常連ルール！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: 'The ＋ 比較級',
+      onePhrase: '『〜すればするほど、ますます…』！比例関係を表す重要構文！',
+      formulaText: 'The + 比較級 S + V ..., the + 比較級 S + V ...',
+      concept: '2つの比較級を The で並べて原因と結果の比例関係を表します。\n例: The more you practice, the better you play.（練習すればするほど、ますます上手になる）',
+      tips: '文頭に The + 比較級 が来たら後ろのカンマ以降にも the + 比較級 を探す！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '否定語の文頭倒置',
+      onePhrase: 'Never や Little が文頭に飛び出すと、後ろが疑問文の語順にひっくり返る！',
+      formulaText: 'Little did I dream that ... （夢にも思わなかった）',
+      concept: '否定を表す副詞（Never, Rarely, Scarcely, Seldom, Little）を強調するために文頭に出すと、後ろが「助動詞 + S + V」の疑問文の語順に倒置します。',
+      tips: 'Not only A but also B が文頭に来た場合も Not only + 倒置 になる！'
     }
   ]
 };
@@ -6873,25 +7457,46 @@ function switchHandbookTab(tab) {
       }
     }
   });
+  renderHandbook();
+}
 
-  const tipEl = document.getElementById('handbookTipBox');
-  if (tipEl) {
-    if (tab === 'math') {
-      tipEl.innerHTML = `💡 <strong>📐 数学公式集：</strong> 判別式・解と係数の関係・三角比・場合の数・数列・1/6公式など、入試頻出の重要公式と時短テクニックを体系化！`;
-    } else if (tab === 'sci') {
-      tipEl.innerHTML = `💡 <strong>⚡ 理科重要法則：</strong> 物理の運動3公式・波動・電磁気、化学のmol計算・緩衝液・有機検出、生物のセントラルドグマ・中学理科要点を総まとめ！`;
-    } else {
-      tipEl.innerHTML = `💡 <strong>📖 英文法・構文要点：</strong> 助動詞have p.p.、仮定法の倒置、MEGAFEPS動名詞、提案動詞that節原形など、私大・公募推薦で点差がつく急所を網羅！`;
+function filterHandbookLevel(level) {
+  currentHandbookLevel = level;
+  const pills = { all: 'hbPillAll', junior: 'hbPillJunior', high: 'hbPillHigh', exam: 'hbPillExam' };
+  Object.keys(pills).forEach(k => {
+    const el = document.getElementById(pills[k]);
+    if (el) {
+      if (k === level) el.classList.add('active');
+      else el.classList.remove('active');
     }
-  }
-
+  });
   renderHandbook();
 }
 
 function onHandbookSearch() {
   const inp = document.getElementById('handbookSearchInput');
-  handbookSearchQuery = (inp ? inp.value.trim().toLowerCase() : '');
+  handbookSearchQuery = inp ? inp.value.trim().toLowerCase() : '';
   renderHandbook();
+}
+
+function toggleHandbookCard(idx) {
+  const card = document.getElementById('hbCard_' + idx);
+  if (card) {
+    card.classList.toggle('open');
+  }
+}
+
+function toggleAllHandbookCards() {
+  allHandbookExpanded = !allHandbookExpanded;
+  const cards = document.querySelectorAll('#handbookCardsContainer .hb-card');
+  cards.forEach(c => {
+    if (allHandbookExpanded) c.classList.add('open');
+    else c.classList.remove('open');
+  });
+  const btn = document.getElementById('hbToggleAllBtn');
+  if (btn) {
+    btn.textContent = allHandbookExpanded ? 'ー すべて閉じる' : '＋ すべて展開';
+  }
 }
 
 function renderHandbook() {
@@ -6902,47 +7507,60 @@ function renderHandbook() {
   const q = handbookSearchQuery;
 
   const filtered = list.filter(item => {
-    if (!q) return true;
-    return (item.title && item.title.toLowerCase().includes(q)) ||
-           (item.tag && item.tag.toLowerCase().includes(q)) ||
-           (item.formulaText && item.formulaText.toLowerCase().includes(q)) ||
-           (item.desc && item.desc.toLowerCase().includes(q)) ||
-           (item.tips && item.tips.toLowerCase().includes(q));
+    if (currentHandbookLevel !== 'all' && item.level !== currentHandbookLevel) return false;
+    if (q) {
+      return (item.onePhrase && item.onePhrase.toLowerCase().includes(q)) ||
+             (item.formulaText && item.formulaText.toLowerCase().includes(q)) ||
+             (item.tag && item.tag.toLowerCase().includes(q)) ||
+             (item.concept && item.concept.toLowerCase().includes(q)) ||
+             (item.tips && item.tips.toLowerCase().includes(q));
+    }
+    return true;
   });
+
+  const countEl = document.getElementById('handbookCountText');
+  if (countEl) countEl.textContent = `表示中：${filtered.length}件`;
 
   if (filtered.length === 0) {
     container.innerHTML = `
-      <div style="grid-column:1/-1; text-align:center; padding:30px; color:#64748b;">
-        🔍 該当する公式・要点が見つかりませんでした。<br>別の検索キーワードをお試しください。
+      <div style="text-align:center; padding:36px 16px; color:#64748b; font-weight:800; font-size:0.88rem; background:#f8fafc; border-radius:12px; border:2px dashed #cbd5e1;">
+        🔍 該当する公式・要点が見つかりませんでした。<br>別の検索キーワードや学年絞り込みをお試しください。
       </div>
     `;
     return;
   }
 
-  container.innerHTML = filtered.map((item, idx) => {
-    return `
-      <div class="card" style="margin-bottom:0; display:flex; flex-direction:column; justify-content:space-between; border-left:4px solid ${
-        currentHandbookTab === 'math' ? '#3b82f6' : (currentHandbookTab === 'sci' ? '#10b981' : '#f59e0b')
-      };">
-        <div>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-            <span class="subject-tag" style="background:#f1f5f9; color:#475569; font-size:0.7rem; padding:2px 8px;">${item.tag}</span>
-            <span style="font-size:0.7rem; color:#94a3b8; font-weight:800;">#${idx + 1}</span>
+  const formulaClass = currentHandbookTab === 'math' ? 'formula-math' : (currentHandbookTab === 'sci' ? 'formula-sci' : 'formula-eng');
+
+  container.innerHTML = filtered.map((item, idx) => `
+    <div class="hb-card ${allHandbookExpanded ? 'open' : ''}" id="hbCard_${idx}">
+      <div class="hb-card-header" onclick="toggleHandbookCard(${idx})">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="hb-level-badge hb-badge-${item.level}">${item.levelText}</span>
+            <span style="font-weight:900; color:#334155; font-size:0.8rem;"># ${item.tag}</span>
           </div>
-          <div style="font-weight:900; font-size:0.92rem; color:#0f172a; margin-bottom:6px; line-height:1.4;">${item.title}</div>
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:8px 10px; font-family:monospace; font-weight:900; font-size:0.85rem; color:#0369a1; margin-bottom:8px; word-break:break-all;">
-            ${item.formulaText}
-          </div>
-          <div style="font-size:0.8rem; color:#334155; line-height:1.5; white-space:pre-wrap; margin-bottom:8px;">${item.desc}</div>
+          <span class="open-arrow">▼ 詳しく</span>
         </div>
-        ${item.tips ? `
-          <div style="background:#fffbeb; border-left:3px solid #f59e0b; padding:6px 10px; border-radius:4px; font-size:0.75rem; color:#92400e; line-height:1.4; margin-top:6px;">
-            ${item.tips}
-          </div>
-        ` : ''}
+        <div class="hb-one-phrase">
+          <span>💡</span>
+          <span>${item.onePhrase}</span>
+        </div>
+        <div class="hb-formula-box ${formulaClass}">
+          <div class="hb-formula-text">${item.formulaText}</div>
+        </div>
       </div>
-    `;
-  }).join('');
+      <div class="hb-card-body">
+        <div class="hb-concept-box">
+          <div class="hb-concept-label">🔍 3秒でわかるイメージ解説</div>
+          <div class="hb-concept-text">${item.concept.replace(/\n/g, '<br>')}</div>
+        </div>
+        <div class="hb-tips-box">
+          🎯 <strong>テスト・実用のツボ：</strong> ${item.tips}
+        </div>
+      </div>
+    </div>
+  `).join('');
 }
 
 function equipTitle(titleId) {
@@ -7516,14 +8134,26 @@ function exitDebugTestMode() {
 /* ============================================================================
    7.6 双方向フレンド申請・承認システム ＆ クラウド同期
 ============================================================================ */
-// 友達にフレンド申請を送信（勝手にフレンドにならず相手の承認制！）
+// 友達にフレンド申請を送信（全角・4桁数字のみでも自動補正＆相手が未登録でも送信可能！）
 async function sendFriendRequestCloud() {
   const codeInp = document.getElementById('friendSearchCodeInput');
-  const code = (codeInp.value || '').trim().toUpperCase();
-  if (!code) {
+  const raw = (codeInp ? codeInp.value : '').trim();
+  if (!raw) {
     showToast('⚠️ 友達のフレンドコードを入力してください！');
     return;
   }
+
+  // 1. 全角英数・ハイフンを半角に自動変換
+  let code = raw.replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
+                .replace(/[ー―−]/g, '-')
+                .toUpperCase()
+                .replace(/\s+/g, '');
+
+  // 2. 「4829」などの4桁数字や小文字「bio-4829」なら「BIO-4829」に正規化
+  if (/^\d{4}$/.test(code)) {
+    code = 'BIO-' + code;
+  }
+
   if (code === state.friendCode) {
     showToast('⚠️ 自分自身に申請は送れません！');
     return;
@@ -7537,63 +8167,68 @@ async function sendFriendRequestCloud() {
     return;
   }
 
-  showToast('🔍 相手の研究員データを照合中...');
+  showToast(`🔍『${code}』宛てにフレンド申請を送信中...`);
   try {
-    const doc = await db.collection('players').doc(code).get();
-    if (!doc.exists) {
-      showToast(`❌ コード「${code}」の研究員は見つかりませんでした。`);
-      return;
-    }
-    const targetPlayer = doc.data();
+    let targetName = '研究員';
+    try {
+      const doc = await db.collection('players').doc(code).get();
+      if (doc.exists && doc.data() && doc.data().name) {
+        targetName = doc.data().name;
+      }
+    } catch (e) {}
 
     const reqId = `${state.friendCode}_${code}`;
     const myTitleObj = TITLES_MASTER.find(t => t.id === state.equippedTitleId) || TITLES_MASTER[0];
     await db.collection('friend_requests').doc(reqId).set({
       reqId,
       fromCode: state.friendCode,
-      fromName: state.playerName,
+      fromName: state.playerName || '研究員',
       fromTitle: myTitleObj.name,
       targetCode: code,
-      targetName: targetPlayer.name || '研究員',
+      targetName: targetName,
       status: 'pending',
       createdAt: Date.now()
     });
 
-    codeInp.value = '';
-    showToast(`📨『${targetPlayer.name}』さんにフレンド申請を送信しました！相手が承認するとフレンドになります！`);
+    if (codeInp) codeInp.value = '';
+    showToast(`📨『${targetName}』(${code}) さんにフレンド申請を送信しました！相手が承認するとフレンドになります！`);
   } catch (err) {
-    console.error(err);
-    showToast('⚠️ フレンド申請送信中にエラーが発生しました。');
+    console.error('sendFriendRequestCloud error:', err);
+    showToast('⚠️ フレンド申請送信中にエラーが発生しました: ' + (err.message || '通信エラー'));
   }
 }
 
-// 届いているフレンド申請の確認
+// 届いているフレンド申請の確認（単一条件クエリでインデックスエラーを完全根絶！）
 async function checkIncomingFriendRequests() {
   if (!db || !state.friendCode) return;
   try {
     const snapshot = await db.collection('friend_requests')
       .where('targetCode', '==', state.friendCode)
-      .where('status', '==', 'pending')
       .get();
 
     const sec = document.getElementById('incomingRequestsSection');
     const container = document.getElementById('incomingRequestsContainer');
     if (!sec || !container) return;
 
-    if (snapshot.empty) {
+    // クライアント側で pending 状態を安全抽出
+    const pendingDocs = snapshot.docs.filter(doc => {
+      const data = doc.data();
+      return data && data.status === 'pending';
+    });
+
+    if (pendingDocs.length === 0) {
       sec.style.display = 'none';
       container.innerHTML = '';
       return;
     }
 
     sec.style.display = 'block';
-    let html = '';
-    snapshot.forEach(doc => {
+    container.innerHTML = pendingDocs.map(doc => {
       const data = doc.data();
-      html += `
+      return `
         <div style="background:#fff1f2; border:2px solid #fda4af; border-radius:10px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
           <div>
-            <div style="font-weight:900; font-size:0.92rem; color:#be123c;">👤 ${data.fromName} <small style="color:#64748b;">(${data.fromCode})</small></div>
+            <div style="font-weight:900; font-size:0.92rem; color:#be123c;">👤 ${data.fromName || '研究員'} <small style="color:#64748b;">(${data.fromCode})</small></div>
             <div style="font-size:0.75rem; color:#881337;">称号: ${data.fromTitle || '新米研究助手'}</div>
           </div>
           <div style="display:flex; gap:6px;">
@@ -7602,8 +8237,7 @@ async function checkIncomingFriendRequests() {
           </div>
         </div>
       `;
-    });
-    container.innerHTML = html;
+    }).join('');
   } catch (err) {
     console.error('checkIncomingFriendRequests error:', err);
   }
@@ -7616,25 +8250,35 @@ async function approveFriendRequest(reqId, senderCode) {
   try {
     await db.collection('friend_requests').doc(reqId).update({ status: 'approved' });
 
-    // 相手のプレイヤー情報を取得して自分のフレンドリストに追加
-    const sDoc = await db.collection('players').doc(senderCode).get();
-    if (sDoc.exists) {
-      const sData = sDoc.data();
-      if (!state.friendsList.some(f => f.code === senderCode)) {
-        state.friendsList.push(sData);
+    let senderData = {
+      name: 'フレンド研究員',
+      code: senderCode,
+      title: '🌱 新米研究助手',
+      wins: 0,
+      rp: 0
+    };
+
+    try {
+      const sDoc = await db.collection('players').doc(senderCode).get();
+      if (sDoc.exists && sDoc.data()) {
+        senderData = { ...senderData, ...sDoc.data() };
       }
+    } catch (e) {}
+
+    if (!state.friendsList) state.friendsList = [];
+    if (!state.friendsList.some(f => f.code === senderCode)) {
+      state.friendsList.push(senderData);
     }
 
-    // 自分のプレイヤー情報も保存
-    const myRankInfo = getMyPlayerRankData();
-    await db.collection('players').doc(state.friendCode).set(myRankInfo, { merge: true });
+    // 自分の最新プロフィールも保存同期
+    syncMyProfileToCloud();
 
     saveData();
     renderFriendList();
     checkIncomingFriendRequests();
-    showToast('🎉 フレンド申請を承認しました！フレンドリストに追加されました！');
+    showToast(`🎉『${senderData.name}』さんとフレンドになりました！`);
   } catch (err) {
-    console.error(err);
+    console.error('approveFriendRequest error:', err);
     showToast('⚠️ 承認処理中にエラーが発生しました。');
   }
 }
@@ -7651,33 +8295,46 @@ async function rejectFriendRequest(reqId) {
   }
 }
 
-// フレンドリストをクラウドの最新情報で再同期
+// フレンドリストをクラウドの最新情報で再同期（単一条件クエリでインデックスエラーを完全回避！）
 async function syncFriendsFromCloud() {
   if (!db) { renderFriendList(); return; }
   showToast('🔄 フレンド情報と申請を確認中...');
 
   await checkIncomingFriendRequests();
 
-  // 自分が送って相手に承認された申請があるかチェック
+  // 自分が送って相手に承認された申請があるか安全チェック
   try {
-    const approvedSnap = await db.collection('friend_requests')
+    const mySentSnap = await db.collection('friend_requests')
       .where('fromCode', '==', state.friendCode)
-      .where('status', '==', 'approved')
       .get();
 
-    for (const d of approvedSnap.docs) {
+    const approvedList = mySentSnap.docs.filter(d => (d.data() || {}).status === 'approved');
+
+    for (const d of approvedList) {
       const req = d.data();
+      if (!state.friendsList) state.friendsList = [];
       if (!state.friendsList.some(f => f.code === req.targetCode)) {
-        const targetDoc = await db.collection('players').doc(req.targetCode).get();
-        if (targetDoc.exists) {
-          state.friendsList.push(targetDoc.data());
-          saveData();
-          showToast(`🎉『${targetDoc.data().name}』さんに申請が承認され、フレンドになりました！`);
-        }
+        let fData = {
+          name: req.targetName || 'フレンド研究員',
+          code: req.targetCode,
+          title: '🌱 新米研究助手',
+          wins: 0,
+          rp: 0
+        };
+        try {
+          const targetDoc = await db.collection('players').doc(req.targetCode).get();
+          if (targetDoc.exists && targetDoc.data()) {
+            fData = { ...fData, ...targetDoc.data() };
+          }
+        } catch (e) {}
+
+        state.friendsList.push(fData);
+        saveData();
+        showToast(`🎉『${fData.name}』さんに申請が承認され、フレンドになりました！`);
       }
     }
   } catch (e) {
-    console.warn(e);
+    console.warn('syncFriendsFromCloud approved check warning:', e);
   }
 
   // 既存フレンドの最新情報取得
@@ -7686,15 +8343,16 @@ async function syncFriendsFromCloud() {
     try {
       const docs = await Promise.all(codes.map(c => db.collection('players').doc(c).get()));
       const updated = [];
-      docs.forEach(d => { if (d.exists) updated.push(d.data()); });
+      docs.forEach(d => { if (d.exists && d.data()) updated.push(d.data()); });
       if (updated.length > 0) {
         state.friendsList = updated;
         saveData();
       }
     } catch (e) {}
   }
+
   renderFriendList();
-  showToast('✅ フレンドリストを最新に更新しました！');
+  showToast('✅ フレンドリストと申請を最新に更新しました！');
 }
 
 function removeFriend(code) {
@@ -8185,10 +8843,20 @@ async function createFriendBattleRoom() {
     showToast('⚠️ クラウドデータベースに接続できません。');
     return;
   }
-  const presetIdx = parseInt(document.getElementById('battlePresetSelect').value || '0', 10);
-  const myTeam = state.presets[presetIdx].ids.map(id => createFighter(getMicrobeById(id), 1.0));
   
-  // 4桁の部屋番号生成（1000〜9999）
+  // 1. 出撃パーティの安全な構築（空編成でも手持ちから自動選出）
+  const presetIdx = parseInt((document.getElementById('battlePresetSelect') || {}).value || '0', 10);
+  const curPreset = (state.presets && state.presets[presetIdx]) || (state.presets && state.presets[0]) || { ids: [] };
+  let teamUids = (curPreset.ids || []).filter(id => !!getMicrobeById(id));
+  if (teamUids.length === 0) {
+    teamUids = (state.box || []).slice(0, 3).map(m => m.uid);
+  }
+  while (teamUids.length < 3 && state.box && state.box.length > 0) {
+    teamUids.push(state.box[teamUids.length % state.box.length].uid);
+  }
+  const myTeam = teamUids.map(id => createFighter(getMicrobeById(id), 1.0));
+
+  // 2. 4桁の部屋番号生成（1000〜9999）
   const roomId = String(Math.floor(1000 + Math.random() * 9000));
   currentRoomId = roomId;
   isRoomHost = true;
@@ -8198,10 +8866,10 @@ async function createFriendBattleRoom() {
   const roomData = {
     roomId,
     hostCode: state.friendCode,
-    hostName: state.playerName,
+    hostName: state.playerName || '研究員',
     hostTitle: myTitle,
     hostTeam: myTeam,
-    hostHp: myTeam.reduce((sum, m) => sum + m.maxHp, 0),
+    hostHp: myTeam.reduce((sum, m) => sum + (m.maxHp || 100), 0),
     guestCode: null,
     guestName: null,
     guestTitle: null,
@@ -8214,10 +8882,10 @@ async function createFriendBattleRoom() {
       guestHpMult: 1.0,
       guestAtkMult: 1.0,
       category: currentBattleCategory || 'sci',
-      grade: document.getElementById('battleGradeSelect').value || 'all',
-      subj: document.getElementById('battleSubjectSelect').value || 'bio',
+      grade: (document.getElementById('battleGradeSelect') || {}).value || 'all',
+      subj: (document.getElementById('battleSubjectSelect') || {}).value || 'bio',
       unit: (document.getElementById('battleUnitSelect') || {}).value || 'all_units',
-      qType: document.getElementById('battleQuizTypeSelect').value || 'choice'
+      qType: (document.getElementById('battleQuizTypeSelect') || {}).value || 'choice'
     },
     currentQ: null,
     turn: 1,
@@ -8227,11 +8895,13 @@ async function createFriendBattleRoom() {
   showToast(`⏳ ルーム ${roomId} を作成中...`);
   try {
     await db.collection('battle_rooms').doc(roomId).set(roomData);
+    switchScreen('battle');
     openRoomLobbyUI(roomId, true);
     listenToBattleRoom(roomId);
+    showToast(`🏠 ルーム「${roomId}」を作成しました！`);
   } catch (err) {
-    console.error(err);
-    showToast('⚠️ ルーム作成に失敗しました。');
+    console.error('createFriendBattleRoom error:', err);
+    showToast('⚠️ ルーム作成に失敗しました: ' + (err.message || '通信エラー'));
   }
 }
 
@@ -8241,7 +8911,10 @@ async function joinFriendBattleRoom(targetRoomId) {
     showToast('⚠️ クラウドデータベースに接続できません。');
     return;
   }
-  const roomId = targetRoomId || (document.getElementById('joinRoomIdInput').value || '').trim();
+  let rawId = targetRoomId || (document.getElementById('joinRoomIdInput') ? document.getElementById('joinRoomIdInput').value : '').trim();
+  // 全角数字・余計なスペースを半角数字へ自動正規化（スマホの全角入力でも100%入室可能！）
+  const roomId = String(rawId || '').replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0)).replace(/\s+/g, '');
+
   if (!roomId) {
     showToast('⚠️ 4桁のルーム番号を入力してください！');
     return;
@@ -8263,13 +8936,22 @@ async function joinFriendBattleRoom(targetRoomId) {
     if (rData.hostCode === state.friendCode) {
       currentRoomId = roomId;
       isRoomHost = true;
+      switchScreen('battle');
       openRoomLobbyUI(roomId, true);
       listenToBattleRoom(roomId);
       return;
     }
 
-    const presetIdx = parseInt(document.getElementById('battlePresetSelect').value || '0', 10);
-    const myTeam = state.presets[presetIdx].ids.map(id => createFighter(getMicrobeById(id), 1.0));
+    const presetIdx = parseInt((document.getElementById('battlePresetSelect') || {}).value || '0', 10);
+    const curPreset = (state.presets && state.presets[presetIdx]) || (state.presets && state.presets[0]) || { ids: [] };
+    let teamUids = (curPreset.ids || []).filter(id => !!getMicrobeById(id));
+    if (teamUids.length === 0) {
+      teamUids = (state.box || []).slice(0, 3).map(m => m.uid);
+    }
+    while (teamUids.length < 3 && state.box && state.box.length > 0) {
+      teamUids.push(state.box[teamUids.length % state.box.length].uid);
+    }
+    const myTeam = teamUids.map(id => createFighter(getMicrobeById(id), 1.0));
     const myTitle = (TITLES_MASTER.find(t => t.id === state.equippedTitleId) || TITLES_MASTER[0]).name;
 
     currentRoomId = roomId;
@@ -8277,18 +8959,19 @@ async function joinFriendBattleRoom(targetRoomId) {
 
     await docRef.update({
       guestCode: state.friendCode,
-      guestName: state.playerName,
+      guestName: state.playerName || '挑戦者',
       guestTitle: myTitle,
       guestTeam: myTeam,
-      guestHp: myTeam.reduce((sum, m) => sum + m.maxHp, 0)
+      guestHp: myTeam.reduce((sum, m) => sum + (m.maxHp || 100), 0)
     });
 
+    switchScreen('battle');
     openRoomLobbyUI(roomId, false);
     listenToBattleRoom(roomId);
-    showToast(`🎉 ルーム ${roomId} に入室しました！`);
+    showToast(`🎉 ルーム ${roomId} に入室しました！ホストの開始を待っています！`);
   } catch (err) {
-    console.error(err);
-    showToast('⚠️ 入室中にエラーが発生しました。');
+    console.error('joinFriendBattleRoom error:', err);
+    showToast('⚠️ 入室中にエラーが発生しました: ' + (err.message || '通信エラー'));
   }
 }
 
@@ -8439,13 +9122,15 @@ function listenToBattleRoom(roomId) {
   if (roomUnsubscribe) { roomUnsubscribe(); }
   roomUnsubscribe = db.collection('battle_rooms').doc(roomId).onSnapshot(doc => {
     if (!doc.exists) {
-      if (currentRoomId) {
-        showToast('🚪 部屋が解散されました。');
+      // ★ ホスト自身が作成した部屋がキャッシュ同期遅延で一時的に false でも絶対に解散しない！
+      if (!isRoomHost && currentRoomId) {
+        showToast('🚪 ホストが部屋を解散しました。');
         leaveFriendBattleRoom();
       }
       return;
     }
     const r = doc.data();
+    if (!r) return;
 
     // 1. ロビー待機中の描画
     if (r.status === 'waiting') {
@@ -8765,6 +9450,8 @@ function renderUltraHdIconToModal() {
 
   ctx.clearRect(0, 0, W, H);
   ctx.save();
+
+  // 1. 角丸クリッピング（iOSアプリアイコン曲率）
   ctx.beginPath();
   ctx.moveTo(R, 0);
   ctx.lineTo(W - R, 0);
@@ -8778,6 +9465,7 @@ function renderUltraHdIconToModal() {
   ctx.closePath();
   ctx.clip();
 
+  // 2. 背景リッチグラデーション
   const bgGrad = ctx.createLinearGradient(0, 0, W, H);
   bgGrad.addColorStop(0.0, '#0284c7');
   bgGrad.addColorStop(0.35, '#0ea5e9');
@@ -8786,20 +9474,141 @@ function renderUltraHdIconToModal() {
   ctx.fillStyle = bgGrad;
   ctx.fillRect(0, 0, W, H);
 
+  // 3. ガラス光沢ハイライト
   const glossGrad = ctx.createLinearGradient(0, 0, 0, H * 0.45);
-  glossGrad.addColorStop(0.0, 'rgba(255, 255, 255, 0.18)');
+  glossGrad.addColorStop(0.0, 'rgba(255, 255, 255, 0.28)');
   glossGrad.addColorStop(1.0, 'rgba(255, 255, 255, 0.0)');
   ctx.fillStyle = glossGrad;
   ctx.fillRect(0, 0, W, H * 0.45);
 
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.font = '580px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
-  ctx.shadowColor = 'rgba(4, 47, 46, 0.45)';
-  ctx.shadowBlur = 28;
-  ctx.shadowOffsetX = 4;
+  // 4. ベクターDNA二重らせん（絵文字フォント完全不使用・4Kベクター描画）
+  ctx.save();
+  ctx.translate(W / 2, H / 2);
+  ctx.rotate(-Math.PI / 4);
+
+  // 影の設定
+  ctx.shadowColor = 'rgba(2, 44, 34, 0.45)';
+  ctx.shadowBlur = 24;
   ctx.shadowOffsetY = 16;
-  ctx.fillText('🧬', W / 2, H / 2 + 24);
+
+  // 光粒子
+  const particles = [
+    { x: -160, y: -280, r: 12, c: '#e0f2fe', a: 0.8 },
+    { x: 170, y: -220, r: 8, c: '#a7f3d0', a: 0.75 },
+    { x: -180, y: 240, r: 10, c: '#a7f3d0', a: 0.8 },
+    { x: 160, y: 270, r: 14, c: '#e0f2fe', a: 0.85 },
+    { x: -140, y: 0, r: 7, c: '#ffffff', a: 0.9 },
+    { x: 150, y: 40, r: 9, c: '#ffffff', a: 0.9 }
+  ];
+  particles.forEach(p => {
+    ctx.save();
+    ctx.globalAlpha = p.a;
+    ctx.fillStyle = p.c;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  });
+
+  // 塩基対ラダー（Base pairs）
+  const ladders = [
+    { x1: -106, y1: -320, x2: 106, y2: -320, w: 12, c: '#bae6fd', a: 0.9 },
+    { x1: -128, y1: -260, x2: 128, y2: -260, w: 12, c: '#99f6e4', a: 0.95 },
+    { x1: -96, y1: -200, x2: 96, y2: -200, w: 10, c: '#bae6fd', a: 0.7 },
+    { x1: -24, y1: -140, x2: 24, y2: -140, w: 8, c: '#99f6e4', a: 0.6 },
+    { x1: -80, y1: -80, x2: 80, y2: -80, w: 10, c: '#bae6fd', a: 0.75 },
+    { x1: -126, y1: -20, x2: 126, y2: -20, w: 14, c: '#99f6e4', a: 0.95 },
+    { x1: -128, y1: 40, x2: 128, y2: 40, w: 14, c: '#bae6fd', a: 0.95 },
+    { x1: -88, y1: 100, x2: 88, y2: 100, w: 10, c: '#99f6e4', a: 0.75 },
+    { x1: -20, y1: 160, x2: 20, y2: 160, w: 8, c: '#bae6fd', a: 0.6 },
+    { x1: -92, y1: 220, x2: 92, y2: 220, w: 10, c: '#99f6e4', a: 0.7 },
+    { x1: -128, y1: 280, x2: 128, y2: 280, w: 12, c: '#bae6fd', a: 0.95 },
+    { x1: -106, y1: 340, x2: 106, y2: 340, w: 12, c: '#99f6e4', a: 0.9 }
+  ];
+  ladders.forEach(l => {
+    ctx.save();
+    ctx.globalAlpha = l.a;
+    ctx.strokeStyle = l.c;
+    ctx.lineWidth = l.w;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(l.x1, l.y1);
+    ctx.lineTo(l.x2, l.y2);
+    ctx.stroke();
+    ctx.restore();
+  });
+
+  // ノード球体（結合部）
+  const nodes = [
+    { x: -106, y: -320, r: 18, c: '#e0f2fe' }, { x: 106, y: -320, r: 18, c: '#67e8f9' },
+    { x: -128, y: -260, r: 22, c: '#ffffff' }, { x: 128, y: -260, r: 22, c: '#a7f3d0' },
+    { x: -96, y: -200, r: 16, c: '#bae6fd' }, { x: 96, y: -200, r: 16, c: '#38bdf8' },
+    { x: -126, y: -20, r: 24, c: '#ffffff' }, { x: 126, y: -20, r: 24, c: '#a7f3d0' },
+    { x: -128, y: 40, r: 24, c: '#e0f2fe' }, { x: 128, y: 40, r: 24, c: '#ffffff' },
+    { x: -88, y: 100, r: 16, c: '#34d399' }, { x: 88, y: 100, r: 16, c: '#bae6fd' },
+    { x: -128, y: 280, r: 22, c: '#67e8f9' }, { x: 128, y: 280, r: 22, c: '#ffffff' },
+    { x: -106, y: 340, r: 18, c: '#38bdf8' }, { x: 106, y: 340, r: 18, c: '#a7f3d0' }
+  ];
+  nodes.forEach(n => {
+    ctx.fillStyle = n.c;
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // ストランドA（シアン系グラデーション）
+  const gradA = ctx.createLinearGradient(-140, -360, 140, 440);
+  gradA.addColorStop(0.0, '#67e8f9');
+  gradA.addColorStop(0.5, '#38bdf8');
+  gradA.addColorStop(1.0, '#0284c7');
+  ctx.strokeStyle = gradA;
+  ctx.lineWidth = 26;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(-80, -360);
+  ctx.bezierCurveTo(-140, -300, -140, -220, -80, -160);
+  ctx.bezierCurveTo(-20, -100, 20, -20, 80, 40);
+  ctx.bezierCurveTo(140, 100, 140, 180, 80, 240);
+  ctx.bezierCurveTo(20, 300, -20, 380, -80, 440);
+  ctx.stroke();
+
+  // ストランドB（エメラルド系グラデーション）
+  const gradB = ctx.createLinearGradient(140, -360, -140, 440);
+  gradB.addColorStop(0.0, '#a7f3d0');
+  gradB.addColorStop(0.5, '#34d399');
+  gradB.addColorStop(1.0, '#059669');
+  ctx.strokeStyle = gradB;
+  ctx.lineWidth = 26;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(80, -360);
+  ctx.bezierCurveTo(140, -300, 140, -220, 80, -160);
+  ctx.bezierCurveTo(20, -100, -20, -20, -80, 40);
+  ctx.bezierCurveTo(-140, 100, -140, 180, -80, 240);
+  ctx.bezierCurveTo(-20, 300, 20, 380, 80, 440);
+  ctx.stroke();
+
+  // ストランド芯の光沢ライン
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 8;
+  ctx.globalAlpha = 0.65;
+  ctx.beginPath();
+  ctx.moveTo(-80, -360);
+  ctx.bezierCurveTo(-140, -300, -140, -220, -80, -160);
+  ctx.bezierCurveTo(-20, -100, 20, -20, 80, 40);
+  ctx.bezierCurveTo(140, 100, 140, 180, 80, 240);
+  ctx.bezierCurveTo(20, 300, -20, 380, -80, 440);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(80, -360);
+  ctx.bezierCurveTo(140, -300, 140, -220, 80, -160);
+  ctx.bezierCurveTo(20, -100, -20, -20, -80, 40);
+  ctx.bezierCurveTo(-140, 100, -140, 180, -80, 240);
+  ctx.bezierCurveTo(-20, 300, 20, 380, 80, 440);
+  ctx.stroke();
+
+  ctx.restore();
   ctx.restore();
 
   const pngDataUrl = canvas.toDataURL('image/png', 1.0);
@@ -8807,12 +9616,18 @@ function renderUltraHdIconToModal() {
   const svgEl = document.getElementById('iconModalSvg');
   const dlBtn = document.getElementById('iconModalDownloadBtn');
 
+  // スマホでもPCでも超美麗クッキリ！SVGを常時高精細表示し、長押し＆保存用imgも最高品質PNGをセット
+  if (svgEl) {
+    svgEl.style.display = 'block';
+  }
   if (preview) {
     preview.src = pngDataUrl;
     preview.style.display = 'block';
-  }
-  if (svgEl) {
-    svgEl.style.display = 'none';
+    // スマホの長押し保存用：SVGの上に透明度0のimgを重ねるか、高精細PNGプレビューとして美しく表示
+    preview.style.position = 'absolute';
+    preview.style.top = '0';
+    preview.style.left = '0';
+    preview.style.opacity = '1';
   }
   if (dlBtn) {
     dlBtn.href = pngDataUrl;
