@@ -2622,36 +2622,43 @@ function cleanupDummyDocsInCloud() {
 /* ============================================================================
    2. セーブデータ・自由ステータス配分システム
 ============================================================================ */
-let state = {
-  playerName: '研究員001',
-  equippedTitleId: 't_rookie',
-  friendCode: 'BIO-' + Math.floor(1000 + Math.random() * 9000),
-  friendsList: [], // 登録した本物のフレンド詳細データ
-  incomingRequests: [], // 届いているフレンド申請データ
-  ownedChips: {}, // 所持遺伝子チップ { chip_tardigrade: 1, chip_crispr: 2, ... }
-  claimedPresents: [],
-  redeemedCodes: [],
-  atp: 500,
-  medals: 0,
-  box: [],
-  activeId: null,
-  activePresetIdx: 0,
-  presets: [
-    { name: 'パーティ1', ids: [] },
-    { name: 'パーティ2', ids: [] },
-    { name: 'パーティ3', ids: [] },
-    { name: 'パーティ4', ids: [] },
-    { name: 'パーティ5', ids: [] }
-  ],
-  pediaUnlocked: {},
-  mistakes: [],
-  recentQIds: [], // ★ 直近出題された問題ID履歴（連戦時の被りを完全に防止！）
-  stats: {
-    wins: 0,
-    losses: 0,
-    subjCorrect: { bio: 0, chem: 0, phys: 0, m1a: 0, m2b: 0, m3c: 0 }
-  }
-};
+let isDataResetting = false;
+
+function getFreshInitialState() {
+  return {
+    playerName: '研究員001',
+    equippedTitleId: 't_rookie',
+    friendCode: 'BIO-' + Math.floor(1000 + Math.random() * 9000),
+    friendsList: [],
+    incomingRequests: [],
+    ownedChips: {},
+    claimedPresents: [],
+    redeemedCodes: [],
+    atp: 500,
+    medals: 0,
+    box: [],
+    activeId: null,
+    activePresetIdx: 0,
+    presets: [
+      { name: 'パーティ1', ids: [] },
+      { name: 'パーティ2', ids: [] },
+      { name: 'パーティ3', ids: [] },
+      { name: 'パーティ4', ids: [] },
+      { name: 'パーティ5', ids: [] }
+    ],
+    pediaUnlocked: {},
+    mistakes: [],
+    recentQIds: [],
+    stats: {
+      wins: 0,
+      losses: 0,
+      subjCorrect: { bio: 0, chem: 0, phys: 0, m1a: 0, m2b: 0, m3c: 0 }
+    },
+    starterCeremonyDone: false
+  };
+}
+
+let state = getFreshInitialState();
 
 function getStageFromLevel(lvl) {
   if (lvl >= 30) return 4;
@@ -2834,6 +2841,7 @@ function importSaveBackupFromCeremony() {
 }
 
 function saveData() {
+  if (isDataResetting) return; // ★ リセット実行中は一切の再書き込みをシャットアウト！
   try {
     localStorage.setItem('biologica_save_v50', JSON.stringify(state));
     localStorage.setItem('biologica_save_v40', JSON.stringify(state));
@@ -2858,9 +2866,13 @@ function loadData() {
   const raw = localStorage.getItem('biologica_save_v50') || localStorage.getItem('biologica_save_v40') || localStorage.getItem('biologica_save_v30') || localStorage.getItem('biologica_save_v25');
   if (raw) {
     try {
-      state = { ...state, ...JSON.parse(raw) };
+      state = { ...getFreshInitialState(), ...JSON.parse(raw) };
       state.box = (state.box || []).map(migrateMicrobe);
-    } catch (e) {}
+    } catch (e) {
+      state = getFreshInitialState();
+    }
+  } else {
+    state = getFreshInitialState();
   }
   if (!state.claimedPresents) state.claimedPresents = [];
   if (!state.redeemedCodes) state.redeemedCodes = [];
@@ -3127,6 +3139,7 @@ async function resetSaveData() {
 }
 
 async function executeHardReset() {
+  isDataResetting = true; // ★ 即座に定期タイマーや全保存を完全にシャットアウト！
   try {
     if (state && state.friendCode) {
       localStorage.setItem('biologica_last_reset_code', state.friendCode);
@@ -3135,14 +3148,20 @@ async function executeHardReset() {
       }
     }
   } catch (e) {}
+
+  // すべてのセーブデータキーを完全消去
   localStorage.removeItem('biologica_save_v50');
   localStorage.removeItem('biologica_save_v40');
   localStorage.removeItem('biologica_save_v30');
   localStorage.removeItem('biologica_save_v25');
-  showToast('🔄 セーブデータをリセットしました。再起動します...');
-  setTimeout(() => {
-    location.reload();
-  }, 400);
+  localStorage.removeItem('biologica_prod_backup_v50');
+
+  // メモリ上のstateも完全初期化
+  state = getFreshInitialState();
+
+  showToast('🔄 セーブデータを完全初期化しました。');
+  // URLの末尾パラメータを除去して即座にクリーン再読み込み！
+  window.location.replace(window.location.href.split('?')[0].split('#')[0]);
 }
 
 function getMicrobeById(uid) { return state.box.find(m => m.uid === uid) || state.box[0]; }
