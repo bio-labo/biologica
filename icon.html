@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>バイオ・ロジカ 公式アプリアイコン高画質保存</title>
+<style>
+  :root {
+    --primary: #0284c7;
+    --bg-dark: #0f172a;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --border: rgba(255, 255, 255, 0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Sans", "BIZ UDPGothic", sans-serif;
+    background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0f172a 100%);
+    color: #f8fafc;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 440px;
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #0284c7, #059669);
+    color: white;
+    font-size: 0.76rem;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+  }
+
+  h1 {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.3;
+  }
+
+  p.desc {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    line-height: 1.5;
+  }
+
+  /* プレビュー表示用枠 */
+  .icon-wrapper {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 8px 0;
+    filter: drop-shadow(0 14px 28px rgba(2, 132, 199, 0.35));
+  }
+
+  #iconPreview {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 48px;
+    object-fit: cover;
+  }
+
+  .spec-tag {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    padding: 3px 10px;
+    border-radius: 8px;
+  }
+
+  .btn-save {
+    width: 100%;
+    background: linear-gradient(135deg, #0284c7 0%, #059669 100%);
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 900;
+    padding: 14px 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(2, 132, 199, 0.4);
+    transition: transform 0.1s, opacity 0.15s;
+  }
+  .btn-save:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+
+  .hint-box {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.76rem;
+    color: #cbd5e1;
+    line-height: 1.5;
+    text-align: left;
+    width: 100%;
+  }
+
+  .back-link {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+  .back-link:hover {
+    color: #38bdf8;
+  }
+
+  /* 非表示の原寸キャンバス (1024x1024) */
+  #renderCanvas {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <span class="badge">OFFICIAL ASSETS</span>
+  <h1>バイオ・ロジカ<br>公式アプリアイコン</h1>
+  <p class="desc">Retina・4Kディスプレイ対応<br>App Store / Google Play公式規格の超高画質PNG</p>
+
+  <div class="spec-tag">✨ 解像度: 1024 × 1024 px (最高品質)</div>
+
+  <div class="icon-wrapper">
+    <img id="iconPreview" alt="バイオ・ロジカ 公式アイコン">
+  </div>
+
+  <a id="downloadBtn" class="btn-save" download="bio-logica-icon-1024x1024.png">
+    <span>📥</span> 写真（PNG）に保存する
+  </a>
+
+  <div class="hint-box">
+    💡 <strong>保存方法：</strong><br>
+    ・ボタンを押すと高画質PNG（1024×1024）がダウンロードされます。<br>
+    ・iPhone等の場合は、<strong>上のアイコンを長押し ➔「写真に追加」</strong>でも直接カメラロールに最高画質で保存できます！
+  </div>
+
+  <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+    <a href="index.html" class="back-link">⬅️ ゲームへ戻る</a>
+    <a href="intro.html" class="back-link" style="color:#38bdf8;">🌐 公式ポータルサイト</a>
+  </div>
+</div>
+
+<!-- 1024x1024 超高解像度レンダリングエンジン -->
+<canvas id="renderCanvas" width="1024" height="1024"></canvas>
+
+<script>
+  function renderUltraHdIcon() {
+    const canvas = document.getElementById('renderCanvas');
+    const ctx = canvas.getContext('2d');
+    const W = 1024;
+    const H = 1024;
+    const R = 224; // Apple公式アイコン角丸比率 (約22%)
+
+    // 1. 角丸クリッピングパス生成 (1024x1024)
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(R, 0);
+    ctx.lineTo(W - R, 0);
+    ctx.quadraticCurveTo(W, 0, W, R);
+    ctx.lineTo(W, H - R);
+    ctx.quadraticCurveTo(W, H, W - R, H);
+    ctx.lineTo(R, H);
+    ctx.quadraticCurveTo(0, H, 0, H - R);
+    ctx.lineTo(0, R);
+    ctx.quadraticCurveTo(0, 0, R, 0);
+    ctx.closePath();
+    ctx.clip();
+
+    // 2. 超精細グラデーション背景
+    const bgGrad = ctx.createLinearGradient(0, 0, W, H);
+    bgGrad.addColorStop(0.0, '#0284c7'); // シアン
+    bgGrad.addColorStop(0.35, '#0ea5e9'); // スカイ
+    bgGrad.addColorStop(0.70, '#0d9488'); // ティール
+    bgGrad.addColorStop(1.0, '#059669'); // エメラルドグリーン
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    // 3. 上部光沢グロスハイライト
+    const glossGrad = ctx.createLinearGradient(0, 0, 0, H * 0.45);
+    glossGrad.addColorStop(0.0, 'rgba(255, 255, 255, 0.18)');
+    glossGrad.addColorStop(1.0, 'rgba(255, 255, 255, 0.0)');
+    ctx.fillStyle = glossGrad;
+    ctx.fillRect(0, 0, W, H * 0.45);
+
+    // 4. DNA絵文字（ネイティブ3D絵文字を高精細580pxでレンダリング）
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = '580px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
+    
+    // 微細シャドウ（立体感を強調）
+    ctx.shadowColor = 'rgba(4, 47, 46, 0.45)';
+    ctx.shadowBlur = 28;
+    ctx.shadowOffsetX = 4;
+    ctx.shadowOffsetY = 16;
+    
+    // 中央描画（フォントの垂直微調整 +24px）
+    ctx.fillText('🧬', W / 2, H / 2 + 24);
+    ctx.restore();
+
+    // 5. 最高品質PNG Data URLの書き出し
+    const pngDataUrl = canvas.toDataURL('image/png', 1.0);
+
+    // プレビューとダウンロードリンクに反映
+    const preview = document.getElementById('iconPreview');
+    const dlBtn = document.getElementById('downloadBtn');
+
+    preview.src = pngDataUrl;
+    dlBtn.href = pngDataUrl;
+  }
+
+  // ページ読み込み完了時に即時超高精細生成
+  window.addEventListener('DOMContentLoaded', renderUltraHdIcon);
+</script>
+
+</body>
+</html>
