@@ -582,7 +582,7 @@
           <div style="font-weight:900; font-size:0.95rem; color:#0369a1;">ゲーム公式サイト</div>
           <div style="font-size:0.74rem; color:var(--text-sub);">全種族図鑑・世界観・Webポータル</div>
         </div>
-        <div class="menu-app-card" style="border-color:#0284c7; background:linear-gradient(180deg,#ffffff,#f0f9ff);" onclick="location.href='icon.html'">
+        <div class="menu-app-card" style="border-color:#0284c7; background:linear-gradient(180deg,#ffffff,#f0f9ff);" onclick="openIconModal()">
           <div class="menu-app-icon" style="background:#e0f2fe;">📲</div>
           <div style="font-weight:900; font-size:0.95rem; color:#0284c7;">公式アイコン保存</div>
           <div style="font-size:0.74rem; color:var(--text-sub);">スマホ写真保存用・超高画質PNG</div>
@@ -1779,6 +1779,53 @@
     </div>
   </div>
 </div>
+
+<!-- 📲 公式アプリアイコン高画質保存モーダル（別ページ不要でその場で写真保存！） -->
+<div id="iconModal" class="modal-overlay" onclick="if(event.target===this) closeIconModal()">
+  <div class="modal-card" style="max-width:440px; text-align:center;">
+    <div class="modal-header" style="background:linear-gradient(135deg, #0284c7, #059669);">
+      <span>📲 公式アプリアイコン保存</span>
+      <button class="btn btn-outline" style="padding:3px 10px; font-size:0.78rem;" onclick="closeIconModal()">✕ 閉じる</button>
+    </div>
+    <div class="modal-body" style="display:flex; flex-direction:column; align-items:center; gap:14px; padding:20px;">
+      <span style="display:inline-block; background:linear-gradient(135deg, #0284c7, #059669); color:white; font-size:0.75rem; font-weight:800; padding:3px 12px; border-radius:999px;">
+        ✨ Retina・4K対応（1024 × 1024 px 最高品質）
+      </span>
+      <div style="width:180px; height:180px; filter:drop-shadow(0 12px 24px rgba(2, 132, 199, 0.4)); margin:4px 0;">
+        <svg id="iconModalSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="100%" height="100%" style="border-radius:38px; display:block;">
+          <defs>
+            <linearGradient id="modalBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0284c7"/>
+              <stop offset="35%" stop-color="#0ea5e9"/>
+              <stop offset="70%" stop-color="#0d9488"/>
+              <stop offset="100%" stop-color="#059669"/>
+            </linearGradient>
+            <linearGradient id="modalGlossGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="modalShadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="4" dy="16" stdDeviation="14" flood-color="#042f2e" flood-opacity="0.5"/>
+            </filter>
+          </defs>
+          <rect width="1024" height="1024" rx="224" ry="224" fill="url(#modalBgGrad)"/>
+          <path d="M 0,224 C 0,100.2 100.2,0 224,0 L 800,0 C 923.8,0 1024,100.2 1024,224 L 1024,460 L 0,460 Z" fill="url(#modalGlossGrad)"/>
+          <text x="512" y="550" font-size="560" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system, BlinkMacSystemFont, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif" filter="url(#modalShadow)">🧬</text>
+        </svg>
+        <img id="iconModalPreview" style="display:none; width:100%; height:100%; border-radius:38px; object-fit:cover;" alt="公式アイコン">
+      </div>
+      <a id="iconModalDownloadBtn" class="btn btn-primary" style="width:100%; padding:13px; font-size:1rem; font-weight:900; background:linear-gradient(135deg, #0284c7 0%, #059669 100%); text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px;" download="bio-logica-icon-1024x1024.png">
+        📥 写真（PNG）に保存する
+      </a>
+      <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:10px 12px; border-radius:12px; font-size:0.76rem; color:#475569; line-height:1.5; text-align:left; width:100%;">
+        💡 <strong>保存方法：</strong><br>
+        ・ボタンを押すと高画質PNG（1024×1024）がダウンロードされます。<br>
+        ・スマホの場合は、<strong>上のアイコン画像を長押し ➔「写真に追加」</strong>でも直接カメラロールに最高画質で保存できます！
+      </div>
+    </div>
+  </div>
+</div>
+<canvas id="iconRenderCanvas" width="1024" height="1024" style="display:none;"></canvas>
 
 <!-- ⚙️ ボックス・編成枠から直接開ける微生物カスタム編集モーダル -->
 <div id="microbeEditModal" class="modal-overlay" onclick="if(event.target===this) closeMicrobeEditModal()">
@@ -8716,6 +8763,85 @@ setInterval(() => {
   if (!battle && currentScreen === 'battle') checkPendingBattleInvites();
   if (!battle) checkIncomingGifts();
 }, 12000);
+
+/* ========================================================
+   📲 公式アプリアイコン超高画質（1024x1024）生成＆モーダル
+   ======================================================== */
+function openIconModal() {
+  const modal = document.getElementById('iconModal');
+  if (!modal) return;
+  modal.classList.add('active');
+  renderUltraHdIconToModal();
+}
+
+function closeIconModal() {
+  const modal = document.getElementById('iconModal');
+  if (modal) modal.classList.remove('active');
+}
+
+function renderUltraHdIconToModal() {
+  const canvas = document.getElementById('iconRenderCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = 1024;
+  const H = 1024;
+  const R = 224;
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(R, 0);
+  ctx.lineTo(W - R, 0);
+  ctx.quadraticCurveTo(W, 0, W, R);
+  ctx.lineTo(W, H - R);
+  ctx.quadraticCurveTo(W, H, W - R, H);
+  ctx.lineTo(R, H);
+  ctx.quadraticCurveTo(0, H, 0, H - R);
+  ctx.lineTo(0, R);
+  ctx.quadraticCurveTo(0, 0, R, 0);
+  ctx.closePath();
+  ctx.clip();
+
+  const bgGrad = ctx.createLinearGradient(0, 0, W, H);
+  bgGrad.addColorStop(0.0, '#0284c7');
+  bgGrad.addColorStop(0.35, '#0ea5e9');
+  bgGrad.addColorStop(0.70, '#0d9488');
+  bgGrad.addColorStop(1.0, '#059669');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, 0, W, H);
+
+  const glossGrad = ctx.createLinearGradient(0, 0, 0, H * 0.45);
+  glossGrad.addColorStop(0.0, 'rgba(255, 255, 255, 0.18)');
+  glossGrad.addColorStop(1.0, 'rgba(255, 255, 255, 0.0)');
+  ctx.fillStyle = glossGrad;
+  ctx.fillRect(0, 0, W, H * 0.45);
+
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = '580px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
+  ctx.shadowColor = 'rgba(4, 47, 46, 0.45)';
+  ctx.shadowBlur = 28;
+  ctx.shadowOffsetX = 4;
+  ctx.shadowOffsetY = 16;
+  ctx.fillText('🧬', W / 2, H / 2 + 24);
+  ctx.restore();
+
+  const pngDataUrl = canvas.toDataURL('image/png', 1.0);
+  const preview = document.getElementById('iconModalPreview');
+  const svgEl = document.getElementById('iconModalSvg');
+  const dlBtn = document.getElementById('iconModalDownloadBtn');
+
+  if (preview) {
+    preview.src = pngDataUrl;
+    preview.style.display = 'block';
+  }
+  if (svgEl) {
+    svgEl.style.display = 'none';
+  }
+  if (dlBtn) {
+    dlBtn.href = pngDataUrl;
+  }
+}
 </script>
 </body>
 </html>
