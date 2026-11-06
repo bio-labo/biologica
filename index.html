@@ -633,6 +633,19 @@
           <button class="btn btn-accent" style="padding:6px 14px;" onclick="openAdminGiftModal()">🔑 送付ツール (認証)</button>
         </div>
 
+        <!-- 📲 セーブデータ引き継ぎ・バックアップ -->
+        <div style="background:#f0f9ff; border:2px solid #bae6fd; border-radius:12px; padding:12px;">
+          <div style="font-weight:900; font-size:0.92rem; color:#0369a1; margin-bottom:4px;">📲 セーブデータ引き継ぎ・バックアップ</div>
+          <div style="font-size:0.76rem; color:var(--text-sub); margin-bottom:8px;">別のブラウザや端末、URL変更時にデータを安全に引き継げます</div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px;">
+            <button class="btn btn-outline" style="border-color:#0284c7; color:#0284c7; font-weight:900;" onclick="copySaveBackupCode()">📋 現在の引き継ぎコードをコピー</button>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <input type="text" id="settingsImportCodeInput" class="btn-outline" style="flex:1; padding:7px 10px; font-size:0.82rem; border-radius:8px;" placeholder="引き継ぎコードを貼り付け">
+            <button class="btn btn-primary" style="padding:7px 14px; font-size:0.82rem; white-space:nowrap;" onclick="importSaveBackupFromInput('settingsImportCodeInput')">復元する</button>
+          </div>
+        </div>
+
         <div style="display:flex; justify-content:space-between; align-items:center; background:#fff1f2; padding:14px; border-radius:12px; border:2px solid #fecdd3;">
           <div>
             <div style="font-weight:900; font-size:0.95rem; color:#be123c;">🔄 セーブデータの初期化（リセット）</div>
@@ -791,6 +804,7 @@
           <button id="toggleAutoEatBtn" class="btn btn-purple" onclick="toggleAutoEat()">🤖 オート捕食: ON</button>
           <button id="spawnFoodBtn" class="btn btn-secondary" onclick="spawnFoodBurst()">🍬 栄養をまく (8個)</button>
           <button class="btn btn-accent" onclick="startPetriEvent()">🌪️ 環境ミッション挑戦 (+180 ATP)</button>
+          <button class="btn btn-outline" style="border-color:#0284c7; color:#0284c7; font-weight:800;" onclick="copySaveBackupCode()">📋 引継ぎコードコピー</button>
         </div>
       </div>
 
@@ -1550,6 +1564,20 @@
         <button class="btn btn-purple" style="width:100%; padding:13px; font-size:1rem; box-shadow:0 4px 15px rgba(219,39,119,0.4);" onclick="goToCeremonyStep2()">
           🎰 名前を決定して「Lv.30確定ガチャ」へ進む！ 👉
         </button>
+
+        <!-- 🔄 引き継ぎコードをお持ちの方はこちら -->
+        <div style="margin-top:16px; padding-top:14px; border-top:1px dashed #cbd5e1; text-align:left;">
+          <div style="font-size:0.82rem; font-weight:900; color:#0369a1; margin-bottom:4px; display:flex; align-items:center; gap:4px;">
+            <span>🔄 前のデータから引き継いで再開する</span>
+          </div>
+          <div style="font-size:0.73rem; color:var(--text-sub); margin-bottom:8px;">
+            Netlify版や他の端末でコピーした「引き継ぎコード」を貼り付けると、これまでのデータでそのまま再開できます！
+          </div>
+          <div style="display:flex; gap:6px;">
+            <input type="text" id="ceremonyImportCodeInput" class="btn-outline" style="flex:1; padding:8px 10px; font-size:0.82rem; border-radius:8px;" placeholder="ここに引き継ぎコードを貼り付け">
+            <button class="btn btn-primary" style="padding:8px 14px; font-size:0.82rem; font-weight:900; white-space:nowrap;" onclick="importSaveBackupFromCeremony()">復元して再開</button>
+          </div>
+        </div>
       </div>
 
       <!-- STEP 2: Lv.30ランダム配布ルーレット演出 -->
@@ -2390,6 +2418,7 @@ const NEWS_MASTER = [
     date: '2026-11-06',
     title: '🚀 Ver 2.0 超大型アップデート内容',
     items: [
+      '【データ引き継ぎ・復元機能の追加】育成画面および設定画面にワンタップで引き継ぎコードを発行・コピーできるボタンを新設。初回開始画面にもコード貼り付けですぐに復元して遊べる枠を追加',
       '【お問い合わせフォームの追加】メニュー内に「お問い合わせ・不具合報告」を新設。ゲーム中のバグや問題の誤字・誤答、要望を直接送信可能に',
       '【運営個別ギフト機能の実装】設定画面の運営専用ツールより、特定のフレンドコード宛てに運営局から個別プレゼント（ATP・メダル）をメッセージ付きで発行・配布可能に',
       '【解答時フリーズの徹底撲滅＆数式過去問の4択保護】クイズ解答処理を完全最適化して画面停止を根本解消。数式・分数・大学入試過去問は確実に4択化し手元でじっくり解けるように改善',
@@ -2673,6 +2702,69 @@ function updateDebugUiBanner() {
   const btn = document.getElementById('exitDebugBtn');
   if (!btn) return;
   btn.style.display = state.isTestAccount ? 'inline-flex' : 'none';
+}
+
+/* ============================================================================
+   2.8 📲 セーブデータ引き継ぎコード（バックアップ・復元・URL移行）
+============================================================================ */
+function encodeSaveState(obj) {
+  const jsonStr = JSON.stringify(obj);
+  return btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));
+}
+
+function decodeSaveState(codeStr) {
+  const clean = codeStr.trim();
+  if (clean.startsWith('{') && clean.endsWith('}')) {
+    return JSON.parse(clean);
+  }
+  const decoded = decodeURIComponent(Array.prototype.map.call(atob(clean), c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+  return JSON.parse(decoded);
+}
+
+function copySaveBackupCode() {
+  saveData();
+  try {
+    const code = encodeSaveState(state);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(() => {
+        showToast('📋 引継ぎコードをクリップボードにコピーしました！');
+        alert('📋 セーブデータ引継ぎコードをコピーしました！\n\n移行先の画面でこのコードを貼り付けて「復元して再開」を押してください。');
+      }).catch(() => {
+        prompt('以下の引き継ぎコードをコピーしてください：', code);
+      });
+    } else {
+      prompt('以下の引き継ぎコードをコピーしてください：', code);
+    }
+  } catch (e) {
+    showToast('⚠️ 引き継ぎコードの生成に失敗しました。');
+  }
+}
+
+function importSaveBackupFromInput(inputId) {
+  const inp = document.getElementById(inputId);
+  if (!inp) return;
+  const val = (inp.value || '').trim();
+  if (!val) {
+    showToast('⚠️ 引き継ぎコードを貼り付けてください！');
+    return;
+  }
+  try {
+    const loadedState = decodeSaveState(val);
+    if (!loadedState || !loadedState.box || !Array.isArray(loadedState.box)) {
+      throw new Error('Invalid state structure');
+    }
+    state = loadedState;
+    state.starterCeremonyDone = true;
+    saveData();
+    alert('🎉 セーブデータを正常に復元・引き継ぎしました！ゲームを再開します。');
+    location.reload();
+  } catch (e) {
+    alert('❌ 無効な引き継ぎコードです。正しいコードを貼り付けてください。');
+  }
+}
+
+function importSaveBackupFromCeremony() {
+  importSaveBackupFromInput('ceremonyImportCodeInput');
 }
 
 function saveData() {
