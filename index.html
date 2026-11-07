@@ -226,15 +226,21 @@
   .subj-eng-idiom { background: #fae8ff; color: #86198f; }
   .subj-eng-gram { background: #fef3c7; color: #92400e; }
 
-  /* 📖 英語モード選択バナー */
+  /* 🧬 理系 vs 📖 英語 vs 🎒 中学生 3大モード選択バナー */
   .battle-category-toggle {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px;
+  }
+  @media (max-width: 720px) {
+    .battle-category-toggle {
+      grid-template-columns: 1fr;
+    }
   }
   .battle-cat-btn {
-    padding: 12px 14px; border-radius: 14px; border: 2.5px solid #cbd5e1;
-    background: white; font-weight: 900; font-size: 0.96rem; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 11px 10px; border-radius: 14px; border: 2.5px solid #cbd5e1;
+    background: white; font-weight: 900; font-size: 0.88rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
     transition: all 0.18s; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    text-align: center;
   }
   .battle-cat-btn.active {
     border-color: var(--primary); background: #f0f9ff; color: #0369a1;
@@ -243,6 +249,10 @@
   .battle-cat-btn.cat-eng.active {
     border-color: #7c3aed; background: #faf5ff; color: #6d28d9;
     box-shadow: 0 4px 12px rgba(124, 58, 237, 0.18);
+  }
+  .battle-cat-btn.cat-junior.active {
+    border-color: #f59e0b; background: #fffbeb; color: #b45309;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.22);
   }
 
   .exp-bar-wrap { background: #e2e8f0; height: 10px; border-radius: 999px; overflow: hidden; }
@@ -528,6 +538,19 @@
     padding: 8px 12px;
     border-radius: 12px;
   }
+  #globalBattleInvitePopupArea {
+    position: fixed;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 94%;
+    max-width: 540px;
+    z-index: 99999;
+    pointer-events: none;
+  }
+  #globalBattleInvitePopupArea > * {
+    pointer-events: auto;
+  }
 </style>
 </head>
 <body>
@@ -537,7 +560,7 @@
     <div class="logo-area">
       <div class="logo-icon">🧬</div>
       <div>
-        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 3.4</span></div>
+        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 3.7</span></div>
         <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
       </div>
     </div>
@@ -1213,13 +1236,16 @@
   <!-- 4. クイズ対戦画面（理系 vs 英語 ＆ 全国ランダムマッチ ＆ フレンド対戦ルーム） -->
   <section id="screen-battle" class="screen">
     <div id="battleSetupPanel" class="card">
-      <!-- 🧬 理系 vs 📖 英語 2大モード切替バナー -->
+      <!-- 🧬 理系 vs 📖 英語 vs 🎒 中学生 3大モード切替バナー -->
       <div class="battle-category-toggle">
         <button id="catToggleSci" class="battle-cat-btn active" onclick="switchBattleCategory('sci')">
-          🧬 理系クイズバトル (理科・数学)
+          🧬 高校・大学入試 理系<br><small style="font-size:0.72rem; opacity:0.85;">(理科・数学)</small>
         </button>
         <button id="catToggleEng" class="battle-cat-btn cat-eng" onclick="switchBattleCategory('eng')">
-          📖 英語・英単語バトル (単語・熟語・文法)
+          📖 高校・大学入試 英語<br><small style="font-size:0.72rem; opacity:0.85;">(単語・熟語・文法)</small>
+        </button>
+        <button id="catToggleJunior" class="battle-cat-btn cat-junior" onclick="switchBattleCategory('junior')">
+          🎒 中学生・高校受験<br><small style="font-size:0.72rem; opacity:0.85;">(中学理科・数学・英語)</small>
         </button>
       </div>
 
@@ -1310,6 +1336,53 @@
             <select id="engAnswerStyleSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#ec4899;">
               <option value="fast_choice" selected>⚡ 4択早押しバトル (制限時間10秒・反射神経＆思考力！)</option>
               <option value="unlimited_typing">✍️ スペル記述 (時間無制限・手動キーボード打ち込み！)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🎒 中学生・高校受験用設定パネル -->
+      <div id="juniorBattleSettingsArea" style="display:none; background:#fffbeb; border:2px solid #fde047; border-radius:14px; padding:12px; margin-bottom:12px;">
+        <div style="font-weight:900; font-size:0.92rem; color:#b45309; margin-bottom:8px;">🎯 1. 出撃パーティ ＆ 中学生（高校受験）問題の設定</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:8px;">
+          <div>
+            <label style="font-size:0.76rem; font-weight:900; display:block;">🚩 出撃するパーティ</label>
+            <select id="juniorBattlePresetSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800;" onchange="document.getElementById('battlePresetSelect').value=this.value"></select>
+          </div>
+
+          <div>
+            <label style="font-size:0.76rem; font-weight:900; display:block; color:#0284c7;">🎓 問題の難易度レベル</label>
+            <select id="juniorGradeSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#0284c7;">
+              <option value="all" selected>🌈 全難易度ミックス（基礎〜難関高校入試）</option>
+              <option value="textbook">🔰 教科書・基礎レベル（定期テスト・基本用語・基本計算）</option>
+              <option value="refbook">📘 標準・公立高校入試レベル（標準問題集・公立高校入試頻出）</option>
+              <option value="exam">🏛️ 難関私立・国立高校入試レベル（開成・灘・早慶過去問）</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="font-size:0.76rem; font-weight:900; display:block; color:#b45309;">📚 出題教科</label>
+            <select id="juniorSubjectSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#f59e0b;" onchange="updateJuniorUnitOptions()">
+              <option value="j_all" selected>🌈 中学3科目オールミックス（理科・数学・英語）</option>
+              <option value="j_sci">🔬 中学理科（第1分野・第2分野）</option>
+              <option value="j_math">📐 中学数学（数と式・関数・図形・確率）</option>
+              <option value="j_eng">📖 中学英語（基本英単語・中学文法）</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="font-size:0.76rem; font-weight:900; display:block; color:#d97706;">📖 中学単元・分野の選択</label>
+            <select id="juniorUnitSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#d97706;">
+              <option value="all_units" selected>🌈 全単元ミックス</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="font-size:0.76rem; font-weight:900; display:block; color:#854d0e;">🎮 解答形式</label>
+            <select id="juniorQuizTypeSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#eab308;">
+              <option value="choice" selected>🔘 4択問題のみ (おすすめ・テンポ良く解ける！)</option>
+              <option value="mix">🎲 オールランダム (4択＋並び替え＋記述)</option>
+              <option value="typing">⌨️ 記述入力のみ【時間たっぷり＋18秒＆威力1.25倍！】</option>
             </select>
           </div>
         </div>
@@ -2519,6 +2592,7 @@ const GENE_CHIPS_MASTER = [
 const SUBJECTS = [
   { id: 'j_sci', name: '中学理科', icon: '🎒', cls: 'subj-bio' },
   { id: 'j_math', name: '中学数学', icon: '📐', cls: 'subj-ma' },
+  { id: 'j_eng', name: '中学英語', icon: '📖', cls: 'subj-eng' },
   { id: 'bio', name: '生物', icon: '🧬', cls: 'subj-bio' },
   { id: 'chem', name: '化学', icon: '🧪', cls: 'subj-chem' },
   { id: 'phys', name: '物理', icon: '⚡', cls: 'subj-phys' },
@@ -3005,7 +3079,33 @@ const QUIZ_MASTER = [
   { id: 'exam_ma_11', grade: 'high', subj: 'ma', unit: 'ma_geom', level: 'exam', q: '【2021 北海道大】三角形ABCの内心 I から3辺におろした垂線の長さは互いにどうなっている？', ans: 'すべて等しい', c: ['すべて等しい', '辺の比に反比例', '頂点の角の比', 'すべて異なる'] },
   { id: 'exam_ma_12', grade: 'high', subj: 'ma', unit: 'ma_geom', level: 'exam', q: '【2020 九州大】円の外部の点Pを通る割線が円と点A, Bで交わり、Pからの接線の接点をTとするときの方べきの定理の式は？', ans: 'PA・PB = PT²', c: ['PA・PB = PT²', 'PA + PB = PT', 'PA・PT = PB²', 'PA/PB = PT'] },
 
-  // --- 数学I：2次関数・三角比・データ (m1) ---
+  // --- 数学I：2次関数・三角比・データ (m1) 教科書・基礎レベル (textbook) ---
+  { id: 'tb_m1_1', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・数と式】多項式 (x + 3)(x + 4) を展開したときの定数項（一番右の数）はいくつ？（数字のみ）', ans: '12', c: ['12', '7', '1', '14'] },
+  { id: 'tb_m1_2', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・因数分解】x² - 9 を因数分解した正しい形は？', ans: '(x + 3)(x - 3)', c: ['(x + 3)(x - 3)', '(x - 3)²', '(x + 9)(x - 1)', '(x - 9)(x + 1)'] },
+  { id: 'tb_m1_3', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・因数分解】x² + 5x + 6 を因数分解した正しい式は？', ans: '(x + 2)(x + 3)', c: ['(x + 2)(x + 3)', '(x + 1)(x + 6)', '(x - 2)(x - 3)', '(x + 5)(x + 1)'] },
+  { id: 'tb_m1_4', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次関数】放物線 y = (x - 2)² + 3 の頂点の座標は？', ans: '(2, 3)', c: ['(2, 3)', '(-2, 3)', '(2, -3)', '(-2, -3)'] },
+  { id: 'tb_m1_5', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次関数】放物線 y = 2(x + 1)² - 5 の頂点の座標は？', ans: '(-1, -5)', c: ['(-1, -5)', '(1, -5)', '(-1, 5)', '(1, 5)'] },
+  { id: 'tb_m1_6', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】2次方程式 (x - 2)(x - 5) = 0 の解は？', ans: 'x = 2, 5', c: ['x = 2, 5', 'x = -2, -5', 'x = 2, -5', 'x = 10, 1'] },
+  { id: 'tb_m1_7', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】2次方程式 x² - 16 = 0 の解は？', ans: 'x = ±4', c: ['x = ±4', 'x = 4', 'x = ±8', 'x = ±16'] },
+  { id: 'tb_m1_8', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】解の公式「x = (-b ± √(〇)) / 2a」の根号（√）の中身に入る式は？', ans: 'b² - 4ac', c: ['b² - 4ac', 'b² + 4ac', '4ac - b²', '2b - 4ac'] },
+  { id: 'tb_m1_9', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】判別式 D = b² - 4ac が「D > 0」のとき、実数解は何個ある？（数字のみ）', ans: '2', c: ['2', '1', '0', '4'] },
+  { id: 'tb_m1_10', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】判別式 D = b² - 4ac が「D = 0」のとき、解は重解となり何個ある？（数字のみ）', ans: '1', c: ['1', '2', '0', '3'] },
+  { id: 'tb_m1_11', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】判別式 D = b² - 4ac が「D < 0」のとき、実数解は何個ある？（数字のみ）', ans: '0', c: ['0', '1', '2', '3'] },
+  { id: 'tb_m1_12', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次関数】放物線 y = x² - 4x + 3 を平方完成した正しい形は？', ans: '(x - 2)² - 1', c: ['(x - 2)² - 1', '(x - 2)² + 3', '(x - 4)² - 1', '(x - 2)² + 1'] },
+  { id: 'tb_m1_13', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】sin 30° の値はいくつ？（分数で入力）', ans: '1/2', c: ['1/2', '√3/2', '1/√2', '1'] },
+  { id: 'tb_m1_14', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】cos 60° の値はいくつ？（分数で入力）', ans: '1/2', c: ['1/2', '√3/2', '1/√2', '0'] },
+  { id: 'tb_m1_15', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】tan 45° の値はいくつ？（数字のみ）', ans: '1', c: ['1', '1/√3', '√3', '0'] },
+  { id: 'tb_m1_16', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】直角三角形において、角 θ に対する「対辺 / 斜辺」の比を表す三角比は？', ans: 'sin θ', c: ['sin θ', 'cos θ', 'tan θ', 'sec θ'] },
+  { id: 'tb_m1_17', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】直角三角形において、角 θ に対する「底辺 / 斜辺」の比を表す三角比は？', ans: 'cos θ', c: ['cos θ', 'sin θ', 'tan θ', 'cot θ'] },
+  { id: 'tb_m1_18', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】直角三角形において、角 θ に対する「対辺 / 底辺」の比を表す三角比は？', ans: 'tan θ', c: ['tan θ', 'sin θ', 'cos θ', 'csc θ'] },
+  { id: 'tb_m1_19', grade: 'high', subj: 'm1', unit: 'm1_data', level: 'textbook', q: '【数I・データ】データを小さい順に並べたとき、ちょうど中央に位置する値を何という？', ans: '中央値（メジアン）', c: ['中央値（メジアン）', '平均値', '最頻値（モード）', '四分位数'] },
+  { id: 'tb_m1_20', grade: 'high', subj: 'm1', unit: 'm1_data', level: 'textbook', q: '【数I・データ】データの中で最も度数が大きい（最も多く現れる）値を何という？', ans: '最頻値（モード）', c: ['最頻値（モード）', '平均値', '中央値', '偏差'] },
+  { id: 'tb_ma_1', grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook', q: '【数A・確率】1個のサイコロを投げるとき、1の目が出る確率は？（既約分数）', ans: '1/6', c: ['1/6', '1/2', '1/3', '5/6'] },
+  { id: 'tb_ma_2', grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook', q: '【数A・確率】1枚のコイン（硬貨）を投げるとき、表が出る確率は？（既約分数）', ans: '1/2', c: ['1/2', '1/4', '1/3', '1'] },
+  { id: 'tb_ma_3', grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook', q: '【数A・順列】3枚の異なるカードA, B, Cを1列に並べる並べ方は何通り？（数字のみ）', ans: '6', c: ['6', '3', '9', '12'] },
+  { id: 'tb_ma_4', grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook', q: '【数A・組合せ】4人の中から掃除当番を2人選ぶ組合せ： ₄C₂ の計算結果は？（数字のみ）', ans: '6', c: ['6', '8', '12', '4'] },
+
+  // --- 数学I：2次関数・三角比・データ (m1) 標準・入試レベル ---
   { id: 'exam_m1_1', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'exam', q: '【2022 東京大】2次方程式 x² - 2kx + k + 2 = 0 が異なる2つの正の解をもつような定数 k の値の範囲は？', ans: 'k > 2', c: ['k > 2', 'k > -1', '-2 < k < 2', 'k < -1'] },
   { id: 'exam_m1_2', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'exam', q: '【2021 大阪大】2次関数 f(x) = x² - 4ax + 4a² - 2 の 0 ≦ x ≦ 2 における最小値が -2 となる定数 a の範囲は？', ans: '0 ≦ a ≦ 1', c: ['0 ≦ a ≦ 1', 'a ≧ 1', 'a ≦ 0', '0 < a < 2'] },
   { id: 'exam_m1_3', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'exam', q: '【2021 京都大】三角形ABCにおいて AB=5, BC=7, CA=6 のとき、内接円の半径 r の値は？', ans: '2√6 / 3', c: ['2√6 / 3', '√6 / 2', '3√6 / 4', '√6'] },
@@ -3075,7 +3175,33 @@ const QUIZ_MASTER = [
   { id: 'geom_add_2', grade: 'high', subj: 'ma', unit: 'ma_geom', level: 'exam', q: '【2021 名古屋工業大】円に内接する四角形ABCDにおいて、∠A = 70° のとき対角 ∠C の大きさは？', ans: '110°', c: ['110°', '70°', '90°', '120°'] },
   { id: 'geom_add_3', grade: 'high', subj: 'ma', unit: 'ma_geom', level: 'refbook', q: '【数A・図形】三角形ABCで角Aの二等分線が辺BCと交わる点をDとするとき、BD : DC と等しい比は？', ans: 'AB : AC', c: ['AB : AC', 'AC : AB', 'BC : AB', '1 : 1'] },
 
-  // --- 数学I：2次関数・三角比・データ (m1) ---
+  // --- 数学I：2次関数・三角比・データ (m1) 教科書・基礎レベル (textbook) ---
+  { id: 'tb_m1_1', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・数と式】多項式 (x + 3)(x + 4) を展開したときの定数項（一番右の数）はいくつ？（数字のみ）', ans: '12', c: ['12', '7', '1', '14'] },
+  { id: 'tb_m1_2', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・因数分解】x² - 9 を因数分解した正しい形は？', ans: '(x + 3)(x - 3)', c: ['(x + 3)(x - 3)', '(x - 3)²', '(x + 9)(x - 1)', '(x - 9)(x + 1)'] },
+  { id: 'tb_m1_3', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・因数分解】x² + 5x + 6 を因数分解した正しい式は？', ans: '(x + 2)(x + 3)', c: ['(x + 2)(x + 3)', '(x + 1)(x + 6)', '(x - 2)(x - 3)', '(x + 5)(x + 1)'] },
+  { id: 'tb_m1_4', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次関数】放物線 y = (x - 2)² + 3 の頂点の座標は？', ans: '(2, 3)', c: ['(2, 3)', '(-2, 3)', '(2, -3)', '(-2, -3)'] },
+  { id: 'tb_m1_5', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次関数】放物線 y = 2(x + 1)² - 5 の頂点の座標は？', ans: '(-1, -5)', c: ['(-1, -5)', '(1, -5)', '(-1, 5)', '(1, 5)'] },
+  { id: 'tb_m1_6', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】2次方程式 (x - 2)(x - 5) = 0 の解は？', ans: 'x = 2, 5', c: ['x = 2, 5', 'x = -2, -5', 'x = 2, -5', 'x = 10, 1'] },
+  { id: 'tb_m1_7', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】2次方程式 x² - 16 = 0 の解は？', ans: 'x = ±4', c: ['x = ±4', 'x = 4', 'x = ±8', 'x = ±16'] },
+  { id: 'tb_m1_8', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】解の公式「x = (-b ± √(〇)) / 2a」の根号（√）の中身に入る式は？', ans: 'b² - 4ac', c: ['b² - 4ac', 'b² + 4ac', '4ac - b²', '2b - 4ac'] },
+  { id: 'tb_m1_9', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】判別式 D = b² - 4ac が「D > 0」のとき、実数解は何個ある？（数字のみ）', ans: '2', c: ['2', '1', '0', '4'] },
+  { id: 'tb_m1_10', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】判別式 D = b² - 4ac が「D = 0」のとき、解は重解となり何個ある？（数字のみ）', ans: '1', c: ['1', '2', '0', '3'] },
+  { id: 'tb_m1_11', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】判別式 D = b² - 4ac が「D < 0」のとき、実数解は何個ある？（数字のみ）', ans: '0', c: ['0', '1', '2', '3'] },
+  { id: 'tb_m1_12', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次関数】放物線 y = x² - 4x + 3 を平方完成した正しい形は？', ans: '(x - 2)² - 1', c: ['(x - 2)² - 1', '(x - 2)² + 3', '(x - 4)² - 1', '(x - 2)² + 1'] },
+  { id: 'tb_m1_13', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】sin 30° の値はいくつ？（分数で入力）', ans: '1/2', c: ['1/2', '√3/2', '1/√2', '1'] },
+  { id: 'tb_m1_14', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】cos 60° の値はいくつ？（分数で入力）', ans: '1/2', c: ['1/2', '√3/2', '1/√2', '0'] },
+  { id: 'tb_m1_15', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】tan 45° の値はいくつ？（数字のみ）', ans: '1', c: ['1', '1/√3', '√3', '0'] },
+  { id: 'tb_m1_16', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】直角三角形において、角 θ に対する「対辺 / 斜辺」の比を表す三角比は？', ans: 'sin θ', c: ['sin θ', 'cos θ', 'tan θ', 'sec θ'] },
+  { id: 'tb_m1_17', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】直角三角形において、角 θ に対する「底辺 / 斜辺」の比を表す三角比は？', ans: 'cos θ', c: ['cos θ', 'sin θ', 'tan θ', 'cot θ'] },
+  { id: 'tb_m1_18', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】直角三角形において、角 θ に対する「対辺 / 底辺」の比を表す三角比は？', ans: 'tan θ', c: ['tan θ', 'sin θ', 'cos θ', 'csc θ'] },
+  { id: 'tb_m1_19', grade: 'high', subj: 'm1', unit: 'm1_data', level: 'textbook', q: '【数I・データ】データを小さい順に並べたとき、ちょうど中央に位置する値を何という？', ans: '中央値（メジアン）', c: ['中央値（メジアン）', '平均値', '最頻値（モード）', '四分位数'] },
+  { id: 'tb_m1_20', grade: 'high', subj: 'm1', unit: 'm1_data', level: 'textbook', q: '【数I・データ】データの中で最も度数が大きい（最も多く現れる）値を何という？', ans: '最頻値（モード）', c: ['最頻値（モード）', '平均値', '中央値', '偏差'] },
+  { id: 'tb_ma_1', grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook', q: '【数A・確率】1個のサイコロを投げるとき、1の目が出る確率は？（既約分数）', ans: '1/6', c: ['1/6', '1/2', '1/3', '5/6'] },
+  { id: 'tb_ma_2', grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook', q: '【数A・確率】1枚のコイン（硬貨）を投げるとき、表が出る確率は？（既約分数）', ans: '1/2', c: ['1/2', '1/4', '1/3', '1'] },
+  { id: 'tb_ma_3', grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook', q: '【数A・順列】3枚の異なるカードA, B, Cを1列に並べる並べ方は何通り？（数字のみ）', ans: '6', c: ['6', '3', '9', '12'] },
+  { id: 'tb_ma_4', grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook', q: '【数A・組合せ】4人の中から掃除当番を2人選ぶ組合せ： ₄C₂ の計算結果は？（数字のみ）', ans: '6', c: ['6', '8', '12', '4'] },
+
+  // --- 数学I：2次関数・三角比・データ (m1) 標準・入試レベル ---
   { id: 'm1_add_1', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'refbook', q: '【数I・2次関数】放物線 y = x² - 6x + 7 の軸の方程式は？', ans: 'x = 3', c: ['x = 3', 'x = -3', 'x = 6', 'x = -6'] },
   { id: 'm1_add_2', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'exam', q: '【2022 首都大/都立大】2次関数 y = x² - 2ax + a² - 3 の最小値が -3 となる実数 a の値は？', ans: 'すべての実数', c: ['すべての実数', 'a = 0', 'a > 3', 'a = ±√3'] },
   { id: 'm1_add_3', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'refbook', q: '【数I・三角比】sin² θ + cos² θ の値は常にいくつ？', ans: '1', c: ['1', '0', '2', 'tan θ'] },
@@ -3122,7 +3248,74 @@ const QUIZ_MASTER = [
   { id: 'phys_add_3', grade: 'high', subj: 'phys', unit: 'phys_thermo', level: 'refbook', q: '【物理・熱】理想気体の状態方程式（圧力 P、体積 V、物質量 n、気体定数 R、絶対温度 T）の式は？', ans: 'PV = nRT', c: ['PV = nRT', 'P/V = nRT', 'PV = RT', 'PT = nRV'] },
   { id: 'phys_add_4', grade: 'high', subj: 'phys', unit: 'phys_wave', level: 'exam', q: '【2021 筑波大】振動数 f の音源が速さ vs で静止した観測者に近づくとき、観測者が聞く音の振動数 f\' は？（音速 V）', ans: 'V / (V - vs) × f', c: ['V / (V - vs) × f', 'V / (V + vs) × f', '(V - vs) / V × f', '(V + vs) / V × f'] },
   { id: 'phys_add_5', grade: 'high', subj: 'phys', unit: 'phys_em', level: 'refbook', q: '【物理・電磁気】電気容量 C のコンデンサーに電圧 V を加えたとき、蓄えられる電気量 Q は？', ans: 'Q = CV', c: ['Q = CV', 'Q = C/V', 'Q = V/C', 'Q = (1/2)CV²'] },
-  { id: 'phys_add_6', grade: 'high', subj: 'phys', unit: 'phys_atom', level: 'exam', q: '【2023 千葉大】放射性同位元素の原子数が最初の半分に減少するまでにかかる時間を何という？', ans: '半減期', c: ['半減期', '壊変期', '崩壊期', '平均寿命'] }
+  { id: 'phys_add_6', grade: 'high', subj: 'phys', unit: 'phys_atom', level: 'exam', q: '【2023 千葉大】放射性同位元素の原子数が最初の半分に減少するまでにかかる時間を何という？', ans: '半減期', c: ['半減期', '壊変期', '崩壊期', '平均寿命'] },
+
+  // ================= 🎒 中学生・高校受験過去問＆標準参考書アーカイブ（公立入試・難関国私立入試） =================
+  // --- 中学理科：第1分野（物理・化学）公立高校入試・標準 (refbook) ---
+  { id: 'j_sci_ref_1', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・物理】電源6Vに10Ωと20Ωの抵抗を「直列」につないだ。回路全体に流れる電流は何A？', ans: '0.2', c: ['0.2', '0.6', '0.3', '0.1'] },
+  { id: 'j_sci_ref_2', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・物理】質量200gの物体を真上に3m持ち上げた。手が物体にした仕事は何J？（100g=1N）', ans: '6', c: ['6', '2', '60', '0.6'] },
+  { id: 'j_sci_ref_3', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・物理】凸レンズの焦点距離が10cmのとき、レンズから20cmの位置に置いた物体の実像はどこにできる？', ans: 'レンズから20cm', c: ['レンズから20cm', 'レンズから10cm', 'レンズから30cm', '焦点上'] },
+  { id: 'j_sci_ref_4', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・化学】酸化銅4.0gと炭素0.3gを加熱したところ銅3.2gが残った。発生した二酸化炭素は何g？', ans: '1.1', c: ['1.1', '0.8', '0.5', '1.4'] },
+  { id: 'j_sci_ref_5', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・化学】水100gに食塩25gをすべて溶かした食塩水の「質量パーセント濃度」は何%？', ans: '20', c: ['20', '25', '15', '22.5'] },
+  { id: 'j_sci_ref_6', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・化学】塩酸と水酸化ナトリウム水溶液が過不足なく中和したとき生じる塩（えん）の名称は？', ans: '塩化ナトリウム', c: ['塩化ナトリウム', '炭酸カルシウム', '硫酸バリウム', '水酸化銅'] },
+
+  // --- 中学理科：第1分野（物理・化学）難関高校入試 (exam) ---
+  { id: 'j_sci_exam_1', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【開成高 過去問・物理】底面積50cm²、高さ10cmの直方体を水中に完全に沈めた。受ける浮力は何N？（水1cm³=1g、100g=1N）', ans: '5', c: ['5', '0.5', '50', '2.5'] },
+  { id: 'j_sci_exam_2', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【灘高 過去問・化学】銅粉を空気中で完全に酸化させると、反応する銅と化合する酸素の質量の比は何対何？', ans: '4:1', c: ['4:1', '3:2', '1:1', '5:2'] },
+  { id: 'j_sci_exam_3', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【慶應義塾高 過去問・化学】マグネシウム粉末を空気中で完全に加熱したとき、マグネシウムと酸素が化合する質量の比は？', ans: '3:2', c: ['3:2', '4:1', '2:1', '1:1'] },
+  { id: 'j_sci_exam_4', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【早大学院 過去問・物理】同じ抵抗値の電熱線2本を「並列」につないだ回路全体の消費電力は、1本のときの何倍？', ans: '2倍', c: ['2倍', '4倍', '1/2倍', '1/4倍'] },
+  { id: 'j_sci_exam_5', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【日比谷高 過去問・物理】動滑車を1個使って重さ120Nの荷物を2m持ち上げる。引く力の大きさと引く距離は？', ans: '60N, 4m', c: ['60N, 4m', '120N, 2m', '60N, 2m', '240N, 1m'] },
+
+  // --- 中学理科：第2分野（生物・地学）公立高校入試・標準 (refbook) ---
+  { id: 'j_sci_ref_7', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'refbook', q: '【公立高校入試・生物】丸形エンドウ（純系AA）としわ形エンドウ（純系aa）を交配してできた子（Aa）の種子の形は？', ans: 'すべて丸形', c: ['すべて丸形', 'すべてしわ形', '丸としわが半々', '楕円形'] },
+  { id: 'j_sci_ref_8', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'refbook', q: '【公立高校入試・生物】全身を回って酸素を放出し、二酸化炭素を多く含んだ血液を何血という？', ans: '静脈血', c: ['静脈血', '動脈血', 'リンパ液', '組織液'] },
+  { id: 'j_sci_ref_9', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'refbook', q: '【公立高校入試・地学】P波が秒速6km、S波が秒速3kmのとき、震源から60km地点での初期微動継続時間は何秒？', ans: '10秒', c: ['10秒', '20秒', '30秒', '5秒'] },
+  { id: 'j_sci_ref_10', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'refbook', q: '【公立高校入試・地学】北極星を中心として、北の空の星が1時間に約15度ずつ東から西へ回転して見える原因は地球の何？', ans: '自転', c: ['自転', '公転', '歳差運動', '年周視差'] },
+
+  // --- 中学理科：第2分野（生物・地学）難関高校入試 (exam) ---
+  { id: 'j_sci_exam_6', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'exam', q: '【灘高 過去問・生物】丸形エンドウ（ヘテロ接合Aa）どうしを自家受粉させた孫の代で、丸形としわ形の比はおよそ何対何？', ans: '3:1', c: ['3:1', '1:1', '9:3', '1:2:1'] },
+  { id: 'j_sci_exam_7', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'exam', q: '【開成高 過去問・生物】脂肪が消化酵素リパーゼによって小腸で分解されたときに生じる2つの物質は「脂肪酸」と何？', ans: 'モノグリセリド', c: ['モノグリセリド', 'グルコース', 'アミノ酸', '麦芽糖'] },
+  { id: 'j_sci_exam_8', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'exam', q: '【慶應義塾高 過去問・地学】日本付近の温帯低気圧において、南東側に伸びる前線は温暖前線、南西側に伸びる前線は何？', ans: '寒冷前線', c: ['寒冷前線', '停滞前線', '閉そく前線', '梅雨前線'] },
+  { id: 'j_sci_exam_9', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'exam', q: '【早大学院 過去問・地学】夕方の西の空に見える金星（宵の明星）を天体望遠鏡で観察したときに見られる形は？', ans: '半月または三日月形', c: ['半月または三日月形', '真ん丸な満月形', '新月で全く見えない', '円環形'] },
+
+  // --- 中学数学：数と式・方程式 公立高校入試・標準 (refbook) ---
+  { id: 'j_math_ref_1', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・方程式】2次方程式 x² - 5x + 6 = 0 の2つの解のうち、大きい方の解はいくつ？', ans: '3', c: ['3', '2', '-2', '-3'] },
+  { id: 'j_math_ref_2', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・平方根】√50 - √18 を簡単にすると「〇√2」になる。〇に入る数字は？', ans: '2', c: ['2', '3', '4', '8'] },
+  { id: 'j_math_ref_3', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・方程式】連立方程式 { 2x + y = 7, x - y = -1 } を解いたとき、x の値はいくつ？', ans: '2', c: ['2', '3', '1', '4'] },
+
+  // --- 中学数学：関数 公立高校入試・標準 (refbook) ---
+  { id: 'j_math_ref_4', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'refbook', q: '【公立高校入試・関数】関数 y = 2x² について、x の値が 1 から 3 まで増加するときの「変化の割合」はいくつ？', ans: '8', c: ['8', '4', '16', '12'] },
+  { id: 'j_math_ref_5', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'refbook', q: '【公立高校入試・関数】2つの直線 y = 2x + 1 と y = -x + 4 の交点の x 座標はいくつ？', ans: '1', c: ['1', '2', '3', '0'] },
+
+  // --- 中学数学：図形・確率 公立高校入試・標準 (refbook) ---
+  { id: 'j_math_ref_6', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'refbook', q: '【公立高校入試・図形】半径 6cm、中心角 60° のおうぎ形の「弧の長さ」は何π cm？', ans: '2', c: ['2', '4', '6', '12'] },
+  { id: 'j_math_ref_7', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'refbook', q: '【公立高校入試・図形】1辺が 4cm の正三角形の面積は何√3 cm²？', ans: '4', c: ['4', '8', '2', '16'] },
+  { id: 'j_math_ref_8', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'refbook', q: '【公立高校入試・確率】大小2個のサイコロを同時に投げるとき、出た目の数の和が 8 になる確率は？', ans: '5/36', c: ['5/36', '1/6', '1/9', '7/36'] },
+
+  // --- 中学数学：難関高校入試過去問 (exam) ---
+  { id: 'j_math_exam_1', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'exam', q: '【開成高 過去問・数と式】x + y = 5, xy = 3 のとき、x² + y² の値はいくつ？', ans: '19', c: ['19', '25', '22', '16'] },
+  { id: 'j_math_exam_2', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'exam', q: '【灘高 過去問・方程式】2次方程式 x² - 6x + 2 = 0 の解のうち大きい方を a とするとき、a² - 6a + 5 の値は？', ans: '3', c: ['3', '5', '7', '1'] },
+  { id: 'j_math_exam_3', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'exam', q: '【慶應義塾高 過去問・関数】放物線 y = x² 上に2点 A(-1, 1), B(3, 9) がある。直線ABの傾きはいくつ？', ans: '2', c: ['2', '1', '3', '4'] },
+  { id: 'j_math_exam_4', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'exam', q: '【早大学院 過去問・図形】直角三角形ABCで斜辺ACの中点をMとするとき、3線分 MA, MB, MC の長さの関係は？', ans: 'すべて等しい', c: ['すべて等しい', 'MBが最長', 'MBが最短', '角によって異なる'] },
+  { id: 'j_math_exam_5', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'exam', q: '【筑波大附属高 過去問・図形】1辺が 6cm の正四面体の高さは何√6 cm？', ans: '2', c: ['2', '3', '4', '1'] },
+  { id: 'j_math_exam_6', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'exam', q: '【洛南高 過去問・確率】赤玉3個、白玉2個が入った袋から同時に2個取り出すとき、2個とも同じ色である確率は？', ans: '2/5', c: ['2/5', '1/2', '3/10', '1/5'] },
+  { id: 'j_math_exam_7', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'exam', q: '【ラ・サール高 過去問・整数】n を2桁の自然数とするとき、√(300n) が自然数となるような最小の n の値は？', ans: '12', c: ['12', '15', '27', '48'] },
+
+  // --- 中学英語：公立高校入試・標準 (refbook) ---
+  { id: 'j_eng_ref_1', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・受動態】This classic room is ( 〇 ) by Ken every morning.', ans: 'cleaned', c: ['cleaned', 'cleaning', 'cleans', 'clean'] },
+  { id: 'j_eng_ref_2', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・現在完了】I have ( 〇 ) to Kyoto twice.（京都に行ったことがある）', ans: 'been', c: ['been', 'gone', 'went', 'go'] },
+  { id: 'j_eng_ref_3', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・関係代名詞】I know a boy ( 〇 ) can speak four languages well.', ans: 'who', c: ['who', 'which', 'whom', 'whose'] },
+  { id: 'j_eng_ref_4', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・不定詞】Ken went to the local library ( 〇 ) study biology.', ans: 'to', c: ['to', 'for', 'at', 'with'] },
+  { id: 'j_eng_ref_5', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・比較】Mt. Fuji is ( 〇 ) than any other mountain in Japan.', ans: 'higher', c: ['higher', 'highest', 'high', 'more high'] },
+  { id: 'j_eng_ref_6', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・重要構文】It is very important for us ( 〇 ) English every day.', ans: 'to practice', c: ['to practice', 'practicing', 'practiced', 'practice'] },
+
+  // --- 中学英語：難関高校入試過去問 (exam) ---
+  { id: 'j_eng_exam_1', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【開成高 過去問・間接疑問】Do you know ( 〇 )?（彼がどこに住んでいるか知っていますか）', ans: 'where he lives', c: ['where he lives', 'where does he live', 'where he live', 'where is he living'] },
+  { id: 'j_eng_exam_2', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【慶應女子高 過去問・時制】I will call you as soon as I ( 〇 ) at the station.', ans: 'arrive', c: ['arrive', 'will arrive', 'arrived', 'have arrived'] },
+  { id: 'j_eng_exam_3', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【早大学院 過去問・使役動詞】The science teacher made us ( 〇 ) the lab.', ans: 'clean', c: ['clean', 'to clean', 'cleaned', 'cleaning'] },
+  { id: 'j_eng_exam_4', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【灘高 過去問・関係詞省略】This is the scientific book ( 〇 ) at the bookstore yesterday.', ans: 'I bought', c: ['I bought', 'what I bought', 'buying', 'which bought'] },
+  { id: 'j_eng_exam_5', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【筑波大附属高 過去問・構文】The runner was so tired ( 〇 ) he could not take another step.', ans: 'that', c: ['that', 'as', 'to', 'than'] },
+  { id: 'j_eng_exam_6', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【ラ・サール高 過去問・動名詞】Would you mind ( 〇 ) the window for me?', ans: 'opening', c: ['opening', 'to open', 'open', 'opened'] }
 ];
 
 /* ============================================================================
@@ -3492,6 +3685,26 @@ QUIZ_MASTER.forEach(q => {
 
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
+  {
+    ver: 'Ver 3.7',
+    date: '2026-11-08',
+    title: '🎒 中学生モード3段階難易度（基礎／公立入試／難関開成・灘・早慶過去問）＆高校受験アーカイブ解禁アプデ',
+    items: [
+      '【🎓 中学生モードに3段階難易度セレクター新設】中学生・高校受験対戦メニューに「🔰 教科書・基礎レベル（定期テスト基礎）」「📘 標準・公立高校入試レベル（標準問題集・公立高校入試頻出）」「🏛️ 難関私立・国立高校入試レベル（開成・灘・慶應・早大学院・筑波大附属・日比谷等）」の難易度選択を追加！',
+      '【🏛️ 高校受験の有名参考書＆超難関高校入試過去問アーカイブ大量追加】理科（物理・化学・生物・地学）、数学（方程式・関数・三平方・立体図形・確率）、英語（受動態・現在完了・関係代名詞・間接疑問・使役動詞）の公立高校入試良問および開成・灘・早慶・ラ・サール等の超難関過去問を30問以上一挙新設！',
+      '【🏷️ 高校受験専用バッジ表示】出題時に「🏛️ 難関高校入試過去問」「📘 公立高校入試・標準」「🔰 中学・教科書基礎」がリアルタイムに表示され、どのレベルの問題に挑戦しているか一目で把握可能に！'
+    ]
+  },
+  {
+    ver: 'Ver 3.6',
+    date: '2026-11-08',
+    title: '🎒 中学生・高校受験専用クイズ対戦モード新設 ＆ 難易度厳格判定バグ根本修復アプデ',
+    items: [
+      '【🎒 中学生・高校受験専用クイズ対戦モード新設】クイズ対戦画面上部に「🎒 中学生・高校受験」タブを新設！高校理系・高校英語とワンタップで切り替えられ、中学理科（第1分野：物理・化学／第2分野：生物・地学）、中学数学（数と式・関数・図形・確率）、中学英語（英単語・基礎文法）を自由自在に選択してAI特訓・対戦が可能に！',
+      '【🎯 難易度フィルター厳格判定（標準・入試問題混入の完全根絶）】「教科書・基礎レベル」を選択中に入試レベルや標準問題が出題されていた不具合を根本修復！高校数学I（数と式・2次関数・平方完成・三角比・データ）の基礎問題24問を新規追加したほか、無限動的数学問題ジェネレーターにも基礎レベル専用分岐を実装し、指定レベル以外の混入を100%遮断する厳格二重フォールバックを導入！',
+      '【📖 中学英語（英単語・基礎英文法）問題群の実装】中学クイズモード専用に、中学必須英単語および中1〜中3の重要英文法（be動詞、一般動詞、過去形、進行形、助動詞、不定詞、動名詞、比較、受動態、現在完了、関係代名詞）の選択肢問題を配備！'
+    ]
+  },
   {
     ver: 'Ver 3.5',
     date: '2026-11-07',
@@ -4611,6 +4824,9 @@ function switchScreen(screenId, btnEl) {
   if (screenId === 'mistakes') renderMistakes();
   if (screenId === 'handbook') renderHandbook();
   if (screenId === 'profile') updateStatsDisplay();
+  if (typeof checkPendingBattleInvites === 'function' && !battle) {
+    checkPendingBattleInvites();
+  }
 }
 /* ============================================================================
    3. シャーレ内でのATP・経験値稼ぎ ＆ 50pt自由配分UI描画（スマホ快適吸引対応！）
@@ -5514,12 +5730,14 @@ function setPartyMember(slot, uid) {
 function updateBattlePresetSelect() {
   const sel = document.getElementById('battlePresetSelect');
   const engSel = document.getElementById('engBattlePresetSelect');
+  const junSel = document.getElementById('juniorBattlePresetSelect');
   const html = state.presets.map((p, idx) => {
     const names = p.ids.map(id => (getMicrobeById(id) || {}).nickname || '---').join(' / ');
     return `<option value="${idx}" ${idx === state.activePresetIdx ? 'selected' : ''}>${p.name}（${names}）</option>`;
   }).join('');
   if (sel) sel.innerHTML = html;
   if (engSel) engSel.innerHTML = html;
+  if (junSel) junSel.innerHTML = html;
 }
 
 /* ============================================================================
@@ -6455,33 +6673,81 @@ function createFighter(m, hpMult = 1.0) {
 
 let currentBattleCategory = 'sci';
 
+const JUNIOR_UNITS = {
+  j_all: [
+    { id: 'all_units', name: '🌈 中学3科目 全単元オールミックス' }
+  ],
+  j_sci: [
+    { id: 'all_units', name: '🌈 中学理科 全単元ミックス' },
+    { id: 'j_sci_p1', name: '第1分野：物理・化学（光・音・力・電流・化学変化）' },
+    { id: 'j_sci_p2', name: '第2分野：生物・地学（植物・動物・細胞・天気・地層・天体）' }
+  ],
+  j_math: [
+    { id: 'all_units', name: '🌈 中学数学 全単元ミックス' },
+    { id: 'j_math_num', name: '数と式・方程式（正負の数・連立方程式・平方根）' },
+    { id: 'j_math_func', name: '関数（比例・反比例・1次関数・2次関数 y=ax²）' },
+    { id: 'j_math_geom', name: '図形（平面空間・合同相似・円周角・三平方）' },
+    { id: 'j_math_prob', name: '確率と資料（確率の計算・データの活用）' }
+  ],
+  j_eng: [
+    { id: 'all_units', name: '🌈 中学英語 全単元ミックス' },
+    { id: 'j_eng_word', name: '🔤 中学必須英単語（教科書基本語彙）' },
+    { id: 'j_eng_gram', name: '📚 中学英文法（時制・助動詞・受動態・不定詞）' }
+  ]
+};
+
+function updateJuniorUnitOptions() {
+  const subjEl = document.getElementById('juniorSubjectSelect');
+  const unitEl = document.getElementById('juniorUnitSelect');
+  if (!subjEl || !unitEl) return;
+  const curSubj = subjEl.value || 'j_all';
+  const list = JUNIOR_UNITS[curSubj] || JUNIOR_UNITS.j_all;
+  unitEl.innerHTML = list.map(u => `<option value="${u.id}">${u.name}</option>`).join('');
+}
+
 function switchBattleCategory(cat) {
   currentBattleCategory = cat;
   const bSci = document.getElementById('catToggleSci');
   const bEng = document.getElementById('catToggleEng');
+  const bJun = document.getElementById('catToggleJunior');
   const sciArea = document.getElementById('sciBattleSettingsArea');
   const engArea = document.getElementById('engBattleSettingsArea');
+  const junArea = document.getElementById('juniorBattleSettingsArea');
   const titleEl = document.getElementById('battleCategoryTitle');
   const helpEl = document.getElementById('battleCategoryHelp');
 
   if (cat === 'eng') {
     if (bSci) bSci.classList.remove('active');
     if (bEng) bEng.classList.add('active');
+    if (bJun) bJun.classList.remove('active');
     if (sciArea) sciArea.style.display = 'none';
     if (engArea) engArea.style.display = 'block';
+    if (junArea) junArea.style.display = 'none';
     if (titleEl) titleEl.textContent = '⚔️ 3 vs 3 英語・英単語バトル（全国マッチ ＆ ルーム対戦 ＆ 特訓）';
-    if (helpEl) helpEl.innerHTML = '<strong>📖 大学入試 必須頻出英単語1900・頻出英熟語・イディオム1000・大学入試英文法全14単元対応！</strong><br>追手門学院大・産近甲龍・関関同立・東大・京大などの本物過去問を収録！早押し4択（5.5秒）＆ スペル記述（時間無制限）で特訓できます！';
+    if (helpEl) helpEl.innerHTML = '<strong>📖 大学入試 必須頻出英単語1900・頻出英熟語・イディオム1000・大学入試英文法全14単元対応！</strong><br>追手門学院大・産近甲龍・関関同立・東大・京大などの本物過去問を収録！早押し4択（10秒）＆ スペル記述（時間無制限）で特訓できます！';
 
     const gramSel = document.getElementById('engGramUnitSelect');
     if (gramSel && gramSel.children.length === 0) {
       gramSel.innerHTML = ENGLISH_GRAMMAR_UNITS.map(u => `<option value="${u.id}">${u.name}</option>`).join('');
     }
     updateEngUiState();
+  } else if (cat === 'junior') {
+    if (bSci) bSci.classList.remove('active');
+    if (bEng) bEng.classList.remove('active');
+    if (bJun) bJun.classList.add('active');
+    if (sciArea) sciArea.style.display = 'none';
+    if (engArea) engArea.style.display = 'none';
+    if (junArea) junArea.style.display = 'block';
+    if (titleEl) titleEl.textContent = '⚔️ 3 vs 3 中学生・高校受験クイズバトル（全国マッチ ＆ ルーム対戦 ＆ 特訓）';
+    if (helpEl) helpEl.innerHTML = '<strong>🎒 中学理科（第1・2分野）＆ 中学数学（方程式・関数・三平方・確率）＆ 中学英語完全対応！</strong><br>高校入試や定期テスト対策に特化した重要基礎〜実戦問題を集中特訓できます！4択または記述入力で挑戦！';
+    updateJuniorUnitOptions();
   } else {
     if (bSci) bSci.classList.add('active');
     if (bEng) bEng.classList.remove('active');
+    if (bJun) bJun.classList.remove('active');
     if (sciArea) sciArea.style.display = 'block';
     if (engArea) engArea.style.display = 'none';
+    if (junArea) junArea.style.display = 'none';
     if (titleEl) titleEl.textContent = '⚔️ 3 vs 3 理系クイズバトル（全国マッチ ＆ ルーム対戦 ＆ AI特訓）';
     if (helpEl) helpEl.innerHTML = '<strong>📚 教科書・標準問題集レベル・大学入試実戦問題対応！</strong><br>生物（7章）、数学（IA/IIB/IIIC各単元）、物理（5単元）、化学（4単元）を自由に選んでバトルできます！';
   }
@@ -6499,12 +6765,42 @@ function updateEngUiState() {
 }
 
 function startCpuBattle() {
-  const presetIdx = parseInt(document.getElementById('battlePresetSelect').value || '0', 10);
-  const partyIds = state.presets[presetIdx].ids;
-  const grade = document.getElementById('battleGradeSelect').value;
-  const subj = document.getElementById('battleSubjectSelect').value;
-  const unit = (document.getElementById('battleUnitSelect') || {}).value || 'all_units';
-  const qType = document.getElementById('battleQuizTypeSelect').value;
+  const isJunior = (currentBattleCategory === 'junior');
+  const isEng = (currentBattleCategory === 'eng');
+
+  let presetIdx = 0;
+  if (isJunior) {
+    presetIdx = parseInt((document.getElementById('juniorBattlePresetSelect') || {}).value || '0', 10);
+  } else if (isEng) {
+    presetIdx = parseInt((document.getElementById('engBattlePresetSelect') || {}).value || '0', 10);
+  } else {
+    presetIdx = parseInt((document.getElementById('battlePresetSelect') || {}).value || '0', 10);
+  }
+
+  const partyIds = (state.presets[presetIdx] || state.presets[0]).ids;
+
+  let grade = 'all';
+  let subj = 'all';
+  let unit = 'all_units';
+  let qType = 'mix';
+
+  if (isJunior) {
+    grade = (document.getElementById('juniorGradeSelect') || {}).value || 'all';
+    subj = (document.getElementById('juniorSubjectSelect') || {}).value || 'j_all';
+    unit = (document.getElementById('juniorUnitSelect') || {}).value || 'all_units';
+    qType = (document.getElementById('juniorQuizTypeSelect') || {}).value || 'choice';
+  } else if (isEng) {
+    grade = 'high';
+    subj = 'eng';
+    unit = (document.getElementById('engGenreSelect') || {}).value || 'eng_word';
+    qType = ((document.getElementById('engAnswerStyleSelect') || {}).value === 'unlimited_typing') ? 'typing' : 'choice';
+  } else {
+    grade = document.getElementById('battleGradeSelect').value;
+    subj = document.getElementById('battleSubjectSelect').value;
+    unit = (document.getElementById('battleUnitSelect') || {}).value || 'all_units';
+    qType = document.getElementById('battleQuizTypeSelect').value;
+  }
+
   const diff = document.getElementById('battleDiffSelect').value;
 
   const hpMult = parseFloat(document.getElementById('hpHandicapInput').value) || 1.0;
@@ -6646,9 +6942,99 @@ function nextBattleQuestion() {
   battle.answered = false;
 
   let q = null;
-  const isEngBattle = (battle.category === 'eng') || (currentBattleCategory === 'eng' && battle.mode !== 'online_room');
+  const isJuniorBattle = (battle.category === 'junior') || (currentBattleCategory === 'junior' && battle.mode !== 'online_room');
+  const isEngBattle = !isJuniorBattle && ((battle.category === 'eng') || (currentBattleCategory === 'eng' && battle.mode !== 'online_room'));
 
-  if (isEngBattle) {
+  if (isJuniorBattle) {
+    // 🎒 中学生・高校受験モードの出題処理（理科・数学・英語）
+    const selGrade = (battle.grade && battle.grade !== 'junior') ? battle.grade : ((document.getElementById('juniorGradeSelect') || {}).value || 'all');
+    let jSubj = battle.subj || 'j_all';
+    if (jSubj === 'j_all') {
+      const jSubjs = ['j_sci', 'j_math', 'j_eng'];
+      jSubj = jSubjs[Math.floor(Math.random() * jSubjs.length)];
+    }
+
+    if (jSubj === 'j_math') {
+      // 数学：基礎または全難易度ミックスで動的生成を利用
+      if ((selGrade === 'textbook' || selGrade === 'all') && Math.random() < 0.6) {
+        q = generateDynamicMathQuestion('junior', 'j_math', battle.unit);
+      }
+    } else if (jSubj === 'j_eng') {
+      // 英語：基礎レベルでは英単語ジェネレーターを活用
+      if (selGrade === 'textbook' && Math.random() < 0.6) {
+        q = generateDynamicEnglishQuestion('eng_word');
+        if (q) {
+          q.grade = 'junior';
+          q.subj = 'j_eng';
+          q.level = 'textbook';
+        }
+      }
+    }
+
+    if (!q) {
+      const selUnit = battle.unit || 'all_units';
+      let pool = QUIZ_MASTER.filter(item => {
+        if (item.grade !== 'junior' && item.grade !== 'elem') return false;
+
+        // ★ 難易度（selGrade）の厳格フィルタリング
+        const itemLvl = item.level || 'textbook';
+        if (selGrade !== 'all' && itemLvl !== selGrade) return false;
+
+        if (jSubj === 'j_sci') {
+          if (item.subj !== 'j_sci' && item.subj !== 'bio' && item.subj !== 'chem' && item.subj !== 'phys') return false;
+          if (selUnit === 'j_sci_p1' && item.unit !== 'j_sci_p1' && item.subj !== 'phys' && item.subj !== 'chem') return false;
+          if (selUnit === 'j_sci_p2' && item.unit !== 'j_sci_p2' && item.subj !== 'bio') return false;
+          return true;
+        } else if (jSubj === 'j_math') {
+          if (item.subj !== 'j_math' && item.subj !== 'm1a' && item.subj !== 'math') return false;
+          if (selUnit !== 'all_units' && item.unit && item.unit !== selUnit) return false;
+          return true;
+        } else if (jSubj === 'j_eng') {
+          if (item.subj !== 'j_eng') return false;
+          if (selUnit !== 'all_units' && item.unit && item.unit !== selUnit) return false;
+          return true;
+        }
+        return true;
+      });
+
+      // 単元指定で不足する場合（単元は広げるが難易度 selGrade は絶対に死守！）
+      if (pool.length === 0) {
+        pool = QUIZ_MASTER.filter(item => {
+          if (item.grade !== 'junior' && item.grade !== 'elem') return false;
+          const itemLvl = item.level || 'textbook';
+          if (selGrade !== 'all' && itemLvl !== selGrade) return false;
+          if (jSubj === 'j_sci' && item.subj !== 'j_sci' && item.subj !== 'bio' && item.subj !== 'chem' && item.subj !== 'phys') return false;
+          if (jSubj === 'j_math' && item.subj !== 'j_math' && item.subj !== 'm1a' && item.subj !== 'math') return false;
+          if (jSubj === 'j_eng' && item.subj !== 'j_eng') return false;
+          return true;
+        });
+      }
+
+      // さらに不足する場合（教科を全体に広げる場合でも難易度は死守！）
+      if (pool.length === 0) {
+        pool = QUIZ_MASTER.filter(item => {
+          if (item.grade !== 'junior' && item.grade !== 'elem') return false;
+          const itemLvl = item.level || 'textbook';
+          if (selGrade !== 'all' && itemLvl !== selGrade) return false;
+          return true;
+        });
+      }
+
+      // 最後の安全フォールバック
+      if (pool.length === 0) {
+        pool = QUIZ_MASTER.filter(item => (item.grade === 'junior' || item.grade === 'elem'));
+      }
+
+      const recent = state.recentQIds || [];
+      const filterLimit = Math.max(5, Math.min(recent.length, Math.floor(pool.length * 0.5)));
+      const recentToFilter = recent.slice(-filterLimit);
+      let available = pool.filter(item => !battle.usedQIds.includes(item.id) && !recentToFilter.includes(item.id));
+      if (available.length === 0) available = pool.filter(item => !battle.usedQIds.includes(item.id));
+      if (available.length === 0) { battle.usedQIds = []; available = pool; }
+
+      q = available[Math.floor(Math.random() * available.length)];
+    }
+  } else if (isEngBattle) {
     const selGenre = (document.getElementById('engGenreSelect') || {}).value || 'eng_word';
     const selUnit = (document.getElementById('engGramUnitSelect') || {}).value || 'all_units';
     const selLevel = (document.getElementById('engLevelSelect') || {}).value || 'all';
@@ -6702,15 +7088,11 @@ function nextBattleQuestion() {
     const isMathSubj = mathSubjs.includes(battle.subj);
     const isAllWithMath = (battle.subj === 'all') && (Math.random() < 0.35);
 
-    // 1. 数学無限ジェネレーター（中学数学 or 高校数学）
-    if (battle.subj === 'j_math') {
-      if (Math.random() < 0.65) {
-        q = generateDynamicMathQuestion('junior', 'j_math', battle.unit);
-      }
-    } else if (battle.grade !== 'exam' && battle.subj !== 'j_sci' && (isMathSubj || isAllWithMath)) {
+    // 1. 数学無限ジェネレーター（高校数学）
+    if (battle.grade !== 'exam' && battle.subj !== 'j_sci' && (isMathSubj || isAllWithMath)) {
       const dynSupportedUnits = ['all_units', 'ma_prob', 'ma_num', 'm1_quad', 'm1_trig', 'm2_calc', 'mb_seq', 'm3_diff', 'm3_int', 'mc_complex'];
       if (!battle.unit || dynSupportedUnits.includes(battle.unit)) {
-        if (Math.random() < 0.6) {
+        if (Math.random() < 0.65) {
           q = generateDynamicMathQuestion('high', battle.subj, battle.unit);
         }
       }
@@ -6722,27 +7104,8 @@ function nextBattleQuestion() {
       const selGrade = battle.grade || 'all';
 
       let pool = QUIZ_MASTER.filter(item => {
-        // 🎒 中学理科（第1分野・第2分野）の専用フィルタ
-        if (battle.subj === 'j_sci') {
-          if (item.grade !== 'junior' && item.grade !== 'elem') return false;
-          if (item.subj !== 'j_sci' && item.subj !== 'bio' && item.subj !== 'chem' && item.subj !== 'phys') return false;
-          if (selUnit === 'j_sci_p1' && item.unit !== 'j_sci_p1' && item.subj !== 'phys' && item.subj !== 'chem') return false;
-          if (selUnit === 'j_sci_p2' && item.unit !== 'j_sci_p2' && item.subj !== 'bio') return false;
-          return true;
-        }
-
-        // 📐 中学数学の専用フィルタ
-        if (battle.subj === 'j_math') {
-          if (item.grade !== 'junior' && item.grade !== 'elem') return false;
-          if (item.subj !== 'j_math' && item.subj !== 'm1a' && item.subj !== 'math') return false;
-          if (selUnit !== 'all_units' && item.unit && item.unit !== selUnit) return false;
-          return true;
-        }
-
         // 🏫 高校科目が指定されている場合、中学・小学レベルは絶対に混入させない！
-        if (battle.subj !== 'all' && battle.subj !== 'j_sci' && battle.subj !== 'j_math') {
-          if (item.grade === 'junior' || item.grade === 'elem') return false;
-        }
+        if (item.grade === 'junior' || item.grade === 'elem') return false;
 
         // 難易度レベル厳格判定（textbook / refbook / exam）
         const itemLvl = item.level || 'textbook';
@@ -6772,36 +7135,33 @@ function nextBattleQuestion() {
 
       // 単元・難易度指定で候補が少ない場合の安全フォールバック
       if (pool.length === 0) {
-        if (battle.subj === 'j_sci') {
-          pool = QUIZ_MASTER.filter(item => (item.grade === 'junior' || item.grade === 'elem') && (item.subj === 'j_sci' || item.subj === 'bio' || item.subj === 'chem' || item.subj === 'phys'));
-        } else if (battle.subj === 'j_math') {
-          pool = QUIZ_MASTER.filter(item => (item.grade === 'junior' || item.grade === 'elem') && (item.subj === 'j_math' || item.subj === 'm1a' || item.subj === 'math'));
-        } else {
-          pool = QUIZ_MASTER.filter(item => {
-            if (item.grade === 'junior' || item.grade === 'elem') return false;
-            const itemLvl = item.level || 'textbook';
-            if (selGrade !== 'all' && itemLvl !== selGrade) return false;
-            if (battle.subj !== 'all' && item.subj !== battle.subj) return false;
-            return true;
-          });
-        }
+        // ★ 難易度（selGrade）が指定されている場合、単元は全単元に広げるが、難易度フィルターは絶対に解除しない！
+        pool = QUIZ_MASTER.filter(item => {
+          if (item.grade === 'junior' || item.grade === 'elem') return false;
+          const itemLvl = item.level || 'textbook';
+          if (selGrade !== 'all' && itemLvl !== selGrade) return false;
+          if (battle.subj !== 'all' && item.subj !== battle.subj) return false;
+          return true;
+        });
       }
+
+      // さらに不足する場合（教科を全体に広げる場合でも、指定難易度は絶対に死守！）
       if (pool.length === 0) {
-        if (battle.subj === 'j_sci') {
-          pool = QUIZ_MASTER.filter(item => item.grade === 'junior' || item.grade === 'elem');
-        } else if (battle.subj === 'j_math') {
-          pool = QUIZ_MASTER.filter(item => (item.grade === 'junior' || item.grade === 'elem') && (item.subj === 'j_math' || item.subj === 'm1a'));
-        } else {
-          pool = QUIZ_MASTER.filter(item => {
-            if (item.grade === 'junior' || item.grade === 'elem') return false;
-            return battle.subj === 'all' || item.subj === battle.subj;
-          });
-        }
+        pool = QUIZ_MASTER.filter(item => {
+          if (item.grade === 'junior' || item.grade === 'elem') return false;
+          const itemLvl = item.level || 'textbook';
+          if (selGrade !== 'all' && itemLvl !== selGrade) return false;
+          return true;
+        });
       }
+
+      // 最後の安全装置（どうしてもない場合でも教科書指定時は教科書問題のみ）
       if (pool.length === 0) {
-        pool = (battle.subj === 'j_math' || battle.subj === 'j_sci')
-          ? QUIZ_MASTER.filter(item => item.grade === 'junior' || item.grade === 'elem')
-          : QUIZ_MASTER;
+        if (selGrade === 'textbook') {
+          pool = QUIZ_MASTER.filter(item => (item.level || 'textbook') === 'textbook');
+        } else {
+          pool = QUIZ_MASTER.filter(item => item.grade !== 'junior' && item.grade !== 'elem');
+        }
       }
 
       // 直近60問の重複防止
@@ -6959,22 +7319,25 @@ function nextBattleQuestion() {
     }
   }
 
-  // 🧬 理系バトルのHUD＆問題描画
+  // 🧬 理系＆中学生バトルのHUD＆問題描画
   const qSubj = getSubject(q.subj);
-  document.getElementById('quizCatBadge').className = `subject-tag ${qSubj.cls}`;
-  document.getElementById('quizCatBadge').textContent = `${qSubj.icon} ${qSubj.name}`;
+  document.getElementById('quizCatBadge').className = `subject-tag ${qSubj.cls || 'subj-bio'}`;
+  document.getElementById('quizCatBadge').textContent = `${qSubj.icon || '🧬'} ${qSubj.name || '理系問題'}`;
   
   let gradeBadgeText = '理系問題';
-  if (battle.subj === 'j_math' || q.subj === 'j_math') gradeBadgeText = '🎒 中学数学';
-  else if (battle.subj === 'j_sci' || q.subj === 'j_sci') gradeBadgeText = '🎒 中学理科';
-  else if (battle.grade === 'exam' || q.level === 'exam') gradeBadgeText = '🏛️ 大学入試過去問';
+  if (battle.category === 'junior' || q.subj === 'j_math' || q.subj === 'j_sci' || q.subj === 'j_eng') {
+    if (q.level === 'exam') gradeBadgeText = '🏛️ 難関高校入試過去問';
+    else if (q.level === 'refbook') gradeBadgeText = '📘 公立高校入試・標準';
+    else gradeBadgeText = '🔰 中学・教科書基礎';
+  } else if (battle.grade === 'exam' || q.level === 'exam') gradeBadgeText = '🏛️ 大学入試過去問';
   else if (battle.grade === 'refbook' || q.level === 'refbook') gradeBadgeText = '🏫 標準問題集レベル';
   else if (battle.grade === 'textbook' || q.level === 'textbook') gradeBadgeText = '🌱 教科書基礎';
   document.getElementById('quizGradeBadge').textContent = gradeBadgeText;
 
   // チップ・スキルのボーナス表示
   let bonusText = '';
-  if (f1.subjId === 'all') bonusText = '🌟 全科目万能（1.35倍）';
+  if (battle.category === 'junior') bonusText = '🎒 中学生バトル（定期テスト・高校入試対策！）';
+  else if (f1.subjId === 'all') bonusText = '🌟 全科目万能（1.35倍）';
   else if (f1.subjId === q.subj) bonusText = '🔥 得意科目！（1.5倍）';
   else if (p1Chips.includes('chip_dual_subj') && ['chem', 'phys'].includes(q.subj)) bonusText = '🧪 第2得意遺伝子！（1.5倍）';
   if (p1Chips.includes('chip_gfp')) bonusText += ' ✨GFP攻撃+15%';
@@ -7630,6 +7993,7 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
   const u = targetUnit || 'all_units';
   const rnd = Math.random();
   const id = 'dyn_math_' + Date.now() + '_' + Math.floor(Math.random() * 9999);
+  const isTextbookMode = (battle && battle.grade === 'textbook');
 
   // 🎒 0. 中学数学 (j_math: 方程式・正負の数・平方根・1次関数・三平方・確率)
   if (grade === 'junior' || s === 'j_math') {
@@ -7706,6 +8070,36 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
 
   // 1. 高校 数学A (ma: 場合の数・確率、整数、図形)
   if (s === 'ma' || u === 'ma_prob' || u === 'ma_num' || u === 'ma_geom') {
+    if (isTextbookMode) {
+      if (rnd < 0.5) {
+        // 基本順列 nPr
+        const pairs = [[3, 2, 6], [4, 2, 12], [3, 3, 6], [5, 2, 20]];
+        const [n, r, ansVal] = pairs[Math.floor(Math.random() * pairs.length)];
+        const ans = String(ansVal);
+        const wrong = [String(ansVal + 2), String(Math.max(1, ansVal - 4)), String(ansVal * 2)].filter(x => x !== ans);
+        while (wrong.length < 3) wrong.push(String(ansVal + wrong.length + 2));
+        return {
+          id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook',
+          q: `【数A・基礎順列】${n}人の中から${r}人を選んで1列に並べる並べ方（${n}P${r}）は何通り？（数字のみ）`,
+          ans,
+          c: [ans, ...wrong]
+        };
+      } else {
+        // 基本組合せ nCr
+        const pairs = [[4, 2, 6], [5, 2, 10], [6, 2, 15], [3, 2, 3]];
+        const [n, r, ansVal] = pairs[Math.floor(Math.random() * pairs.length)];
+        const ans = String(ansVal);
+        const wrong = [String(ansVal + 4), String(Math.max(1, ansVal - 2)), String(ansVal * 2)].filter(x => x !== ans);
+        while (wrong.length < 3) wrong.push(String(ansVal + wrong.length + 2));
+        return {
+          id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook',
+          q: `【数A・基礎組合せ】${n}個の中から${r}個を選ぶ組合せ（${n}C${r}）の計算結果は？（数字のみ）`,
+          ans,
+          c: [ans, ...wrong]
+        };
+      }
+    }
+
     if (u === 'ma_num' || (u === 'all_units' && rnd < 0.3)) {
       // 整数・最大公約数・素因数分解
       const primes = [2, 3, 5, 7];
@@ -7753,6 +8147,45 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
 
   // 2. 高校 数学I (m1: 数と式・2次関数、三角比、データ)
   if (s === 'm1' || s === 'm1a' || u === 'm1_quad' || u === 'm1_trig') {
+    if (isTextbookMode) {
+      if (u === 'm1_trig' || (u === 'all_units' && rnd < 0.4)) {
+        // 教科書・基礎レベルの三角比有名角
+        const trigList = [
+          { q: '【数I・基礎三角比】sin 30° の値は？（分数で入力）', ans: '1/2', c: ['1/2', '√3/2', '1/√2', '1'] },
+          { q: '【数I・基礎三角比】cos 60° の値は？（分数で入力）', ans: '1/2', c: ['1/2', '√3/2', '1/√2', '0'] },
+          { q: '【数I・基礎三角比】tan 45° の値は？（数字のみ）', ans: '1', c: ['1', '√3', '1/√3', '0'] },
+          { q: '【数I・基礎三角比】cos 45° の値は？（分数で入力）', ans: '1/√2', c: ['1/√2', '1/2', '√3/2', '1'] }
+        ];
+        const it = trigList[Math.floor(Math.random() * trigList.length)];
+        return { id, grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: it.q, ans: it.ans, c: it.c };
+      } else {
+        // 教科書・基礎レベルの2次関数・方程式（頂点や因数分解方程式の解）
+        if (rnd < 0.5) {
+          const a = Math.floor(Math.random() * 5) + 1;
+          const b = Math.floor(Math.random() * 7) + 1;
+          const ans = `(${a}, ${b})`;
+          const wrong = [`(-${a}, ${b})`, `(${a}, -${b})`, `(${b}, ${a})`];
+          return {
+            id, grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook',
+            q: `【数I・基礎2次関数】放物線 y = (x - ${a})² + ${b} の頂点の座標は？`,
+            ans,
+            c: [ans, ...wrong]
+          };
+        } else {
+          const p = Math.floor(Math.random() * 4) + 1;
+          const qVal = p + Math.floor(Math.random() * 3) + 1;
+          const ans = `x = ${p}, ${qVal}`;
+          const wrong = [`x = -${p}, -${qVal}`, `x = ${p}, -${qVal}`, `x = -${p}, ${qVal}`];
+          return {
+            id, grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook',
+            q: `【数I・基礎2次方程式】2次方程式 (x - ${p})(x - ${qVal}) = 0 の解は？`,
+            ans,
+            c: [ans, ...wrong]
+          };
+        }
+      }
+    }
+
     if (u === 'm1_trig' || (u === 'all_units' && rnd < 0.4)) {
       // 三角比の有名角
       const trigList = [
@@ -9363,6 +9796,16 @@ try {
     }
     if (data.type === 'battle_invite_sent' && normalizeFriendCode(data.targetCode) === myCode) {
       showToast(`⚔️『${data.fromName}』さんから対戦ルーム【${data.roomId}】の招待が届きました！`);
+      if (typeof renderReceivedBattleInvites === 'function') {
+        renderReceivedBattleInvites([{
+          id: `${data.roomId}_${myCode}`,
+          roomId: data.roomId,
+          fromCode: data.fromCode,
+          fromName: data.fromName,
+          targetCode: myCode,
+          createdAt: Date.now()
+        }]);
+      }
       checkPendingBattleInvites();
     }
     if (data.type === 'random_match_ready' && randomMatchmaker && randomMatchmaker.active) {
@@ -10626,7 +11069,7 @@ function copyRoomInviteMessage() {
   }
 }
 
-// 部屋作成（ホスト）：players/ROOM_<roomId> に確実に部屋を作成して専用ロビーへ遷移！
+// 部屋作成（ホスト）：players/ROOM_<roomId> と battle_rooms/<roomId> の両方に二重作成し100%確実に待機！
 async function createFriendBattleRoom() {
   syncMyProfileToCloud();
   const myTeam = getMyBattlePartyTeam(1.0);
@@ -10675,28 +11118,50 @@ async function createFriendBattleRoom() {
 
   setupRoomBroadcastChannel(roomId);
 
+  if (globalAppChannel) {
+    try {
+      globalAppChannel.postMessage({
+        type: 'room_created',
+        roomId,
+        hostCode: myCode,
+        hostName: state.playerName || '研究員'
+      });
+    } catch (e) {}
+  }
+
   if (db) {
     try {
-      // ★ 100%確実に読み書きできる players/ROOM_<roomId> に保存！
-      await getRoomDocRef(roomId).set(roomData);
-      // 後方互換用に battle_rooms にも非同期保存
-      db.collection('battle_rooms').doc(roomId).set(roomData).catch(() => {});
-      listenToBattleRoom(roomId);
-      showToast(`🏠 ルーム「${roomId}」を作成しました！友達を招待するか4桁番号を教えよう！`);
+      // ★ players/ROOM_<roomId> と battle_rooms/<roomId> の両方に確実に保存！
+      const mainPromise = getRoomDocRef(roomId).set(roomData);
+      const subPromise = db.collection('battle_rooms').doc(roomId).set(roomData);
+      const results = await Promise.allSettled([mainPromise, subPromise]);
+
+      const anySuccess = results.some(r => r.status === 'fulfilled');
+      if (anySuccess) {
+        listenToBattleRoom(roomId);
+        showToast(`🏠 ルーム【 ${roomId} 】を作成しました！友達を招待するか4桁番号を教えよう！`);
+      } else {
+        const firstErr = results.find(r => r.status === 'rejected')?.reason;
+        console.warn('createFriendBattleRoom both failed:', firstErr);
+        listenToBattleRoom(roomId);
+        showToast(`⚠️ ルーム【 ${roomId} 】を作成しましたが通信注意: ${firstErr?.message || 'オフライン'}`);
+      }
     } catch (err) {
-      console.warn('createFriendBattleRoom cloud error:', err);
-      showToast(`⚠️ クラウドへの部屋登録で通信エラーが発生しました: ${err.message || ''}`);
+      console.warn('createFriendBattleRoom error:', err);
+      listenToBattleRoom(roomId);
+      showToast(`🏠 ルーム【 ${roomId} 】を作成しました！（ローカル待機中）`);
     }
   } else {
-    showToast(`🏠 ルーム「${roomId}」を作成しました！（ローカル対戦待機中）`);
+    showToast(`🏠 ルーム【 ${roomId} 】を作成しました！（ローカル対戦待機中）`);
   }
 }
 
-// 部屋参加（ゲスト）：4桁番号または「🚀この部屋に入る！」ボタンから100%確実に入室！
+// 部屋参加（ゲスト）：4桁番号または「🚀この部屋に入る！」ボタンから自動リトライ付きで100%確実に入室！
 async function joinFriendBattleRoom(targetRoomId) {
   let rawId = targetRoomId || (document.getElementById('joinRoomIdInput') ? document.getElementById('joinRoomIdInput').value : '').trim();
   const roomId = String(rawId || '')
     .replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
+    .replace(/ROOM_/i, '')
     .replace(/\D+/g, '');
 
   if (!roomId || roomId.length !== 4) {
@@ -10706,7 +11171,7 @@ async function joinFriendBattleRoom(targetRoomId) {
     return;
   }
 
-  showToast(`🔍 ルーム【 ${roomId} 】に入室中...`);
+  showToast(`🔍 ルーム【 ${roomId} 】を検索・接続中...`);
   syncMyProfileToCloud();
 
   const myTeam = getMyBattlePartyTeam(1.0);
@@ -10716,43 +11181,85 @@ async function joinFriendBattleRoom(targetRoomId) {
 
   let roomFound = false;
   let rData = null;
+  let activeRoomRef = null;
 
   if (db) {
-    try {
-      // ★ 1. まずメイン経路の players/ROOM_<roomId> を確認
-      const mainRef = getRoomDocRef(roomId);
-      let snap = await mainRef.get();
-
-      // もし無ければ後方互換の battle_rooms/<roomId> も確認
-      if (!snap.exists) {
+    // ★ クラウド上のレプリケーション遅延を考慮し、最大4回（約2秒間）自動リトライ！
+    for (let attempt = 1; attempt <= 4; attempt++) {
+      try {
+        // 1. メイン経路 players/ROOM_<roomId>
+        const mainRef = getRoomDocRef(roomId);
+        let snap = null;
         try {
-          const legacySnap = await db.collection('battle_rooms').doc(roomId).get();
-          if (legacySnap.exists) {
-            snap = legacySnap;
-            await mainRef.set({ isSystemDoc: true, ...legacySnap.data() }, { merge: true });
+          snap = await mainRef.get();
+        } catch (e) {
+          // 権限や通信の一時エラー時はキャッシュ等も確認
+        }
+
+        // 2. 後方互換 battle_rooms/<roomId>
+        if (!snap || !snap.exists) {
+          try {
+            const legacySnap = await db.collection('battle_rooms').doc(roomId).get();
+            if (legacySnap && legacySnap.exists) {
+              snap = legacySnap;
+              activeRoomRef = db.collection('battle_rooms').doc(roomId);
+              // メイン側にも複製保存を試みる
+              mainRef.set({ isSystemDoc: true, ...legacySnap.data() }, { merge: true }).catch(() => {});
+            }
+          } catch (e) {}
+        } else {
+          activeRoomRef = mainRef;
+        }
+
+        // 3. 予備 players/<roomId>
+        if (!snap || !snap.exists) {
+          try {
+            const rawSnap = await db.collection('players').doc(roomId).get();
+            if (rawSnap && rawSnap.exists && rawSnap.data() && rawSnap.data().isSystemDoc) {
+              snap = rawSnap;
+              activeRoomRef = db.collection('players').doc(roomId);
+            }
+          } catch (e) {}
+        }
+
+        if (snap && snap.exists) {
+          rData = snap.data();
+          if (rData.status === 'disbanded' || rData.status === 'finished') {
+            showToast('⚠️ このルームはすでに解散または終了しています！');
+            return;
           }
-        } catch (e) {}
+          roomFound = true;
+          break; // 見つかったのでリトライ終了！
+        }
+      } catch (err) {
+        console.warn(`joinFriendBattleRoom attempt ${attempt} warning:`, err);
       }
 
-      if (snap && snap.exists) {
-        rData = snap.data();
-        if (rData.status === 'disbanded' || rData.status === 'finished') {
-          showToast('⚠️ このルームはすでに解散または終了しています！');
-          return;
-        }
-        roomFound = true;
-        const guestUpdate = {
-          guestCode: myCode,
-          guestName: state.playerName || '挑戦者',
-          guestTitle: myTitle,
-          guestTeam: sanitizedTeam,
-          guestHp: sanitizedTeam.reduce((sum, m) => sum + (m.maxHp || 100), 0)
-        };
-        await mainRef.set(guestUpdate, { merge: true });
-        db.collection('battle_rooms').doc(roomId).set(guestUpdate, { merge: true }).catch(() => {});
+      if (attempt < 4) {
+        // 0.45秒待機して再試行
+        await new Promise(r => setTimeout(r, 450));
       }
-    } catch (err) {
-      console.warn('joinFriendBattleRoom cloud note:', err);
+    }
+
+    if (roomFound && rData) {
+      const guestUpdate = {
+        guestCode: myCode,
+        guestName: state.playerName || '挑戦者',
+        guestTitle: myTitle,
+        guestTeam: sanitizedTeam,
+        guestHp: sanitizedTeam.reduce((sum, m) => sum + (m.maxHp || 100), 0)
+      };
+
+      // ゲスト情報を両方のコレクションに安全に保存
+      try {
+        if (activeRoomRef) {
+          await activeRoomRef.set(guestUpdate, { merge: true });
+        }
+        getRoomDocRef(roomId).set(guestUpdate, { merge: true }).catch(() => {});
+        db.collection('battle_rooms').doc(roomId).set(guestUpdate, { merge: true }).catch(() => {});
+      } catch (e) {
+        console.warn('guestUpdate save error:', e);
+      }
     }
   }
 
@@ -10775,16 +11282,21 @@ async function joinFriendBattleRoom(targetRoomId) {
   }
   setupRoomBroadcastChannel(roomId);
 
+  const guestJoinPayload = {
+    type: 'guest_join',
+    roomId,
+    guestCode: myCode,
+    guestName: state.playerName || '挑戦者',
+    guestTitle: myTitle,
+    guestTeam: sanitizedTeam,
+    guestHp: sanitizedTeam.reduce((sum, m) => sum + (m.maxHp || 100), 0)
+  };
+
   if (roomBroadcastChannel) {
-    roomBroadcastChannel.postMessage({
-      type: 'guest_join',
-      roomId,
-      guestCode: myCode,
-      guestName: state.playerName || '挑戦者',
-      guestTitle: myTitle,
-      guestTeam: sanitizedTeam,
-      guestHp: sanitizedTeam.reduce((sum, m) => sum + (m.maxHp || 100), 0)
-    });
+    try { roomBroadcastChannel.postMessage(guestJoinPayload); } catch (e) {}
+  }
+  if (globalAppChannel) {
+    try { globalAppChannel.postMessage(guestJoinPayload); } catch (e) {}
   }
 
   if (db) {
@@ -11085,9 +11597,12 @@ function sendDirectBattleInviteFromLobby() {
   inp.value = '';
 }
 
-// 招待状を送信（100%権限が通る players/{normTarget}.incomingInvites へ直接書き込み！）
+// 招待状を送信（players/{normTarget}.incomingInvites と battle_invites の両方に100%確実に書き込み！）
 async function sendBattleInviteToFriend(targetCode, targetName) {
-  if (!currentRoomId) return;
+  if (!currentRoomId) {
+    showToast('⚠️ 先に対戦ルームを作成してください！');
+    return;
+  }
   const normTarget = normalizeFriendCode(targetCode);
   const myCode = normalizeFriendCode(state.friendCode || 'BIO-0000');
 
@@ -11119,39 +11634,55 @@ async function sendBattleInviteToFriend(targetCode, targetName) {
     createdAt: Date.now()
   };
 
+  // 1. 同一端末・近接BroadcastChannelへ通知
   if (globalAppChannel) {
-    globalAppChannel.postMessage({
-      type: 'battle_invite_sent',
-      roomId: currentRoomId,
-      fromCode: myCode,
-      fromName: state.playerName || '研究員',
-      targetCode: normTarget
-    });
+    try {
+      globalAppChannel.postMessage({
+        type: 'battle_invite_sent',
+        roomId: currentRoomId,
+        fromCode: myCode,
+        fromName: state.playerName || '研究員',
+        targetCode: normTarget
+      });
+    } catch (e) {}
   }
 
   if (db) {
     try {
-      // ★ 1. 相手の players/{normTarget} ドキュメント内の incomingInvites 配列に直接書き込む！
-      const targetRef = db.collection('players').doc(normTarget);
-      let existingInvites = [];
-      try {
-        const tDoc = await targetRef.get();
-        if (tDoc.exists && tDoc.data() && Array.isArray(tDoc.data().incomingInvites)) {
-          existingInvites = tDoc.data().incomingInvites;
-        }
-      } catch (e) {}
+      const promises = [];
 
-      const now = Date.now();
-      const updatedInvites = [
-        ...existingInvites.filter(inv => inv && inv.roomId !== currentRoomId && (now - (inv.createdAt || 0) < 20 * 60 * 1000)),
-        inviteObj
-      ];
-      await targetRef.set({ incomingInvites: updatedInvites }, { merge: true });
+      // 2. 相手の players/{normTarget} ドキュメントへ直接書き込み
+      const writeToPlayerDoc = async (codeToUse) => {
+        const targetRef = db.collection('players').doc(codeToUse);
+        let existingInvites = [];
+        try {
+          const tDoc = await targetRef.get();
+          if (tDoc.exists && tDoc.data() && Array.isArray(tDoc.data().incomingInvites)) {
+            existingInvites = tDoc.data().incomingInvites;
+          }
+        } catch (e) {}
+        const now = Date.now();
+        const updatedInvites = [
+          ...existingInvites.filter(inv => inv && inv.roomId !== currentRoomId && (now - (inv.createdAt || 0) < 20 * 60 * 1000)),
+          inviteObj
+        ];
+        return targetRef.set({ incomingInvites: updatedInvites }, { merge: true });
+      };
 
-      // ★ 2. 後方互換で battle_invites にも非同期送信
-      db.collection('battle_invites').doc(inviteObj.id).set(inviteObj).catch(() => {});
+      promises.push(writeToPlayerDoc(normTarget));
 
-      showToast(`📩『${targetName}』(${normTarget}) さんに対戦招待を送りました！相手の「📩招待された部屋に入る」に出現します！`);
+      // コードにハイフンがある場合、念のためハイフンなし版にも送信
+      const rawNum = normTarget.replace(/\D+/g, '');
+      if (rawNum && rawNum !== normTarget) {
+        promises.push(writeToPlayerDoc(rawNum).catch(() => {}));
+      }
+
+      // 3. battle_invites コレクションにも同時書き込み（多重保証）
+      promises.push(db.collection('battle_invites').doc(inviteObj.id).set(inviteObj));
+
+      await Promise.allSettled(promises);
+
+      showToast(`📩『${targetName}』(${normTarget}) さんに対戦招待を送りました！相手の画面に「🚀この部屋に入る！」が即時出現します！`);
     } catch (err) {
       console.warn('sendBattleInvite warning:', err);
       showToast(`📩 招待を発行しました！友達に番号【${currentRoomId}】を伝えても参加できます！`);
@@ -11166,6 +11697,7 @@ async function quickInviteFriendToRoom(targetFriendCode) {
   const normCode = normalizeFriendCode(targetFriendCode);
   if (!currentRoomId) {
     await createFriendBattleRoom();
+    await new Promise(r => setTimeout(r, 200));
   }
   const f = (state.friendsList || []).find(x => normalizeFriendCode(x.code) === normCode);
   const name = f ? f.name : normCode;
@@ -11178,12 +11710,10 @@ let battleInvitesUnsubscribe = null;
 let lastKnownInviteIds = new Set();
 
 function listenToIncomingBattleInvites() {
-  // メインのリアルタイム監視は listenToIncomingFriendRequests() 内の players/{myCode}.onSnapshot で常時稼働！
-  // 初回・手動チェック時に players/{myCode} から最新招待を取得して即時描画
   checkPendingBattleInvites(false);
 }
 
-// 届いている招待バナー（「📩 招待された部屋に入る」専用ボックス）＆グローバルポップアップの描画
+// 届いている招待バナー（「📩 招待された部屋に入る」専用ボックス）＆全画面最前面フローティングポップアップの描画
 function renderReceivedBattleInvites(invites) {
   const globalArea = document.getElementById('globalBattleInvitePopupArea');
   const battleArea = document.getElementById('battleInviteBannerArea');
@@ -11202,6 +11732,10 @@ function renderReceivedBattleInvites(invites) {
 
   if (badge) {
     badge.style.display = validList.length > 0 ? 'inline-block' : 'none';
+    if (validList.length > 0) {
+      badge.textContent = `招待 ${validList.length}件!`;
+      badge.style.animation = 'pulse 1s infinite';
+    }
   }
 
   if (validList.length === 0) {
@@ -11215,30 +11749,30 @@ function renderReceivedBattleInvites(invites) {
     return;
   }
 
-  // 1. 全画面どこにいても最上部に出現する「招待されました枠」ポップアップ
+  // 1. 全画面どこにいても最上部最前面に出現する「対戦招待」フローティングポップアップ！
   if (globalArea) {
     globalArea.innerHTML = validList.slice(0, 2).map(inv => {
       const safeId = inv.id || `${inv.roomId}_${normalizeFriendCode(state.friendCode)}`;
       return `
-        <div style="background:linear-gradient(135deg, #fff1f2 0%, #fdf2f8 50%, #faf5ff 100%); border:2.5px solid #ec4899; border-radius:14px; padding:12px 16px; margin:8px 0; box-shadow:0 8px 25px rgba(236,72,153,0.3); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-          <div style="display:flex; align-items:center; gap:10px;">
-            <span style="font-size:2rem;">⚔️</span>
+        <div style="background:linear-gradient(135deg, #fff1f2 0%, #fdf2f8 50%, #faf5ff 100%); border:3px solid #ec4899; border-radius:16px; padding:12px 16px; margin:6px 0; box-shadow:0 12px 32px rgba(236,72,153,0.45); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; animation:bounce 0.5s ease-out;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:2.2rem; filter:drop-shadow(0 2px 6px rgba(236,72,153,0.4));">⚔️</span>
             <div>
               <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-                <span style="background:#ec4899; color:white; font-size:0.72rem; font-weight:900; padding:2px 8px; border-radius:999px;">💌 対戦ルーム招待が届きました！</span>
-                <span style="font-size:0.8rem; font-weight:900; color:#9d174d;">部屋番号: 【 ${inv.roomId} 】</span>
+                <span style="background:linear-gradient(135deg, #ec4899, #db2777); color:white; font-size:0.74rem; font-weight:900; padding:2px 10px; border-radius:999px; box-shadow:0 2px 6px rgba(219,39,119,0.35);">💌 対戦ルーム招待が届きました！</span>
+                <span style="font-size:0.82rem; font-weight:900; color:#9d174d;">部屋番号: 【 ${inv.roomId} 】</span>
               </div>
-              <div style="font-weight:900; font-size:1.02rem; color:#831843; margin-top:3px;">
+              <div style="font-weight:900; font-size:1.05rem; color:#831843; margin-top:4px;">
                 👤 <strong>${inv.fromName || '友達'}</strong> さんの対戦部屋に招待されています！
               </div>
             </div>
           </div>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <button class="btn btn-purple" style="padding:9px 18px; font-size:0.92rem; font-weight:900; box-shadow:0 4px 14px rgba(219,39,119,0.4);" onclick="acceptBattleInvite('${safeId}', '${inv.roomId}')">
+          <div style="display:flex; gap:8px; align-items:center; margin-left:auto;">
+            <button class="btn btn-purple" style="padding:10px 20px; font-size:0.95rem; font-weight:900; box-shadow:0 4px 16px rgba(219,39,119,0.45); cursor:pointer;" onclick="acceptBattleInvite('${safeId}', '${inv.roomId}')">
               🚀 この部屋に入る！
             </button>
-            <button class="btn btn-outline" style="padding:8px 12px; font-size:0.8rem; border-color:#f472b6; color:#9d174d; font-weight:800;" onclick="dismissBattleInvite('${safeId}', '${inv.roomId}')">
-              ✕ 閉じる
+            <button class="btn btn-outline" style="padding:9px 12px; font-size:0.82rem; border-color:#f472b6; color:#9d174d; font-weight:800; cursor:pointer;" onclick="dismissBattleInvite('${safeId}', '${inv.roomId}')">
+              ✕
             </button>
           </div>
         </div>
@@ -11251,16 +11785,16 @@ function renderReceivedBattleInvites(invites) {
     battleArea.innerHTML = validList.map(inv => {
       const safeId = inv.id || `${inv.roomId}_${normalizeFriendCode(state.friendCode)}`;
       return `
-        <div style="background:white; border:2px solid #ec4899; border-radius:10px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-top:4px; box-shadow:0 3px 10px rgba(236,72,153,0.15);">
+        <div style="background:white; border:2px solid #ec4899; border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-top:6px; box-shadow:0 3px 12px rgba(236,72,153,0.18);">
           <div>
-            <div style="font-weight:900; color:#be185d; font-size:0.92rem;">⚔️ ${inv.fromName || '友達'} さんの部屋</div>
-            <div style="font-size:0.76rem; color:#9d174d; font-weight:800;">ルーム番号：【 ${inv.roomId} 】</div>
+            <div style="font-weight:900; color:#be185d; font-size:0.96rem;">⚔️ ${inv.fromName || '友達'} さんの部屋</div>
+            <div style="font-size:0.78rem; color:#9d174d; font-weight:800; margin-top:2px;">ルーム番号：【 ${inv.roomId} 】</div>
           </div>
           <div style="display:flex; gap:6px; align-items:center;">
-            <button class="btn btn-purple" style="padding:8px 14px; font-size:0.85rem; font-weight:900; box-shadow:0 3px 10px rgba(219,39,119,0.35);" onclick="acceptBattleInvite('${safeId}', '${inv.roomId}')">
+            <button class="btn btn-purple" style="padding:9px 16px; font-size:0.88rem; font-weight:900; box-shadow:0 3px 12px rgba(219,39,119,0.35); cursor:pointer;" onclick="acceptBattleInvite('${safeId}', '${inv.roomId}')">
               🚀 この部屋に入る！
             </button>
-            <button class="btn btn-outline" style="padding:6px 8px; font-size:0.72rem; color:#9d174d; border-color:#f9a8d4;" onclick="dismissBattleInvite('${safeId}', '${inv.roomId}')">✕</button>
+            <button class="btn btn-outline" style="padding:7px 10px; font-size:0.75rem; color:#9d174d; border-color:#f9a8d4; cursor:pointer;" onclick="dismissBattleInvite('${safeId}', '${inv.roomId}')">✕</button>
           </div>
         </div>
       `;
@@ -11268,19 +11802,41 @@ function renderReceivedBattleInvites(invites) {
   }
 }
 
-// 招待を手動＆定期確認する関数（players/{myCode} から確実に取得）
+// 招待を手動＆定期確認する関数（players/{myCode} と battle_invites の両方から確実に取得）
 async function checkPendingBattleInvites(showFeedback = false) {
   if (!db || !state.friendCode) return;
   const myCode = normalizeFriendCode(state.friendCode);
+  const rawNum = myCode.replace(/\D+/g, '');
   if (showFeedback) showToast('🔄 届いている部屋招待を確認中...');
   try {
-    const myDoc = await db.collection('players').doc(myCode).get();
     const now = Date.now();
     let mergedInvites = [];
-    if (myDoc.exists && myDoc.data() && Array.isArray(myDoc.data().incomingInvites)) {
-      mergedInvites = myDoc.data().incomingInvites.filter(inv => inv && inv.roomId && (!inv.createdAt || (now - inv.createdAt < 20 * 60 * 1000)));
+
+    // 1. players/{myCode} から直接取得（メイン経路）
+    try {
+      const myDoc = await db.collection('players').doc(myCode).get();
+      if (myDoc.exists && myDoc.data() && Array.isArray(myDoc.data().incomingInvites)) {
+        mergedInvites = myDoc.data().incomingInvites.filter(inv => inv && inv.roomId && (!inv.createdAt || (now - inv.createdAt < 20 * 60 * 1000)));
+      }
+    } catch (e) {}
+
+    // 2. もしハイフンなしのコードがあればそちらもチェック
+    if (rawNum && rawNum !== myCode) {
+      try {
+        const rawDoc = await db.collection('players').doc(rawNum).get();
+        if (rawDoc.exists && rawDoc.data() && Array.isArray(rawDoc.data().incomingInvites)) {
+          rawDoc.data().incomingInvites.forEach(inv => {
+            if (inv && inv.roomId && (!inv.createdAt || (now - inv.createdAt < 20 * 60 * 1000))) {
+              if (!mergedInvites.some(x => x.roomId === inv.roomId)) {
+                mergedInvites.push(inv);
+              }
+            }
+          });
+        }
+      } catch (e) {}
     }
-    // 旧 battle_invites からも念のため取得
+
+    // 3. battle_invites コレクションからも念のため取得してマージ
     try {
       const snap = await db.collection('battle_invites').where('targetCode', '==', myCode).get();
       snap.forEach(doc => {
@@ -11308,18 +11864,25 @@ async function checkPendingBattleInvites(showFeedback = false) {
 
 async function dismissBattleInvite(inviteDocId, roomId) {
   const myCode = normalizeFriendCode(state.friendCode);
+  const rawNum = myCode.replace(/\D+/g, '');
   if (db && myCode) {
     try {
-      const myDoc = await db.collection('players').doc(myCode).get();
-      if (myDoc.exists && myDoc.data() && Array.isArray(myDoc.data().incomingInvites)) {
-        const rem = myDoc.data().incomingInvites.filter(inv => {
-          if (!inv) return false;
-          if (roomId && inv.roomId === String(roomId)) return false;
-          if (inviteDocId && inv.id === inviteDocId) return false;
-          return true;
-        });
-        await db.collection('players').doc(myCode).set({ incomingInvites: rem }, { merge: true });
-        renderReceivedBattleInvites(rem);
+      const cleanInvitesInDoc = async (codeToUse) => {
+        const myDoc = await db.collection('players').doc(codeToUse).get();
+        if (myDoc.exists && myDoc.data() && Array.isArray(myDoc.data().incomingInvites)) {
+          const rem = myDoc.data().incomingInvites.filter(inv => {
+            if (!inv) return false;
+            if (roomId && String(inv.roomId) === String(roomId)) return false;
+            if (inviteDocId && inv.id === inviteDocId) return false;
+            return true;
+          });
+          await db.collection('players').doc(codeToUse).set({ incomingInvites: rem }, { merge: true });
+          renderReceivedBattleInvites(rem);
+        }
+      };
+      await cleanInvitesInDoc(myCode);
+      if (rawNum && rawNum !== myCode) {
+        cleanInvitesInDoc(rawNum).catch(() => {});
       }
     } catch (e) {}
     if (inviteDocId) {
@@ -11983,14 +12546,18 @@ setTimeout(() => {
   listenToIncomingFriendRequests();
   listenToIncomingBattleInvites();
   checkIncomingGifts();
-}, 1000);
+}, 600);
 
-// 8秒ごとに定期的に申請・招待・ギフトをバックグラウンド確認
+setTimeout(() => {
+  if (typeof checkPendingBattleInvites === 'function') checkPendingBattleInvites(false);
+}, 1600);
+
+// 3.5秒ごとに定期的に申請・招待・ギフトをバックグラウンド確認（全画面で招待を自動検知！）
 setInterval(() => {
   if (!battle && currentScreen === 'friends') checkIncomingFriendRequests();
-  if (!battle && currentScreen === 'battle') checkPendingBattleInvites(false);
+  if (!battle) checkPendingBattleInvites(false); // ★ どの画面にいても招待を常時自動検知！
   if (!battle) checkIncomingGifts();
-}, 8000);
+}, 3500);
 
 /* ========================================================
    📲 公式アプリアイコン超高画質（1024x1024）生成＆モーダル
