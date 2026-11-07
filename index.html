@@ -6900,14 +6900,12 @@ function updateBattleHud() {
   drawMicrobe(c2, 32, 32, 15, f2, animTick);
 }
 
-/* 教科（生物、化学、物理、数学など）の選択肢初期化 */
+/* 高校理系教科（生物、化学、物理、数学など）の選択肢初期化 */
 function updateSubjectOptionsByGrade() {
   const subjEl = document.getElementById('battleSubjectSelect');
   if (!subjEl) return;
   const options = [
     { val: 'all', label: '🌈 全教科オールミックス' },
-    { val: 'j_sci', label: '🎒 中学理科（第1分野・第2分野）' },
-    { val: 'j_math', label: '📐 中学数学（方程式・関数・図形・確率）' },
     { val: 'bio', label: '🧬 生物（全7章・細胞〜生態進化）' },
     { val: 'chem', label: '🧪 化学（理論・無機・有機・高分子）' },
     { val: 'phys', label: '⚡ 物理（力学・熱・波・電磁気・原子）' },
@@ -6918,7 +6916,7 @@ function updateSubjectOptionsByGrade() {
     { val: 'm3', label: '♾️ 数学 III（極限・微分法・積分法）' },
     { val: 'mc', label: '🎯 数学 C（ベクトル・複素数平面・2次曲線）' }
   ];
-  subjEl.innerHTML = options.map((o, idx) => `<option value="${o.val}" ${idx === 3 ? 'selected' : ''}>${o.label}</option>`).join('');
+  subjEl.innerHTML = options.map(o => `<option value="${o.val}" ${o.val === 'bio' ? 'selected' : ''}>${o.label}</option>`).join('');
   updateUnitOptionsBySubject();
 }
 
