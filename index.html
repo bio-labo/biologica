@@ -6764,6 +6764,36 @@ function updateEngUiState() {
   if (lvlRow) lvlRow.style.display = isGram ? 'block' : 'none';
 }
 
+/* 🎯 現在選択されているカテゴリ（高校理系 / 英語 / 中学生）に応じたルールオブジェクトを完全統一生成 */
+function getCurrentBattleRules() {
+  const cat = currentBattleCategory || 'sci';
+  if (cat === 'junior') {
+    return {
+      category: 'junior',
+      grade: (document.getElementById('juniorGradeSelect') || {}).value || 'all',
+      subj: (document.getElementById('juniorSubjectSelect') || {}).value || 'j_all',
+      unit: (document.getElementById('juniorUnitSelect') || {}).value || 'all_units',
+      qType: (document.getElementById('juniorQuizTypeSelect') || {}).value || 'choice'
+    };
+  } else if (cat === 'eng') {
+    return {
+      category: 'eng',
+      grade: 'high',
+      subj: 'eng',
+      unit: (document.getElementById('engGenreSelect') || {}).value || 'eng_word',
+      qType: ((document.getElementById('engAnswerStyleSelect') || {}).value === 'unlimited_typing') ? 'typing' : 'choice'
+    };
+  } else {
+    return {
+      category: 'sci',
+      grade: (document.getElementById('battleGradeSelect') || {}).value || 'all',
+      subj: (document.getElementById('battleSubjectSelect') || {}).value || 'bio',
+      unit: (document.getElementById('battleUnitSelect') || {}).value || 'all_units',
+      qType: (document.getElementById('battleQuizTypeSelect') || {}).value || 'choice'
+    };
+  }
+}
+
 function startCpuBattle() {
   const isJunior = (currentBattleCategory === 'junior');
   const isEng = (currentBattleCategory === 'eng');
@@ -6778,28 +6808,11 @@ function startCpuBattle() {
   }
 
   const partyIds = (state.presets[presetIdx] || state.presets[0]).ids;
-
-  let grade = 'all';
-  let subj = 'all';
-  let unit = 'all_units';
-  let qType = 'mix';
-
-  if (isJunior) {
-    grade = (document.getElementById('juniorGradeSelect') || {}).value || 'all';
-    subj = (document.getElementById('juniorSubjectSelect') || {}).value || 'j_all';
-    unit = (document.getElementById('juniorUnitSelect') || {}).value || 'all_units';
-    qType = (document.getElementById('juniorQuizTypeSelect') || {}).value || 'choice';
-  } else if (isEng) {
-    grade = 'high';
-    subj = 'eng';
-    unit = (document.getElementById('engGenreSelect') || {}).value || 'eng_word';
-    qType = ((document.getElementById('engAnswerStyleSelect') || {}).value === 'unlimited_typing') ? 'typing' : 'choice';
-  } else {
-    grade = document.getElementById('battleGradeSelect').value;
-    subj = document.getElementById('battleSubjectSelect').value;
-    unit = (document.getElementById('battleUnitSelect') || {}).value || 'all_units';
-    qType = document.getElementById('battleQuizTypeSelect').value;
-  }
+  const curRules = getCurrentBattleRules();
+  const grade = curRules.grade;
+  const subj = curRules.subj;
+  const unit = curRules.unit;
+  const qType = curRules.qType;
 
   const diff = document.getElementById('battleDiffSelect').value;
 
@@ -10770,11 +10783,7 @@ async function startRandomMatchmaking() {
       hostAtkMult: 1.0,
       guestHpMult: 1.0,
       guestAtkMult: 1.0,
-      category: battleCat,
-      grade: (document.getElementById('battleGradeSelect') || {}).value || 'all',
-      subj: (document.getElementById('battleSubjectSelect') || {}).value || 'bio',
-      unit: (document.getElementById('battleUnitSelect') || {}).value || 'all_units',
-      qType: (document.getElementById('battleQuizTypeSelect') || {}).value || 'choice'
+      ...getCurrentBattleRules()
     };
     const firstQ = selectQuestionForRoom(rulesObj);
 
@@ -10995,18 +11004,15 @@ async function fallbackToGhostBattle(cat, myTeam) {
     p2Team.push(createFighter(cm, 1.0));
   }
 
-  const grade = document.getElementById('battleGradeSelect').value || 'all';
-  const subj = document.getElementById('battleSubjectSelect').value || 'bio';
-  const unit = (document.getElementById('battleUnitSelect') || {}).value || 'all_units';
-  const qType = document.getElementById('battleQuizTypeSelect').value || 'choice';
+  const curRules = getCurrentBattleRules();
 
   battle = {
     mode: 'ghost',
-    category: cat,
-    grade,
-    subj,
-    unit,
-    qType,
+    category: curRules.category,
+    grade: curRules.grade,
+    subj: curRules.subj,
+    unit: curRules.unit,
+    qType: curRules.qType,
     diff: 'hard',
     atkMult: 1.0,
     timeHandicap: 0.0,
@@ -11103,11 +11109,7 @@ async function createFriendBattleRoom() {
       hostAtkMult: 1.0,
       guestHpMult: 1.0,
       guestAtkMult: 1.0,
-      category: currentBattleCategory || 'sci',
-      grade: (document.getElementById('battleGradeSelect') || {}).value || 'all',
-      subj: (document.getElementById('battleSubjectSelect') || {}).value || 'bio',
-      unit: (document.getElementById('battleUnitSelect') || {}).value || 'all_units',
-      qType: (document.getElementById('battleQuizTypeSelect') || {}).value || 'choice'
+      ...getCurrentBattleRules()
     },
     currentQ: null,
     turn: 1,
@@ -12035,17 +12037,14 @@ async function hostStartRoomBattle(overrideGuestData = null) {
   }
 
   const myTeam = getMyBattlePartyTeam(1.0);
+  const curBattleRules = getCurrentBattleRules();
 
   const rules = (r && r.rules) || {
     hostHpMult: parseFloat(document.getElementById('roomHostHpMult').value) || 1.0,
     hostAtkMult: parseFloat(document.getElementById('roomHostAtkMult').value) || 1.0,
     guestHpMult: parseFloat(document.getElementById('roomGuestHpMult').value) || 1.0,
     guestAtkMult: parseFloat(document.getElementById('roomGuestAtkMult').value) || 1.0,
-    category: currentBattleCategory || 'sci',
-    grade: (document.getElementById('battleGradeSelect') || {}).value || 'all',
-    subj: (document.getElementById('battleSubjectSelect') || {}).value || 'bio',
-    unit: (document.getElementById('battleUnitSelect') || {}).value || 'all_units',
-    qType: (document.getElementById('battleQuizTypeSelect') || {}).value || 'choice'
+    ...curBattleRules
   };
 
   const hostHpM = rules.hostHpMult || 1.0;
@@ -12106,12 +12105,48 @@ function selectQuestionForRoom(rules, excludeId = null) {
     if (excludeId && pool.length > 1) pool = pool.filter(item => item.id !== excludeId);
     return pool[Math.floor(Math.random() * pool.length)];
   }
+
+  // 🎒 中学生モードのオンライン対戦出題
+  if (rules && rules.category === 'junior') {
+    let pool = QUIZ_MASTER.filter(item => {
+      if (item.grade !== 'junior' && item.grade !== 'elem') return false;
+      if (rules.grade && rules.grade !== 'all' && (item.level || 'textbook') !== rules.grade) return false;
+      if (rules.subj && rules.subj !== 'j_all') {
+        if (rules.subj === 'j_sci' && item.subj !== 'j_sci' && item.subj !== 'bio' && item.subj !== 'chem' && item.subj !== 'phys') return false;
+        if (rules.subj === 'j_math' && item.subj !== 'j_math' && item.subj !== 'm1a' && item.subj !== 'math') return false;
+        if (rules.subj === 'j_eng' && item.subj !== 'j_eng') return false;
+      }
+      if (rules.unit && rules.unit !== 'all_units' && item.unit && item.unit !== rules.unit) return false;
+      return true;
+    });
+    if (pool.length === 0) {
+      pool = QUIZ_MASTER.filter(item => {
+        if (item.grade !== 'junior' && item.grade !== 'elem') return false;
+        if (rules.grade && rules.grade !== 'all' && (item.level || 'textbook') !== rules.grade) return false;
+        return true;
+      });
+    }
+    if (pool.length === 0) pool = QUIZ_MASTER.filter(item => item.grade === 'junior' || item.grade === 'elem');
+    if (excludeId && pool.length > 1) pool = pool.filter(item => item.id !== excludeId);
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  // 🧬 高校理系モードのオンライン対戦出題（中学・小学問題の混入を100%遮断！）
   let pool = QUIZ_MASTER.filter(item => {
-    if (rules.grade !== 'all' && item.level && item.level !== rules.grade) return false;
-    if (rules.subj !== 'all' && item.subj !== rules.subj) return false;
-    if (rules.unit !== 'all_units' && item.unit && item.unit !== rules.unit) return false;
+    if (item.grade === 'junior' || item.grade === 'elem') return false;
+    if (rules.grade && rules.grade !== 'all' && (item.level || 'textbook') !== rules.grade) return false;
+    if (rules.subj && rules.subj !== 'all' && item.subj !== rules.subj) return false;
+    if (rules.unit && rules.unit !== 'all_units' && item.unit && item.unit !== rules.unit) return false;
     return true;
   });
+  if (pool.length === 0) {
+    pool = QUIZ_MASTER.filter(item => {
+      if (item.grade === 'junior' || item.grade === 'elem') return false;
+      if (rules.grade && rules.grade !== 'all' && (item.level || 'textbook') !== rules.grade) return false;
+      return true;
+    });
+  }
+  if (pool.length === 0) pool = QUIZ_MASTER.filter(item => item.grade !== 'junior' && item.grade !== 'elem');
   if (excludeId && pool.length > 1) pool = pool.filter(item => item.id !== excludeId);
   if (pool.length === 0) pool = QUIZ_MASTER;
   return pool[Math.floor(Math.random() * pool.length)];
