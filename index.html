@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 3.4 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 3.5 - 理系微生物育成＆戦略クイズバトル</title>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon.svg">
 <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
@@ -1126,23 +1126,23 @@
         </div>
 
         <div style="margin-top:14px;">
-          <div style="font-weight:900; font-size:0.88rem; margin-bottom:4px;">📊 遺伝子チップ排出確率一覧</div>
+          <div style="font-weight:900; font-size:0.88rem; margin-bottom:4px;">📊 遺伝子チップ排出確率一覧（全15種族専用チップ ＆ 汎用チップ）</div>
           <table class="prob-table">
             <thead>
-              <tr><th>レア度</th><th>遺伝子チップ名</th><th>効果</th><th>排出率</th></tr>
+              <tr><th>レア度</th><th>遺伝子チップ名（一部抜粋）</th><th>主な効果</th><th>排出率</th></tr>
             </thead>
             <tbody>
               <tr style="background:#fefce8; font-weight:900; color:#b45309;">
-                <td>👑 UR</td><td>クマムシ乾眠 / CRISPR-Cas9 / メチル化保護</td><td>HP1耐え＆次1.5倍 / 4択ハズレ1消去 / 相手会心無効化</td><td>計 0.5 %</td>
+                <td>👑 UR</td><td>【専用】超マッハ繊毛 / 極限クロロフィル / パーフォリン / グランザイム / インジェクション ＆ 汎用3種</td><td>25%完全回避 / 正解時25%超回復 / 防御完全貫通 / 会心2.3倍 / 初撃1.5倍 等</td><td>計 1.5 %</td>
               </tr>
               <tr style="background:#faf5ff; font-weight:800; color:#6d28d9;">
-                <td>🌟 SR</td><td>テロメラーゼ活性 / オワンクラゲGFP / 第2得意科目</td><td>正解ごとHP8%回復 / 攻撃威力+15%＆先読み / 物理・化学両得意化</td><td>計 5.0 %</td>
+                <td>🌟 SR</td><td>【専用】絶対シリカ / 不定形アメーバ / NETsトラップ / 深淵貪食 / 抗原提示 等全10種 ＆ 汎用3種</td><td>被ダメ-15% / 30%反射 / 道連れ40%爆発 / 撃破時35%回復 / 2択消去 等</td><td>計 12.0 %</td>
               </tr>
               <tr style="background:#eff6ff; font-weight:800; color:#1d4ed8;">
-                <td>✨ R</td><td>HSP耐熱 / 好熱菌酵素 / 好冷菌耐性</td><td>ピンチ時攻撃1.35倍 / 理化学威力1.2倍 / 解答時間+3.0秒延長</td><td>計 25.0 %</td>
+                <td>✨ R</td><td>HSP逆境覚醒 / 好熱菌耐熱酵素 / 好冷菌タイム遅延</td><td>ピンチ時攻撃1.35倍 / 理化学威力1.2倍 / 解答時間+3.0秒延長</td><td>計 25.0 %</td>
               </tr>
               <tr>
-                <td>🔹 N</td><td>筋原線維 / 繊毛増殖 / 生体膜強化</td><td>攻撃(大きさ)+15 / すばやさ+15 / 耐久(防御)+15</td><td>計 69.5 %</td>
+                <td>🔹 N</td><td>筋原線維増幅 / 繊毛モーター増殖 / 二重生体膜強化</td><td>攻撃(大きさ)+15 / すばやさ+15 / 耐久(防御)+15</td><td>計 61.5 %</td>
               </tr>
             </tbody>
           </table>
@@ -1193,9 +1193,16 @@
 
       <!-- ② 遺伝子チップ交換所パネル -->
       <div id="exchangePanelChip" style="display:none;">
-        <div class="card-title">🧬 遺伝子チップ交換所（全12種の遺伝子チップを指名交換！）</div>
+        <div class="card-title">🧬 遺伝子チップ交換所（全15種族専用シグネチャー ＆ 全12種汎用チップ指名交換！）</div>
         <div class="help-box">
-          💡 <strong>「🧬 DNAメダル」</strong>を使って、<strong>UR・SR・R・N の好きな遺伝子チップをピンポイントで指名交換</strong>できます！交換したチップは「🧬 ゲノム編集ラボ」ですぐに装着可能です！
+          💡 <strong>「🧬 DNAメダル」</strong>を使って、<strong>全15種族の専用チップ（UR: 250メダル / SR: 90メダル）や汎用チップをピンポイントで指名交換</strong>できます！交換したチップは「🧬 ゲノム編集ラボ」ですぐに装着可能です！
+        </div>
+
+        <!-- 絞り込みフィルタータブ -->
+        <div style="display:flex; gap:6px; margin:10px 0; flex-wrap:wrap;">
+          <button id="chipShopFilterAll" class="btn btn-primary" style="padding:5px 14px; font-size:0.8rem; font-weight:900;" onclick="filterChipExchangeShop('all')">🌟 全て表示 (全27種)</button>
+          <button id="chipShopFilterDedicated" class="btn btn-outline" style="padding:5px 14px; font-size:0.8rem; font-weight:900; color:#7c3aed; border-color:#d8b4fe;" onclick="filterChipExchangeShop('dedicated')">🧬 種族専用チップ (15種)</button>
+          <button id="chipShopFilterGeneral" class="btn btn-outline" style="padding:5px 14px; font-size:0.8rem; font-weight:900; color:#0284c7; border-color:#bae6fd;" onclick="filterChipExchangeShop('general')">⚙️ 全キャラ共通チップ (12種)</button>
         </div>
 
         <div class="exchange-grid" id="chipExchangeShopGrid"></div>
@@ -2429,6 +2436,83 @@ const GENE_CHIPS_MASTER = [
     id: 'chip_def', name: '🧬 二重生体膜強化遺伝子', rarity: 'N', icon: '🟣',
     desc: '耐久（防御）が基礎ステータスに+15加算される。',
     color: '#64748b', rate: 23.17
+  },
+
+  // ================= 🧬 全15種族専用シグネチャー遺伝子チップ（スロット1【種族専用枠】） =================
+  {
+    id: 'chip_sp_ciliate', speciesId: 'ciliate', name: '🧬 超マッハ繊毛モーター', rarity: 'UR', icon: '⚡',
+    desc: '【ゾウリムシ系専用】すばやさ+30 ＆ 相手の攻撃を25%の確率で完全回避！',
+    color: '#0ea5e9', rate: 0.1
+  },
+  {
+    id: 'chip_sp_diatom', speciesId: 'diatom', name: '🧬 絶対シリカ結晶殻', rarity: 'SR', icon: '🛡️',
+    desc: '【ケイソウ系専用】耐久(防御)+15 ＆ 受けるすべてのダメージを常に-15%軽減！',
+    color: '#f59e0b', rate: 0.8
+  },
+  {
+    id: 'chip_sp_euglena', speciesId: 'euglena', name: '🧬 極限クロロフィル核', rarity: 'UR', icon: '🌿',
+    desc: '【ミドリムシ系専用】正解時のHP回復量が最大HPの25%に超強化される！',
+    color: '#10b981', rate: 0.1
+  },
+  {
+    id: 'chip_sp_amoeba', speciesId: 'amoeba', name: '🧬 不定形アメーバ擬足', rarity: 'SR', icon: '🔮',
+    desc: '【アメーバ系専用】攻撃を受けた際、受けたダメージの30%を相手にそのまま反射する！',
+    color: '#8b5cf6', rate: 0.8
+  },
+  {
+    id: 'chip_sp_phage', speciesId: 'phage', name: '🧬 インジェクション針管', rarity: 'UR', icon: '💉',
+    desc: '【ファージ系専用】攻撃力+20 ＆ バトル最初の1撃の与ダメージが1.5倍に超強化！',
+    color: '#ec4899', rate: 0.1
+  },
+  {
+    id: 'chip_sp_tardigrade', speciesId: 'tardigrade', name: '🧬 極限クリプト保護殻', rarity: 'SR', icon: '💎',
+    desc: '【クマムシ系専用】耐久(防御)+15 ＆ 瀕死時HP1で耐えた後の反撃威力が1.8倍に覚醒！',
+    color: '#eab308', rate: 0.8
+  },
+  {
+    id: 'chip_sp_macrophage', speciesId: 'macrophage', name: '🧬 深淵貪食リソソーム', rarity: 'SR', icon: '🍽️',
+    desc: '【マクロファージ系専用】敵キャラを撃破するたび、最大HPの35%を捕食回復する！',
+    color: '#f97316', rate: 0.8
+  },
+  {
+    id: 'chip_sp_killer_t', speciesId: 'killer_t', name: '🧬 パーフォリン穿孔銃', rarity: 'UR', icon: '🎯',
+    desc: '【キラーT細胞系専用】攻撃時、相手の防御力によるダメージ軽減を完全無視して貫通！',
+    color: '#dc2626', rate: 0.1
+  },
+  {
+    id: 'chip_sp_dendritic', speciesId: 'dendritic', name: '🧬 抗原提示アンテナ', rarity: 'SR', icon: '📡',
+    desc: '【樹状細胞系専用】4択問題が出題されたとき、ハズレ選択肢を確定で2つ自動消去！',
+    color: '#0284c7', rate: 0.8
+  },
+  {
+    id: 'chip_sp_neutrophil', speciesId: 'neutrophil', name: '🧬 NETs細胞外トラップ', rarity: 'SR', icon: '🕸️',
+    desc: '【好中球系専用】自分が倒されたとき、道連れとして相手に自身の最大HP40%の特大ダメージ！',
+    color: '#059669', rate: 0.8
+  },
+  {
+    id: 'chip_sp_nk_cell', speciesId: 'nk_cell', name: '🧬 グランザイム結晶弾', rarity: 'UR', icon: '💥',
+    desc: '【NK細胞系専用】会心発生時のダメージ倍率が1.8倍から【2.3倍】へ超大幅上昇！',
+    color: '#7c3aed', rate: 0.1
+  },
+  {
+    id: 'chip_sp_b_cell', speciesId: 'b_cell', name: '🧬 形質抗体ガトリング', rarity: 'SR', icon: '🔫',
+    desc: '【B細胞系専用】コンボ（連続正解）するごとに、与えるダメージが+20%ずつ累積加算！',
+    color: '#db2777', rate: 0.8
+  },
+  {
+    id: 'chip_sp_helper_t', speciesId: 'helper_t', name: '🧬 サイトカイン覚醒波', rarity: 'SR', icon: '📣',
+    desc: '【ヘルパーT細胞系専用】正解するたび、控えを含むパーティ全員のHPを最大値の12%回復！',
+    color: '#0d9488', rate: 0.8
+  },
+  {
+    id: 'chip_sp_memory_cell', speciesId: 'memory_cell', name: '🧬 二次応答メモリーコア', rarity: 'SR', icon: '💾',
+    desc: '【メモリー細胞系専用】2問目以降（記憶後）、与えるすべてのダメージが常に1.35倍！',
+    color: '#4f46e5', rate: 0.8
+  },
+  {
+    id: 'chip_sp_mast_cell', speciesId: 'mast_cell', name: '🧬 ヒスタミン過剰脱顆粒', rarity: 'SR', icon: '💣',
+    desc: '【マスト細胞系専用】相手から攻撃を受けた際、相手に最大HP15%の炎症固定ダメージ！',
+    color: '#e11d48', rate: 0.8
   }
 ];
 
@@ -3409,6 +3493,17 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 3.5',
+    date: '2026-11-07',
+    title: '🧬 全15種族専用シグネチャーチップ解禁 ＆ ゲノム編集スロット専用枠・自由枠制の導入！',
+    items: [
+      '【🧬 全15種族専用シグネチャーチップ新設】原生生物6種＋免疫細胞9種の全15種族それぞれに、生物学的特徴を活かした「専用シグネチャーチップ（UR / SR）」を新設！ゾウリムシの「超マッハ繊毛（すばやさ+30＆25%完全回避）」、好中球の「NETs細胞外トラップ（倒されたとき相手に最大HP40%の道連れ爆発）」、マクロファージの「深淵貪食リソソーム（撃破時HP35%捕食回復）」、キラーT細胞の「パーフォリン穿孔銃（相手の防御完全貫通）」など超強力効果が発動！',
+      '【🎛️ スロット1＝種族専用枠・スロット2＝汎用自由枠】ゲノム編集ラボのスロット1を「🧬 種族専用スロット（そのキャラの種族チップのみ装着可能）」、スロット2を「⚙️ 汎用自由スロット（従来の12種チップを自由に装着可能）」に刷新！基礎ステータスが控えめなキャラほど強力な専用効果で大逆転が可能に！',
+      '【🏪 チップ交換所に全15種族専用チップを配備】「🏪 交換所」の「🧬 遺伝子チップ交換所」に、全15種族の専用チップ（UR: 250メダル / SR: 90メダル）を指名交換枠として全面追加！お気に入りのキャラの専用チップをピンポイントで確実に入手可能！',
+      '【💊 チップガチャから専用チップも排出】「💊 ガチャ」の遺伝子チップガチャからも、全15種族の専用チップが排出されるよう排出プールを拡大！'
+    ]
+  },
+  {
     ver: 'Ver 3.4',
     date: '2026-11-07',
     title: '💊 2大ガチャ統合 ＆ 🏪 2大交換所（キャラ＆チップ）新設 ＆ 🤝 フレンド・順位統合 ＆ 🧬 チップ能力値即時反映アプデ',
@@ -3697,26 +3792,6 @@ function syncMyProfileToCloud() {
   }, { merge: true }).catch(err => console.warn('Cloud sync error:', err));
 }
 
-// クラウドに残っている明らかなテスト用データや、過去の使わなくなった「らむね」初期600RPデータのみ整理
-function cleanupDummyDocsInCloud() {
-  if (!db) return;
-  const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
-  db.collection('players').get().then(snapshot => {
-    snapshot.forEach(doc => {
-      if (doc.id.startsWith('ROOM_') || doc.id.startsWith('MATCH_')) return;
-      const p = doc.data();
-      if (!p) return;
-      const docCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(p.code || doc.id) : (p.code || doc.id);
-      if (docCode === myCode) return;
-      const cleanName = (p.name || '').trim();
-      const isAbandonedRamune600 = (cleanName === 'らむね' && (p.wins || 0) === 0 && (p.rp === undefined || p.rp <= 600));
-      if (p.isTestAccount || isAbandonedRamune600) {
-        db.collection('players').doc(doc.id).delete().catch(() => {});
-      }
-    });
-  }).catch(() => {});
-}
-
 /* ============================================================================
    2. セーブデータ・自由ステータス配分システム
 ============================================================================ */
@@ -3852,13 +3927,21 @@ function resetAllEffort() {
 // 🧬 ステータス上昇系遺伝子チップの能力値加減算ヘルパー（+1:装着, -1:取り外し）
 function applyChipStatDelta(m, chipId, dir) {
   if (!m || !m.stats || !chipId) return;
-  const d = dir >= 0 ? 15 : -15;
+  const sign = dir >= 0 ? 1 : -1;
   if (chipId === 'chip_size') {
-    m.stats.size = Math.max(1, (m.stats.size || 50) + d);
+    m.stats.size = Math.max(1, (m.stats.size || 50) + sign * 15);
   } else if (chipId === 'chip_spd') {
-    m.stats.speed = Math.max(1, (m.stats.speed || 50) + d);
+    m.stats.speed = Math.max(1, (m.stats.speed || 50) + sign * 15);
   } else if (chipId === 'chip_def') {
-    m.stats.defense = Math.max(1, (m.stats.defense || 50) + d);
+    m.stats.defense = Math.max(1, (m.stats.defense || 50) + sign * 15);
+  } else if (chipId === 'chip_sp_ciliate') {
+    m.stats.speed = Math.max(1, (m.stats.speed || 50) + sign * 30);
+  } else if (chipId === 'chip_sp_diatom') {
+    m.stats.defense = Math.max(1, (m.stats.defense || 50) + sign * 15);
+  } else if (chipId === 'chip_sp_phage') {
+    m.stats.size = Math.max(1, (m.stats.size || 50) + sign * 20);
+  } else if (chipId === 'chip_sp_tardigrade') {
+    m.stats.defense = Math.max(1, (m.stats.defense || 50) + sign * 15);
   }
 }
 
@@ -3866,7 +3949,24 @@ function migrateMicrobe(m) {
   if (m.stats.defense === undefined) m.stats.defense = 65;
   if (!m.effort) m.effort = { speed: 0, size: 0, defense: 0, fuel: 0 };
   if (!m.chips) m.chips = [null, null];
-  // 既に装着済みのステータス上昇チップ（筋原線維・繊毛モーター・二重生体膜）があれば初回ロード時に確実にステータスへ反映
+
+  // 🧬 スロット移行保護：スロット1に汎用チップが入っている場合、安全にスロット2へ移動（スロット2が埋まっていれば手持ち返却）
+  if (m.chips[0]) {
+    const c0 = getChip(m.chips[0]);
+    if (c0 && (!c0.speciesId || c0.speciesId !== m.speciesId)) {
+      if (!m.chips[1]) {
+        m.chips[1] = m.chips[0];
+        m.chips[0] = null;
+      } else {
+        if (!state.ownedChips) state.ownedChips = {};
+        state.ownedChips[m.chips[0]] = (state.ownedChips[m.chips[0]] || 0) + 1;
+        applyChipStatDelta(m, m.chips[0], -1);
+        m.chips[0] = null;
+      }
+    }
+  }
+
+  // 既に装着済みのステータス上昇チップ（筋原線維・繊毛モーター・二重生体膜・専用チップ）があれば初回ロード時に確実にステータスへ反映
   if (!m.chipStatApplied) {
     (m.chips || []).forEach(cId => {
       if (cId) applyChipStatDelta(m, cId, 1);
@@ -5903,24 +6003,33 @@ function renderGenomeLab() {
     `;
   }
 
-  // 1. 対象キャラの2枠スロット描画
+  // 1. 対象キャラの2枠スロット描画（スロット1＝種族専用枠 / スロット2＝汎用自由枠）
+  const sp = getSpecies(m.speciesId);
   const slotsArea = document.getElementById('genomeSlotsArea');
   if (slotsArea) {
     slotsArea.innerHTML = [0, 1].map(slotIdx => {
       const chipId = m.chips[slotIdx];
       const chip = getChip(chipId);
+      const isDedicatedSlot = (slotIdx === 0);
+      const slotTitle = isDedicatedSlot ? `🧬 スロット 1【🧬 ${sp.name}専用枠】` : `⚙️ スロット 2【⚙️ 汎用自由枠】`;
+      const slotBadge = isDedicatedSlot
+        ? `<span style="background:#ede9fe; color:#6d28d9; font-size:0.68rem; font-weight:900; padding:2px 8px; border-radius:999px;">種族専用</span>`
+        : `<span style="background:#e0f2fe; color:#0369a1; font-size:0.68rem; font-weight:900; padding:2px 8px; border-radius:999px;">全キャラ共通</span>`;
       return `
-        <div style="background:white; border:2px solid ${chip ? chip.color : '#cbd5e1'}; border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:6px;">
+        <div style="background:white; border:2px solid ${chip ? chip.color : (isDedicatedSlot ? '#a855f7' : '#0284c7')}; border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:6px;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <strong style="font-size:0.84rem; color:#4c1d95;">🧬 スロット ${slotIdx + 1}</strong>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <strong style="font-size:0.84rem; color:${isDedicatedSlot ? '#6b21a8' : '#0369a1'};">${slotTitle}</strong>
+              ${slotBadge}
+            </div>
             ${chip ? `<button class="btn btn-outline" style="padding:2px 8px; font-size:0.7rem; color:#dc2626;" onclick="unequipGeneChip(${slotIdx})">取り外す</button>` : ''}
           </div>
           ${chip ? `
             <div style="font-weight:900; font-size:0.95rem; color:${chip.color};">${chip.icon} ${chip.name} <span class="rarity-tag" style="background:${chip.color}; font-size:0.65rem;">${chip.rarity}</span></div>
             <div style="font-size:0.75rem; color:var(--text-sub); line-height:1.35;">${chip.desc}</div>
           ` : `
-            <div style="padding:14px; text-align:center; color:var(--text-sub); font-size:0.78rem; font-weight:800; border:2px dashed #e2e8f0; border-radius:8px;">
-              空きスロット<br><small>下の所持チップから「枠${slotIdx + 1}に装着」を押してください</small>
+            <div style="padding:14px; text-align:center; color:var(--text-sub); font-size:0.78rem; font-weight:800; border:2px dashed ${isDedicatedSlot ? '#d8b4fe' : '#bae6fd'}; border-radius:8px; background:${isDedicatedSlot ? '#faf5ff' : '#f0f9ff'};">
+              空きスロット<br><small>${isDedicatedSlot ? `下の「${sp.name}専用チップ」から【専用枠1に装着】を押してください` : '下の全キャラ共通チップから【自由枠2に装着】を押してください'}</small>
             </div>
           `}
         </div>
@@ -5944,17 +6053,34 @@ function renderGenomeLab() {
         const chip = getChip(k);
         if (!chip) return '';
         const count = state.ownedChips[k];
+        const isDedicated = !!chip.speciesId;
+        const isMatch = isDedicated && (chip.speciesId === m.speciesId);
+        const spObj = isDedicated ? getSpecies(chip.speciesId) : null;
+
+        let equipButtonHtml = '';
+        if (isDedicated) {
+          if (isMatch) {
+            equipButtonHtml = `<button class="btn btn-purple" style="flex:1; padding:5px 8px; font-size:0.75rem; font-weight:900;" onclick="equipGeneChip(0, '${chip.id}')">🧬 専用枠1に装着</button>`;
+          } else {
+            equipButtonHtml = `<span style="font-size:0.72rem; color:#94a3b8; font-weight:800; background:#f1f5f9; padding:4px 8px; border-radius:6px; text-align:center; width:100%;">🔒 ${spObj ? spObj.name : ''}専用 (装着不可)</span>`;
+          }
+        } else {
+          equipButtonHtml = `<button class="btn btn-primary" style="flex:1; padding:5px 8px; font-size:0.75rem; font-weight:900;" onclick="equipGeneChip(1, '${chip.id}')">⚙️ 自由枠2に装着</button>`;
+        }
+
         return `
           <div class="card" style="padding:10px; border-color:${chip.color}; background:#ffffff; display:flex; flex-direction:column; gap:5px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span class="rarity-tag" style="background:${chip.color}; font-size:0.68rem;">${chip.rarity}</span>
+              <div style="display:flex; gap:4px; align-items:center;">
+                <span class="rarity-tag" style="background:${chip.color}; font-size:0.68rem;">${chip.rarity}</span>
+                ${isDedicated ? `<span style="background:#ede9fe; color:#6d28d9; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">${spObj ? spObj.name : ''}専用</span>` : '<span style="background:#e0f2fe; color:#0369a1; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">全キャラ共通</span>'}
+              </div>
               <span style="font-weight:900; font-size:0.78rem; color:#475569;">所持数: ${count}個</span>
             </div>
             <div style="font-weight:900; font-size:0.88rem; color:${chip.color};">${chip.icon} ${chip.name}</div>
             <div style="font-size:0.72rem; color:var(--text-sub); line-height:1.3; flex:1;">${chip.desc}</div>
             <div style="display:flex; gap:4px; margin-top:4px;">
-              <button class="btn btn-outline" style="flex:1; padding:4px 6px; font-size:0.7rem;" onclick="equipGeneChip(0, '${chip.id}')">枠1に装着</button>
-              <button class="btn btn-outline" style="flex:1; padding:4px 6px; font-size:0.7rem;" onclick="equipGeneChip(1, '${chip.id}')">枠2に装着</button>
+              ${equipButtonHtml}
             </div>
           </div>
         `;
@@ -5974,6 +6100,28 @@ function equipGeneChip(slotIdx, chipId) {
     return;
   }
 
+  const c = getChip(chipId);
+  if (!c) return;
+
+  // 🧬 スロット制限チェック（スロット1＝種族専用枠 / スロット2＝汎用自由枠）
+  if (slotIdx === 0) {
+    if (!c.speciesId) {
+      showToast('⚠️ スロット1は【種族専用枠】です！全キャラ共通チップはスロット2（自由枠）に装着してください。');
+      return;
+    }
+    if (c.speciesId !== m.speciesId) {
+      const targetSp = getSpecies(m.speciesId);
+      const reqSp = getSpecies(c.speciesId);
+      showToast(`⚠️ このチップは『${reqSp.name}』専用です！『${targetSp.name}』には装着できません！`);
+      return;
+    }
+  } else if (slotIdx === 1) {
+    if (c.speciesId) {
+      showToast('⚠️ スロット2は【汎用自由枠】です！種族専用チップはスロット1（専用枠）に装着してください。');
+      return;
+    }
+  }
+
   // すでに同じキャラの別スロットにある場合は入れ替え（別スロット側から取り外し＋ステータス減算）
   const otherSlot = slotIdx === 0 ? 1 : 0;
   if (m.chips[otherSlot] === chipId) {
@@ -5989,7 +6137,7 @@ function equipGeneChip(slotIdx, chipId) {
     state.ownedChips[oldChipId] = (state.ownedChips[oldChipId] || 0) + 1;
   }
 
-  // 新チップを装着して所持数から1減らし、ステータス上昇チップなら +15 反映！
+  // 新チップを装着して所持数から1減らし、ステータス上昇チップなら反映！
   state.ownedChips[chipId]--;
   m.chips[slotIdx] = chipId;
   applyChipStatDelta(m, chipId, 1);
@@ -6002,8 +6150,7 @@ function equipGeneChip(slotIdx, chipId) {
   if (document.getElementById('microbeEditModal')?.classList.contains('active')) {
     renderMicrobeEditModal();
   }
-  const c = getChip(chipId);
-  showToast(`🧬『${m.nickname}』のスロット${slotIdx + 1}に【${c.name}】を組み込みました！`);
+  showToast(`🧬『${m.nickname}』の${slotIdx === 0 ? '【種族専用枠1】' : '【汎用自由枠2】'}に【${c.name}】を組み込みました！`);
 }
 
 function unequipGeneChip(slotIdx) {
@@ -6012,7 +6159,7 @@ function unequipGeneChip(slotIdx) {
   const oldChipId = m.chips[slotIdx];
   if (!oldChipId) return;
 
-  // 取り外し時にステータス上昇チップの +15 を元に戻す
+  // 取り外し時にステータス上昇チップの補正を元に戻す
   applyChipStatDelta(m, oldChipId, -1);
   state.ownedChips[oldChipId] = (state.ownedChips[oldChipId] || 0) + 1;
   m.chips[slotIdx] = null;
@@ -6026,13 +6173,13 @@ function unequipGeneChip(slotIdx) {
   showToast('🧬 遺伝子チップを取り外しました。');
 }
 
-// 遺伝子チップガチャ抽選（UR:0.5%, SR:5.0%, R:25.0%, N:69.5%）
+// 遺伝子チップガチャ抽選（全15種族専用チップも平等に排出！ UR:1.5%, SR:12.0%, R:25.0%, N:61.5%）
 function rollOneChip() {
   const roll = Math.random() * 100;
   let targetRarity = 'N';
-  if (roll < 0.5) targetRarity = 'UR';
-  else if (roll < 5.5) targetRarity = 'SR';
-  else if (roll < 30.5) targetRarity = 'R';
+  if (roll < 1.5) targetRarity = 'UR';
+  else if (roll < 13.5) targetRarity = 'SR';
+  else if (roll < 38.5) targetRarity = 'R';
   else targetRarity = 'N';
 
   const pool = GENE_CHIPS_MASTER.filter(c => c.rarity === targetRarity);
@@ -6204,6 +6351,18 @@ function exchangeMedalItem(itemId) {
 }
 
 // 🧬 遺伝子チップ交換所の描画＆メダル交換処理
+let currentChipShopFilter = 'all'; // 'all', 'dedicated', 'general'
+function filterChipExchangeShop(filter) {
+  currentChipShopFilter = filter;
+  const btnAll = document.getElementById('chipShopFilterAll');
+  const btnDed = document.getElementById('chipShopFilterDedicated');
+  const btnGen = document.getElementById('chipShopFilterGeneral');
+  if (btnAll) btnAll.className = filter === 'all' ? 'btn btn-primary' : 'btn btn-outline';
+  if (btnDed) btnDed.className = filter === 'dedicated' ? 'btn btn-primary' : 'btn btn-outline';
+  if (btnGen) btnGen.className = filter === 'general' ? 'btn btn-primary' : 'btn btn-outline';
+  renderChipExchangeShop();
+}
+
 function getChipMedalCost(rarity) {
   if (rarity === 'UR') return 250;
   if (rarity === 'SR') return 90;
@@ -6219,13 +6378,29 @@ function renderChipExchangeShop() {
   const grid = document.getElementById('chipExchangeShopGrid');
   if (!grid) return;
 
-  grid.innerHTML = GENE_CHIPS_MASTER.map(chip => {
+  let pool = GENE_CHIPS_MASTER;
+  if (currentChipShopFilter === 'dedicated') {
+    pool = pool.filter(c => !!c.speciesId);
+  } else if (currentChipShopFilter === 'general') {
+    pool = pool.filter(c => !c.speciesId);
+  }
+
+  grid.innerHTML = pool.map(chip => {
     const cost = getChipMedalCost(chip.rarity);
     const ownedCount = (state.ownedChips && state.ownedChips[chip.id]) || 0;
+    const isDedicated = !!chip.speciesId;
+    const spObj = isDedicated ? getSpecies(chip.speciesId) : null;
+    const tagHtml = isDedicated
+      ? `<span style="background:#ede9fe; color:#6d28d9; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">🧬 ${spObj ? spObj.name : ''}専用</span>`
+      : `<span style="background:#e0f2fe; color:#0369a1; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">⚙️ 全キャラ共通</span>`;
+
     return `
-      <div class="box-item" style="border-color:${chip.color};">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span class="rarity-tag" style="background:${chip.color}; font-size:0.68rem;">${chip.rarity}</span>
+      <div class="box-item" style="border-color:${chip.color}; background:#ffffff; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
+          <div style="display:flex; gap:4px; align-items:center;">
+            <span class="rarity-tag" style="background:${chip.color}; font-size:0.68rem;">${chip.rarity}</span>
+            ${tagHtml}
+          </div>
           <span style="font-size:0.74rem; font-weight:900; color:#475569;">所持: ${ownedCount}個</span>
         </div>
         <div style="font-weight:900; font-size:0.9rem; color:${chip.color};">${chip.icon} ${chip.name}</div>
@@ -6272,6 +6447,8 @@ function createFighter(m, hpMult = 1.0) {
     sporeUsed: false,
     tardigradeUsed: false,
     nextAtkMult: 1.0,
+    phageFirstHitBonus: true,
+    netsExploded: false,
     combo: 0
   };
 }
@@ -6644,6 +6821,7 @@ function nextBattleQuestion() {
   saveData();
 
   battle.currentQ = q;
+  battle.questionCount = (battle.questionCount || 0) + 1;
 
   const f1 = battle.p1Team[battle.p1Idx];
   const f2 = battle.p2Team[battle.p2Idx];
@@ -6693,7 +6871,8 @@ function nextBattleQuestion() {
     } else {
       // ⚡ 4択早押しバトル (10秒)
       choiceArea.style.display = 'grid';
-      let cutChoice = null;
+      let cutChoices = [];
+      const hasDendritic = p1Chips.includes('chip_sp_dendritic');
       const hasEye = f1.skillId === 'eye';
       const hasCrispr = p1Chips.includes('chip_crispr');
 
@@ -6720,17 +6899,25 @@ function nextBattleQuestion() {
         }
       }
 
-      if (hasEye || hasCrispr) {
-        const wrong = rawChoices.filter(c => c !== q.ans);
+      const wrong = rawChoices.filter(c => c !== q.ans);
+      if (hasDendritic) {
+        const shuffledWrong = [...wrong].sort(() => Math.random() - 0.5);
+        cutChoices = shuffledWrong.slice(0, 2);
+      } else if (hasEye || hasCrispr) {
         if (wrong.length > 0) {
-          cutChoice = wrong[Math.floor(Math.random() * wrong.length)];
+          cutChoices = [wrong[Math.floor(Math.random() * wrong.length)]];
         }
       }
       const shuffled = [...rawChoices].sort(() => Math.random() - 0.5);
       choiceArea.innerHTML = '';
       shuffled.forEach(text => {
-        const isCut = (cutChoice !== null && text === cutChoice);
-        const reason = hasCrispr ? '✂️CRISPR切断消去！' : '👁️看破アイ消去！';
+        const isCut = cutChoices.includes(text);
+        let reason = '';
+        if (isCut) {
+          if (hasDendritic) reason = '📡樹状提示2択化！';
+          else if (hasCrispr) reason = '✂️CRISPR切断消去！';
+          else reason = '👁️看破アイ消去！';
+        }
         const btn = document.createElement('button');
         btn.className = 'choice-btn' + (isCut ? ' eliminated' : '');
         btn.disabled = isCut;
@@ -6756,6 +6943,7 @@ function nextBattleQuestion() {
         if (battle.remainTimeSec <= 0) {
           clearInterval(battleGaugeInterval);
           battle.answered = true;
+          if (f1) f1.combo = 0;
           document.querySelectorAll('.choice-btn').forEach(b => {
             b.disabled = true;
             if (b.dataset.ans === battle.currentQ.ans || b.textContent.trim().startsWith(battle.currentQ.ans)) {
@@ -6810,20 +6998,29 @@ function nextBattleQuestion() {
 
   if (fmt === 'choice') {
     choiceArea.style.display = 'grid';
-    let cutChoice = null;
+    let cutChoices = [];
+    const hasDendritic = p1Chips.includes('chip_sp_dendritic');
     const hasEye = f1.skillId === 'eye';
     const hasCrispr = p1Chips.includes('chip_crispr');
-    if (hasEye || hasCrispr) {
-      const wrong = (q.c || []).filter(c => c !== q.ans);
+    const wrong = (q.c || []).filter(c => c !== q.ans);
+    if (hasDendritic) {
+      const shuffledWrong = [...wrong].sort(() => Math.random() - 0.5);
+      cutChoices = shuffledWrong.slice(0, 2);
+    } else if (hasEye || hasCrispr) {
       if (wrong.length > 0) {
-        cutChoice = wrong[Math.floor(Math.random() * wrong.length)];
+        cutChoices = [wrong[Math.floor(Math.random() * wrong.length)]];
       }
     }
     const shuffled = [...(q.c || [q.ans])].sort(() => Math.random() - 0.5);
     choiceArea.innerHTML = '';
     shuffled.forEach(text => {
-      const isCut = (cutChoice !== null && text === cutChoice);
-      const reason = hasCrispr ? '✂️CRISPR切断消去！' : '👁️看破アイ消去！';
+      const isCut = cutChoices.includes(text);
+      let reason = '';
+      if (isCut) {
+        if (hasDendritic) reason = '📡樹状提示2択化！';
+        else if (hasCrispr) reason = '✂️CRISPR切断消去！';
+        else reason = '👁️看破アイ消去！';
+      }
       const btn = document.createElement('button');
       btn.className = 'choice-btn' + (isCut ? ' eliminated' : '');
       btn.disabled = isCut;
@@ -6877,6 +7074,7 @@ function nextBattleQuestion() {
     if (battle.remainTimeSec <= 0) {
       clearInterval(battleGaugeInterval);
       battle.answered = true;
+      if (f1) f1.combo = 0;
       document.querySelectorAll('.choice-btn').forEach(b => {
         b.disabled = true;
         if (b.dataset.ans === battle.currentQ.ans || b.textContent.trim().startsWith(battle.currentQ.ans)) {
@@ -6951,6 +7149,8 @@ function submitChoice(text, btn) {
       executeAttack('p1', false, getSpeedMultiplier());
     } else {
       if (btn) btn.classList.add('wrong');
+      const f1 = battle.p1Team[battle.p1Idx];
+      if (f1) f1.combo = 0;
       // 正解のボタンを緑色に光らせて明示
       document.querySelectorAll('.choice-btn').forEach(b => {
         if (b.dataset.ans === q.ans || b.textContent.trim() === q.ans || b.textContent.trim().startsWith(q.ans)) {
@@ -7059,6 +7259,8 @@ function submitAnagram() {
       recordCorrect(q.subj);
       executeAttack('p1', false, getSpeedMultiplier());
     } else {
+      const f1 = battle.p1Team[battle.p1Idx];
+      if (f1) f1.combo = 0;
       recordMistake(q);
       showToast(`❌ 不正解！ 正解は『${q.ans}』でした！`);
       const logEl = document.getElementById('battleLog');
@@ -7095,6 +7297,8 @@ function submitTyping() {
       recordCorrect(q.subj);
       executeAttack('p1', true, getSpeedMultiplier());
     } else {
+      const f1 = battle.p1Team[battle.p1Idx];
+      if (f1) f1.combo = 0;
       recordMistake(q);
       showToast(`❌ 不正解！ 正解は『${q.ans || q.rawWord}』でした！`);
       const logEl = document.getElementById('battleLog');
@@ -7123,10 +7327,47 @@ function executeAttack(who, isTypingBonus, speedMult) {
   const p2Chips = f2.chips || [];
 
   if (who === 'p1') {
-    const defReduction = 100 / (100 + (f2.stats.defense || 60) * 0.55);
+    // ゾウリムシ専用チップ：超マッハ繊毛（相手の攻撃を25%で完全回避！）
+    if (p2Chips.includes('chip_sp_ciliate') && Math.random() < 0.25) {
+      document.getElementById('battleLog').innerHTML = `⭕ 正解！ しかし相手の ${f2.nickname} は【🧬 超マッハ繊毛モーター】で素早く身をかわした！<br><small style="color:#0ea5e9;">(💨 相手が25%の確率で完全回避！)</small>`;
+      updateBattleHud();
+      setTimeout(() => {
+        if (!battle) return;
+        updateBattleHud();
+        nextBattleQuestion();
+      }, 1200);
+      return;
+    }
+
+    // キラーT細胞専用チップ：パーフォリン穿孔銃（相手の防御完全貫通！）
+    const hasKillerT = p1Chips.includes('chip_sp_killer_t');
+    const defReduction = hasKillerT ? 1.0 : (100 / (100 + (f2.stats.defense || 60) * 0.55));
+
     let dmg = Math.round((28 + f1.stats.size * 0.5 + f1.level * 2.5) * defReduction * (speedMult || 1.0) * (battle.atkMult || 1.0) * (f1.nextAtkMult || 1.0));
     f1.nextAtkMult = 1.0;
     let notes = [`⚡速度×${(speedMult || 1.0).toFixed(2)}`];
+    if (hasKillerT) notes.push('🎯パーフォリン防御貫通！');
+
+    // ファージ専用チップ：インジェクション針管（初撃1.5倍）
+    if (p1Chips.includes('chip_sp_phage') && f1.phageFirstHitBonus) {
+      dmg = Math.round(dmg * 1.5);
+      f1.phageFirstHitBonus = false;
+      notes.push('💉インジェクション初撃1.5倍！');
+    }
+
+    // B細胞専用チップ：形質抗体ガトリング（コンボ毎に+20%累積加算）
+    f1.combo = (f1.combo || 0) + 1;
+    if (p1Chips.includes('chip_sp_b_cell')) {
+      const bMult = 1.0 + Math.min(5, f1.combo) * 0.20;
+      dmg = Math.round(dmg * bMult);
+      notes.push(`🔫形質抗体${f1.combo}コンボ(×${bMult.toFixed(1)})`);
+    }
+
+    // メモリー細胞専用チップ：二次応答メモリーコア（2問目以降1.35倍）
+    if (p1Chips.includes('chip_sp_memory_cell') && (battle.questionCount || 1) >= 2) {
+      dmg = Math.round(dmg * 1.35);
+      notes.push('💾二次応答メモリー1.35倍！');
+    }
 
     if (isTypingBonus) {
       dmg = Math.round(dmg * 1.25);
@@ -7154,14 +7395,26 @@ function executeAttack(who, isTypingBonus, speedMult) {
       notes.push('🔥HSP逆境覚醒1.35倍！');
     }
 
+    // ケイソウ専用チップ：絶対シリカ結晶殻（受けるダメージ-15%軽減）
+    if (p2Chips.includes('chip_sp_diatom')) {
+      dmg = Math.max(1, Math.round(dmg * 0.85));
+      notes.push('🛡️相手シリカ結晶-15%軽減');
+    }
+
     // 会心率判定（相手がメチル化保護遺伝子を持っている場合は通常ダメージに無力化！）
     const critPct = getCritRatePct(f1);
     if (Math.random() * 100 < critPct) {
       if (p2Chips.includes('chip_methyl')) {
         notes.push('🛡️相手のメチル化保護で会心無効化');
       } else {
-        dmg = Math.round(dmg * 1.8);
-        notes.push(critPct === 100 ? '👑LR確定会心1.8倍!!' : '💥感覚クリティカル1.8倍！');
+        // NK細胞専用チップ：グランザイム結晶弾（会心倍率2.3倍）
+        if (p1Chips.includes('chip_sp_nk_cell')) {
+          dmg = Math.round(dmg * 2.3);
+          notes.push('💥グランザイム2.3倍超会心！');
+        } else {
+          dmg = Math.round(dmg * 1.8);
+          notes.push(critPct === 100 ? '👑LR確定会心1.8倍!!' : '💥感覚クリティカル1.8倍！');
+        }
       }
     }
 
@@ -7173,9 +7426,26 @@ function executeAttack(who, isTypingBonus, speedMult) {
 
     f2.hp -= dmg;
 
-    // クマムシ乾眠遺伝子または乾眠スキル
+    // アメーバ専用チップ：不定形アメーバ擬足（受けたダメージの30%を反射）
+    if (p2Chips.includes('chip_sp_amoeba') && dmg > 0) {
+      const reflectDmg = Math.max(1, Math.round(dmg * 0.3));
+      f1.hp -= reflectDmg;
+      notes.push(`🔮相手アメーバ擬足${reflectDmg}反射！`);
+    }
+
+    // マスト細胞専用チップ：ヒスタミン過剰脱顆粒（被攻撃時に最大HP15%の固定爆撃反撃）
+    if (p2Chips.includes('chip_sp_mast_cell') && dmg > 0) {
+      const mastDmg = Math.max(1, Math.round(f2.maxHp * 0.15));
+      f1.hp -= mastDmg;
+      notes.push(`💣相手ヒスタミン炎症${mastDmg}反撃！`);
+    }
+
+    // 相手の瀕死時判定（クマムシ乾眠チップ・専用クリプト保護殻・乾眠スキル）
     if (f2.hp <= 0) {
-      if (p2Chips.includes('chip_tardigrade') && !f2.tardigradeUsed) {
+      if (p2Chips.includes('chip_sp_tardigrade') && !f2.tardigradeUsed) {
+        f2.tardigradeUsed = true; f2.hp = 1; f2.nextAtkMult = 1.8;
+        notes.push('💎相手極限クリプト保護殻で耐えた(次回1.8倍！)');
+      } else if (p2Chips.includes('chip_tardigrade') && !f2.tardigradeUsed) {
         f2.tardigradeUsed = true; f2.hp = 1; f2.nextAtkMult = 1.5;
         notes.push('💎相手クマムシ乾眠で耐えた(次回1.5倍)');
       } else if (f2.skillId === 'spore' && !f2.sporeUsed) {
@@ -7184,12 +7454,42 @@ function executeAttack(who, isTypingBonus, speedMult) {
       }
     }
 
-    // 正解時HP回復
-    if (p1Chips.includes('chip_telomerase')) {
+    // 相手が倒れた際の判定
+    if (f2.hp <= 0) {
+      // 好中球専用チップ：NETs細胞外トラップ（倒されたとき道連れ最大HP40%大爆破）
+      if (p2Chips.includes('chip_sp_neutrophil') && !f2.netsExploded) {
+        f2.netsExploded = true;
+        const trapDmg = Math.max(1, Math.round(f2.maxHp * 0.4));
+        f1.hp -= trapDmg;
+        notes.push(`🕸️相手NETsトラップ道連れ${trapDmg}自爆！`);
+      }
+      // マクロファージ専用チップ：深淵貪食リソソーム（撃破時最大HP35%捕食回復）
+      if (p1Chips.includes('chip_sp_macrophage')) {
+        const devourHeal = Math.round(f1.maxHp * 0.35);
+        f1.hp = Math.min(f1.maxHp, f1.hp + devourHeal);
+        notes.push(`🍽️深淵貪食+${devourHeal}捕食回復！`);
+      }
+    }
+
+    // ミドリムシ専用チップ：極限クロロフィル核（正解時HP25%回復）
+    if (p1Chips.includes('chip_sp_euglena')) {
+      const heal = Math.round(f1.maxHp * 0.25);
+      f1.hp = Math.min(f1.maxHp, f1.hp + heal);
+      notes.push(`🌿極限クロロフィル+${heal}超回復！`);
+    } else if (p1Chips.includes('chip_telomerase')) {
       const heal = Math.round(f1.maxHp * 0.08);
       f1.hp = Math.min(f1.maxHp, f1.hp + heal);
       notes.push(`🌿テロメラーゼ+${heal}回復`);
     }
+
+    // ヘルパーT細胞専用チップ：サイトカイン覚醒波（チーム全員HP12%回復）
+    if (p1Chips.includes('chip_sp_helper_t')) {
+      battle.p1Team.forEach(tm => {
+        if (tm.hp > 0) tm.hp = Math.min(tm.maxHp, tm.hp + Math.round(tm.maxHp * 0.12));
+      });
+      notes.push('📣サイトカイン覚醒波(チーム全員12%回復！)');
+    }
+
     if (f1.skillId === 'photosyn') {
       const heal = Math.round(f1.maxHp * 0.12);
       f1.hp = Math.min(f1.maxHp, f1.hp + heal);
@@ -7198,11 +7498,48 @@ function executeAttack(who, isTypingBonus, speedMult) {
 
     document.getElementById('battleLog').innerHTML = `⭕ 正解！ ${f1.nickname} の攻撃！ <strong>${dmg}</strong> ダメージ！<br><small style="color:#0369a1;">(${notes.join(' / ')})</small>`;
   } else {
-    // 相手からの被ダメージ
-    const myDefReduction = 100 / (100 + (f1.stats.defense || 60) * 0.65);
+    // 相手からの攻撃（who === 'p2'）
+    if (f1) f1.combo = 0; // 不正解時はコンボリセット
+
+    // ゾウリムシ専用チップ：超マッハ繊毛（プレイヤーが25%で完全回避！）
+    if (p1Chips.includes('chip_sp_ciliate') && Math.random() < 0.25) {
+      document.getElementById('battleLog').innerHTML = `💥 相手の攻撃！ しかし ${f1.nickname} は【🧬 超マッハ繊毛モーター】で鮮やかに完全回避！<br><small style="color:#0ea5e9;">(💨 25%の確率で相手の攻撃を完全回避！ 正解は『<strong>${q.ans || q.rawWord}</strong>』)</small>`;
+      updateBattleHud();
+      setTimeout(() => {
+        if (!battle) return;
+        updateBattleHud();
+        nextBattleQuestion();
+      }, 1200);
+      return;
+    }
+
+    // キラーT細胞貫通チェック
+    const hasEnemyKillerT = p2Chips.includes('chip_sp_killer_t');
+    const myDefReduction = hasEnemyKillerT ? 1.0 : (100 / (100 + (f1.stats.defense || 60) * 0.65));
+
     let dmg = Math.round((28 + f2.stats.size * 0.45 + f2.level * 2.2) * myDefReduction * (f2.nextAtkMult || 1.0));
     f2.nextAtkMult = 1.0;
     let notes = [];
+    if (hasEnemyKillerT) notes.push('🎯相手パーフォリン貫通！');
+
+    // 相手のファージ初撃
+    if (p2Chips.includes('chip_sp_phage') && f2.phageFirstHitBonus) {
+      dmg = Math.round(dmg * 1.5);
+      f2.phageFirstHitBonus = false;
+      notes.push('💉相手インジェクション初撃1.5倍');
+    }
+
+    // 相手のメモリー細胞
+    if (p2Chips.includes('chip_sp_memory_cell') && (battle.questionCount || 1) >= 2) {
+      dmg = Math.round(dmg * 1.35);
+      notes.push('💾相手二次応答メモリー1.35倍');
+    }
+
+    // プレイヤーのケイソウ専用チップ：絶対シリカ結晶殻（-15%ダメージ軽減）
+    if (p1Chips.includes('chip_sp_diatom')) {
+      dmg = Math.max(1, Math.round(dmg * 0.85));
+      notes.push('🛡️シリカ結晶-15%軽減');
+    }
 
     if (f1.skillId === 'shield' && !f1.shieldUsed) {
       f1.shieldUsed = true; dmg = Math.round(dmg * 0.5);
@@ -7210,8 +7547,27 @@ function executeAttack(who, isTypingBonus, speedMult) {
     }
 
     f1.hp -= dmg;
+
+    // プレイヤーのアメーバ専用チップ：不定形アメーバ擬足（30%反射）
+    if (p1Chips.includes('chip_sp_amoeba') && dmg > 0) {
+      const reflectDmg = Math.max(1, Math.round(dmg * 0.3));
+      f2.hp -= reflectDmg;
+      notes.push(`🔮アメーバ擬足${reflectDmg}反射！`);
+    }
+
+    // プレイヤーのマスト細胞専用チップ：ヒスタミン過剰脱顆粒（最大HP15%反撃）
+    if (p1Chips.includes('chip_sp_mast_cell') && dmg > 0) {
+      const mastDmg = Math.max(1, Math.round(f1.maxHp * 0.15));
+      f2.hp -= mastDmg;
+      notes.push(`💣ヒスタミン炎症${mastDmg}反撃！`);
+    }
+
+    // プレイヤーの瀕死時判定
     if (f1.hp <= 0) {
-      if (p1Chips.includes('chip_tardigrade') && !f1.tardigradeUsed) {
+      if (p1Chips.includes('chip_sp_tardigrade') && !f1.tardigradeUsed) {
+        f1.tardigradeUsed = true; f1.hp = 1; f1.nextAtkMult = 1.8;
+        notes.push('💎極限クリプト保護殻発動！HP1で耐えた＆次回攻撃1.8倍！');
+      } else if (p1Chips.includes('chip_tardigrade') && !f1.tardigradeUsed) {
         f1.tardigradeUsed = true; f1.hp = 1; f1.nextAtkMult = 1.5;
         notes.push('💎クマムシ乾眠発動！HP1で耐えた＆次回攻撃1.5倍！');
       } else if (f1.skillId === 'spore' && !f1.sporeUsed) {
@@ -7220,7 +7576,24 @@ function executeAttack(who, isTypingBonus, speedMult) {
       }
     }
 
-    document.getElementById('battleLog').innerHTML = `💥 相手の攻撃で <strong>${dmg}</strong> ダメージ！ 正解は『<strong>${q.ans}</strong>』でした！<br><small style="color:#dc2626;">(${notes.join(' / ')})</small>`;
+    // プレイヤーが倒れた際の判定
+    if (f1.hp <= 0) {
+      // プレイヤーの好中球専用チップ：NETs細胞外トラップ
+      if (p1Chips.includes('chip_sp_neutrophil') && !f1.netsExploded) {
+        f1.netsExploded = true;
+        const trapDmg = Math.max(1, Math.round(f1.maxHp * 0.4));
+        f2.hp -= trapDmg;
+        notes.push(`🕸️NETsトラップ発動！相手に道連れ${trapDmg}自爆ダメージ！`);
+      }
+      // 相手のマクロファージ捕食
+      if (p2Chips.includes('chip_sp_macrophage')) {
+        const devourHeal = Math.round(f2.maxHp * 0.35);
+        f2.hp = Math.min(f2.maxHp, f2.hp + devourHeal);
+        notes.push(`🍽️相手深淵貪食+${devourHeal}回復`);
+      }
+    }
+
+    document.getElementById('battleLog').innerHTML = `💥 相手の攻撃で <strong>${dmg}</strong> ダメージ！ 正解は『<strong>${q.ans || q.rawWord}</strong>』でした！<br><small style="color:#dc2626;">(${notes.join(' / ')})</small>`;
   }
 
   updateBattleHud();
@@ -9523,6 +9896,45 @@ function renderFriendList() {
 /* ============================================================================
    🏅 ランキング計算 ＆ 描画（ダミーAI完全撤廃・Firebase実プレイヤーのみ！）
 ============================================================================ */
+// 過去のテスト初期放置「らむね（600 RP・0勝）」アカウントをフレンド一覧＆Firestoreから完全に抹消するクリーンアップ
+function cleanupDummyDocsInCloud() {
+  if (Array.isArray(state.friendsList)) {
+    const beforeLen = state.friendsList.length;
+    state.friendsList = state.friendsList.filter(f => {
+      if (!f) return false;
+      const fn = (f.name || '').trim();
+      const isDead = (fn === 'らむね' || fn === 'RAMUNE' || fn === 'ラムネ') && (f.wins || 0) === 0 && (f.rp === undefined || f.rp <= 600);
+      if (isDead) {
+        if (db && f.code) {
+          db.collection('players').doc(normalizeFriendCode(f.code)).delete().catch(() => {});
+        }
+        return false;
+      }
+      return true;
+    });
+    if (state.friendsList.length !== beforeLen) {
+      saveData();
+    }
+  }
+
+  if (!db) return;
+  db.collection('players').get().then(snapshot => {
+    const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
+    snapshot.forEach(doc => {
+      if (doc.id.startsWith('ROOM_') || doc.id.startsWith('MATCH_')) return;
+      const p = doc.data();
+      if (!p || p.isSystemDoc) return;
+      const docCode = normalizeFriendCode(p.code || doc.id);
+      if (docCode === myCode) return;
+      const pName = (p.name || '').trim();
+      const isDeadRamune = (pName === 'らむね' || pName === 'RAMUNE' || pName === 'ラムネ') && (p.wins || 0) === 0 && (p.rp === undefined || p.rp <= 600);
+      if (p.isTestAccount || isDeadRamune) {
+        db.collection('players').doc(doc.id).delete().catch(() => {});
+      }
+    });
+  }).catch(() => {});
+}
+
 let currentRankTab = 'global';
 function getMyPlayerRankData() {
   const totalCorrect = Object.values(state.stats.subjCorrect || {}).reduce((a, b) => a + b, 0);
@@ -9594,8 +10006,10 @@ function fetchAndRenderGlobalRanking() {
         return;
       }
 
-      // 使わなくなった過去の初期放置「らむね（600 RP・0勝）」アカウントをクラウドから自動消去＆非表示
-      if (docCode !== myCode && cleanName === 'らむね' && (p.wins || 0) === 0 && (p.rp === undefined || p.rp <= 600)) {
+      // 使わなくなった過去の初期放置「らむね（600 RP・0勝）」アカウントをクラウドから完全抹消＆非表示
+      const isDeadRamune = docCode !== myCode && (cleanName === 'らむね' || cleanName === 'RAMUNE' || cleanName === 'ラムネ') && (p.wins || 0) === 0 && (p.rp === undefined || p.rp <= 600);
+      if (isDeadRamune) {
+        seenCodes.add(docCode); // seenCodesに登録してフレンド復元ループからも完全遮断！
         db.collection('players').doc(doc.id).delete().catch(() => {});
         return;
       }
@@ -9618,32 +10032,37 @@ function fetchAndRenderGlobalRanking() {
 
     // ★ もし登録済みフレンドのデータが（旧バージョンの不具合等で）クラウドから欠落していた場合、自動的にランキングへ補完＆クラウドへ復元！
     if (Array.isArray(state.friendsList) && state.friendsList.length > 0) {
+      state.friendsList = state.friendsList.filter(f => {
+        if (!f) return false;
+        const fn = (f.name || '').trim();
+        return !((fn === 'らむね' || fn === 'RAMUNE' || fn === 'ラムネ') && (f.wins || 0) === 0 && (f.rp === undefined || f.rp <= 600));
+      });
       state.friendsList.forEach(f => {
         if (!f || !f.code) return;
         const fCode = normalizeFriendCode(f.code);
-        if (!fCode || fCode === myCode) return;
-        if (!seenCodes.has(fCode) && f.name) {
-          seenCodes.add(fCode);
-          players.push({
-            code: fCode,
-            name: f.name,
-            title: f.title || '🌱 新米研究助手',
-            wins: f.wins || 0,
-            rp: f.rp || 600,
-            isMe: false
-          });
-          // クラウド側にも安全に再登録して次回以降も残るようにする
-          db.collection('players').doc(fCode).set({
-            name: f.name,
-            code: fCode,
-            title: f.title || '🌱 新米研究助手',
-            wins: f.wins || 0,
-            losses: f.losses || 0,
-            rp: f.rp || 600,
-            leader: f.leader || null,
-            partyTeam: f.partyTeam || null
-          }, { merge: true }).catch(() => {});
-        }
+        if (!fCode || fCode === myCode || seenCodes.has(fCode)) return;
+        const fName = (f.name || '').trim();
+        if ((fName === 'らむね' || fName === 'RAMUNE' || fName === 'ラムネ') && (f.wins || 0) === 0 && (f.rp === undefined || f.rp <= 600)) return;
+        seenCodes.add(fCode);
+        players.push({
+          code: fCode,
+          name: f.name,
+          title: f.title || '🌱 新米研究助手',
+          wins: f.wins || 0,
+          rp: f.rp || 600,
+          isMe: false
+        });
+        // クラウド側にも安全に再登録して次回以降も残るようにする
+        db.collection('players').doc(fCode).set({
+          name: f.name,
+          code: fCode,
+          title: f.title || '🌱 新米研究助手',
+          wins: f.wins || 0,
+          losses: f.losses || 0,
+          rp: f.rp || 600,
+          leader: f.leader || null,
+          partyTeam: f.partyTeam || null
+        }, { merge: true }).catch(() => {});
       });
     }
 
