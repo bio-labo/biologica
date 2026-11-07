@@ -1306,7 +1306,7 @@
             </button>
           </div>
         </div>
-        <button class="btn btn-outline" style="color:#dc2626; border-color:#fca5a5; font-weight:900; padding:8px 14px;" onclick="leaveFriendBattleRoom()">
+        <button class="btn btn-outline" style="color:#dc2626; border-color:#fca5a5; background:#fff; font-weight:900; padding:8px 16px; cursor:pointer;" onclick="leaveFriendBattleRoom()">
           🚪 部屋を退出する
         </button>
       </div>
@@ -1385,6 +1385,13 @@
       <button id="startRoomBattleBtn" class="btn btn-purple" style="width:100%; padding:15px; font-size:1.1rem; font-weight:900; box-shadow:0 4px 15px rgba(147, 51, 234, 0.35); transition:all 0.2s;" onclick="hostStartRoomBattle()" disabled>
         ⏳ 友達の入室を待っています...
       </button>
+
+      <!-- 退出・解散ボタン（下部にも設置してどこからでも1秒で戻れるように！） -->
+      <div style="margin-top:12px;">
+        <button type="button" class="btn btn-outline" style="width:100%; padding:11px; font-size:0.88rem; font-weight:900; color:#dc2626; border-color:#fca5a5; background:#fff; cursor:pointer;" onclick="leaveFriendBattleRoom()">
+          🚪 部屋を退出（解散）して対戦メニューに戻る
+        </button>
+      </div>
     </div>
 
     <!-- バトルアリーナ -->
@@ -3255,6 +3262,16 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 2.9',
+    date: '2026-11-07',
+    title: '🚪 フレンド対戦ルーム退出・解散機能の超高速化＆0秒復帰アプデ',
+    items: [
+      '【🚪 ルーム退出のゼロ秒即時完了】「部屋を退出する」ボタンを押した際、クラウド通信の待機を挟まず0秒で即座に対戦設定メニューへ完全復帰するオプティミスティックUIを実装！退出できない・固まる現象を根本解消！',
+      '【🧭 上部＆下部に退出ボタンをデュアル配置】画面上部の「🚪 部屋を退出する」に加え、画面下部にも「🚪 部屋を退出（解散）して対戦メニューに戻る」ボタンを新設！スクロール位置を問わずいつでもワンタップで安全に戻れるように改善！',
+      '【🛡️ 画面切替時のルーム状態フェイルセーフ】ルーム番号がない状態で画面が切り替わった場合、待機ロビーが誤って残らないよう自動クリーンアップ判定を徹底強化！'
+    ]
+  },
+  {
     ver: 'Ver 2.8',
     date: '2026-11-07',
     title: '🏠 フレンド対戦ルーム作成・専用ロビー遷移＆フレンド直接招待システム完全修復アプデ',
@@ -4050,7 +4067,15 @@ function switchScreen(screenId, btnEl) {
   if (screenId === 'shop') renderAtpShop();
   if (screenId === 'gacha') renderExchangeShop();
   if (screenId === 'genome') renderGenomeLab();
-  if (screenId === 'battle') { updateBattlePresetSelect(); updateSubjectOptionsByGrade(); updateUnitOptionsBySubject(); checkPendingBattleInvites(); }
+  if (screenId === 'battle') {
+    if (!currentRoomId) {
+      const lobby = document.getElementById('friendRoomLobbyPanel');
+      if (lobby) lobby.style.display = 'none';
+      const setup = document.getElementById('battleSetupPanel');
+      if (setup) setup.style.display = 'block';
+    }
+    updateBattlePresetSelect(); updateSubjectOptionsByGrade(); updateUnitOptionsBySubject(); checkPendingBattleInvites();
+  }
   if (screenId === 'friends') { renderFriendList(); checkIncomingFriendRequests(); }
   if (screenId === 'ranking') renderRankingBoard('global');
   if (screenId === 'pedia') renderPedia();
@@ -9344,29 +9369,52 @@ function onGuestJoinedLobby(r) {
   }
 }
 
-// 部屋を退出する
-async function leaveFriendBattleRoom() {
-  if (roomUnsubscribe) { roomUnsubscribe(); roomUnsubscribe = null; }
+// 部屋を退出する（0秒即時画面遷移＆バックグラウンド安全破棄）
+function leaveFriendBattleRoom() {
+  const closingRoomId = currentRoomId;
+  const wasHost = isRoomHost;
+
+  // 1. ★ UIを0秒で即座に対戦メニューへ完全復元！（ユーザーを1ミリ秒も待たせない）
+  currentRoomId = null;
+  isRoomHost = false;
+
+  const lobbyPanel = document.getElementById('friendRoomLobbyPanel');
+  if (lobbyPanel) lobbyPanel.style.display = 'none';
+
+  const setupPanel = document.getElementById('battleSetupPanel');
+  if (setupPanel) setupPanel.style.display = 'block';
+
+  const arena = document.getElementById('battleArena');
+  if (arena) arena.classList.remove('active');
+
+  showToast('🚪 ルームを退出しました。');
+
+  // 2. リスナーとBroadcastChannelを即時破棄
+  if (roomUnsubscribe) {
+    try {
+      if (typeof roomUnsubscribe === 'function') roomUnsubscribe();
+    } catch (e) {}
+    roomUnsubscribe = null;
+  }
   if (roomBroadcastChannel) {
-    try { roomBroadcastChannel.close(); } catch (e) {}
+    try {
+      roomBroadcastChannel.close();
+    } catch (e) {}
     roomBroadcastChannel = null;
   }
-  if (currentRoomId && db) {
+
+  // 3. クラウド上の部屋データをバックグラウンド非同期で整理（UIは待たない）
+  if (closingRoomId && db) {
     try {
-      if (isRoomHost) {
-        await db.collection('battle_rooms').doc(currentRoomId).delete();
+      if (wasHost) {
+        db.collection('battle_rooms').doc(closingRoomId).delete().catch(() => {});
       } else {
-        await db.collection('battle_rooms').doc(currentRoomId).update({
+        db.collection('battle_rooms').doc(closingRoomId).update({
           guestCode: null, guestName: null, guestTeam: null
-        });
+        }).catch(() => {});
       }
     } catch (e) {}
   }
-  currentRoomId = null;
-  isRoomHost = false;
-  document.getElementById('friendRoomLobbyPanel').style.display = 'none';
-  document.getElementById('battleSetupPanel').style.display = 'block';
-  showToast('🚪 ルームを退出しました。');
 }
 
 // ロビー内のフレンド招待ボタン描画
