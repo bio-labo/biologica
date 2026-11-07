@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 2.0 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 3.1 - 理系微生物育成＆戦略クイズバトル</title>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon.svg">
 <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
@@ -537,7 +537,7 @@
     <div class="logo-area">
       <div class="logo-icon">🧬</div>
       <div>
-        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 2.0</span></div>
+        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 3.1</span></div>
         <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
       </div>
     </div>
@@ -562,10 +562,13 @@
   <!-- ぷにぷに風 4大メインナビゲーション -->
   <nav class="nav-tabs">
     <button id="mainTabPetri" class="nav-btn active" onclick="switchScreen('petri', this)">🔬 育成・配分</button>
-    <button id="mainTabBattle" class="nav-btn" onclick="switchScreen('battle', this)">⚔️ クイズ対戦</button>
+    <button id="mainTabBattle" class="nav-btn" onclick="switchScreen('battle', this)">⚔️ クイズ対戦 <span id="battleInviteBadge" class="notif-badge" style="display:none; background:#ec4899; color:white;">招待!</span></button>
     <button id="mainTabFriends" class="nav-btn" onclick="switchScreen('friends', this)">🤝 フレンド <span id="friendReqBadge" class="notif-badge" style="display:none;">0</span></button>
     <button id="mainTabMenu" class="nav-btn" onclick="switchScreen('menu', this)">📱 メニュー</button>
   </nav>
+
+  <!-- 🔔 グローバル対戦招待リアルタイム枠（全画面どこにいても即時通知！） -->
+  <div id="globalBattleInvitePopupArea"></div>
 
   <!-- 📱 メニュー画面（ぷにぷに風アイコン一覧） -->
   <section id="screen-menu" class="screen">
@@ -1352,6 +1355,14 @@
           <input type="text" id="lobbyDirectInviteInput" class="btn-outline" style="flex:1; max-width:240px; padding:6px 10px; font-size:0.82rem; border-radius:8px; font-weight:800;" placeholder="フレンドコード直接入力 (例: BIO-1234)">
           <button class="btn btn-primary" style="padding:6px 14px; font-size:0.8rem; font-weight:900;" onclick="sendDirectBattleInviteFromLobby()">📩 直接招待を送る</button>
         </div>
+
+        <!-- 📤 招待送信済みステータス枠（ホスト側：誰に招待を送ったかリアルタイム表示！） -->
+        <div id="lobbySentInvitesBox" style="display:none; margin-top:10px; background:#fdf2f8; border:1.5px dashed #f472b6; border-radius:10px; padding:8px 12px;">
+          <div style="font-size:0.76rem; font-weight:900; color:#9d174d; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+            <span>📤 招待を送信しました（友達の入室を待機中...）</span>
+          </div>
+          <div id="lobbySentInvitesList" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+        </div>
       </div>
 
       <!-- ルーム内ハンデ＆ルール設定（ホストが自由に変更可能・ゲストにリアルタイム反映） -->
@@ -1474,7 +1485,7 @@
         <div id="battleLog" style="flex:1; background:#f1f5f9; padding:8px 12px; border-radius:10px; font-size:0.85rem; font-weight:800;">
           バトル開始！早く正確に答えてスピードボーナスを狙おう！
         </div>
-        <button class="btn btn-outline" onclick="endBattle(false, true)">🏳️ 戻る</button>
+        <button class="btn btn-outline" onclick="retireCurrentBattle()">🏳️ 戻る</button>
       </div>
     </div>
   </section>
@@ -3261,6 +3272,28 @@ QUIZ_MASTER.forEach(q => {
 
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
+  {
+    ver: 'Ver 3.1',
+    date: '2026-11-07',
+    title: '🏆 オンライン対戦 勝敗完全同期（勝者・敗者リアルタイム連動）＆ 全国マッチング1秒爆速化アプデ',
+    items: [
+      '【🏆 一方が勝ったら片方が負ける完全勝敗同期】相手チームの3体を全滅させた際、クラウドを通じて勝敗が瞬時に確定！勝者側には「🏆 大勝利！！（+1500 ATP / EXP+140）」、敗者側には「💦 敗北... 相手の勝利です！（+500 ATP）」が両者の画面に同時に出現するよう完全同期！',
+      '【👥 3 vs 3 厳密交代システムの完全実装】現在戦っているアクティブキャラが倒れたら控えの2体目・3体目が順番に自動出場する仕様へ刷新！3体全員を倒し切って初めて全滅・決着となる正真正銘のチームバトルを実現！',
+      '【🏳️ 降参（リタイア）時の不戦勝リアルタイム通知】対戦中に「🏳️ 戻る」を押して降参した場合、相手に「🏆 相手が降参しました！あなたの勝利です！」と即座に同期され、相手が画面に取り残される問題を根本解消！',
+      '【⚡ 全国だれでも対戦の1秒爆速マッチング】待機中も1.5秒ごとにクラウド上の待機プレイヤーを自動相互スキャンし、即座に合流する高速マッチングエンジンを搭載！ボタンを押して数十秒待たされることなく、ほぼ1〜2秒で即座にリアルタイム対戦へ突入可能に！'
+    ]
+  },
+  {
+    ver: 'Ver 3.0',
+    date: '2026-11-07',
+    title: '⚔️ 入室即退出バグの完全根絶 ＆ 全画面「対戦招待が届きました枠」・「招待中ステータス枠」完全実装アプデ',
+    items: [
+      '【🛡️ 入室直後の即時キック・退出バグを根本解決】ゲスト入室時に部屋の実在・待機状態を安全確認してからロビーを開くよう順序を徹底是正！初期リスナーでの誤切断（docSeen判定）を実装し、入室した瞬間に部屋から弾かれてしまう現象を100%根絶！',
+      '【🔔 全画面対応「対戦招待が届きました！」リアルタイムポップアップ枠】アプリのどこにいても（シャーレ育成中・メニュー・対戦中どこでも）、友達から招待が届いた瞬間に画面最上部へ「⚔️ 〇〇さんから対戦招待！【今すぐ参加する】」枠が飛び出す仕組みを実装！ワンタップで即入室可能！',
+      '【📤 ホスト側「招待しました（参加待ち...）」ステータス枠】待機ロビー内でフレンドを招待した際、誰に招待を送ったかが一目でわかる「📤 送信済み対戦招待カード」をロビー内に新設！友達の入室を安心して待てるように改善！',
+      '【🧹 部屋解散時の招待状自動クリーンアップ】ホストが部屋を解散した際、残った招待状ドキュメントも一括自動消去！古い解散済み部屋への誤入室を完全に防止！'
+    ]
+  },
   {
     ver: 'Ver 2.9',
     date: '2026-11-07',
@@ -8794,8 +8827,9 @@ async function startRandomMatchmaking() {
   const myTitle = (TITLES_MASTER.find(t => t.id === state.equippedTitleId) || TITLES_MASTER[0]).name;
   const battleCat = currentBattleCategory || 'sci';
 
-  // 35秒カウントダウンタイマー
-  randomMatchmaker.timerInterval = setInterval(() => {
+  // 35秒カウントダウンタイマー ＆ 毎秒の相互マッチング回収ループ（1〜2秒で即時マッチング！）
+  let scanTick = 0;
+  randomMatchmaker.timerInterval = setInterval(async () => {
     if (!randomMatchmaker.active) return;
     randomMatchmaker.remainSec--;
     timerText.textContent = `⏱️ 残り ${randomMatchmaker.remainSec} 秒`;
@@ -8804,6 +8838,72 @@ async function startRandomMatchmaking() {
       clearInterval(randomMatchmaker.timerInterval);
       cancelRandomMatchmaking(true);
       fallbackToGhostBattle(battleCat, myTeam);
+      return;
+    }
+
+    // ★ 待機中も1.5秒ごとに他の待機プレイヤーがいないか能動的に再スキャン！
+    scanTick++;
+    if (scanTick % 2 === 0 && db && randomMatchmaker.docId) {
+      try {
+        const snap = await db.collection('random_matches')
+          .where('status', '==', 'waiting')
+          .limit(10)
+          .get();
+
+        let otherDoc = null;
+        snap.forEach(d => {
+          const dData = d.data();
+          if (d.id !== randomMatchmaker.docId && dData.hostCode !== state.friendCode && (!dData.category || dData.category === battleCat)) {
+            // フレンドコード順で役割を決定（競合防止：コードが大きい側が相手の部屋に合流）
+            if (state.friendCode > dData.hostCode) {
+              if (!otherDoc) otherDoc = d;
+            }
+          }
+        });
+
+        if (otherDoc && randomMatchmaker.active) {
+          const oData = otherDoc.data();
+          const targetRoomId = oData.roomId;
+
+          // 自分の待機部屋を片付けて相手の部屋へ合流！
+          const myDocId = randomMatchmaker.docId;
+          const myRoomId = currentRoomId;
+          randomMatchmaker.docId = null;
+          if (randomMatchmaker.unsubscribe) {
+            randomMatchmaker.unsubscribe();
+            randomMatchmaker.unsubscribe = null;
+          }
+          clearInterval(randomMatchmaker.timerInterval);
+          modal.classList.remove('active');
+          randomMatchmaker.active = false;
+
+          // 自分の部屋を削除
+          if (myDocId) db.collection('random_matches').doc(myDocId).delete().catch(() => {});
+          if (myRoomId) db.collection('battle_rooms').doc(myRoomId).delete().catch(() => {});
+
+          // 相手の部屋へ参加
+          await db.collection('random_matches').doc(otherDoc.id).update({
+            status: 'matched',
+            guestCode: state.friendCode,
+            guestName: state.playerName
+          });
+
+          await db.collection('battle_rooms').doc(targetRoomId).update({
+            guestCode: state.friendCode,
+            guestName: state.playerName,
+            guestTitle: myTitle,
+            guestTeam: myTeam,
+            guestHp: myTeam.reduce((sum, m) => sum + m.maxHp, 0)
+          });
+
+          showToast(`🎉 全国対戦マッチ成立！『${oData.hostName}』さんと対戦開始！`);
+          currentRoomId = targetRoomId;
+          isRoomHost = false;
+          listenToBattleRoom(targetRoomId);
+        }
+      } catch (scanErr) {
+        console.warn('randomMatch scan note:', scanErr);
+      }
     }
   }, 1000);
 
@@ -9137,7 +9237,7 @@ async function createFriendBattleRoom() {
   }
 }
 
-// 部屋参加（ゲスト）：4桁番号で即座に入室！
+// 部屋参加（ゲスト）：安全な実在確認を経て入室（即退出バグを根絶！）
 async function joinFriendBattleRoom(targetRoomId) {
   let rawId = targetRoomId || (document.getElementById('joinRoomIdInput') ? document.getElementById('joinRoomIdInput').value : '').trim();
   const roomId = String(rawId || '').replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0)).replace(/\s+/g, '');
@@ -9149,9 +9249,9 @@ async function joinFriendBattleRoom(targetRoomId) {
     return;
   }
 
-  showToast(`🔍 ルーム ${roomId} に入室中...`);
+  showToast(`🔍 ルーム【 ${roomId} 】の通信を確認中...`);
 
-  // 出撃パーティの構築
+  // 出撃パーティの安全な構築
   const presetIdx = parseInt((document.getElementById('battlePresetSelect') || {}).value || '0', 10);
   const curPreset = (state.presets && state.presets[presetIdx]) || (state.presets && state.presets[0]) || { ids: [] };
   let teamUids = (curPreset.ids || []).filter(id => !!getMicrobeById(id));
@@ -9165,15 +9265,48 @@ async function joinFriendBattleRoom(targetRoomId) {
   const myTitle = (TITLES_MASTER.find(t => t.id === state.equippedTitleId) || TITLES_MASTER[0]).name;
   const sanitizedTeam = JSON.parse(JSON.stringify(myTeam));
 
+  // ★ 1. クラウド上の部屋存在確認（部屋がないのにロビーを開いて即退出される現象を100%防止！）
+  let roomFound = false;
+  let rData = null;
+
+  if (db) {
+    try {
+      const docRef = db.collection('battle_rooms').doc(roomId);
+      const snap = await docRef.get();
+      if (snap.exists) {
+        rData = snap.data();
+        if (rData.status !== 'waiting') {
+          showToast('⚠️ このルームはすでに対戦中または終了しています！');
+          return;
+        }
+        roomFound = true;
+        await docRef.update({
+          guestCode: state.friendCode,
+          guestName: state.playerName || '挑戦者',
+          guestTitle: myTitle,
+          guestTeam: sanitizedTeam,
+          guestHp: sanitizedTeam.reduce((sum, m) => sum + (m.maxHp || 100), 0)
+        });
+      }
+    } catch (err) {
+      console.warn('joinFriendBattleRoom cloud note:', err);
+    }
+  }
+
+  // ★ 2. クラウドに部屋が見つからない場合のエラーガード（勝手に入室せず安全に通知）
+  if (db && !roomFound) {
+    showToast(`⚠️ ルーム【 ${roomId} 】が見つかりませんでした！部屋番号をご確認ください。`);
+    return;
+  }
+
+  // ★ 3. 部屋の実在確認完了後にロビーへ遷移！
   currentRoomId = roomId;
   isRoomHost = false;
 
-  // 即座にロビー画面を開く
   switchScreen('battle');
   openRoomLobbyUI(roomId, false, myTeam);
   setupRoomBroadcastChannel(roomId);
 
-  // ローカルブロードキャストへ入室通知
   if (roomBroadcastChannel) {
     roomBroadcastChannel.postMessage({
       type: 'guest_join',
@@ -9186,34 +9319,11 @@ async function joinFriendBattleRoom(targetRoomId) {
     });
   }
 
-  // クラウド更新
   if (db) {
-    try {
-      const docRef = db.collection('battle_rooms').doc(roomId);
-      const snap = await docRef.get();
-      if (snap.exists) {
-        const rData = snap.data();
-        if (rData.status !== 'waiting') {
-          showToast('⚠️ このルームはすでにバトル中または終了しています！');
-          leaveFriendBattleRoom();
-          return;
-        }
-        await docRef.update({
-          guestCode: state.friendCode,
-          guestName: state.playerName || '挑戦者',
-          guestTitle: myTitle,
-          guestTeam: sanitizedTeam,
-          guestHp: sanitizedTeam.reduce((sum, m) => sum + (m.maxHp || 100), 0)
-        });
-      }
-      listenToBattleRoom(roomId);
-      showToast(`🎉 ルーム ${roomId} に入室しました！ホストの対戦開始を待っています！`);
-    } catch (err) {
-      console.warn('joinFriendBattleRoom cloud note:', err);
-      showToast(`🎉 ルーム ${roomId} に入室しました！（ローカル同期で接続中）`);
-    }
+    listenToBattleRoom(roomId);
+    showToast(`🎉 ルーム ${roomId} に入室しました！ホストの対戦開始を待っています！`);
   } else {
-    showToast(`🎉 ルーム ${roomId} に入室しました！`);
+    showToast(`🎉 ルーム ${roomId} に入室しました！（ローカル対戦待機中）`);
   }
 }
 
@@ -9223,6 +9333,10 @@ function openRoomLobbyUI(roomId, isHost, myTeam) {
   document.getElementById('battleArena').classList.remove('active');
   const panel = document.getElementById('friendRoomLobbyPanel');
   panel.style.display = 'block';
+
+  // 送信済み招待リストの初期化
+  sentInvitesInRoom = [];
+  renderLobbySentInvites();
 
   // 最上部へスクロールして部屋に入ったことを実感させる
   window.scrollTo({ top: panel.offsetTop - 20, behavior: 'smooth' });
@@ -9335,6 +9449,10 @@ function setupRoomBroadcastChannel(roomId) {
       if (data.type === 'room_choice_update' && battle && battle.mode === 'online_room') {
         syncRoomBattleState(data.roomState);
       }
+
+      if (data.type === 'battle_finished' && battle && battle.mode === 'online_room') {
+        onRoomBattleFinished(data.roomState);
+      }
     };
   } catch (e) {
     console.warn('BroadcastChannel not supported:', e);
@@ -9387,6 +9505,9 @@ function leaveFriendBattleRoom() {
   const arena = document.getElementById('battleArena');
   if (arena) arena.classList.remove('active');
 
+  sentInvitesInRoom = [];
+  renderLobbySentInvites();
+
   showToast('🚪 ルームを退出しました。');
 
   // 2. リスナーとBroadcastChannelを即時破棄
@@ -9403,11 +9524,15 @@ function leaveFriendBattleRoom() {
     roomBroadcastChannel = null;
   }
 
-  // 3. クラウド上の部屋データをバックグラウンド非同期で整理（UIは待たない）
+  // 3. クラウド上の部屋データ＆送信済み招待をバックグラウンド非同期で整理
   if (closingRoomId && db) {
     try {
       if (wasHost) {
         db.collection('battle_rooms').doc(closingRoomId).delete().catch(() => {});
+        // 解散した部屋の招待状を自動削除（友達が解散済み部屋へ誤入室するのを防ぐ）
+        db.collection('battle_invites').where('roomId', '==', closingRoomId).get().then(snap => {
+          snap.forEach(d => d.ref.delete().catch(() => {}));
+        }).catch(() => {});
       } else {
         db.collection('battle_rooms').doc(closingRoomId).update({
           guestCode: null, guestName: null, guestTeam: null
@@ -9415,6 +9540,28 @@ function leaveFriendBattleRoom() {
       }
     } catch (e) {}
   }
+}
+
+// 📤 ホストが誰に招待を送ったかのリアルタイムステータス枠
+let sentInvitesInRoom = [];
+
+function renderLobbySentInvites() {
+  const box = document.getElementById('lobbySentInvitesBox');
+  const list = document.getElementById('lobbySentInvitesList');
+  if (!box || !list) return;
+  if (!sentInvitesInRoom || sentInvitesInRoom.length === 0) {
+    box.style.display = 'none';
+    list.innerHTML = '';
+    return;
+  }
+  box.style.display = 'block';
+  list.innerHTML = sentInvitesInRoom.map(inv => `
+    <div style="background:white; border:1.5px solid #f472b6; border-radius:8px; padding:4px 10px; font-size:0.76rem; font-weight:900; color:#831843; display:flex; align-items:center; gap:6px;">
+      <span>📩</span>
+      <span>${inv.name}</span>
+      <span style="color:#db2777; font-size:0.7rem; font-weight:800;">（友達の参加待ち...）</span>
+    </div>
+  `).join('');
 }
 
 // ロビー内のフレンド招待ボタン描画
@@ -9459,7 +9606,7 @@ function sendDirectBattleInviteFromLobby() {
   inp.value = '';
 }
 
-// 招待状を送信
+// 招待状を送信（送信済み枠へ即時反映）
 async function sendBattleInviteToFriend(targetCode, targetName) {
   if (!currentRoomId) return;
   showToast(`📩『${targetName}』さんに対戦招待を送信中...`);
@@ -9470,6 +9617,12 @@ async function sendBattleInviteToFriend(targetCode, targetName) {
     btn.textContent = `✅ 招待済`;
     btn.className = 'btn btn-secondary';
     btn.disabled = true;
+  }
+
+  // ホストの「招待しました枠」に即時追加！
+  if (!sentInvitesInRoom.some(x => x.code === targetCode)) {
+    sentInvitesInRoom.push({ code: targetCode, name: targetName });
+    renderLobbySentInvites();
   }
 
   if (db) {
@@ -9502,44 +9655,136 @@ async function quickInviteFriendToRoom(targetFriendCode) {
   switchScreen('battle');
 }
 
-// 届いている対戦招待のチェック＆バナー表示
-async function checkPendingBattleInvites() {
+// 🔔 リアルタイム「招待されました枠」受信リスナー＆全画面表示
+let battleInvitesUnsubscribe = null;
+let lastKnownInviteIds = new Set();
+
+function listenToIncomingBattleInvites() {
+  if (battleInvitesUnsubscribe) {
+    try { if (typeof battleInvitesUnsubscribe === 'function') battleInvitesUnsubscribe(); } catch (e) {}
+    battleInvitesUnsubscribe = null;
+  }
   if (!db || !state.friendCode) return;
-  try {
-    const snap = await db.collection('battle_invites')
-      .where('targetCode', '==', state.friendCode)
-      .limit(3)
-      .get();
 
-    const bannerArea = document.getElementById('battleInviteBannerArea');
-    if (!bannerArea) return;
+  battleInvitesUnsubscribe = db.collection('battle_invites')
+    .where('targetCode', '==', state.friendCode)
+    .onSnapshot(snap => {
+      if (!snap) return;
+      const now = Date.now();
+      const validInvites = [];
+      let hasNew = false;
 
-    if (snap.empty) {
-      bannerArea.innerHTML = '';
-      return;
-    }
+      snap.forEach(doc => {
+        const d = doc.data();
+        // 過去15分以内の招待のみ有効とする（古い招待は自動削除）
+        if (d && (!d.createdAt || (now - d.createdAt < 15 * 60 * 1000))) {
+          validInvites.push({ id: doc.id, ...d });
+          if (!lastKnownInviteIds.has(doc.id)) {
+            hasNew = true;
+            lastKnownInviteIds.add(doc.id);
+          }
+        } else {
+          db.collection('battle_invites').doc(doc.id).delete().catch(() => {});
+        }
+      });
 
-    bannerArea.innerHTML = snap.docs.map(doc => {
-      const data = doc.data();
-      return `
-        <div style="background:#fdf2f8; border:2px solid #ec4899; border-radius:10px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; box-shadow:0 3px 8px rgba(236,72,153,0.15);">
+      renderReceivedBattleInvites(validInvites);
+
+      if (hasNew && validInvites.length > 0) {
+        const latest = validInvites[validInvites.length - 1];
+        showToast(`⚔️『${latest.fromName}』さんから対戦招待が届きました！`);
+      }
+    }, err => {
+      console.warn('listenToIncomingBattleInvites note:', err);
+    });
+}
+
+// 届いている招待バナー＆グローバルポップアップの描画
+function renderReceivedBattleInvites(invites) {
+  const globalArea = document.getElementById('globalBattleInvitePopupArea');
+  const battleArea = document.getElementById('battleInviteBannerArea');
+  const badge = document.getElementById('battleInviteBadge');
+
+  if (badge) {
+    badge.style.display = (invites && invites.length > 0) ? 'inline-block' : 'none';
+  }
+
+  if (!invites || invites.length === 0) {
+    if (globalArea) globalArea.innerHTML = '';
+    if (battleArea) battleArea.innerHTML = '';
+    return;
+  }
+
+  // 1. 全画面どこにいても最上部に出現する「招待されました枠」ポップアップ
+  if (globalArea) {
+    globalArea.innerHTML = invites.slice(0, 2).map(inv => `
+      <div style="background:linear-gradient(135deg, #fff1f2 0%, #fdf2f8 50%, #faf5ff 100%); border:2.5px solid #ec4899; border-radius:14px; padding:12px 16px; margin:8px 0; box-shadow:0 8px 25px rgba(236,72,153,0.3); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:2rem;">⚔️</span>
           <div>
-            <strong style="color:#be185d; font-size:0.92rem;">⚔️ ${data.fromName} さんから対戦招待！</strong>
-            <div style="font-size:0.75rem; color:#9d174d; font-weight:800;">ルーム番号: 【 ${data.roomId} 】</div>
+            <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+              <span style="background:#ec4899; color:white; font-size:0.72rem; font-weight:900; padding:2px 8px; border-radius:999px;">💌 対戦招待が届きました！</span>
+              <span style="font-size:0.8rem; font-weight:900; color:#9d174d;">部屋番号: 【 ${inv.roomId} 】</span>
+            </div>
+            <div style="font-weight:900; font-size:1.02rem; color:#831843; margin-top:3px;">
+              👤 <strong>${inv.fromName}</strong> さんがあなたに対戦を申し込んでいます！
+            </div>
           </div>
-          <button class="btn btn-purple" style="padding:6px 14px; font-size:0.82rem; font-weight:900;" onclick="acceptBattleInvite('${doc.id}', '${data.roomId}')">
-            🔥 参加する！
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <button class="btn btn-purple" style="padding:9px 18px; font-size:0.92rem; font-weight:900; box-shadow:0 4px 14px rgba(219,39,119,0.4);" onclick="acceptBattleInvite('${inv.id}', '${inv.roomId}')">
+            🔥 今すぐ対戦に参加する！
+          </button>
+          <button class="btn btn-outline" style="padding:8px 12px; font-size:0.8rem; border-color:#f472b6; color:#9d174d; font-weight:800;" onclick="dismissBattleInvite('${inv.id}')">
+            ✕ あとで
           </button>
         </div>
-      `;
-    }).join('');
-  } catch (e) {}
+      </div>
+    `).join('');
+  }
+
+  // 2. 対戦画面内の専用バナーカード枠
+  if (battleArea) {
+    battleArea.innerHTML = `
+      <div style="background:#fff1f2; border:2px solid #ec4899; border-radius:12px; padding:10px 12px; margin-bottom:10px;">
+        <div style="font-size:0.82rem; font-weight:900; color:#be185d; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+          <span>💌 届いている対戦招待（${invites.length}件）</span>
+        </div>
+        ${invites.map(inv => `
+          <div style="background:white; border:1.5px solid #fda4af; border-radius:10px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
+            <div>
+              <strong style="color:#be185d; font-size:0.95rem;">⚔️ ${inv.fromName} さんからの招待</strong>
+              <div style="font-size:0.78rem; color:#9d174d; font-weight:800;">ルーム番号：【 ${inv.roomId} 】</div>
+            </div>
+            <button class="btn btn-purple" style="padding:7px 16px; font-size:0.85rem; font-weight:900;" onclick="acceptBattleInvite('${inv.id}', '${inv.roomId}')">
+              🔥 参加する！
+            </button>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+}
+
+// 招待を手動確認する後方互換ラッパー
+async function checkPendingBattleInvites() {
+  listenToIncomingBattleInvites();
+}
+
+function dismissBattleInvite(inviteDocId) {
+  if (db && inviteDocId) {
+    db.collection('battle_invites').doc(inviteDocId).delete().catch(() => {});
+  }
+  const globalArea = document.getElementById('globalBattleInvitePopupArea');
+  if (globalArea) globalArea.innerHTML = '';
 }
 
 async function acceptBattleInvite(inviteDocId, roomId) {
-  if (db) {
+  if (db && inviteDocId) {
     db.collection('battle_invites').doc(inviteDocId).delete().catch(() => {});
   }
+  const globalArea = document.getElementById('globalBattleInvitePopupArea');
+  if (globalArea) globalArea.innerHTML = '';
   joinFriendBattleRoom(roomId);
 }
 
@@ -9566,19 +9811,32 @@ async function updateRoomSettingsCloud() {
 
 // Firestoreルームリスナー（リアルタイム同期の心臓部）
 function listenToBattleRoom(roomId) {
-  if (roomUnsubscribe) { roomUnsubscribe(); }
+  if (roomUnsubscribe) {
+    try { if (typeof roomUnsubscribe === 'function') roomUnsubscribe(); } catch (e) {}
+    roomUnsubscribe = null;
+  }
   if (!db) return;
+
+  let docSeen = false;
 
   roomUnsubscribe = db.collection('battle_rooms').doc(roomId).onSnapshot(doc => {
     if (!doc.exists) {
-      if (!isRoomHost && currentRoomId) {
+      // ★ 以前実在していた部屋がホストによって消された場合のみ退出させる（初期誤切断を根絶）
+      if (docSeen && !isRoomHost && currentRoomId) {
         showToast('🚪 ホストが部屋を解散しました。');
         leaveFriendBattleRoom();
       }
       return;
     }
+    docSeen = true;
     const r = doc.data();
     if (!r) return;
+
+    // ★ 0. バトル終了（勝敗確定：一方が勝ったら片方が負ける完全同期！）
+    if (r.status === 'finished') {
+      onRoomBattleFinished(r);
+      return;
+    }
 
     // 1. ロビー待機中の描画
     if (r.status === 'waiting') {
@@ -9800,7 +10058,7 @@ function renderSynchronizedQuestion(q) {
   }, 100);
 }
 
-// リアルタイム対戦での解答送信
+// リアルタイム対戦での解答送信（3vs3厳密HP判定 ＆ 決着時の完全勝敗同期）
 async function submitRoomChoice(text, btn) {
   if (!battle || battle.answered || !currentRoomId) return;
   const q = battle.currentQ;
@@ -9811,7 +10069,8 @@ async function submitRoomChoice(text, btn) {
     btn.classList.add('correct');
     recordCorrect(q.subj);
 
-    const f1 = battle.p1Team[battle.p1Idx];
+    // 自分のアクティブキャラ
+    const f1 = battle.p1Team[battle.p1Idx] || battle.p1Team[0];
     const dmg = Math.round((30 + f1.stats.size * 0.5) * (battle.atkMult || 1.0));
 
     try {
@@ -9819,33 +10078,66 @@ async function submitRoomChoice(text, btn) {
       const snap = await docRef.get();
       if (!snap.exists) return;
       const r = snap.data();
+      if (r.status === 'finished') return; // すでに決着済みならスキップ
 
-      const nextQ = selectQuestionForRoom(r.rules);
       const isMeHost = battle.amIHost;
-
+      const myTeam = isMeHost ? r.hostTeam : r.guestTeam;
       const oppTeam = isMeHost ? r.guestTeam : r.hostTeam;
-      let oppActive = oppTeam[0];
-      oppActive.hp = Math.max(0, oppActive.hp - dmg);
+      const oppCode = isMeHost ? r.guestCode : r.hostCode;
+      const oppName = isMeHost ? (r.guestName || '挑戦者') : (r.hostName || '研究員');
 
-      const updatePayload = {
-        roomId: currentRoomId,
-        currentQ: nextQ,
-        actionLog: `💥 ${state.playerName} の正解攻撃！ ${dmg} ダメージ！`,
-        hostTeam: isMeHost ? r.hostTeam : oppTeam,
-        guestTeam: isMeHost ? oppTeam : r.guestTeam
-      };
+      // 相手チームで現在HPが残っている先頭キャラにダメージ！
+      let oppTarget = oppTeam.find(m => m.hp > 0);
+      if (!oppTarget) oppTarget = oppTeam[oppTeam.length - 1];
+      oppTarget.hp = Math.max(0, oppTarget.hp - dmg);
 
-      if (roomBroadcastChannel) {
-        roomBroadcastChannel.postMessage({
-          type: 'room_choice_update',
+      // 相手チーム全員が全滅したか判定！
+      const isOpponentAllDead = oppTeam.every(m => m.hp <= 0);
+
+      if (isOpponentAllDead) {
+        // ★ 決着！！ 自分が勝利、相手が敗北をクラウド上に確定記録！
+        const finishPayload = {
           roomId: currentRoomId,
-          roomState: updatePayload
-        });
-      }
+          status: 'finished',
+          winnerCode: state.friendCode,
+          winnerName: state.playerName || '研究員',
+          loserCode: oppCode,
+          loserName: oppName,
+          finishReason: 'ko',
+          hostTeam: isMeHost ? myTeam : oppTeam,
+          guestTeam: isMeHost ? oppTeam : myTeam,
+          actionLog: `💥 決着！ ${state.playerName} の正解攻撃で相手チーム全滅！`
+        };
 
-      await docRef.update(updatePayload);
+        if (roomBroadcastChannel) {
+          roomBroadcastChannel.postMessage({ type: 'battle_finished', roomState: finishPayload });
+        }
+        await docRef.update(finishPayload);
+        onRoomBattleFinished(finishPayload);
+      } else {
+        // まだバトル継続中：次の問題を同期出題
+        const nextQ = selectQuestionForRoom(r.rules);
+        const updatePayload = {
+          roomId: currentRoomId,
+          currentQ: nextQ,
+          actionLog: `💥 ${state.playerName} の正解攻撃！『${oppTarget.nickname}』に ${dmg} ダメージ！`,
+          hostTeam: isMeHost ? myTeam : oppTeam,
+          guestTeam: isMeHost ? oppTeam : myTeam,
+          hostHp: (isMeHost ? myTeam : oppTeam).reduce((sum, m) => sum + Math.max(0, m.hp), 0),
+          guestHp: (isMeHost ? oppTeam : myTeam).reduce((sum, m) => sum + Math.max(0, m.hp), 0)
+        };
+
+        if (roomBroadcastChannel) {
+          roomBroadcastChannel.postMessage({
+            type: 'room_choice_update',
+            roomId: currentRoomId,
+            roomState: updatePayload
+          });
+        }
+        await docRef.update(updatePayload);
+      }
     } catch (e) {
-      console.warn('submitRoomChoice cloud note:', e);
+      console.warn('submitRoomChoice cloud error:', e);
     }
   } else {
     btn.classList.add('wrong');
@@ -9855,15 +10147,35 @@ async function submitRoomChoice(text, btn) {
   }
 }
 
-// Firestoreの変化を受けて画面更新
+// Firestoreの変化を受けて画面更新（リアルタイム同期＆キャラ交代）
 function syncRoomBattleState(r) {
-  if (!battle) return;
+  if (!battle || battle.mode !== 'online_room') return;
+
+  // ★ 決着が着いた場合は即座に勝敗リザルトへ！
+  if (r.status === 'finished') {
+    onRoomBattleFinished(r);
+    return;
+  }
+
   const amIHost = battle.amIHost;
   battle.p1Team = amIHost ? r.hostTeam : r.guestTeam;
   battle.p2Team = amIHost ? r.guestTeam : r.hostTeam;
 
+  // 生存しているアクティブキャラのインデックスを探して更新
+  const p1AliveIdx = battle.p1Team.findIndex(m => m.hp > 0);
+  const p2AliveIdx = battle.p2Team.findIndex(m => m.hp > 0);
+
+  if (p1AliveIdx !== -1 && p1AliveIdx !== battle.p1Idx) {
+    battle.p1Idx = p1AliveIdx;
+    showToast('💦 自キャラがダウン！次のキャラが出場！');
+  }
+  if (p2AliveIdx !== -1 && p2AliveIdx !== battle.p2Idx) {
+    battle.p2Idx = p2AliveIdx;
+    showToast('🔥 相手のキャラを倒した！次の相手が登場！');
+  }
+
   if (r.actionLog) {
-    document.getElementById('battleLog').textContent = r.actionLog;
+    document.getElementById('battleLog').innerHTML = r.actionLog;
   }
 
   updateBattleHud();
@@ -9871,20 +10183,108 @@ function syncRoomBattleState(r) {
   const p1Alive = battle.p1Team.some(m => m.hp > 0);
   const p2Alive = battle.p2Team.some(m => m.hp > 0);
 
-  if (!p2Alive) {
-    endBattle(true, false);
-    leaveFriendBattleRoom();
+  if (!p2Alive || !p1Alive) {
+    onRoomBattleFinished({
+      ...r,
+      winnerCode: p1Alive ? state.friendCode : (amIHost ? r.guestCode : r.hostCode),
+      loserCode: p1Alive ? (amIHost ? r.guestCode : r.hostCode) : state.friendCode
+    });
     return;
   }
-  if (!p1Alive) {
-    endBattle(false, false);
+
+  if (r.currentQ && (!battle.currentQ || r.currentQ.id !== battle.currentQ.id)) {
+    renderSynchronizedQuestion(r.currentQ);
+  }
+}
+
+// 🏆 オンライン対戦 決着処理（勝った側は大勝利・負けた側は敗北を確実に画面表示！）
+let isHandlingBattleFinish = false;
+function onRoomBattleFinished(r) {
+  if (isHandlingBattleFinish) return;
+  isHandlingBattleFinish = true;
+  clearInterval(battleGaugeInterval);
+
+  const isMeWinner = (r.winnerCode === state.friendCode);
+  const reason = r.finishReason || 'ko';
+
+  if (isMeWinner) {
+    state.stats.wins++;
+    state.atp += 1500;
+    const curParty = state.presets[state.activePresetIdx].ids;
+    curParty.forEach(id => gainExp(getMicrobeById(id), 140));
+    saveData();
+
+    const surrenderNotice = reason === 'surrender' ? '\n（相手が降参・リタイアしました）' : '';
+    alert(`🏆 大勝利！！${surrenderNotice}\n\n報酬として ⚡1500 ATP ＆ パーティ全員に大量EXP(+140) を獲得しました！`);
+  } else {
+    state.stats.losses++;
+    state.atp += 500;
+    saveData();
+
+    const surrenderNotice = reason === 'surrender' ? '\n（降参・リタイアしました）' : '';
+    alert(`💦 敗北...${surrenderNotice}\n\n参加報酬として ⚡500 ATP を獲得しました！`);
+  }
+
+  battle = null;
+  document.getElementById('battleArena').classList.remove('active');
+  document.getElementById('battleSetupPanel').style.display = 'block';
+  updateStatsDisplay();
+
+  // 1.5秒後に部屋を安全に退出（双方がアラートを確認し終わるまでドキュメントを保持）
+  setTimeout(() => {
+    isHandlingBattleFinish = false;
+    leaveFriendBattleRoom();
+  }, 1500);
+}
+
+// 🏳️ バトル中の降参（リタイア）処理：オンライン対戦時は相手の勝利を確定させて両者終了！
+async function retireCurrentBattle() {
+  if (!battle) return;
+
+  if (battle.mode === 'online_room') {
+    if (!confirm('🏳️ 対戦を降参（リタイア）しますか？\n相手の不戦勝になります。')) {
+      return;
+    }
+
+    if (currentRoomId && db) {
+      try {
+        const docRef = db.collection('battle_rooms').doc(currentRoomId);
+        const snap = await docRef.get();
+        if (snap.exists) {
+          const r = snap.data();
+          const isMeHost = battle.amIHost;
+          const oppCode = isMeHost ? r.guestCode : r.hostCode;
+          const oppName = isMeHost ? (r.guestName || '挑戦者') : (r.hostName || '研究員');
+
+          const finishPayload = {
+            roomId: currentRoomId,
+            status: 'finished',
+            winnerCode: oppCode,
+            winnerName: oppName,
+            loserCode: state.friendCode,
+            loserName: state.playerName || '研究員',
+            finishReason: 'surrender',
+            actionLog: `🏳️ ${state.playerName} が降参しました。`
+          };
+
+          if (roomBroadcastChannel) {
+            roomBroadcastChannel.postMessage({ type: 'battle_finished', roomState: finishPayload });
+          }
+          await docRef.update(finishPayload);
+          onRoomBattleFinished(finishPayload);
+          return;
+        }
+      } catch (e) {
+        console.warn('retireCurrentBattle error:', e);
+      }
+    }
+    endBattle(false, true);
     leaveFriendBattleRoom();
     return;
   }
 
-  if (r.currentQ && r.currentQ.id !== battle.currentQ.id) {
-    renderSynchronizedQuestion(r.currentQ);
-  }
+  // CPU戦やゴースト戦
+  endBattle(false, true);
 }
 
 /* 初期起動 */
@@ -9902,10 +10302,10 @@ try {
   console.error('Initial loop error:', e);
 }
 
-// 起動時にフレンド申請・対戦招待・ギフトをチェック
+// 起動時にフレンド申請・対戦招待・ギフトをチェック（対戦招待は常時リアルタイム監視！）
 setTimeout(() => {
   checkIncomingFriendRequests();
-  checkPendingBattleInvites();
+  listenToIncomingBattleInvites();
   checkIncomingGifts();
 }, 1500);
 
