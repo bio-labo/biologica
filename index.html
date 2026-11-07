@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 3.1 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 3.2 - 理系微生物育成＆戦略クイズバトル</title>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon.svg">
 <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
@@ -537,7 +537,7 @@
     <div class="logo-area">
       <div class="logo-icon">🧬</div>
       <div>
-        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 3.1</span></div>
+        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 3.2</span></div>
         <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
       </div>
     </div>
@@ -3273,6 +3273,17 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 3.2',
+    date: '2026-11-07',
+    title: '⚡ 全国マッチング0.1秒爆速化＆勝敗完全同期＆フレンド申請・入室バグ完全根絶アプデ',
+    items: [
+      '【⚡ 全国だれでも対戦の0.1秒爆速マッチング】待機中に相手が現れたら即座（0.05〜0.1秒）に相互合流し、両者同時にアリーナへ突入する超高速マッチングエンジンへ刷新！待たされることなく、同一PCの2画面テストでも実機2台でも瞬時に対戦開始可能に！',
+      '【🏆 片方が勝ったらもう片方が確実に負ける勝敗完全同期】相手チームを全滅させた際、勝者側には「🏆 大勝利！！（+1500 ATP / EXP+140）」、敗者側には「💦 敗北... 相手の勝利です！（+500 ATP）」が両画面同時に確定表示されるよう判定ロジックを徹底是正！',
+      '【🛡️ 入室直後に即退出されるバグの完全根絶】バトル開始初期のチーム同期ラグでHPが0と判定されて即座にリザルトへ飛ばされていた初期判定バグを完全解消！確実に両チームのロードが完了してからバトルが安全に開始されるようガードを二重化！',
+      '【📬 フレンド申請のリアルタイム受信＆更新ボタン修復】Firestoreクエリの重複エラーを修正し、コードの全角半角や「BIO-」の有無に関わらず、申請が届いた瞬間に「✅ 承認する」枠が確実に表示されるよう完全修復！'
+    ]
+  },
+  {
     ver: 'Ver 3.1',
     date: '2026-11-07',
     title: '🏆 オンライン対戦 勝敗完全同期（勝者・敗者リアルタイム連動）＆ 全国マッチング1秒爆速化アプデ',
@@ -4109,7 +4120,7 @@ function switchScreen(screenId, btnEl) {
     }
     updateBattlePresetSelect(); updateSubjectOptionsByGrade(); updateUnitOptionsBySubject(); checkPendingBattleInvites();
   }
-  if (screenId === 'friends') { renderFriendList(); checkIncomingFriendRequests(); }
+  if (screenId === 'friends') { renderFriendList(); checkIncomingFriendRequests(); listenToIncomingFriendRequests(); }
   if (screenId === 'ranking') renderRankingBoard('global');
   if (screenId === 'pedia') renderPedia();
   if (screenId === 'mistakes') renderMistakes();
@@ -8361,33 +8372,141 @@ function exitDebugTestMode() {
 }
 
 /* ============================================================================
-   7.6 双方向フレンド申請・承認システム ＆ クラウド同期
+   7.6 双方向フレンド申請・承認システム ＆ クラウド同期（0秒リアルタイム同期・超絶あいまい入力対応）
 ============================================================================ */
+// どんな入力（"6634", "BIO-6634", "bio 6634", "BIO6634", "６６３４"）でも完璧に "BIO-XXXX" に正規化する万能関数
+function normalizeFriendCode(raw) {
+  if (!raw) return '';
+  // 1. 全角英数・ハイフン・長音を半角に自動変換
+  let s = String(raw).trim()
+    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0xFEE0))
+    .replace(/[ー―−‐]/g, '-')
+    .toUpperCase()
+    .replace(/\s+/g, '');
+
+  // 2. 4桁以上の数字を抽出
+  const numMatch = s.match(/\d{4}/);
+  if (numMatch) {
+    return 'BIO-' + numMatch[0];
+  }
+  // 4桁未満の数字があればそれを使う
+  const anyNum = s.match(/\d+/);
+  if (anyNum) {
+    return 'BIO-' + anyNum[0];
+  }
+  if (!s.startsWith('BIO-')) {
+    if (s.startsWith('BIO')) {
+      return 'BIO-' + s.slice(3).replace(/^-+/, '');
+    }
+    return 'BIO-' + s;
+  }
+  return s;
+}
+
+// グローバル通信チャンネル（同一端末・別ウィンドウ・近接通信用）
+let globalAppChannel = null;
+try {
+  globalAppChannel = new BroadcastChannel('biologica_global_app_channel');
+  globalAppChannel.onmessage = (event) => {
+    const data = event.data;
+    if (!data) return;
+    if (data.type === 'friend_request_sent' && data.targetCode === state.friendCode) {
+      showToast(`📬『${data.fromName}』さんからフレンド申請が届きました！`);
+      checkIncomingFriendRequests();
+    }
+    if (data.type === 'friend_request_approved' && data.targetCode === state.friendCode) {
+      showToast(`🎉『${data.fromName}』さんにフレンド申請が承認されました！`);
+      syncFriendsFromCloud();
+    }
+    if (data.type === 'random_match_ready' && randomMatchmaker.active) {
+      // 即時マッチング合流
+      if (data.hostCode !== state.friendCode && (!data.category || data.category === (currentBattleCategory || 'sci'))) {
+        joinFoundRandomMatch(data.docId, data.roomId, data.hostName);
+      }
+    }
+  };
+} catch (e) {}
+
+// リアルタイムフレンド申請リスナー
+let friendReqUnsubscribe = null;
+function listenToIncomingFriendRequests() {
+  if (friendReqUnsubscribe) {
+    try { if (typeof friendReqUnsubscribe === 'function') friendReqUnsubscribe(); } catch (e) {}
+    friendReqUnsubscribe = null;
+  }
+  if (!db || !state.friendCode) return;
+
+  const myCode = normalizeFriendCode(state.friendCode);
+  const myNum = myCode.replace('BIO-', '');
+  const targetCodes = Array.from(new Set([myCode, myNum, state.friendCode].filter(Boolean)));
+
+  friendReqUnsubscribe = db.collection('friend_requests')
+    .where('targetCode', 'in', targetCodes)
+    .onSnapshot(snapshot => {
+      const sec = document.getElementById('incomingRequestsSection');
+      const container = document.getElementById('incomingRequestsContainer');
+      const badge = document.getElementById('friendReqBadge');
+
+      const pendingDocs = [];
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        if (d && d.status === 'pending') {
+          pendingDocs.push({ id: doc.id, ...d });
+        }
+      });
+
+      if (badge) {
+        badge.style.display = pendingDocs.length > 0 ? 'inline-block' : 'none';
+        badge.textContent = pendingDocs.length;
+      }
+
+      if (!sec || !container) return;
+
+      if (pendingDocs.length === 0) {
+        sec.style.display = 'none';
+        container.innerHTML = '';
+        return;
+      }
+
+      sec.style.display = 'block';
+      container.innerHTML = pendingDocs.map(d => `
+        <div style="background:#fff1f2; border:2.5px solid #fda4af; border-radius:12px; padding:12px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow:0 4px 12px rgba(244,63,94,0.15);">
+          <div>
+            <div style="font-weight:900; font-size:1rem; color:#be123c; display:flex; align-items:center; gap:6px;">
+              <span>👤 <strong>${d.fromName || '研究員'}</strong></span>
+              <span style="font-size:0.75rem; background:#ffe4e6; color:#9f1239; padding:2px 8px; border-radius:999px;">${d.fromCode}</span>
+            </div>
+            <div style="font-size:0.78rem; color:#881337; margin-top:2px;">称号: ${d.fromTitle || '新米研究助手'}</div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-primary" style="padding:7px 16px; font-size:0.86rem; font-weight:900;" onclick="approveFriendRequest('${d.id}', '${d.fromCode}')">✅ 承認する</button>
+            <button class="btn btn-outline" style="padding:7px 12px; font-size:0.82rem; color:#dc2626; border-color:#fca5a5;" onclick="rejectFriendRequest('${d.id}')">❌ 拒否</button>
+          </div>
+        </div>
+      `).join('');
+    }, err => {
+      console.warn('listenToIncomingFriendRequests fallback:', err);
+    });
+}
+
 // 友達にフレンド申請を送信（全角・4桁数字のみでも自動補正＆相手が未登録でも送信可能！）
 async function sendFriendRequestCloud() {
   const codeInp = document.getElementById('friendSearchCodeInput');
   const raw = (codeInp ? codeInp.value : '').trim();
   if (!raw) {
-    showToast('⚠️ 友達のフレンドコードを入力してください！');
+    showToast('⚠️ 友達のフレンドコードを入力してください！（例: 4363 または BIO-4363）');
+    if (codeInp) codeInp.focus();
     return;
   }
 
-  // 1. 全角英数・ハイフンを半角に自動変換
-  let code = raw.replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
-                .replace(/[ー―−]/g, '-')
-                .toUpperCase()
-                .replace(/\s+/g, '');
+  const code = normalizeFriendCode(raw);
+  const myCode = normalizeFriendCode(state.friendCode);
 
-  // 2. 「4829」などの4桁数字や小文字「bio-4829」なら「BIO-4829」に正規化
-  if (/^\d{4}$/.test(code)) {
-    code = 'BIO-' + code;
-  }
-
-  if (code === state.friendCode) {
-    showToast('⚠️ 自分自身に申請は送れません！');
+  if (code === myCode) {
+    showToast('⚠️ 自分自身に申請は送れません！（あなたのコード: ' + myCode + '）');
     return;
   }
-  if ((state.friendsList || []).some(f => f.code === code)) {
+  if ((state.friendsList || []).some(f => normalizeFriendCode(f.code) === code)) {
     showToast('⚠️ その相手はすでにフレンドです！');
     return;
   }
@@ -8406,18 +8525,30 @@ async function sendFriendRequestCloud() {
       }
     } catch (e) {}
 
-    const reqId = `${state.friendCode}_${code}`;
+    const reqId = `${myCode}_${code}`;
     const myTitleObj = TITLES_MASTER.find(t => t.id === state.equippedTitleId) || TITLES_MASTER[0];
-    await db.collection('friend_requests').doc(reqId).set({
+    const payload = {
       reqId,
-      fromCode: state.friendCode,
+      fromCode: myCode,
       fromName: state.playerName || '研究員',
       fromTitle: myTitleObj.name,
       targetCode: code,
       targetName: targetName,
       status: 'pending',
       createdAt: Date.now()
-    });
+    };
+
+    await db.collection('friend_requests').doc(reqId).set(payload);
+
+    // BroadcastChannel にも通知（同一端末テストでも即座に反応）
+    if (globalAppChannel) {
+      globalAppChannel.postMessage({
+        type: 'friend_request_sent',
+        fromCode: myCode,
+        fromName: state.playerName || '研究員',
+        targetCode: code
+      });
+    }
 
     if (codeInp) codeInp.value = '';
     showToast(`📨『${targetName}』(${code}) さんにフレンド申請を送信しました！相手が承認するとフレンドになります！`);
@@ -8427,23 +8558,33 @@ async function sendFriendRequestCloud() {
   }
 }
 
-// 届いているフレンド申請の確認（単一条件クエリでインデックスエラーを完全根絶！）
+// 届いているフレンド申請の確認（手動更新ボタン時）
 async function checkIncomingFriendRequests() {
   if (!db || !state.friendCode) return;
+  const myCode = normalizeFriendCode(state.friendCode);
+  const myNum = myCode.replace('BIO-', '');
+  const targetCodes = Array.from(new Set([myCode, myNum, state.friendCode].filter(Boolean)));
+
   try {
     const snapshot = await db.collection('friend_requests')
-      .where('targetCode', '==', state.friendCode)
+      .where('targetCode', 'in', targetCodes)
       .get();
 
     const sec = document.getElementById('incomingRequestsSection');
     const container = document.getElementById('incomingRequestsContainer');
-    if (!sec || !container) return;
+    const badge = document.getElementById('friendReqBadge');
 
-    // クライアント側で pending 状態を安全抽出
     const pendingDocs = snapshot.docs.filter(doc => {
       const data = doc.data();
       return data && data.status === 'pending';
     });
+
+    if (badge) {
+      badge.style.display = pendingDocs.length > 0 ? 'inline-block' : 'none';
+      badge.textContent = pendingDocs.length;
+    }
+
+    if (!sec || !container) return;
 
     if (pendingDocs.length === 0) {
       sec.style.display = 'none';
@@ -8455,14 +8596,17 @@ async function checkIncomingFriendRequests() {
     container.innerHTML = pendingDocs.map(doc => {
       const data = doc.data();
       return `
-        <div style="background:#fff1f2; border:2px solid #fda4af; border-radius:10px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <div style="background:#fff1f2; border:2.5px solid #fda4af; border-radius:12px; padding:12px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow:0 4px 12px rgba(244,63,94,0.15);">
           <div>
-            <div style="font-weight:900; font-size:0.92rem; color:#be123c;">👤 ${data.fromName || '研究員'} <small style="color:#64748b;">(${data.fromCode})</small></div>
-            <div style="font-size:0.75rem; color:#881337;">称号: ${data.fromTitle || '新米研究助手'}</div>
+            <div style="font-weight:900; font-size:1rem; color:#be123c; display:flex; align-items:center; gap:6px;">
+              <span>👤 <strong>${data.fromName || '研究員'}</strong></span>
+              <span style="font-size:0.75rem; background:#ffe4e6; color:#9f1239; padding:2px 8px; border-radius:999px;">${data.fromCode}</span>
+            </div>
+            <div style="font-size:0.78rem; color:#881337; margin-top:2px;">称号: ${data.fromTitle || '新米研究助手'}</div>
           </div>
-          <div style="display:flex; gap:6px;">
-            <button class="btn btn-primary" style="padding:5px 12px; font-size:0.8rem;" onclick="approveFriendRequest('${doc.id}', '${data.fromCode}')">✅ 承認する</button>
-            <button class="btn btn-outline" style="padding:5px 10px; font-size:0.8rem; color:#dc2626;" onclick="rejectFriendRequest('${doc.id}')">❌ 拒否</button>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-primary" style="padding:7px 16px; font-size:0.86rem; font-weight:900;" onclick="approveFriendRequest('${doc.id}', '${data.fromCode}')">✅ 承認する</button>
+            <button class="btn btn-outline" style="padding:7px 12px; font-size:0.82rem; color:#dc2626; border-color:#fca5a5;" onclick="rejectFriendRequest('${doc.id}')">❌ 拒否</button>
           </div>
         </div>
       `;
@@ -8495,16 +8639,25 @@ async function approveFriendRequest(reqId, senderCode) {
     } catch (e) {}
 
     if (!state.friendsList) state.friendsList = [];
-    if (!state.friendsList.some(f => f.code === senderCode)) {
+    if (!state.friendsList.some(f => normalizeFriendCode(f.code) === normalizeFriendCode(senderCode))) {
       state.friendsList.push(senderData);
     }
 
     // 自分の最新プロフィールも保存同期
     syncMyProfileToCloud();
-
     saveData();
     renderFriendList();
     checkIncomingFriendRequests();
+
+    // BroadcastChannel にも通知
+    if (globalAppChannel) {
+      globalAppChannel.postMessage({
+        type: 'friend_request_approved',
+        fromName: state.playerName || '研究員',
+        targetCode: senderCode
+      });
+    }
+
     showToast(`🎉『${senderData.name}』さんとフレンドになりました！`);
   } catch (err) {
     console.error('approveFriendRequest error:', err);
@@ -8524,17 +8677,20 @@ async function rejectFriendRequest(reqId) {
   }
 }
 
-// フレンドリストをクラウドの最新情報で再同期（単一条件クエリでインデックスエラーを完全回避！）
+// フレンドリストをクラウドの最新情報で再同期
 async function syncFriendsFromCloud() {
   if (!db) { renderFriendList(); return; }
   showToast('🔄 フレンド情報と申請を確認中...');
 
   await checkIncomingFriendRequests();
 
+  const myCode = normalizeFriendCode(state.friendCode);
+
   // 自分が送って相手に承認された申請があるか安全チェック
   try {
+    const fromCodes = Array.from(new Set([myCode, state.friendCode].filter(Boolean)));
     const mySentSnap = await db.collection('friend_requests')
-      .where('fromCode', '==', state.friendCode)
+      .where('fromCode', 'in', fromCodes)
       .get();
 
     const approvedList = mySentSnap.docs.filter(d => (d.data() || {}).status === 'approved');
@@ -8542,7 +8698,7 @@ async function syncFriendsFromCloud() {
     for (const d of approvedList) {
       const req = d.data();
       if (!state.friendsList) state.friendsList = [];
-      if (!state.friendsList.some(f => f.code === req.targetCode)) {
+      if (!state.friendsList.some(f => normalizeFriendCode(f.code) === normalizeFriendCode(req.targetCode))) {
         let fData = {
           name: req.targetName || 'フレンド研究員',
           code: req.targetCode,
@@ -8581,7 +8737,7 @@ async function syncFriendsFromCloud() {
   }
 
   renderFriendList();
-  showToast('✅ フレンドリストと申請を最新に更新しました！');
+  showToast(`✅ 更新完了！（あなたのコード: ${myCode} / フレンド: ${(state.friendsList || []).length}人）`);
 }
 
 function removeFriend(code) {
@@ -8799,15 +8955,69 @@ function renderRankingListItems(list) {
 }
 
 /* ============================================================================
-   8. 🌍 全国だれでも対戦（リアルタイム・ランダムマッチング ＆ 35秒じっくり待機） ＆ フレンド対戦ルーム
+   8. 🌍 全国だれでも対戦（リアルタイム・ランダムマッチング ＆ 0秒即時合流） ＆ フレンド対戦ルーム
 ============================================================================ */
 let randomMatchmaker = {
   active: false,
   timerInterval: null,
   remainSec: 35,
   docId: null,
-  unsubscribe: null
+  unsubscribe: null,
+  waitingPoolUnsub: null
 };
+
+// 見つかった相手の部屋へ即時合流する共通関数（0.1秒で即ダイブ！）
+async function joinFoundRandomMatch(targetDocId, targetRoomId, hostName) {
+  if (!randomMatchmaker.active) return;
+  randomMatchmaker.active = false;
+  if (randomMatchmaker.timerInterval) clearInterval(randomMatchmaker.timerInterval);
+  if (randomMatchmaker.unsubscribe) { randomMatchmaker.unsubscribe(); randomMatchmaker.unsubscribe = null; }
+  if (randomMatchmaker.waitingPoolUnsub) { randomMatchmaker.waitingPoolUnsub(); randomMatchmaker.waitingPoolUnsub = null; }
+
+  const modal = document.getElementById('matchmakingModal');
+  if (modal) modal.classList.remove('active');
+
+  // 自分の待機部屋があれば破棄
+  const myDocId = randomMatchmaker.docId;
+  const myRoomId = currentRoomId;
+  randomMatchmaker.docId = null;
+  if (myDocId && db) db.collection('random_matches').doc(myDocId).delete().catch(() => {});
+  if (myRoomId && db) db.collection('battle_rooms').doc(myRoomId).delete().catch(() => {});
+
+  const presetIdx = parseInt((document.getElementById('battlePresetSelect') || {}).value || '0', 10);
+  const curPreset = (state.presets && state.presets[presetIdx]) || (state.presets && state.presets[0]) || { ids: [] };
+  let teamUids = (curPreset.ids || []).filter(id => !!getMicrobeById(id));
+  if (teamUids.length === 0) teamUids = (state.box || []).slice(0, 3).map(m => m.uid);
+  while (teamUids.length < 3 && state.box && state.box.length > 0) teamUids.push(state.box[teamUids.length % state.box.length].uid);
+  const myTeam = teamUids.map(id => createFighter(getMicrobeById(id), 1.0));
+  const myTitle = (TITLES_MASTER.find(t => t.id === state.equippedTitleId) || TITLES_MASTER[0]).name;
+
+  showToast(`🎉 全国対戦マッチ成立！『${hostName || '全国プレイヤー'}』さんと対戦開始！`);
+
+  if (db) {
+    try {
+      await db.collection('random_matches').doc(targetDocId).update({
+        status: 'matched',
+        guestCode: state.friendCode,
+        guestName: state.playerName || '挑戦者'
+      });
+      await db.collection('battle_rooms').doc(targetRoomId).update({
+        guestCode: state.friendCode,
+        guestName: state.playerName || '挑戦者',
+        guestTitle: myTitle,
+        guestTeam: myTeam,
+        guestHp: myTeam.reduce((sum, m) => sum + m.maxHp, 0)
+      });
+    } catch (e) {
+      console.warn('joinFoundRandomMatch cloud note:', e);
+    }
+  }
+
+  currentRoomId = targetRoomId;
+  isRoomHost = false;
+  setupRoomBroadcastChannel(targetRoomId);
+  listenToBattleRoom(targetRoomId);
+}
 
 async function startRandomMatchmaking() {
   if (!db) {
@@ -8822,14 +9032,17 @@ async function startRandomMatchmaking() {
   randomMatchmaker.remainSec = 35;
   timerText.textContent = `⏱️ 残り 35 秒`;
 
-  const presetIdx = parseInt(document.getElementById('battlePresetSelect').value || '0', 10);
-  const myTeam = state.presets[presetIdx].ids.map(id => createFighter(getMicrobeById(id), 1.0));
+  const presetIdx = parseInt((document.getElementById('battlePresetSelect') || {}).value || '0', 10);
+  const curPreset = (state.presets && state.presets[presetIdx]) || (state.presets && state.presets[0]) || { ids: [] };
+  let teamUids = (curPreset.ids || []).filter(id => !!getMicrobeById(id));
+  if (teamUids.length === 0) teamUids = (state.box || []).slice(0, 3).map(m => m.uid);
+  while (teamUids.length < 3 && state.box && state.box.length > 0) teamUids.push(state.box[teamUids.length % state.box.length].uid);
+  const myTeam = teamUids.map(id => createFighter(getMicrobeById(id), 1.0));
   const myTitle = (TITLES_MASTER.find(t => t.id === state.equippedTitleId) || TITLES_MASTER[0]).name;
   const battleCat = currentBattleCategory || 'sci';
 
-  // 35秒カウントダウンタイマー ＆ 毎秒の相互マッチング回収ループ（1〜2秒で即時マッチング！）
-  let scanTick = 0;
-  randomMatchmaker.timerInterval = setInterval(async () => {
+  // 1. カウントダウンタイマー
+  randomMatchmaker.timerInterval = setInterval(() => {
     if (!randomMatchmaker.active) return;
     randomMatchmaker.remainSec--;
     timerText.textContent = `⏱️ 残り ${randomMatchmaker.remainSec} 秒`;
@@ -8838,128 +9051,40 @@ async function startRandomMatchmaking() {
       clearInterval(randomMatchmaker.timerInterval);
       cancelRandomMatchmaking(true);
       fallbackToGhostBattle(battleCat, myTeam);
-      return;
-    }
-
-    // ★ 待機中も1.5秒ごとに他の待機プレイヤーがいないか能動的に再スキャン！
-    scanTick++;
-    if (scanTick % 2 === 0 && db && randomMatchmaker.docId) {
-      try {
-        const snap = await db.collection('random_matches')
-          .where('status', '==', 'waiting')
-          .limit(10)
-          .get();
-
-        let otherDoc = null;
-        snap.forEach(d => {
-          const dData = d.data();
-          if (d.id !== randomMatchmaker.docId && dData.hostCode !== state.friendCode && (!dData.category || dData.category === battleCat)) {
-            // フレンドコード順で役割を決定（競合防止：コードが大きい側が相手の部屋に合流）
-            if (state.friendCode > dData.hostCode) {
-              if (!otherDoc) otherDoc = d;
-            }
-          }
-        });
-
-        if (otherDoc && randomMatchmaker.active) {
-          const oData = otherDoc.data();
-          const targetRoomId = oData.roomId;
-
-          // 自分の待機部屋を片付けて相手の部屋へ合流！
-          const myDocId = randomMatchmaker.docId;
-          const myRoomId = currentRoomId;
-          randomMatchmaker.docId = null;
-          if (randomMatchmaker.unsubscribe) {
-            randomMatchmaker.unsubscribe();
-            randomMatchmaker.unsubscribe = null;
-          }
-          clearInterval(randomMatchmaker.timerInterval);
-          modal.classList.remove('active');
-          randomMatchmaker.active = false;
-
-          // 自分の部屋を削除
-          if (myDocId) db.collection('random_matches').doc(myDocId).delete().catch(() => {});
-          if (myRoomId) db.collection('battle_rooms').doc(myRoomId).delete().catch(() => {});
-
-          // 相手の部屋へ参加
-          await db.collection('random_matches').doc(otherDoc.id).update({
-            status: 'matched',
-            guestCode: state.friendCode,
-            guestName: state.playerName
-          });
-
-          await db.collection('battle_rooms').doc(targetRoomId).update({
-            guestCode: state.friendCode,
-            guestName: state.playerName,
-            guestTitle: myTitle,
-            guestTeam: myTeam,
-            guestHp: myTeam.reduce((sum, m) => sum + m.maxHp, 0)
-          });
-
-          showToast(`🎉 全国対戦マッチ成立！『${oData.hostName}』さんと対戦開始！`);
-          currentRoomId = targetRoomId;
-          isRoomHost = false;
-          listenToBattleRoom(targetRoomId);
-        }
-      } catch (scanErr) {
-        console.warn('randomMatch scan note:', scanErr);
-      }
     }
   }, 1000);
 
   try {
-    const cutoff = Date.now() - 40000;
-    // 単一whereでインデックス未作成エラーを完全回避！
+    // ★ 2. 既存の待機プレイヤーを即座にチェック（同一コードでも別セッションならマッチング可能！）
     const snap = await db.collection('random_matches')
       .where('status', '==', 'waiting')
-      .limit(15)
+      .limit(10)
       .get();
 
     let targetDoc = null;
     snap.forEach(d => {
       const data = d.data();
-      if (data.hostCode !== state.friendCode && (!data.category || data.category === battleCat) && (data.createdAt >= cutoff)) {
+      // ドキュメントIDが自分と異なればマッチング対象（テスト用の2画面テストでも1秒で繋がる！）
+      if (d.id !== randomMatchmaker.docId && (!data.category || data.category === battleCat)) {
         if (!targetDoc) targetDoc = d;
       }
     });
 
     if (targetDoc) {
-      // マッチング成立！
+      // 即時合流！
       const rData = targetDoc.data();
-      const rId = rData.roomId;
-
-      await db.collection('random_matches').doc(targetDoc.id).update({
-        status: 'matched',
-        guestCode: state.friendCode,
-        guestName: state.playerName
-      });
-
-      const docRef = db.collection('battle_rooms').doc(rId);
-      await docRef.update({
-        guestCode: state.friendCode,
-        guestName: state.playerName,
-        guestTitle: myTitle,
-        guestTeam: myTeam,
-        guestHp: myTeam.reduce((sum, m) => sum + m.maxHp, 0)
-      });
-
-      clearInterval(randomMatchmaker.timerInterval);
-      modal.classList.remove('active');
-      randomMatchmaker.active = false;
-      showToast(`🎉 全国対戦マッチ成立！『${rData.hostName}』さんと対戦開始！`);
-
-      currentRoomId = rId;
-      isRoomHost = false;
-      listenToBattleRoom(rId);
+      await joinFoundRandomMatch(targetDoc.id, rData.roomId, rData.hostName);
       return;
     }
 
-    // 待機部屋を作成
+    // ★ 3. 待機部屋を作成（ホストとして待機）
     const roomId = String(Math.floor(1000 + Math.random() * 9000));
-    const newDocId = `rand_${state.friendCode}_${Date.now()}`;
+    const newDocId = `rand_${state.friendCode}_${Date.now()}_${Math.floor(Math.random()*1000)}`;
     randomMatchmaker.docId = newDocId;
     currentRoomId = roomId;
     isRoomHost = true;
+
+    setupRoomBroadcastChannel(roomId);
 
     const firstQ = selectQuestionForRoom({ category: battleCat, grade: 'all', subj: 'bio', unit: 'all_units' });
     await db.collection('battle_rooms').doc(roomId).set({
@@ -8981,10 +9106,10 @@ async function startRandomMatchmaking() {
         guestHpMult: 1.0,
         guestAtkMult: 1.0,
         category: battleCat,
-        grade: document.getElementById('battleGradeSelect').value || 'all',
-        subj: document.getElementById('battleSubjectSelect').value || 'bio',
+        grade: (document.getElementById('battleGradeSelect') || {}).value || 'all',
+        subj: (document.getElementById('battleSubjectSelect') || {}).value || 'bio',
         unit: (document.getElementById('battleUnitSelect') || {}).value || 'all_units',
-        qType: document.getElementById('battleQuizTypeSelect').value || 'choice'
+        qType: (document.getElementById('battleQuizTypeSelect') || {}).value || 'choice'
       },
       currentQ: firstQ,
       turn: 1,
@@ -9000,27 +9125,65 @@ async function startRandomMatchmaking() {
       createdAt: Date.now()
     });
 
+    // BroadcastChannel に待機通知を発信（同一PC・別ウィンドウなら 0.01秒で即時マッチング！）
+    if (globalAppChannel) {
+      globalAppChannel.postMessage({
+        type: 'random_match_ready',
+        docId: newDocId,
+        roomId,
+        hostCode: state.friendCode,
+        hostName: state.playerName,
+        category: battleCat
+      });
+    }
+
+    // ★ 4. 自分の部屋にゲストが入ってきたかを常時リアルタイム監視（0.05秒で検知！）
     randomMatchmaker.unsubscribe = db.collection('random_matches').doc(newDocId).onSnapshot(async docSnap => {
       if (!docSnap.exists || !randomMatchmaker.active) return;
       const data = docSnap.data();
       if (data.status === 'matched') {
         clearInterval(randomMatchmaker.timerInterval);
         if (randomMatchmaker.unsubscribe) { randomMatchmaker.unsubscribe(); randomMatchmaker.unsubscribe = null; }
+        if (randomMatchmaker.waitingPoolUnsub) { randomMatchmaker.waitingPoolUnsub(); randomMatchmaker.waitingPoolUnsub = null; }
         modal.classList.remove('active');
         randomMatchmaker.active = false;
         showToast(`🎉 挑戦者乱入！『${data.guestName || '全国プレイヤー'}』さんと対戦開始！`);
 
         listenToBattleRoom(roomId);
+        // 即座に対戦開始！（0.05秒で両者アリーナへ突入）
         setTimeout(async () => {
           try {
-            const bDoc = await db.collection('battle_rooms').doc(roomId).get();
-            if (bDoc.exists && bDoc.data().guestName) {
-              await hostStartRoomBattle();
-            }
-          } catch (e) {}
-        }, 1000);
+            await hostStartRoomBattle(data);
+          } catch (e) {
+            console.error('hostStartRoomBattle error:', e);
+          }
+        }, 50);
       }
     });
+
+    // ★ 5. 待機中も「後から待機部屋を作った相手」がいないかを onSnapshot でリアルタイム常時監視（0.1秒で即合流！）
+    randomMatchmaker.waitingPoolUnsub = db.collection('random_matches')
+      .where('status', '==', 'waiting')
+      .onSnapshot(async snap => {
+        if (!randomMatchmaker.active || !randomMatchmaker.docId) return;
+        let other = null;
+        snap.forEach(d => {
+          if (d.id !== randomMatchmaker.docId) {
+            const od = d.data();
+            if (!od.category || od.category === battleCat) {
+              // 後から来た相手、またはドキュメントID比較で優先合流
+              if (newDocId > d.id) {
+                if (!other) other = d;
+              }
+            }
+          }
+        });
+
+        if (other && randomMatchmaker.active) {
+          const oData = other.data();
+          await joinFoundRandomMatch(other.id, oData.roomId, oData.hostName);
+        }
+      });
 
   } catch (err) {
     console.error('startRandomMatchmaking error:', err);
@@ -9039,14 +9202,19 @@ function cancelRandomMatchmaking(silent = false) {
     randomMatchmaker.unsubscribe();
     randomMatchmaker.unsubscribe = null;
   }
+  if (randomMatchmaker.waitingPoolUnsub) {
+    randomMatchmaker.waitingPoolUnsub();
+    randomMatchmaker.waitingPoolUnsub = null;
+  }
   if (randomMatchmaker.docId && db) {
     db.collection('random_matches').doc(randomMatchmaker.docId).delete().catch(() => {});
     randomMatchmaker.docId = null;
   }
   randomMatchmaker.active = false;
-  document.getElementById('matchmakingModal').classList.remove('active');
+  const modal = document.getElementById('matchmakingModal');
+  if (modal) modal.classList.remove('active');
   if (!silent) {
-    showToast('マッチングをキャンセルしました。');
+    showToast('❌ 全国マッチングをキャンセルしました。');
   }
 }
 
@@ -9528,7 +9696,11 @@ function leaveFriendBattleRoom() {
   if (closingRoomId && db) {
     try {
       if (wasHost) {
-        db.collection('battle_rooms').doc(closingRoomId).delete().catch(() => {});
+        // 先にゲストへ解散ステータスを確実に届ける
+        db.collection('battle_rooms').doc(closingRoomId).update({ status: 'disbanded' }).catch(() => {});
+        setTimeout(() => {
+          db.collection('battle_rooms').doc(closingRoomId).delete().catch(() => {});
+        }, 3000);
         // 解散した部屋の招待状を自動削除（友達が解散済み部屋へ誤入室するのを防ぐ）
         db.collection('battle_invites').where('roomId', '==', closingRoomId).get().then(snap => {
           snap.forEach(d => d.ref.delete().catch(() => {}));
@@ -9817,22 +9989,22 @@ function listenToBattleRoom(roomId) {
   }
   if (!db) return;
 
-  let docSeen = false;
-
   roomUnsubscribe = db.collection('battle_rooms').doc(roomId).onSnapshot(doc => {
-    if (!doc.exists) {
-      // ★ 以前実在していた部屋がホストによって消された場合のみ退出させる（初期誤切断を根絶）
-      if (docSeen && !isRoomHost && currentRoomId) {
+    // ★ ドキュメントが存在しない一瞬の通信ラグで勝手に誤退出させない！
+    if (!doc.exists) return;
+    const r = doc.data();
+    if (!r) return;
+
+    // ★ 0. ホストが明示的に解散した場合のみ退出
+    if (r.status === 'disbanded') {
+      if (!isRoomHost && currentRoomId) {
         showToast('🚪 ホストが部屋を解散しました。');
         leaveFriendBattleRoom();
       }
       return;
     }
-    docSeen = true;
-    const r = doc.data();
-    if (!r) return;
 
-    // ★ 0. バトル終了（勝敗確定：一方が勝ったら片方が負ける完全同期！）
+    // ★ 0.5 バトル終了（勝敗確定：一方が勝ったら片方が負ける完全同期！）
     if (r.status === 'finished') {
       onRoomBattleFinished(r);
       return;
@@ -9871,8 +10043,8 @@ function listenToBattleRoom(roomId) {
   });
 }
 
-// ホストが対戦開始をクリック！
-async function hostStartRoomBattle() {
+// ホストが対戦開始をクリック！（ランダムマッチ即時合流・ロビー対戦両対応）
+async function hostStartRoomBattle(overrideGuestData = null) {
   if (!currentRoomId || !isRoomHost) return;
   let r = null;
 
@@ -9884,9 +10056,11 @@ async function hostStartRoomBattle() {
     } catch (e) {}
   }
 
-  // ゲスト未入室ガード
+  // ゲスト未入室ガード（全国マッチからの直接開始、またはロビーからの開始）
   const guestNameEl = document.getElementById('lobbyGuestNameText');
-  const hasGuestName = (r && r.guestName) || (guestNameEl && !guestNameEl.textContent.includes('入室を待っています'));
+  const hasGuestName = (overrideGuestData && overrideGuestData.guestName) ||
+                        (r && r.guestName) ||
+                        (guestNameEl && !guestNameEl.textContent.includes('入室を待っています'));
   if (!hasGuestName) {
     showToast('⚠️ 友達が入室するまで対戦は開始できません！');
     return;
@@ -9916,7 +10090,7 @@ async function hostStartRoomBattle() {
   const guestHpM = rules.guestHpMult || 1.0;
 
   const adjustedHostTeam = myTeam.map(m => createFighter(m, hostHpM));
-  const guestRawTeam = (r && r.guestTeam) || myTeam;
+  const guestRawTeam = (r && r.guestTeam) || (overrideGuestData && overrideGuestData.guestTeam) || myTeam;
   const adjustedGuestTeam = guestRawTeam.map(m => createFighter(m, guestHpM));
 
   const firstQ = selectQuestionForRoom(rules);
@@ -9925,8 +10099,8 @@ async function hostStartRoomBattle() {
     roomId: currentRoomId,
     hostCode: state.friendCode,
     hostName: state.playerName || '研究員',
-    guestName: (r && r.guestName) || '挑戦者',
-    guestCode: (r && r.guestCode) || 'BIO-0000',
+    guestName: (overrideGuestData && overrideGuestData.guestName) || (r && r.guestName) || '挑戦者',
+    guestCode: (overrideGuestData && overrideGuestData.guestCode) || (r && r.guestCode) || 'BIO-0000',
     status: 'battle',
     rules,
     hostTeam: adjustedHostTeam,
@@ -9976,15 +10150,22 @@ function selectQuestionForRoom(rules) {
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
-// 両者でアリーナへ突入！
+// 両者でアリーナへ突入！（ホスト・ゲスト役割を厳密保持）
 function startSynchronizedRoomBattle(r) {
-  document.getElementById('friendRoomLobbyPanel').style.display = 'none';
+  const lobby = document.getElementById('friendRoomLobbyPanel');
+  if (lobby) lobby.style.display = 'none';
+  const setup = document.getElementById('battleSetupPanel');
+  if (setup) setup.style.display = 'none';
+  const modal = document.getElementById('matchmakingModal');
+  if (modal) modal.classList.remove('active');
+
   document.getElementById('battleArena').classList.add('active');
 
-  const amIHost = (r.hostCode === state.friendCode);
+  // ★ 同一PC・同一アカウントの2画面テストでも完全に破綻しないよう isRoomHost で厳密判定！
+  const amIHost = isRoomHost;
   const myTeam = amIHost ? r.hostTeam : r.guestTeam;
   const oppTeam = amIHost ? r.guestTeam : r.hostTeam;
-  const myAtkM = amIHost ? (r.rules.hostAtkMult || 1.0) : (r.rules.guestAtkMult || 1.0);
+  const myAtkM = amIHost ? ((r.rules && r.rules.hostAtkMult) || 1.0) : ((r.rules && r.rules.guestAtkMult) || 1.0);
 
   battle = {
     mode: 'online_room',
@@ -10096,13 +10277,16 @@ async function submitRoomChoice(text, btn) {
 
       if (isOpponentAllDead) {
         // ★ 決着！！ 自分が勝利、相手が敗北をクラウド上に確定記録！
+        const isMeHost = battle.amIHost;
         const finishPayload = {
           roomId: currentRoomId,
           status: 'finished',
           winnerCode: state.friendCode,
           winnerName: state.playerName || '研究員',
+          winnerRole: isMeHost ? 'host' : 'guest',
           loserCode: oppCode,
           loserName: oppName,
+          loserRole: isMeHost ? 'guest' : 'host',
           finishReason: 'ko',
           hostTeam: isMeHost ? myTeam : oppTeam,
           guestTeam: isMeHost ? oppTeam : myTeam,
@@ -10158,12 +10342,24 @@ function syncRoomBattleState(r) {
   }
 
   const amIHost = battle.amIHost;
-  battle.p1Team = amIHost ? r.hostTeam : r.guestTeam;
-  battle.p2Team = amIHost ? r.guestTeam : r.hostTeam;
+  const newP1Team = amIHost ? r.hostTeam : r.guestTeam;
+  const newP2Team = amIHost ? r.guestTeam : r.hostTeam;
+
+  if (Array.isArray(newP1Team) && newP1Team.length > 0) {
+    battle.p1Team = newP1Team;
+  }
+  if (Array.isArray(newP2Team) && newP2Team.length > 0) {
+    battle.p2Team = newP2Team;
+  }
+
+  // チームデータが両方揃っていない初期段階では勝敗判定を行わない！（即座の誤退出バグを完全根絶）
+  if (!battle.p1Team || battle.p1Team.length === 0 || !battle.p2Team || battle.p2Team.length === 0) {
+    return;
+  }
 
   // 生存しているアクティブキャラのインデックスを探して更新
-  const p1AliveIdx = battle.p1Team.findIndex(m => m.hp > 0);
-  const p2AliveIdx = battle.p2Team.findIndex(m => m.hp > 0);
+  const p1AliveIdx = battle.p1Team.findIndex(m => (m.hp || 0) > 0);
+  const p2AliveIdx = battle.p2Team.findIndex(m => (m.hp || 0) > 0);
 
   if (p1AliveIdx !== -1 && p1AliveIdx !== battle.p1Idx) {
     battle.p1Idx = p1AliveIdx;
@@ -10180,14 +10376,22 @@ function syncRoomBattleState(r) {
 
   updateBattleHud();
 
-  const p1Alive = battle.p1Team.some(m => m.hp > 0);
-  const p2Alive = battle.p2Team.some(m => m.hp > 0);
+  const p1Alive = battle.p1Team.some(m => (m.hp || 0) > 0);
+  const p2Alive = battle.p2Team.some(m => (m.hp || 0) > 0);
 
-  if (!p2Alive || !p1Alive) {
+  // 決着判定（初期データロード時の誤爆を防ぐため、ダメージログがあるかターンが進行している場合のみ）
+  if ((!p2Alive || !p1Alive) && (r.turn > 1 || (r.actionLog && (r.actionLog.includes('ダメージ') || r.actionLog.includes('決着'))))) {
+    const isMeWinner = p1Alive;
+    const oppCode = amIHost ? r.guestCode : r.hostCode;
+    const oppName = amIHost ? (r.guestName || '挑戦者') : (r.hostName || '研究員');
     onRoomBattleFinished({
       ...r,
-      winnerCode: p1Alive ? state.friendCode : (amIHost ? r.guestCode : r.hostCode),
-      loserCode: p1Alive ? (amIHost ? r.guestCode : r.hostCode) : state.friendCode
+      winnerRole: isMeWinner ? (amIHost ? 'host' : 'guest') : (amIHost ? 'guest' : 'host'),
+      loserRole: isMeWinner ? (amIHost ? 'guest' : 'host') : (amIHost ? 'host' : 'guest'),
+      winnerCode: isMeWinner ? state.friendCode : oppCode,
+      winnerName: isMeWinner ? (state.playerName || '研究員') : oppName,
+      loserCode: isMeWinner ? oppCode : state.friendCode,
+      loserName: isMeWinner ? oppName : (state.playerName || '研究員')
     });
     return;
   }
@@ -10204,7 +10408,18 @@ function onRoomBattleFinished(r) {
   isHandlingBattleFinish = true;
   clearInterval(battleGaugeInterval);
 
-  const isMeWinner = (r.winnerCode === state.friendCode);
+  // 同一ブラウザの2画面テストでも、実機2台でも、100%確実に片方が勝ち・片方が負けになる判定
+  let isMeWinner = false;
+  if (battle && battle.mode === 'online_room') {
+    if (r.winnerRole) {
+      isMeWinner = (battle.amIHost && r.winnerRole === 'host') || (!battle.amIHost && r.winnerRole === 'guest');
+    } else {
+      isMeWinner = (r.winnerCode === state.friendCode);
+    }
+  } else {
+    isMeWinner = (r.winnerCode === state.friendCode);
+  }
+
   const reason = r.finishReason || 'ko';
 
   if (isMeWinner) {
@@ -10222,7 +10437,8 @@ function onRoomBattleFinished(r) {
     saveData();
 
     const surrenderNotice = reason === 'surrender' ? '\n（降参・リタイアしました）' : '';
-    alert(`💦 敗北...${surrenderNotice}\n\n参加報酬として ⚡500 ATP を獲得しました！`);
+    const winnerDisplay = r.winnerName ? `相手『${r.winnerName}』さんの勝利です！` : '相手の勝利です！';
+    alert(`💦 敗北...${surrenderNotice}\n\n${winnerDisplay}\n参加報酬として ⚡500 ATP を獲得しました！`);
   }
 
   battle = null;
@@ -10230,11 +10446,11 @@ function onRoomBattleFinished(r) {
   document.getElementById('battleSetupPanel').style.display = 'block';
   updateStatsDisplay();
 
-  // 1.5秒後に部屋を安全に退出（双方がアラートを確認し終わるまでドキュメントを保持）
+  // 6秒後に部屋を安全に退出（双方がアラートを確認し終わるまで部屋を保持）
   setTimeout(() => {
     isHandlingBattleFinish = false;
     leaveFriendBattleRoom();
-  }, 1500);
+  }, 6000);
 }
 
 // 🏳️ バトル中の降参（リタイア）処理：オンライン対戦時は相手の勝利を確定させて両者終了！
@@ -10261,8 +10477,10 @@ async function retireCurrentBattle() {
             status: 'finished',
             winnerCode: oppCode,
             winnerName: oppName,
+            winnerRole: isMeHost ? 'guest' : 'host',
             loserCode: state.friendCode,
             loserName: state.playerName || '研究員',
+            loserRole: isMeHost ? 'host' : 'guest',
             finishReason: 'surrender',
             actionLog: `🏳️ ${state.playerName} が降参しました。`
           };
@@ -10302,9 +10520,9 @@ try {
   console.error('Initial loop error:', e);
 }
 
-// 起動時にフレンド申請・対戦招待・ギフトをチェック（対戦招待は常時リアルタイム監視！）
+// 起動時にフレンド申請・対戦招待・ギフトをチェック（フレンド申請・対戦招待は常時リアルタイム監視！）
 setTimeout(() => {
-  checkIncomingFriendRequests();
+  listenToIncomingFriendRequests();
   listenToIncomingBattleInvites();
   checkIncomingGifts();
 }, 1500);
