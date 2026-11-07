@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 3.2 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 3.4 - 理系微生物育成＆戦略クイズバトル</title>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon.svg">
 <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
@@ -537,7 +537,7 @@
     <div class="logo-area">
       <div class="logo-icon">🧬</div>
       <div>
-        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 3.2</span></div>
+        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 3.4</span></div>
         <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
       </div>
     </div>
@@ -563,7 +563,7 @@
   <nav class="nav-tabs">
     <button id="mainTabPetri" class="nav-btn active" onclick="switchScreen('petri', this)">🔬 育成・配分</button>
     <button id="mainTabBattle" class="nav-btn" onclick="switchScreen('battle', this)">⚔️ クイズ対戦 <span id="battleInviteBadge" class="notif-badge" style="display:none; background:#ec4899; color:white;">招待!</span></button>
-    <button id="mainTabFriends" class="nav-btn" onclick="switchScreen('friends', this)">🤝 フレンド <span id="friendReqBadge" class="notif-badge" style="display:none;">0</span></button>
+    <button id="mainTabFriends" class="nav-btn" onclick="switchScreen('friends', this)">🤝 フレンド・順位 <span id="friendReqBadge" class="notif-badge" style="display:none;">0</span></button>
     <button id="mainTabMenu" class="nav-btn" onclick="switchScreen('menu', this)">📱 メニュー</button>
   </nav>
 
@@ -575,7 +575,7 @@
     <div class="card">
       <div class="card-title">📱 研究所メインメニュー</div>
       <div class="help-box">
-        💡 ボックス編成・ガチャ・新機能<strong>「🧬 ゲノム編集（遺伝子チップ）」</strong>・ショップ・図鑑・復習ノート・設定（データリセット）にここからアクセスできます！
+        💡 ボックス編成・<strong>「💊 ガチャ（キャラ＆チップ）」</strong>・<strong>「🏪 交換所（キャラ＆チップ）」</strong>・<strong>「🧬 ゲノム編集」</strong>・ショップ・図鑑・復習ノート・設定（アカウント削除・データリセット）にここからアクセスできます！
       </div>
       <div class="menu-grid">
         <div class="menu-app-card" onclick="switchScreen('box')">
@@ -583,25 +583,25 @@
           <div style="font-weight:900; font-size:0.95rem; color:#0369a1;">ボックス・編成</div>
           <div style="font-size:0.74rem; color:var(--text-sub);">パーティ5枠・ソート＆能力編集</div>
         </div>
-        <div class="menu-app-card" onclick="switchScreen('gacha')">
+        <div class="menu-app-card" style="border-color:#ec4899; background:linear-gradient(180deg,#ffffff,#fdf2f8);" onclick="switchScreen('gacha')">
           <div class="menu-app-icon" style="background:#fce7f3;">💊</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#be185d;">ガチャ・交換所</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">微生物＆免疫細胞10連・メダル交換</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#be185d;">ガチャ (キャラ＆チップ)</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">生物＆免疫細胞ガチャ・遺伝子チップガチャ</div>
+        </div>
+        <div class="menu-app-card" style="border-color:#f59e0b; background:linear-gradient(180deg,#ffffff,#fffbeb);" onclick="switchScreen('exchange')">
+          <div class="menu-app-icon" style="background:#fef3c7;">🏪</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#b45309;">交換所 (キャラ＆チップ)</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">キャラ指名交換所 ＆ 遺伝子チップ交換所</div>
         </div>
         <div class="menu-app-card" style="border-color:#a855f7; background:linear-gradient(180deg,#ffffff,#faf5ff);" onclick="switchScreen('genome')">
           <div class="menu-app-icon" style="background:#f3e8ff;">🧬</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#6d28d9;">ゲノム編集・チップ</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">遺伝子スロット2枠＆チップガチャ</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#6d28d9;">ゲノム編集ラボ</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">遺伝子スロット2枠の装着・能力強化確認</div>
         </div>
         <div class="menu-app-card" onclick="switchScreen('shop')">
           <div class="menu-app-icon" style="background:#dcfce7;">🛒</div>
           <div style="font-weight:900; font-size:0.95rem; color:#15803d;">ATPショップ</div>
           <div style="font-size:0.74rem; color:var(--text-sub);">瞬間Lv.30進化・スキル＆教科変更</div>
-        </div>
-        <div class="menu-app-card" onclick="switchScreen('ranking')">
-          <div class="menu-app-icon" style="background:#fef3c7;">🏅</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#b45309;">ランキング</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">全国プレイヤー＆フレンド内順位</div>
         </div>
         <div class="menu-app-card" onclick="switchScreen('pedia')">
           <div class="menu-app-icon" style="background:#e0e7ff;">📘</div>
@@ -652,17 +652,22 @@
     </div>
   </section>
 
-  <!-- 🧬 ゲノム編集（遺伝子スロット2枠 ＆ 遺伝子チップガチャ） -->
+  <!-- 🧬 ゲノム編集ラボ（遺伝子スロット2枠の装着・能力強化確認） -->
   <section id="screen-genome" class="screen">
     <div class="subscreen-back-bar">
-      <strong style="color:#0369a1; font-size:0.9rem;">🧬 ゲノム編集ラボ ＆ 遺伝子チップ培養</strong>
-      <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
+      <strong style="color:#0369a1; font-size:0.9rem;">🧬 ゲノム編集ラボ（遺伝子スロット装着・カスタム）</strong>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <button class="btn btn-purple" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('gacha'); switchGachaCategory('chip');">💊 チップガチャへ</button>
+        <button class="btn btn-accent" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('exchange'); switchExchangeCategory('chip');">🏪 チップ交換所へ</button>
+        <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
+      </div>
     </div>
 
     <div class="card">
-      <div class="card-title">🧬 1. 遺伝子スロット組み換え（各キャラ最大2枠！）</div>
+      <div class="card-title">🧬 遺伝子スロット組み換え（各キャラ最大2枠！）</div>
       <div class="help-box">
-        💡 ガチャキャラ（LR/UR）の固有性能はそのままに、<strong>好きな遺伝子チップを2つまで挿入して自分好みにカスタム</strong>できます！（クマムシ乾眠・CRISPRハサミ・メチル化保護・テロメラーゼ回復など！）
+        💡 ガチャキャラ（LR/UR）の固有性能はそのままに、<strong>好きな遺伝子チップを2つまで挿入して自分好みにカスタム</strong>できます！<br>
+        🔴 <strong>筋原線維（攻撃+15）</strong>・⚡ <strong>繊毛モーター（すばやさ+15）</strong>・🟣 <strong>二重生体膜（耐久+15）</strong>を装着すると、キャラの実際のステータス数値が<strong>即座に +15 上昇</strong>します！
       </div>
 
       <div style="background:#faf5ff; border:2px solid #a855f7; border-radius:12px; padding:12px; margin-bottom:12px;">
@@ -670,60 +675,18 @@
           <span style="font-weight:900; font-size:0.85rem; color:#6d28d9;">🎯 ゲノム編集するキャラ：</span>
           <select id="genomeTargetSelect" class="btn-outline" style="flex:1; min-width:220px; padding:7px 10px; border-radius:8px; font-weight:900;" onchange="changeGenomeTarget(this.value)"></select>
         </div>
+        <div id="genomeTargetStatPreview" style="background:white; border:1.5px solid #e9d5ff; border-radius:10px; padding:8px 12px; margin-bottom:10px; font-size:0.8rem; font-weight:800; color:#1e293b; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;"></div>
         <div id="genomeSlotsArea" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:10px;"></div>
       </div>
 
-      <div style="font-weight:900; font-size:0.92rem; margin-bottom:6px; color:#4c1d95;">📦 所持している遺伝子チップ一覧（タップで装着）</div>
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+        <div style="font-weight:900; font-size:0.92rem; color:#4c1d95;">📦 所持している遺伝子チップ一覧（タップで装着）</div>
+        <div style="display:flex; gap:6px;">
+          <button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; border-color:#a855f7; color:#6d28d9;" onclick="switchScreen('gacha'); switchGachaCategory('chip');">🎰 チップガチャを引く</button>
+          <button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; border-color:#d97706; color:#b45309;" onclick="switchScreen('exchange'); switchExchangeCategory('chip');">🏪 好きなチップをメダル交換</button>
+        </div>
+      </div>
       <div id="ownedChipsGrid" class="exchange-grid"></div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">🎰 2. 遺伝子チップガチャ（所持: ⚡<span id="genomeAtpText">500</span> ATP）</div>
-      <div class="gacha-grid">
-        <div class="gacha-card" style="background:#f0f9ff; border-color:#0284c7;">
-          <div style="font-size:2rem;">🧬</div>
-          <h3>チップ単発抽出</h3>
-          <p style="font-size:0.78rem; color:var(--text-sub);">遺伝子チップを1個ランダム抽出</p>
-          <button class="btn btn-primary" style="width:100%; margin-top:auto;" onclick="pullChipGacha(1)">⚡ 300 ATP で1回引く</button>
-        </div>
-        <div class="gacha-card" style="background:linear-gradient(180deg, #faf5ff, #fce7f3); border-color:#a855f7;">
-          <div style="font-size:2rem;">🧬✨</div>
-          <h3>チップ10連抽出（1回分お得！）</h3>
-          <p style="font-size:0.78rem; color:#6d28d9; font-weight:800;">一気に10個抽出！UR・SRチップを狙え！</p>
-          <button class="btn btn-purple" style="width:100%; margin-top:auto;" onclick="pullChipGacha(10)">⚡ 2700 ATP で10連を引く！</button>
-        </div>
-      </div>
-
-      <div id="chipPullResultsBox" class="ten-pull-results">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <strong style="font-size:1rem; color:#fde047;">🎊 遺伝子チップ抽出結果！</strong>
-          <button class="btn btn-outline" style="padding:3px 10px; font-size:0.75rem;" onclick="document.getElementById('chipPullResultsBox').style.display='none'">閉じる</button>
-        </div>
-        <div id="chipPullGrid" class="ten-pull-grid"></div>
-      </div>
-
-      <div style="margin-top:12px;">
-        <div style="font-weight:900; font-size:0.86rem; margin-bottom:4px;">📊 遺伝子チップ排出確率一覧</div>
-        <table class="prob-table">
-          <thead>
-            <tr><th>レア度</th><th>遺伝子チップ名</th><th>効果</th><th>排出率</th></tr>
-          </thead>
-          <tbody>
-            <tr style="background:#fefce8; font-weight:900; color:#b45309;">
-              <td>👑 UR</td><td>クマムシ乾眠 / CRISPR-Cas9 / メチル化保護</td><td>HP1耐え＆次1.5倍 / 4択ハズレ1消去 / 相手会心無効化</td><td>計 0.5 %</td>
-            </tr>
-            <tr style="background:#faf5ff; font-weight:800; color:#6d28d9;">
-              <td>🌟 SR</td><td>テロメラーゼ活性 / オワンクラゲGFP / 第2得意科目</td><td>正解ごとHP8%回復 / 攻撃威力+15%＆先読み / 物理・化学両得意化</td><td>計 5.0 %</td>
-            </tr>
-            <tr style="background:#eff6ff; font-weight:800; color:#1d4ed8;">
-              <td>✨ R</td><td>HSP耐熱 / 好熱菌酵素 / 好冷菌耐性</td><td>ピンチ時攻撃1.35倍 / 理化学威力1.2倍 / 解答時間+3.0秒延長</td><td>計 25.0 %</td>
-            </tr>
-            <tr>
-              <td>🔹 N</td><td>筋原線維 / 繊毛増殖 / 生体膜強化</td><td>攻撃+15 / すばやさ+15 / 耐久+15</td><td>計 69.5 %</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
   </section>
 
@@ -1054,69 +1017,189 @@
     </div>
   </section>
 
-  <!-- 3. ガチャ・交換所 -->
+  <!-- 3. ガチャ（微生物＆免疫細胞ガチャ vs 遺伝子チップガチャ 2モード切替） -->
   <section id="screen-gacha" class="screen">
     <div class="subscreen-back-bar">
-      <strong style="color:#0369a1; font-size:0.9rem;">💊 微生物＆免疫細胞カプセル培養（ガチャ・交換所）</strong>
-      <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
-    </div>
-    <div class="card">
-      <div class="card-title">💊 微生物＆免疫細胞カプセル培養（全15系統・75形態！）</div>
-      <div class="help-box">
-        👑 <strong>神個体「LR（突然変異種 × 感覚100）」</strong>：<strong>会心率100%（毎回確定クリティカル1.8倍！）</strong>＋全科目1.35倍！<br>
-        🛡️ 新登場の<strong>「マクロファージ・キラーT細胞・樹状細胞・好中球・NK細胞・B細胞・ヘルパーT細胞・メモリー細胞・マスト細胞」</strong>もガチャから排出されます！
-      </div>
-
-      <div class="gacha-grid">
-        <div class="gacha-card" style="background:#f0f9ff; border-color:#0284c7;">
-          <div style="font-size:2.2rem;">🧫</div>
-          <h3>ノーマル単発ガチャ</h3>
-          <p style="font-size:0.8rem; color:var(--text-sub);">1体培養 ＋ 🧬10 メダル獲得</p>
-          <button class="btn btn-primary" style="width:100%; margin-top:auto;" onclick="pullNormalSingle()">⚡ 500 ATP で1回培養</button>
-        </div>
-
-        <div class="gacha-card" style="background:linear-gradient(180deg, #faf5ff, #fce7f3); border-color:#db2777;">
-          <div style="font-size:2.2rem;">🌟🎊</div>
-          <h3>お得な 10連ガチャ</h3>
-          <p style="font-size:0.8rem; color:#831843; font-weight:800;">一気に10体（1回分お得！）＋ 🧬100 メダル獲得！</p>
-          <button class="btn btn-purple" style="width:100%; margin-top:auto; font-size:0.95rem; padding:12px;" onclick="pullPremiumTen()">⚡ 4500 ATP で10連培養！</button>
-        </div>
-      </div>
-
-      <div id="tenPullResultsBox" class="ten-pull-results">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <strong style="font-size:1.05rem; color:#fde047;">🎊 培養ガチャ結果！</strong>
-          <button class="btn btn-outline" style="padding:3px 10px; font-size:0.75rem;" onclick="document.getElementById('tenPullResultsBox').style.display='none'">閉じる</button>
-        </div>
-        <div id="tenPullGrid" class="ten-pull-grid"></div>
-      </div>
-
-      <div style="margin-top:14px;">
-        <div style="font-weight:900; font-size:0.9rem; margin-bottom:4px;">📊 ガチャ排出確率一覧（単発・10連共通 / 1枠あたり）</div>
-        <table class="prob-table">
-          <thead>
-            <tr><th>レア枠・個体区分</th><th>能力・特徴</th><th>単発 (500)</th><th>10連 (4500)</th></tr>
-          </thead>
-          <tbody>
-            <tr style="background:#fefce8; font-weight:900; color:#b45309;">
-              <td>👑 LR（変異種 × 感覚100）</td><td><strong>会心率100%</strong>＋全科目1.35倍＋種族値1.3倍</td><td>0.1 %</td><td>0.1 %</td>
-            </tr>
-            <tr style="background:#faf5ff; font-weight:800; color:#6d28d9;">
-              <td>🌟 UR（突然変異種 × 感覚0/50）</td><td>全科目1.35倍 ＋ 種族値1.3倍 ＋ 黄金オーラ</td><td>0.3 %</td><td>0.3 %</td>
-            </tr>
-            <tr style="background:#eff6ff; font-weight:800; color:#1d4ed8;">
-              <td>👁️ UR（通常種 × 感覚100）</td><td>生まれつき感覚100（会心率50%固定）</td><td>0.5 %</td><td>0.5 %</td>
-            </tr>
-            <tr><td>✨ SR（通常種 × 感覚50）</td><td>生まれつき感覚50（会心率20%固定）</td><td>39.1 %</td><td>39.1 %</td></tr>
-            <tr><td>🔹 R / N（通常種 × 感覚0）</td><td>標準個体</td><td>60.0 %</td><td>60.0 %</td></tr>
-          </tbody>
-        </table>
+      <strong style="color:#0369a1; font-size:0.9rem;">💊 カプセル培養＆遺伝子抽出ガチャ（所持: ⚡<span id="gachaAtpText">500</span> ATP / 🧬<span id="gachaMedalText">0</span> メダル）</strong>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <button class="btn btn-accent" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('exchange')">🏪 交換所へ</button>
+        <button class="btn btn-purple" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('genome')">🧬 ゲノム編集へ</button>
+        <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">🏪 DNAメダル交換所（所持: 🧬<span id="shopMedalText">0</span> メダル）</div>
-      <div class="exchange-grid" id="exchangeShopGrid"></div>
+      <!-- 🧫 微生物＆免疫細胞ガチャ vs 🧬 遺伝子チップガチャ 2大モード切替バナー -->
+      <div class="battle-category-toggle">
+        <button id="gachaToggleBio" class="battle-cat-btn active" onclick="switchGachaCategory('bio')">
+          🧫 微生物＆免疫細胞ガチャ (全15種)
+        </button>
+        <button id="gachaToggleChip" class="battle-cat-btn cat-eng" onclick="switchGachaCategory('chip')">
+          🧬 遺伝子チップガチャ (全12種)
+        </button>
+      </div>
+
+      <!-- ① 微生物＆免疫細胞ガチャパネル -->
+      <div id="gachaPanelBio">
+        <div class="card-title">💊 微生物＆免疫細胞カプセル培養（全15系統・75形態！）</div>
+        <div class="help-box">
+          👑 <strong>神個体「LR（突然変異種 × 感覚100）」</strong>：<strong>会心率100%（毎回確定クリティカル1.8倍！）</strong>＋全科目1.35倍！<br>
+          🛡️ 新登場の<strong>「マクロファージ・キラーT細胞・樹状細胞・好中球・NK細胞・B細胞・ヘルパーT細胞・メモリー細胞・マスト細胞」</strong>もガチャから排出されます！
+        </div>
+
+        <div class="gacha-grid">
+          <div class="gacha-card" style="background:#f0f9ff; border-color:#0284c7;">
+            <div style="font-size:2.2rem;">🧫</div>
+            <h3>ノーマル単発ガチャ</h3>
+            <p style="font-size:0.8rem; color:var(--text-sub);">1体培養 ＋ 🧬10 メダル獲得</p>
+            <button class="btn btn-primary" style="width:100%; margin-top:auto;" onclick="pullNormalSingle()">⚡ 500 ATP で1回培養</button>
+          </div>
+
+          <div class="gacha-card" style="background:linear-gradient(180deg, #faf5ff, #fce7f3); border-color:#db2777;">
+            <div style="font-size:2.2rem;">🌟🎊</div>
+            <h3>お得な 10連ガチャ</h3>
+            <p style="font-size:0.8rem; color:#831843; font-weight:800;">一気に10体（1回分お得！）＋ 🧬100 メダル獲得！</p>
+            <button class="btn btn-purple" style="width:100%; margin-top:auto; font-size:0.95rem; padding:12px;" onclick="pullPremiumTen()">⚡ 4500 ATP で10連培養！</button>
+          </div>
+        </div>
+
+        <div id="tenPullResultsBox" class="ten-pull-results">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="font-size:1.05rem; color:#fde047;">🎊 培養ガチャ結果！</strong>
+            <button class="btn btn-outline" style="padding:3px 10px; font-size:0.75rem;" onclick="document.getElementById('tenPullResultsBox').style.display='none'">閉じる</button>
+          </div>
+          <div id="tenPullGrid" class="ten-pull-grid"></div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <div style="font-weight:900; font-size:0.9rem; margin-bottom:4px;">📊 微生物＆免疫細胞ガチャ排出確率一覧（単発・10連共通 / 1枠あたり）</div>
+          <table class="prob-table">
+            <thead>
+              <tr><th>レア枠・個体区分</th><th>能力・特徴</th><th>単発 (500)</th><th>10連 (4500)</th></tr>
+            </thead>
+            <tbody>
+              <tr style="background:#fefce8; font-weight:900; color:#b45309;">
+                <td>👑 LR（変異種 × 感覚100）</td><td><strong>会心率100%</strong>＋全科目1.35倍＋種族値1.3倍</td><td>0.1 %</td><td>0.1 %</td>
+              </tr>
+              <tr style="background:#faf5ff; font-weight:800; color:#6d28d9;">
+                <td>🌟 UR（突然変異種 × 感覚0/50）</td><td>全科目1.35倍 ＋ 種族値1.3倍 ＋ 黄金オーラ</td><td>0.3 %</td><td>0.3 %</td>
+              </tr>
+              <tr style="background:#eff6ff; font-weight:800; color:#1d4ed8;">
+                <td>👁️ UR（通常種 × 感覚100）</td><td>生まれつき感覚100（会心率50%固定）</td><td>0.5 %</td><td>0.5 %</td>
+              </tr>
+              <tr><td>✨ SR（通常種 × 感覚50）</td><td>生まれつき感覚50（会心率20%固定）</td><td>39.1 %</td><td>39.1 %</td></tr>
+              <tr><td>🔹 R / N（通常種 × 感覚0）</td><td>標準個体</td><td>60.0 %</td><td>60.0 %</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ② 遺伝子チップガチャパネル -->
+      <div id="gachaPanelChip" style="display:none;">
+        <div class="card-title">🧬 遺伝子チップ抽出ガチャ（全12種・所持: ⚡<span id="genomeAtpText">500</span> ATP）</div>
+        <div class="help-box">
+          💡 抽出した遺伝子チップは<strong>「🧬 ゲノム編集ラボ」</strong>で好きなキャラの遺伝子スロット（最大2枠）に装着できます！<br>
+          💎 <strong>クマムシ乾眠（UR）</strong>・✂️ <strong>CRISPRハサミ（UR）</strong>・🛡️ <strong>メチル化保護（UR）</strong>や、ステータスが直接 <strong>+15 上昇</strong>する強化チップを手に入れよう！
+        </div>
+
+        <div class="gacha-grid">
+          <div class="gacha-card" style="background:#f0f9ff; border-color:#0284c7;">
+            <div style="font-size:2.2rem;">🧬</div>
+            <h3>チップ単発抽出</h3>
+            <p style="font-size:0.8rem; color:var(--text-sub);">遺伝子チップを1個ランダム抽出 ＋ 🧬5 メダル獲得</p>
+            <button class="btn btn-primary" style="width:100%; margin-top:auto;" onclick="pullChipGacha(1)">⚡ 300 ATP で1回引く</button>
+          </div>
+          <div class="gacha-card" style="background:linear-gradient(180deg, #faf5ff, #fce7f3); border-color:#a855f7;">
+            <div style="font-size:2.2rem;">🧬✨</div>
+            <h3>チップ10連抽出（1回分お得！）</h3>
+            <p style="font-size:0.8rem; color:#6d28d9; font-weight:800;">一気に10個抽出（1回分お得！）＋ 🧬50 メダル獲得！</p>
+            <button class="btn btn-purple" style="width:100%; margin-top:auto; font-size:0.95rem; padding:12px;" onclick="pullChipGacha(10)">⚡ 2700 ATP で10連を引く！</button>
+          </div>
+        </div>
+
+        <div id="chipPullResultsBox" class="ten-pull-results">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="font-size:1rem; color:#fde047;">🎊 遺伝子チップ抽出結果！</strong>
+            <button class="btn btn-outline" style="padding:3px 10px; font-size:0.75rem;" onclick="document.getElementById('chipPullResultsBox').style.display='none'">閉じる</button>
+          </div>
+          <div id="chipPullGrid" class="ten-pull-grid"></div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <div style="font-weight:900; font-size:0.88rem; margin-bottom:4px;">📊 遺伝子チップ排出確率一覧</div>
+          <table class="prob-table">
+            <thead>
+              <tr><th>レア度</th><th>遺伝子チップ名</th><th>効果</th><th>排出率</th></tr>
+            </thead>
+            <tbody>
+              <tr style="background:#fefce8; font-weight:900; color:#b45309;">
+                <td>👑 UR</td><td>クマムシ乾眠 / CRISPR-Cas9 / メチル化保護</td><td>HP1耐え＆次1.5倍 / 4択ハズレ1消去 / 相手会心無効化</td><td>計 0.5 %</td>
+              </tr>
+              <tr style="background:#faf5ff; font-weight:800; color:#6d28d9;">
+                <td>🌟 SR</td><td>テロメラーゼ活性 / オワンクラゲGFP / 第2得意科目</td><td>正解ごとHP8%回復 / 攻撃威力+15%＆先読み / 物理・化学両得意化</td><td>計 5.0 %</td>
+              </tr>
+              <tr style="background:#eff6ff; font-weight:800; color:#1d4ed8;">
+                <td>✨ R</td><td>HSP耐熱 / 好熱菌酵素 / 好冷菌耐性</td><td>ピンチ時攻撃1.35倍 / 理化学威力1.2倍 / 解答時間+3.0秒延長</td><td>計 25.0 %</td>
+              </tr>
+              <tr>
+                <td>🔹 N</td><td>筋原線維 / 繊毛増殖 / 生体膜強化</td><td>攻撃(大きさ)+15 / すばやさ+15 / 耐久(防御)+15</td><td>計 69.5 %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3.5 🏪 交換所（キャラ交換所 vs 遺伝子チップ交換所 2モード切替） -->
+  <section id="screen-exchange" class="screen">
+    <div class="subscreen-back-bar">
+      <strong style="color:#0369a1; font-size:0.9rem;">🏪 研究所メダル交換所（所持: 🧬<span id="shopMedalText">0</span> メダル / ⚡<span id="exchangeAtpText">500</span> ATP）</strong>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <button class="btn btn-primary" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('gacha')">💊 ガチャへ</button>
+        <button class="btn btn-purple" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('genome')">🧬 ゲノム編集へ</button>
+        <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <!-- 👤 キャラ・細胞メダル交換所 vs 🧬 遺伝子チップ交換所 2大モード切替バナー -->
+      <div class="battle-category-toggle">
+        <button id="exchangeToggleChar" class="battle-cat-btn active" onclick="switchExchangeCategory('char')">
+          👑 キャラ・細胞メダル交換所
+        </button>
+        <button id="exchangeToggleChip" class="battle-cat-btn cat-eng" onclick="switchExchangeCategory('chip')">
+          🧬 遺伝子チップ交換所
+        </button>
+      </div>
+
+      <!-- ① キャラ・細胞メダル交換所パネル -->
+      <div id="exchangePanelChar">
+        <div class="card-title">👑 キャラ・細胞メダル交換所（全15種族指名 ＆ LR神個体・変異種）</div>
+        <div class="help-box">
+          💡 ガチャを回すと貯まる<strong>「🧬 DNAメダル」</strong>を使って、欲しい種族の指名カプセルや<strong>「👑【LR神個体】全15種ランダム召喚カプセル」</strong>を確実に交換できます！
+        </div>
+
+        <div id="exchangePullResultsBox" class="ten-pull-results" style="margin-bottom:14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="font-size:1.05rem; color:#fde047;">🏪 メダル交換完了！</strong>
+            <button class="btn btn-outline" style="padding:3px 10px; font-size:0.75rem;" onclick="document.getElementById('exchangePullResultsBox').style.display='none'">閉じる</button>
+          </div>
+          <div id="exchangePullGrid" class="ten-pull-grid"></div>
+        </div>
+
+        <div class="exchange-grid" id="exchangeShopGrid"></div>
+      </div>
+
+      <!-- ② 遺伝子チップ交換所パネル -->
+      <div id="exchangePanelChip" style="display:none;">
+        <div class="card-title">🧬 遺伝子チップ交換所（全12種の遺伝子チップを指名交換！）</div>
+        <div class="help-box">
+          💡 <strong>「🧬 DNAメダル」</strong>を使って、<strong>UR・SR・R・N の好きな遺伝子チップをピンポイントで指名交換</strong>できます！交換したチップは「🧬 ゲノム編集ラボ」ですぐに装着可能です！
+        </div>
+
+        <div class="exchange-grid" id="chipExchangeShopGrid"></div>
+      </div>
     </div>
   </section>
 
@@ -1509,66 +1592,73 @@
     </div>
   </section>
 
-  <!-- 4.2 🤝 フレンド管理画面（双方向フレンド申請・承認制度 ＆ 対戦ルーム招待） -->
+  <!-- 4.2 🤝 フレンド ＆ 🏅 ランキング統合画面（2大モード切替バナー） -->
   <section id="screen-friends" class="screen">
     <div class="card">
-      <div class="card-title">🤝 フレンド申請・承認 ＆ フレンドリスト</div>
-      <div class="help-box">
-        💡 <strong>フレンド申請制度：</strong>友達のコードを入力して「📩 フレンド申請を送る」と、相手の画面に申請が届きます！<strong>相手が「✅ 承認」するとお互いのフレンドリストに正式登録</strong>されます！
+      <!-- 🤝 フレンドリスト・申請 vs 🏅 全国＆フレンドランキング 2大モード切替バナー -->
+      <div class="battle-category-toggle">
+        <button id="friendsModeBtnFriends" class="battle-cat-btn active" onclick="switchFriendsOrRankingMode('friends')">
+          🤝 フレンドリスト・申請
+        </button>
+        <button id="friendsModeBtnRanking" class="battle-cat-btn cat-eng" onclick="switchFriendsOrRankingMode('ranking')">
+          🏅 全国＆フレンドランキング
+        </button>
       </div>
 
-      <div style="background:#f8fafc; border:2px solid #bae6fd; padding:12px; border-radius:12px; margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-          <div>
-            <div style="font-size:0.75rem; color:var(--text-sub); font-weight:800;">あなたのフレンドコード（友達に教えてね！）</div>
-            <strong id="myFriendCodeFriendScreen" style="font-size:1.15rem; color:#0284c7;">BIO-XXXX</strong>
+      <!-- ① フレンド管理・申請パネル -->
+      <div id="friendsSubPanelFriends">
+        <div class="card-title">🤝 フレンド申請・承認 ＆ フレンドリスト</div>
+        <div class="help-box">
+          💡 <strong>フレンド申請制度：</strong>友達のコードを入力して「📩 フレンド申請を送る」と、相手の画面に申請が届きます！<strong>相手が「✅ 承認」するとお互いのフレンドリストに正式登録</strong>されます！
+        </div>
+
+        <div style="background:#f8fafc; border:2px solid #bae6fd; padding:12px; border-radius:12px; margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <div>
+              <div style="font-size:0.75rem; color:var(--text-sub); font-weight:800;">あなたのフレンドコード（友達に教えてね！）</div>
+              <strong id="myFriendCodeFriendScreen" style="font-size:1.15rem; color:#0284c7;">BIO-XXXX</strong>
+            </div>
+            <button class="btn btn-outline" style="padding:6px 14px;" onclick="copyFriendCode()">📋 コードをコピー</button>
           </div>
-          <button class="btn btn-outline" style="padding:6px 14px;" onclick="copyFriendCode()">📋 コードをコピー</button>
         </div>
-      </div>
 
-      <!-- フレンド申請送信フォーム -->
-      <div style="display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;">
-        <input type="text" id="friendSearchCodeInput" class="btn-outline" style="flex:1; min-width:180px; padding:10px 14px; border-radius:10px; font-weight:900;" placeholder="友達のコードを入力 (例: BIO-1234)">
-        <button class="btn btn-primary" style="padding:10px 18px;" onclick="sendFriendRequestCloud()">📩 フレンド申請を送る</button>
-      </div>
-
-      <!-- 📬 届いているフレンド申請一覧（承認・拒否） -->
-      <div id="incomingRequestsSection" style="margin-bottom:14px; display:none;">
-        <div style="font-weight:900; font-size:0.92rem; color:#db2777; margin-bottom:6px;">📬 あなたに届いているフレンド申請</div>
-        <div id="incomingRequestsContainer" style="display:flex; flex-direction:column; gap:8px;"></div>
-      </div>
-
-      <div style="font-weight:900; font-size:0.95rem; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
-        <span>👥 フレンドリスト（<span id="friendCountText">0</span>人）</span>
-        <button class="btn btn-outline" style="padding:3px 8px; font-size:0.72rem;" onclick="syncFriendsFromCloud()">🔄 最新データ・申請を確認</button>
-      </div>
-      <div id="friendListContainer" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:10px;"></div>
-    </div>
-  </section>
-
-  <!-- 4.5 ランキング画面（総合 ＆ フレンド） -->
-  <section id="screen-ranking" class="screen">
-    <div class="subscreen-back-bar">
-      <strong style="color:#0369a1; font-size:0.9rem;">🏅 全国リアルタイムランキング</strong>
-      <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
-    </div>
-    <div class="card">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
-        <div class="card-title" style="margin-bottom:0;">🏅 全国リアルタイム研究員ランキング</div>
-        <div style="display:flex; gap:6px; flex-wrap:wrap;">
-          <button id="rankTabGlobal" class="btn btn-primary" onclick="renderRankingBoard('global')">🌍 全国プレイヤーランキング</button>
-          <button id="rankTabFriend" class="btn btn-outline" onclick="renderRankingBoard('friend')">🤝 フレンド内ランキング</button>
-          <button class="btn btn-outline" style="padding:6px 10px; font-size:0.78rem;" onclick="renderRankingBoard()">🔄 最新更新</button>
+        <!-- フレンド申請送信フォーム -->
+        <div style="display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;">
+          <input type="text" id="friendSearchCodeInput" class="btn-outline" style="flex:1; min-width:180px; padding:10px 14px; border-radius:10px; font-weight:900;" placeholder="友達のコードを入力 (例: BIO-1234)">
+          <button class="btn btn-primary" style="padding:10px 18px;" onclick="sendFriendRequestCloud()">📩 フレンド申請を送る</button>
         </div>
+
+        <!-- 📬 届いているフレンド申請一覧（承認・拒否） -->
+        <div id="incomingRequestsSection" style="margin-bottom:14px; display:none;">
+          <div style="font-weight:900; font-size:0.92rem; color:#db2777; margin-bottom:6px;">📬 あなたに届いているフレンド申請</div>
+          <div id="incomingRequestsContainer" style="display:flex; flex-direction:column; gap:8px;"></div>
+        </div>
+
+        <div style="font-weight:900; font-size:0.95rem; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+          <span>👥 フレンドリスト（<span id="friendCountText">0</span>人）</span>
+          <button class="btn btn-outline" style="padding:3px 8px; font-size:0.72rem;" onclick="syncFriendsFromCloud()">🔄 最新データ・申請を確認</button>
+        </div>
+        <div id="friendListContainer" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:10px;"></div>
       </div>
 
-      <div class="help-box">
-        💡 <strong>ダミーAIは一切なし！</strong>このゲームを遊んだ<strong>実際の本物のプレイヤーだけ</strong>がリアルタイムで並びます！<br>
-        <strong>研究員レート(RP)：</strong>「勝利数 × 120 ＋ クイズ正解数 × 15 ＋ 最高育成Lv × 20」
-      </div>
+      <!-- ② 全国＆フレンドランキングパネル -->
+      <div id="friendsSubPanelRanking" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+          <div class="card-title" style="margin-bottom:0;">🏅 全国リアルタイム研究員ランキング</div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button id="rankTabGlobal" class="btn btn-primary" onclick="renderRankingBoard('global')">🌍 全国プレイヤーランキング</button>
+            <button id="rankTabFriend" class="btn btn-outline" onclick="renderRankingBoard('friend')">🤝 フレンド内ランキング</button>
+            <button class="btn btn-outline" style="padding:6px 10px; font-size:0.78rem;" onclick="renderRankingBoard()">🔄 最新更新</button>
+          </div>
+        </div>
 
-      <div id="rankingListArea"></div>
+        <div class="help-box">
+          💡 <strong>ダミーAIは一切なし！</strong>このゲームを遊んだ<strong>実際の本物のプレイヤーだけ</strong>がリアルタイムで並びます！<br>
+          <strong>研究員レート(RP)：</strong>「勝利数 × 120 ＋ クイズ正解数 × 15 ＋ 最高育成Lv × 20」
+        </div>
+
+        <div id="rankingListArea"></div>
+      </div>
     </div>
   </section>
 
@@ -3319,6 +3409,17 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 3.4',
+    date: '2026-11-07',
+    title: '💊 2大ガチャ統合 ＆ 🏪 2大交換所（キャラ＆チップ）新設 ＆ 🤝 フレンド・順位統合 ＆ 🧬 チップ能力値即時反映アプデ',
+    items: [
+      '【🧬 遺伝子チップのステータス上昇（+15）即時反映】Nチップ「筋原線維（攻撃+15）」「繊毛モーター（すばやさ+15）」「二重生体膜（耐久+15）」を装着した際、キャラの実際の能力値（攻撃・すばやさ・耐久・HP）が即座に +15 加算され、取り外すと元に戻るよう完全実装！ゲノム編集画面にも現在の能力値＆チップ補正プレビューを新設！',
+      '【💊 ガチャ画面の統合（キャラガチャ ＆ チップガチャ）】メニューの「💊 ガチャ」から、上部の2モード切替バナーで「🧫 微生物＆免疫細胞ガチャ」と「🧬 遺伝子チップガチャ」をワンタップで切り替えて回せるように統合！さらにチップガチャでもDNAメダル（単発+5枚 / 10連+50枚）が貯まるようパワーアップ！',
+      '【🏪 専用「交換所」の新設（キャラ交換所 ＆ 遺伝子チップ交換所）】メニューに独立した「🏪 交換所」を新設！「👑 キャラ・細胞メダル交換所（LR神個体や全15種指名）」と、新設の「🧬 遺伝子チップ交換所（UR/SR/R/Nの全12種チップをメダルで直接指名交換！）」の2つを自由に切り替え可能に！',
+      '【🤝 メインタブ「フレンド・順位」への統合】上部メインナビの「🤝 フレンド・順位」から、「🤝 フレンドリスト・申請」と「🏅 全国＆フレンドランキング」をワンタップで切り替えられるよう統合し、メニュー画面をスッキリ整理！'
+    ]
+  },
+  {
     ver: 'Ver 3.3',
     date: '2026-11-07',
     title: '🌐 オンライン通信基盤の統合刷新（実パーティ完全同期・招待された部屋ボックス新設・フレンド申請＆ルーム参加100%到達アプデ）',
@@ -3596,12 +3697,22 @@ function syncMyProfileToCloud() {
   }, { merge: true }).catch(err => console.warn('Cloud sync error:', err));
 }
 
-// クラウドに残っている明らかなテスト用データのみ整理（実プレイヤーのデータは絶対に削除しない安全ガード）
+// クラウドに残っている明らかなテスト用データや、過去の使わなくなった「らむね」初期600RPデータのみ整理
 function cleanupDummyDocsInCloud() {
   if (!db) return;
-  db.collection('players').where('isTestAccount', '==', true).get().then(snapshot => {
+  const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
+  db.collection('players').get().then(snapshot => {
     snapshot.forEach(doc => {
-      db.collection('players').doc(doc.id).delete().catch(() => {});
+      if (doc.id.startsWith('ROOM_') || doc.id.startsWith('MATCH_')) return;
+      const p = doc.data();
+      if (!p) return;
+      const docCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(p.code || doc.id) : (p.code || doc.id);
+      if (docCode === myCode) return;
+      const cleanName = (p.name || '').trim();
+      const isAbandonedRamune600 = (cleanName === 'らむね' && (p.wins || 0) === 0 && (p.rp === undefined || p.rp <= 600));
+      if (p.isTestAccount || isAbandonedRamune600) {
+        db.collection('players').doc(doc.id).delete().catch(() => {});
+      }
     });
   }).catch(() => {});
 }
@@ -3738,10 +3849,30 @@ function resetAllEffort() {
   showToast('🔄 強化ポイントをすべてリセットしました！');
 }
 
+// 🧬 ステータス上昇系遺伝子チップの能力値加減算ヘルパー（+1:装着, -1:取り外し）
+function applyChipStatDelta(m, chipId, dir) {
+  if (!m || !m.stats || !chipId) return;
+  const d = dir >= 0 ? 15 : -15;
+  if (chipId === 'chip_size') {
+    m.stats.size = Math.max(1, (m.stats.size || 50) + d);
+  } else if (chipId === 'chip_spd') {
+    m.stats.speed = Math.max(1, (m.stats.speed || 50) + d);
+  } else if (chipId === 'chip_def') {
+    m.stats.defense = Math.max(1, (m.stats.defense || 50) + d);
+  }
+}
+
 function migrateMicrobe(m) {
   if (m.stats.defense === undefined) m.stats.defense = 65;
   if (!m.effort) m.effort = { speed: 0, size: 0, defense: 0, fuel: 0 };
   if (!m.chips) m.chips = [null, null];
+  // 既に装着済みのステータス上昇チップ（筋原線維・繊毛モーター・二重生体膜）があれば初回ロード時に確実にステータスへ反映
+  if (!m.chipStatApplied) {
+    (m.chips || []).forEach(cId => {
+      if (cId) applyChipStatDelta(m, cId, 1);
+    });
+    m.chipStatApplied = true;
+  }
   if (m.level > MAX_LEVEL) m.level = MAX_LEVEL;
   m.evoStage = getStageFromLevel(m.level);
   return m;
@@ -3839,6 +3970,14 @@ function saveData() {
     if (medalEl) medalEl.textContent = state.medals;
     const shopM = document.getElementById('shopMedalText');
     if (shopM) shopM.textContent = state.medals;
+    const gachaAtp = document.getElementById('gachaAtpText');
+    if (gachaAtp) gachaAtp.textContent = state.atp;
+    const gachaMdl = document.getElementById('gachaMedalText');
+    if (gachaMdl) gachaMdl.textContent = state.medals;
+    const exAtp = document.getElementById('exchangeAtpText');
+    if (exAtp) exAtp.textContent = state.atp;
+    const genAtp = document.getElementById('genomeAtpText');
+    if (genAtp) genAtp.textContent = state.atp;
     const atpShopB = document.getElementById('atpShopBalance');
     if (atpShopB) atpShopB.textContent = state.atp;
     updatePresentBadge();
@@ -3917,6 +4056,7 @@ function loadData() {
   try {
     renderSavedFriends();
     renderExchangeShop();
+    renderChipExchangeShop();
     renderAtpShop();
     updateBattlePresetSelect();
     updateSubjectOptionsByGrade();
@@ -4283,7 +4423,44 @@ function showToast(msg) {
 }
 
 let currentScreen = 'petri';
+let currentFriendsOrRankingMode = 'friends';
+
+function switchFriendsOrRankingMode(mode) {
+  currentFriendsOrRankingMode = mode === 'ranking' ? 'ranking' : 'friends';
+  const btnF = document.getElementById('friendsModeBtnFriends');
+  const btnR = document.getElementById('friendsModeBtnRanking');
+  const panelF = document.getElementById('friendsSubPanelFriends');
+  const panelR = document.getElementById('friendsSubPanelRanking');
+
+  if (currentFriendsOrRankingMode === 'ranking') {
+    if (btnF) btnF.classList.remove('active');
+    if (btnR) btnR.classList.add('active');
+    if (panelF) panelF.style.display = 'none';
+    if (panelR) panelR.style.display = 'block';
+    renderRankingBoard(currentRankTab || 'global');
+  } else {
+    if (btnF) btnF.classList.add('active');
+    if (btnR) btnR.classList.remove('active');
+    if (panelF) panelF.style.display = 'block';
+    if (panelR) panelR.style.display = 'none';
+    renderFriendList();
+    checkIncomingFriendRequests();
+    listenToIncomingFriendRequests();
+  }
+}
+
 function switchScreen(screenId, btnEl) {
+  if (screenId === 'ranking') {
+    currentScreen = 'friends';
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const fEl = document.getElementById('screen-friends');
+    if (fEl) fEl.classList.add('active');
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('mainTabFriends')?.classList.add('active');
+    switchFriendsOrRankingMode('ranking');
+    return;
+  }
+
   currentScreen = screenId;
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const targetEl = document.getElementById('screen-' + screenId);
@@ -4297,7 +4474,7 @@ function switchScreen(screenId, btnEl) {
     if (screenId === 'petri') document.getElementById('mainTabPetri')?.classList.add('active');
     else if (screenId === 'battle') document.getElementById('mainTabBattle')?.classList.add('active');
     else if (screenId === 'friends') document.getElementById('mainTabFriends')?.classList.add('active');
-    else if (['menu', 'box', 'shop', 'gacha', 'genome', 'ranking', 'pedia', 'mistakes', 'profile', 'settings', 'help', 'handbook'].includes(screenId)) {
+    else if (['menu', 'box', 'shop', 'gacha', 'exchange', 'genome', 'pedia', 'mistakes', 'profile', 'settings', 'help', 'handbook'].includes(screenId)) {
       document.getElementById('mainTabMenu')?.classList.add('active');
     }
   }
@@ -4305,7 +4482,18 @@ function switchScreen(screenId, btnEl) {
   if (screenId === 'petri') renderPetriStatusCard();
   if (screenId === 'box') renderBoxAndParty();
   if (screenId === 'shop') renderAtpShop();
-  if (screenId === 'gacha') renderExchangeShop();
+  if (screenId === 'gacha') {
+    const gAtp = document.getElementById('gachaAtpText');
+    if (gAtp) gAtp.textContent = state.atp;
+    const gMdl = document.getElementById('gachaMedalText');
+    if (gMdl) gMdl.textContent = state.medals;
+    const genAtp = document.getElementById('genomeAtpText');
+    if (genAtp) genAtp.textContent = state.atp;
+  }
+  if (screenId === 'exchange') {
+    renderExchangeShop();
+    renderChipExchangeShop();
+  }
   if (screenId === 'genome') renderGenomeLab();
   if (screenId === 'battle') {
     if (!currentRoomId) {
@@ -4316,8 +4504,9 @@ function switchScreen(screenId, btnEl) {
     }
     updateBattlePresetSelect(); updateSubjectOptionsByGrade(); updateUnitOptionsBySubject(); checkPendingBattleInvites();
   }
-  if (screenId === 'friends') { renderFriendList(); checkIncomingFriendRequests(); listenToIncomingFriendRequests(); }
-  if (screenId === 'ranking') renderRankingBoard('global');
+  if (screenId === 'friends') {
+    switchFriendsOrRankingMode(currentFriendsOrRankingMode || 'friends');
+  }
   if (screenId === 'pedia') renderPedia();
   if (screenId === 'mistakes') renderMistakes();
   if (screenId === 'handbook') renderHandbook();
@@ -5621,9 +5810,53 @@ function buyMedalPackWithAtp() {
 }
 
 /* ============================================================================
-   4.8 🧬 ゲノム編集ラボ ＆ 遺伝子チップガチャ
+   4.8 🧬 ゲノム編集ラボ ＆ 遺伝子チップ装着・交換所連携
 ============================================================================ */
 let genomeTargetUid = null;
+let currentGachaCategory = 'bio';
+let currentExchangeCategory = 'char';
+
+function switchGachaCategory(mode) {
+  currentGachaCategory = mode === 'chip' ? 'chip' : 'bio';
+  const btnBio = document.getElementById('gachaToggleBio');
+  const btnChip = document.getElementById('gachaToggleChip');
+  const panelBio = document.getElementById('gachaPanelBio');
+  const panelChip = document.getElementById('gachaPanelChip');
+
+  if (currentGachaCategory === 'chip') {
+    if (btnBio) btnBio.classList.remove('active');
+    if (btnChip) btnChip.classList.add('active');
+    if (panelBio) panelBio.style.display = 'none';
+    if (panelChip) panelChip.style.display = 'block';
+  } else {
+    if (btnBio) btnBio.classList.add('active');
+    if (btnChip) btnChip.classList.remove('active');
+    if (panelBio) panelBio.style.display = 'block';
+    if (panelChip) panelChip.style.display = 'none';
+  }
+}
+
+function switchExchangeCategory(mode) {
+  currentExchangeCategory = mode === 'chip' ? 'chip' : 'char';
+  const btnChar = document.getElementById('exchangeToggleChar');
+  const btnChip = document.getElementById('exchangeToggleChip');
+  const panelChar = document.getElementById('exchangePanelChar');
+  const panelChip = document.getElementById('exchangePanelChip');
+
+  if (currentExchangeCategory === 'chip') {
+    if (btnChar) btnChar.classList.remove('active');
+    if (btnChip) btnChip.classList.add('active');
+    if (panelChar) panelChar.style.display = 'none';
+    if (panelChip) panelChip.style.display = 'block';
+    renderChipExchangeShop();
+  } else {
+    if (btnChar) btnChar.classList.add('active');
+    if (btnChip) btnChip.classList.remove('active');
+    if (panelChar) panelChar.style.display = 'block';
+    if (panelChip) panelChip.style.display = 'none';
+    renderExchangeShop();
+  }
+}
 
 function changeGenomeTarget(uid) {
   genomeTargetUid = uid;
@@ -5651,6 +5884,25 @@ function renderGenomeLab() {
   if (!m) return;
   if (!m.chips) m.chips = [null, null];
 
+  // 0. 対象キャラの現在のステータス＆チップ補正プレビュー
+  const statPrev = document.getElementById('genomeTargetStatPreview');
+  if (statPrev) {
+    const hasSize = m.chips.filter(c => c === 'chip_size').length;
+    const hasSpd = m.chips.filter(c => c === 'chip_spd').length;
+    const hasDef = m.chips.filter(c => c === 'chip_def').length;
+    const calcHp = Math.round(85 + m.stats.size * 1.3 + m.stats.defense * 0.8 + m.level * 8);
+    statPrev.innerHTML = `
+      <div>📊 <strong>現在の能力値：</strong> ❤️HP:${calcHp}</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <span style="${hasSpd ? 'color:#0284c7; font-weight:900;' : ''}">⚡すばやさ: <strong>${m.stats.speed}</strong>${hasSpd ? ` <small style="color:#0284c7;">(+${hasSpd * 15}チップ補正中!)</small>` : ''}</span>
+        <span style="${hasSize ? 'color:#dc2626; font-weight:900;' : ''}">🔴大きさ(攻撃): <strong>${m.stats.size}</strong>${hasSize ? ` <small style="color:#dc2626;">(+${hasSize * 15}チップ補正中!)</small>` : ''}</span>
+        <span style="${hasDef ? 'color:#7c3aed; font-weight:900;' : ''}">🟣耐久(防御): <strong>${m.stats.defense}</strong>${hasDef ? ` <small style="color:#7c3aed;">(+${hasDef * 15}チップ補正中!)</small>` : ''}</span>
+        <span>🟢燃費: <strong>${m.stats.fuel}</strong></span>
+        <span>👁️感覚: <strong>${m.stats.sense}</strong> (会心${getCritRatePct(m)}%)</span>
+      </div>
+    `;
+  }
+
   // 1. 対象キャラの2枠スロット描画
   const slotsArea = document.getElementById('genomeSlotsArea');
   if (slotsArea) {
@@ -5668,7 +5920,7 @@ function renderGenomeLab() {
             <div style="font-size:0.75rem; color:var(--text-sub); line-height:1.35;">${chip.desc}</div>
           ` : `
             <div style="padding:14px; text-align:center; color:var(--text-sub); font-size:0.78rem; font-weight:800; border:2px dashed #e2e8f0; border-radius:8px;">
-              空きスロット<br><small>下の所持チップから「装備する」を押してください</small>
+              空きスロット<br><small>下の所持チップから「枠${slotIdx + 1}に装着」を押してください</small>
             </div>
           `}
         </div>
@@ -5683,8 +5935,8 @@ function renderGenomeLab() {
     if (ownedKeys.length === 0) {
       ownedGrid.innerHTML = `
         <div style="grid-column:1/-1; text-align:center; padding:24px; color:var(--text-sub); font-weight:800; background:#f8fafc; border-radius:12px; border:2px dashed #cbd5e1;">
-          まだ遺伝子チップを持っていません！<br>
-          下の「遺伝子チップガチャ」を回して強力なチップを抽出しよう！
+          まだ未使用の遺伝子チップを持っていません！<br>
+          「💊 ガチャ（遺伝子チップガチャ）」または「🏪 交換所（遺伝子チップ交換所）」で強力なチップを手に入れよう！
         </div>
       `;
     } else {
@@ -5692,7 +5944,6 @@ function renderGenomeLab() {
         const chip = getChip(k);
         if (!chip) return '';
         const count = state.ownedChips[k];
-        const isEquippedInTarget = (m.chips || []).includes(k);
         return `
           <div class="card" style="padding:10px; border-color:${chip.color}; background:#ffffff; display:flex; flex-direction:column; gap:5px;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -5723,25 +5974,34 @@ function equipGeneChip(slotIdx, chipId) {
     return;
   }
 
-  // すでに同じキャラの別スロットにある場合は入れ替え
+  // すでに同じキャラの別スロットにある場合は入れ替え（別スロット側から取り外し＋ステータス減算）
   const otherSlot = slotIdx === 0 ? 1 : 0;
   if (m.chips[otherSlot] === chipId) {
+    applyChipStatDelta(m, chipId, -1);
+    state.ownedChips[chipId] = (state.ownedChips[chipId] || 0) + 1;
     m.chips[otherSlot] = null;
   }
 
-  // 古いチップを取り外して所持数へ戻す
+  // 装着先スロットに古いチップがあれば取り外して所持数へ戻し、ステータス補正も戻す
   const oldChipId = m.chips[slotIdx];
   if (oldChipId) {
+    applyChipStatDelta(m, oldChipId, -1);
     state.ownedChips[oldChipId] = (state.ownedChips[oldChipId] || 0) + 1;
   }
 
-  // 新チップを装着して所持数から1減らす
+  // 新チップを装着して所持数から1減らし、ステータス上昇チップなら +15 反映！
   state.ownedChips[chipId]--;
   m.chips[slotIdx] = chipId;
+  applyChipStatDelta(m, chipId, 1);
+  m.chipStatApplied = true;
 
   saveData();
   renderGenomeLab();
+  renderPetriStatusCard();
   renderBoxAndParty();
+  if (document.getElementById('microbeEditModal')?.classList.contains('active')) {
+    renderMicrobeEditModal();
+  }
   const c = getChip(chipId);
   showToast(`🧬『${m.nickname}』のスロット${slotIdx + 1}に【${c.name}】を組み込みました！`);
 }
@@ -5752,11 +6012,17 @@ function unequipGeneChip(slotIdx) {
   const oldChipId = m.chips[slotIdx];
   if (!oldChipId) return;
 
+  // 取り外し時にステータス上昇チップの +15 を元に戻す
+  applyChipStatDelta(m, oldChipId, -1);
   state.ownedChips[oldChipId] = (state.ownedChips[oldChipId] || 0) + 1;
   m.chips[slotIdx] = null;
   saveData();
   renderGenomeLab();
+  renderPetriStatusCard();
   renderBoxAndParty();
+  if (document.getElementById('microbeEditModal')?.classList.contains('active')) {
+    renderMicrobeEditModal();
+  }
   showToast('🧬 遺伝子チップを取り外しました。');
 }
 
@@ -5784,13 +6050,16 @@ function pullChipGacha(count) {
     return;
   }
   state.atp -= cost;
+  state.medals += (count === 1 ? 5 : 50);
   const results = [];
   for (let i = 0; i < count; i++) {
     results.push(rollOneChip());
   }
   saveData();
   renderGenomeLab();
-  showChipPullResults(results, count === 1 ? '🧬 チップ単発抽出結果！' : '🎊 遺伝子チップ10連抽出結果！');
+  renderChipExchangeShop();
+  const medalBonus = count === 1 ? '（＋🧬5メダル）' : '（＋🧬50メダル獲得！）';
+  showChipPullResults(results, count === 1 ? `🧬 チップ単発抽出結果！${medalBonus}` : `🎊 遺伝子チップ10連抽出結果！${medalBonus}`);
 }
 
 function showChipPullResults(list, titleText) {
@@ -5810,7 +6079,7 @@ function showChipPullResults(list, titleText) {
 }
 
 /* ============================================================================
-   5. ガチャ（単発500 ＆ 10連4500：確率は単発・10連共通！）
+   5. ガチャ（単発500 ＆ 10連4500：確率は単発・10連共通！）＆ 2大メダル交換所
 ============================================================================ */
 function rollOneMicrobe(isPremium) {
   const roll = Math.random() * 100;
@@ -5856,12 +6125,8 @@ function pullPremiumTen() {
   showPullResults(results, '🎊 プレミアム10連培養結果！（＋🧬100メダル獲得！）');
 }
 
-function showPullResults(list, titleText) {
-  const box = document.getElementById('tenPullResultsBox');
-  const grid = document.getElementById('tenPullGrid');
-  box.style.display = 'block';
-  box.querySelector('strong').textContent = titleText;
-  grid.innerHTML = list.map(m => {
+function renderMicrobeResultCardsHtml(list) {
+  return list.map(m => {
     const isHigh = m.rarity === 'UR' || m.rarity === 'LR';
     const subjObj = getSubject(m.subjId);
     const sk = getSkill(m.skillId);
@@ -5880,12 +6145,33 @@ function showPullResults(list, titleText) {
       </div>
     `;
   }).join('');
+}
+
+function showPullResults(list, titleText) {
+  const box = document.getElementById('tenPullResultsBox');
+  const grid = document.getElementById('tenPullGrid');
+  if (box && grid) {
+    box.style.display = 'block';
+    box.querySelector('strong').textContent = titleText;
+    grid.innerHTML = renderMicrobeResultCardsHtml(list);
+  }
+  const exBox = document.getElementById('exchangePullResultsBox');
+  const exGrid = document.getElementById('exchangePullGrid');
+  if (exBox && exGrid && currentScreen === 'exchange') {
+    exBox.style.display = 'block';
+    exBox.querySelector('strong').textContent = titleText;
+    exGrid.innerHTML = renderMicrobeResultCardsHtml(list);
+  }
   showToast(`🎉 ${list.length}体の培養が完了しました！`);
 }
 
 function renderExchangeShop() {
-  document.getElementById('shopMedalText').textContent = state.medals;
+  const shopM = document.getElementById('shopMedalText');
+  if (shopM) shopM.textContent = state.medals;
+  const exAtp = document.getElementById('exchangeAtpText');
+  if (exAtp) exAtp.textContent = state.atp;
   const grid = document.getElementById('exchangeShopGrid');
+  if (!grid) return;
   grid.innerHTML = EXCHANGE_SHOP_ITEMS.map(item => `
     <div class="box-item">
       <div style="font-weight:900; font-size:0.9rem; color:#4c1d95;">${item.name}</div>
@@ -5910,11 +6196,63 @@ function exchangeMedalItem(itemId) {
   renderExchangeShop();
   renderPetriStatusCard();
   renderBoxAndParty();
-  showPullResults([newM], `🏪 メダル交換完了！`);
-  const resBox = document.getElementById('tenPullResultsBox');
-  if (resBox) {
-    resBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  showPullResults([newM], `🏪 メダル交換完了！（${newM.nickname}）`);
+  const exBox = document.getElementById('exchangePullResultsBox');
+  if (exBox) {
+    exBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
+}
+
+// 🧬 遺伝子チップ交換所の描画＆メダル交換処理
+function getChipMedalCost(rarity) {
+  if (rarity === 'UR') return 250;
+  if (rarity === 'SR') return 90;
+  if (rarity === 'R') return 35;
+  return 15;
+}
+
+function renderChipExchangeShop() {
+  const shopM = document.getElementById('shopMedalText');
+  if (shopM) shopM.textContent = state.medals;
+  const exAtp = document.getElementById('exchangeAtpText');
+  if (exAtp) exAtp.textContent = state.atp;
+  const grid = document.getElementById('chipExchangeShopGrid');
+  if (!grid) return;
+
+  grid.innerHTML = GENE_CHIPS_MASTER.map(chip => {
+    const cost = getChipMedalCost(chip.rarity);
+    const ownedCount = (state.ownedChips && state.ownedChips[chip.id]) || 0;
+    return `
+      <div class="box-item" style="border-color:${chip.color};">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="rarity-tag" style="background:${chip.color}; font-size:0.68rem;">${chip.rarity}</span>
+          <span style="font-size:0.74rem; font-weight:900; color:#475569;">所持: ${ownedCount}個</span>
+        </div>
+        <div style="font-weight:900; font-size:0.9rem; color:${chip.color};">${chip.icon} ${chip.name}</div>
+        <div style="font-size:0.74rem; color:var(--text-sub); flex:1; line-height:1.35;">${chip.desc}</div>
+        <button class="btn btn-purple" style="width:100%; margin-top:6px;" ${state.medals < cost ? 'disabled' : ''} onclick="exchangeGeneChipItem('${chip.id}')">
+          🧬 ${cost} メダルで交換
+        </button>
+      </div>
+    `;
+  }).join('');
+}
+
+function exchangeGeneChipItem(chipId) {
+  const chip = getChip(chipId);
+  if (!chip) return;
+  const cost = getChipMedalCost(chip.rarity);
+  if (state.medals < cost) {
+    showToast(`⚠️ DNAメダルが足りません！（🧬${cost} メダル必要）`);
+    return;
+  }
+  state.medals -= cost;
+  if (!state.ownedChips) state.ownedChips = {};
+  state.ownedChips[chip.id] = (state.ownedChips[chip.id] || 0) + 1;
+  saveData();
+  renderChipExchangeShop();
+  renderGenomeLab();
+  showToast(`🧬【${chip.name}】をメダル交換しました！（ゲノム編集で装着できます！）`);
 }
 
 /* ============================================================================
@@ -9253,6 +9591,12 @@ function fetchAndRenderGlobalRanking() {
       // 初期ネーム「研究員001」で、かつ一度もクイズや対戦を遊んでいない完全初期放置データのみ除外（遊んでいる友達は表示！）
       const hasPlayed = (p.wins || 0) > 0 || (p.correct || 0) > 0 || (p.rp || 0) > 600;
       if (cleanName === '研究員001' && !hasPlayed) {
+        return;
+      }
+
+      // 使わなくなった過去の初期放置「らむね（600 RP・0勝）」アカウントをクラウドから自動消去＆非表示
+      if (docCode !== myCode && cleanName === 'らむね' && (p.wins || 0) === 0 && (p.rp === undefined || p.rp <= 600)) {
+        db.collection('players').doc(doc.id).delete().catch(() => {});
         return;
       }
 
