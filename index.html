@@ -626,7 +626,7 @@
         <div class="menu-app-card" onclick="switchScreen('settings')">
           <div class="menu-app-icon" style="background:#fee2e2;">⚙️</div>
           <div style="font-weight:900; font-size:0.95rem; color:#b91c1c;">設定・データ管理</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">オート捕食切替・データリセット</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">オート捕食・データリセット・アカウント削除</div>
         </div>
         <div class="menu-app-card" style="border-color:#38bdf8; background:linear-gradient(180deg,#ffffff,#f0f9ff);" onclick="switchScreen('help')">
           <div class="menu-app-icon" style="background:#e0f2fe;">❓</div>
@@ -769,12 +769,23 @@
           </div>
         </div>
 
-        <div style="display:flex; justify-content:space-between; align-items:center; background:#fff1f2; padding:14px; border-radius:12px; border:2px solid #fecdd3;">
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#fff1f2; padding:14px; border-radius:12px; border:2px solid #fecdd3; flex-wrap:wrap; gap:10px;">
           <div>
-            <div style="font-weight:900; font-size:0.95rem; color:#be123c;">🔄 セーブデータの初期化（リセット）</div>
+            <div style="font-weight:900; font-size:0.95rem; color:#be123c;">🔄 セーブデータの初期化（最初からやり直す）</div>
             <div style="font-size:0.76rem; color:#9f1239;">データを初期化して最初の歓迎セレモニーからやり直します（使用中の名前も解放されます）</div>
           </div>
           <button class="btn btn-outline" style="border-color:#e11d48; color:#e11d48; font-weight:900;" onclick="resetSaveData()">🔄 データリセット</button>
+        </div>
+
+        <!-- 🗑️ アカウント削除（クラウド・ランキング・全データ完全抹消） -->
+        <div style="display:flex; justify-content:space-between; align-items:center; background:linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); padding:14px; border-radius:12px; border:2.5px solid #ef4444; flex-wrap:wrap; gap:10px;">
+          <div>
+            <div style="font-weight:900; font-size:0.95rem; color:#991b1b;">🗑️ アカウントの完全削除（ランキング・クラウド登録抹消）</div>
+            <div style="font-size:0.76rem; color:#7f1d1d; line-height:1.45;">
+              現在のアカウント（研究員ネーム・フレンドコード・全国ランキング上の記録・フレンド連携・端末内セーブデータ）を<strong>クラウド上からすべて完全に削除・抹消</strong>します。
+            </div>
+          </div>
+          <button class="btn btn-accent" style="background:#dc2626; border-color:#991b1b; color:white; font-weight:900; white-space:nowrap;" onclick="openDeleteAccountModal()">🗑️ アカウント削除</button>
         </div>
       </div>
     </div>
@@ -1545,9 +1556,10 @@
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
         <div class="card-title" style="margin-bottom:0;">🏅 全国リアルタイム研究員ランキング</div>
-        <div style="display:flex; gap:6px;">
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
           <button id="rankTabGlobal" class="btn btn-primary" onclick="renderRankingBoard('global')">🌍 全国プレイヤーランキング</button>
           <button id="rankTabFriend" class="btn btn-outline" onclick="renderRankingBoard('friend')">🤝 フレンド内ランキング</button>
+          <button class="btn btn-outline" style="padding:6px 10px; font-size:0.78rem;" onclick="renderRankingBoard()">🔄 最新更新</button>
         </div>
       </div>
 
@@ -1921,6 +1933,32 @@
       <div style="display:flex; gap:8px;">
         <button class="btn btn-outline" style="flex:1; padding:10px;" onclick="document.getElementById('resetConfirmModal').classList.remove('active')">キャンセル</button>
         <button class="btn btn-accent" style="flex:1; padding:10px; background:#dc2626; border-color:#b91c1c;" onclick="executeHardReset()">完全に初期化する</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🗑️ アカウント完全削除の確認モーダル -->
+<div id="deleteAccountConfirmModal" class="modal-overlay" onclick="if(event.target===this) this.classList.remove('active')">
+  <div class="modal-card" style="max-width:460px; border:3px solid #991b1b;">
+    <div class="modal-header" style="background:linear-gradient(135deg, #991b1b, #dc2626);">
+      <span>🗑️ アカウント完全削除の確認</span>
+      <button class="btn btn-outline" style="padding:2px 8px; font-size:0.75rem; color:white; border-color:white;" onclick="document.getElementById('deleteAccountConfirmModal').classList.remove('active')">✕</button>
+    </div>
+    <div class="modal-body" style="text-align:center; padding:18px;">
+      <div style="font-size:2.5rem; margin-bottom:6px;">🚨🗑️</div>
+      <div style="font-weight:900; font-size:1.08rem; color:#991b1b; margin-bottom:8px;">本当にこのアカウントを完全に削除しますか？</div>
+      <div id="deleteAccountTargetInfo" style="background:#fef2f2; border:2px solid #fca5a5; border-radius:10px; padding:10px; margin-bottom:12px; font-size:0.85rem; font-weight:900; color:#7f1d1d;">
+        削除対象：---
+      </div>
+      <div style="font-size:0.78rem; color:#475569; line-height:1.55; margin-bottom:16px; text-align:left; background:#f8fafc; padding:10px 12px; border-radius:8px; border:1px solid #cbd5e1;">
+        ・<strong>全国ランキング（クラウド上）からあなたのアカウントが完全に抹消</strong>されます。<br>
+        ・登録フレンドのリストや申請データからもあなたの情報が消去されます。<br>
+        ・この端末内の育成キャラ・ATP・メダル・図鑑データもすべて消去されます。
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-outline" style="flex:1; padding:11px; font-weight:900;" onclick="document.getElementById('deleteAccountConfirmModal').classList.remove('active')">キャンセル</button>
+        <button id="confirmDeleteAccountBtn" class="btn btn-accent" style="flex:1; padding:11px; background:#991b1b; border-color:#7f1d1d; color:white; font-weight:900;" onclick="executeDeleteAccount()">🗑️ アカウントを完全削除する</button>
       </div>
     </div>
   </div>
@@ -3289,7 +3327,9 @@ const NEWS_MASTER = [
       '【📩 「招待された部屋に入る」専用ボックスを新設】クイズ対戦の「🏟️ フレンド対戦ルーム」内に、友達から届いた部屋招待が常時表示される専用枠を新設！友達が部屋から招待を送ると、ワンタップで「🚀 この部屋に入る！」ボタンから即入室可能に！',
       '【🔑 4桁ルーム番号入室 ＆ 🌍 全国だれでも対戦の統合通信化】Firestoreの通信制限を受けない『players統合通信ハブ』へ全面移行！別端末（PCとスマホ等）でも4桁ルーム入室と全国リアルタイムマッチングが100%確実に繋がるよう根本改修！',
       '【📬 フレンド申請・承認の確実到達】申請データが相手のプレイヤードキュメントへ直接届く直通方式を採用し、申請が届かない・更新しても出ない不具合を完全解消！',
-      '【🏆 勝敗完全同期 ＆ 制限時間切れ時の自動次問進行】相手3体を倒した瞬間に勝者「🏆 大勝利！！」・敗者「💦 敗北...」が同時確定！さらに両者時間切れ時も自動で次の問題へ進むよう改善！'
+      '【🏆 勝敗完全同期 ＆ 制限時間切れ時の自動次問進行】相手3体を倒した瞬間に勝者「🏆 大勝利！！」・敗者「💦 敗北...」が同時確定！さらに両者時間切れ時も自動で次の問題へ進むよう改善！',
+      '【🏅 全国＆フレンドランキングの完全表示・自動修復】友達のデータが誤消去されたり重複名で非表示になっていた不具合を修正し、登録フレンドも確実に全国・フレンドランキングへリアルタイム表示されるよう改善！',
+      '【🗑️ 設定画面に「アカウントの完全削除」機能を新設】「⚙️ 設定・データ管理」から、クラウド（全国ランキング・フレンド連携）および端末内の全データを一括で完全削除・登録抹消できる「🗑️ アカウント削除」ボタンを追加！'
     ]
   },
   {
@@ -3923,12 +3963,13 @@ function openWelcomeCeremonyModal() {
 }
 
 // 🔒 同じ名前の研究員がすでに存在しないかクラウドでチェックする関数
-// ★ 自分が使っていた名前（リセット前も含む）なら自由に上書き利用OK！
+// ★ 他人のアカウントデータは絶対に削除せず、自分がリセットした直前の旧コードのみ整理する安全設計！
 async function checkNameTakenInCloud(candidateName) {
   const cleanTarget = (candidateName || '').trim().toLowerCase();
   if (!cleanTarget) return false;
   if (!db) return false;
   try {
+    const lastResetCode = localStorage.getItem('biologica_last_reset_code');
     const snap = await db.collection('players').get();
     for (const doc of snap.docs) {
       if (doc.id === state.friendCode) continue; // 現在の自分自身はOK
@@ -3937,11 +3978,12 @@ async function checkNameTakenInCloud(candidateName) {
       if (data.isSystemDoc) continue;
       const existingName = (data.name || '').trim().toLowerCase();
       
-      // 同じ名前を見つけた場合
+      // 同じ名前を見つけた場合：自分が直前にリセットした旧コードの場合のみ古いドキュメントを消去し、他人のデータは絶対に消さない！
       if (existingName && existingName !== '研究員001' && existingName === cleanTarget) {
-        // ★ 自分が前使っていた名前や、リセット後の再利用であれば、古い方を消去してOKにする！
-        await db.collection('players').doc(doc.id).delete().catch(() => {});
-        return false; // 解放してそのまま使えるようにする！
+        if (lastResetCode && doc.id === lastResetCode) {
+          await db.collection('players').doc(doc.id).delete().catch(() => {});
+        }
+        return false;
       }
     }
   } catch (e) {
@@ -4097,26 +4139,28 @@ function finishWelcomeCeremony() {
   showToast(`🎉 ようこそ ${state.playerName} 研究員！Lv.30の相棒と一緒に冒険を始めよう！`);
 }
 
-async function resetSaveData() {
-  const isDirect = confirm('セーブデータを初期化して最初からやり直しますか？\n（※現在使用中の研究員ネームも解放され、リセット後に同じ名前で再登録できるようになります）');
-  if (!isDirect) {
-    // もしブラウザでconfirmがブロックされているかキャンセルの場合、専用確認を表示
-    const modal = document.getElementById('resetConfirmModal');
-    if (modal) {
-      modal.classList.add('active');
-      return;
-    }
+function resetSaveData() {
+  const modal = document.getElementById('resetConfirmModal');
+  if (modal) {
+    modal.classList.add('active');
+    return;
   }
-  executeHardReset();
+  if (confirm('セーブデータを初期化して最初からやり直しますか？\n（※現在使用中の研究員ネームも解放され、リセット後に同じ名前で再登録できるようになります）')) {
+    executeHardReset();
+  }
 }
 
 async function executeHardReset() {
   isDataResetting = true; // ★ 即座に定期タイマーや全保存を完全にシャットアウト！
+  if (typeof friendReqUnsubscribe === 'function') { try { friendReqUnsubscribe(); } catch (e) {} friendReqUnsubscribe = null; }
+  if (typeof roomUnsubscribe === 'function') { try { roomUnsubscribe(); } catch (e) {} roomUnsubscribe = null; }
+
   try {
     if (state && state.friendCode) {
-      localStorage.setItem('biologica_last_reset_code', state.friendCode);
+      const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
+      localStorage.setItem('biologica_last_reset_code', myCode);
       if (db) {
-        db.collection('players').doc(state.friendCode).delete().catch(() => {});
+        await db.collection('players').doc(myCode).delete().catch(() => {});
       }
     }
   } catch (e) {}
@@ -4133,6 +4177,89 @@ async function executeHardReset() {
 
   showToast('🔄 セーブデータを完全初期化しました。');
   // URLの末尾パラメータを除去して即座にクリーン再読み込み！
+  window.location.replace(window.location.href.split('?')[0].split('#')[0]);
+}
+
+// 🗑️ アカウント完全削除モーダルを開く
+function openDeleteAccountModal() {
+  const modal = document.getElementById('deleteAccountConfirmModal');
+  const infoEl = document.getElementById('deleteAccountTargetInfo');
+  const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : (state.friendCode || '---');
+  if (infoEl) {
+    infoEl.innerHTML = `削除対象アカウント：<strong>${state.playerName || '研究員'}</strong> <span style="color:#b91c1c;">(${myCode})</span>`;
+  }
+  if (modal) {
+    modal.classList.add('active');
+    return;
+  }
+  if (confirm(`⚠️ 本当に現在のアカウント『${state.playerName} (${myCode})』をクラウドおよび端末から完全に削除しますか？`)) {
+    executeDeleteAccount();
+  }
+}
+
+// 🗑️ アカウント完全削除の実行（クラウド上の players ドキュメント・ランキング・フレンド連携・ローカル全データを完全抹消）
+async function executeDeleteAccount() {
+  isDataResetting = true; // ★ 以降の自動保存やクラウド再送信を完全遮断！
+  const btn = document.getElementById('confirmDeleteAccountBtn');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = '🗑️ クラウドから完全削除中...';
+  }
+  showToast('🗑️ アカウントとクラウド上のランキングデータを完全削除中...');
+
+  if (typeof friendReqUnsubscribe === 'function') { try { friendReqUnsubscribe(); } catch (e) {} friendReqUnsubscribe = null; }
+  if (typeof roomUnsubscribe === 'function') { try { roomUnsubscribe(); } catch (e) {} roomUnsubscribe = null; }
+  if (typeof roomPollInterval !== 'undefined' && roomPollInterval) { clearInterval(roomPollInterval); roomPollInterval = null; }
+
+  try {
+    const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
+    const myFriends = Array.isArray(state.friendsList) ? [...state.friendsList] : [];
+
+    if (db && myCode) {
+      // 1. 自分の players/{myCode} ドキュメントをクラウドから完全に削除（完了するまでawaitで確実に待つ！）
+      await db.collection('players').doc(myCode).delete().catch(() => {});
+      if (state.friendCode && state.friendCode !== myCode) {
+        await db.collection('players').doc(state.friendCode).delete().catch(() => {});
+      }
+
+      // 2. フレンド側のクラウドデータ（approvedFriends / incomingReqs / incomingInvites）からも自分のコードをクリーンアップ
+      for (const f of myFriends) {
+        const fCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(f.code) : f.code;
+        if (!fCode || fCode === myCode) continue;
+        try {
+          const fDoc = await db.collection('players').doc(fCode).get();
+          if (fDoc.exists && fDoc.data()) {
+            const fd = fDoc.data();
+            const cleanApproved = Array.isArray(fd.approvedFriends) ? fd.approvedFriends.filter(x => x && normalizeFriendCode(x.code) !== myCode) : [];
+            const cleanReqs = Array.isArray(fd.incomingReqs) ? fd.incomingReqs.filter(x => x && normalizeFriendCode(x.fromCode) !== myCode) : [];
+            const cleanInvs = Array.isArray(fd.incomingInvites) ? fd.incomingInvites.filter(x => x && normalizeFriendCode(x.fromCode) !== myCode) : [];
+            await db.collection('players').doc(fCode).set({
+              approvedFriends: cleanApproved,
+              incomingReqs: cleanReqs,
+              incomingInvites: cleanInvs
+            }, { merge: true }).catch(() => {});
+          }
+        } catch (e) {}
+      }
+    }
+  } catch (e) {
+    console.warn('executeDeleteAccount cloud cleanup note:', e);
+  }
+
+  // 3. 端末内の全セーブデータを完全消去
+  localStorage.removeItem('biologica_save_v50');
+  localStorage.removeItem('biologica_save_v40');
+  localStorage.removeItem('biologica_save_v30');
+  localStorage.removeItem('biologica_save_v25');
+  localStorage.removeItem('biologica_prod_backup_v50');
+  localStorage.removeItem('biologica_last_reset_code');
+
+  state = getFreshInitialState();
+
+  const modal = document.getElementById('deleteAccountConfirmModal');
+  if (modal) modal.classList.remove('active');
+
+  alert('🗑️ アカウントの完全削除が完了しました。\n全国ランキングおよび端末内のすべてのデータが消去されました。初期画面へ戻ります。');
   window.location.replace(window.location.href.split('?')[0].split('#')[0]);
 }
 
@@ -8073,26 +8200,39 @@ function redeemSerialCode() {
 ============================================================================ */
 let incomingGiftsList = [];
 
-// 届いている未受取ギフトをFirebaseから取得（※複合インデックス不要の単一クエリで100%確実に取得！）
+// 届いている未受取ギフトをFirebaseから取得（※players/{myCode}.incomingGifts ＆ gifts の両対応で100%確実に取得！）
 async function checkIncomingGifts(showToastFeedback = false) {
   if (!db || !state.friendCode) return;
-  const myCode = String(state.friendCode).trim().toUpperCase();
+  const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : String(state.friendCode).trim().toUpperCase();
   if (showToastFeedback) showToast('🔄 最新のプレゼントを確認中...');
   try {
-    const snap = await db.collection('gifts')
-      .where('targetCode', '==', myCode)
-      .get();
-    
     incomingGiftsList = [];
     if (!state.claimedGifts) state.claimedGifts = [];
 
-    snap.forEach(doc => {
-      const data = doc.data();
-      // 未受取かつローカルでも未受取のものだけを抽出
-      if (!data.claimed && !state.claimedGifts.includes(doc.id)) {
-        incomingGiftsList.push({ id: doc.id, ...data });
+    // 1. メイン経路：players/{myCode}.incomingGifts から取得
+    try {
+      const myDoc = await db.collection('players').doc(myCode).get();
+      if (myDoc.exists && myDoc.data() && Array.isArray(myDoc.data().incomingGifts)) {
+        myDoc.data().incomingGifts.forEach(g => {
+          if (g && g.id && !g.claimed && !state.claimedGifts.includes(g.id)) {
+            incomingGiftsList.push(g);
+          }
+        });
       }
-    });
+    } catch (e) {}
+
+    // 2. 後方互換経路：gifts コレクションからも取得
+    try {
+      const snap = await db.collection('gifts').where('targetCode', '==', myCode).get();
+      snap.forEach(doc => {
+        const data = doc.data();
+        if (data && !data.claimed && !state.claimedGifts.includes(doc.id)) {
+          if (!incomingGiftsList.some(x => x.id === doc.id)) {
+            incomingGiftsList.push({ id: doc.id, ...data });
+          }
+        }
+      });
+    } catch (e) {}
 
     renderIncomingGifts();
     updatePresentBadge();
@@ -8174,12 +8314,18 @@ async function claimDirectGift(giftDocId) {
 
   // 3. クラウド上のドキュメントを受取済みに更新（失敗してもアイテムは手元に残る）
   if (db) {
+    const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
+    db.collection('players').doc(myCode).get().then(doc => {
+      if (doc.exists && doc.data() && Array.isArray(doc.data().incomingGifts)) {
+        const rem = doc.data().incomingGifts.filter(g => g && g.id !== giftDocId);
+        db.collection('players').doc(myCode).set({ incomingGifts: rem }, { merge: true }).catch(() => {});
+      }
+    }).catch(() => {});
+
     db.collection('gifts').doc(giftDocId).update({
       claimed: true,
       claimedAt: Date.now()
-    }).catch(err => {
-      console.warn('gifts update warning (ignored):', err);
-      // パーミッション制限等でupdateできない場合は削除を試みる
+    }).catch(() => {
       db.collection('gifts').doc(giftDocId).delete().catch(() => {});
     });
   }
@@ -8288,17 +8434,22 @@ async function submitAdminGift() {
   showToast('🎁 運営プレゼントを発行・配送中...');
   try {
     let targetName = '研究員';
+    let existingGifts = [];
     if (db) {
       try {
         const doc = await db.collection('players').doc(code).get();
-        if (doc.exists) {
+        if (doc.exists && doc.data()) {
           targetName = doc.data().name || '研究員';
+          if (Array.isArray(doc.data().incomingGifts)) {
+            existingGifts = doc.data().incomingGifts;
+          }
         }
       } catch (e) {
         console.warn('Player name fetch warning (ignored):', e);
       }
 
-      await db.collection('gifts').add({
+      const giftObj = {
+        id: 'gift_' + Date.now() + '_' + Math.floor(Math.random() * 10000),
         isOfficial: true,
         fromCode: state.friendCode,
         fromName: 'バイオ・ロジカ運営局',
@@ -8310,7 +8461,15 @@ async function submitAdminGift() {
         message,
         claimed: false,
         createdAt: Date.now()
-      });
+      };
+
+      // ★ 1. 100%確実に権限が通る players/{code}.incomingGifts へ直接格納！
+      await db.collection('players').doc(code).set({
+        incomingGifts: [...existingGifts, giftObj]
+      }, { merge: true });
+
+      // ★ 2. 後方互換用として gifts コレクションにも非同期送信
+      db.collection('gifts').doc(giftObj.id).set(giftObj).catch(() => {});
     }
 
     closeAdminGiftModal();
@@ -8357,15 +8516,20 @@ async function submitInquiry() {
   showToast('📨 不具合・ご意見を送信中...');
   try {
     if (db) {
-      await db.collection('inquiries').add({
-        fromCode: state.friendCode,
+      const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
+      const inqObj = {
+        fromCode: myCode,
         fromName: state.playerName,
         type,
         title,
         body,
         createdAt: Date.now(),
         userAgent: navigator.userAgent
-      });
+      };
+      await db.collection('players').doc(myCode).set({
+        lastInquiry: inqObj
+      }, { merge: true }).catch(() => {});
+      db.collection('inquiries').add(inqObj).catch(() => {});
     }
     closeInquiryModal();
     alert('📨 お問い合わせ・不具合報告を送信しました！\n\nご報告いただき誠にありがとうございます！開発・運営チームにて内容を確認し、今後のアップデート・修正に役立てます。');
@@ -8600,9 +8764,24 @@ function processMyPlayerDocData(myDocData) {
       renderReceivedBattleInvites(validInvites);
     }
   }
+
+  // 4. 届いている運営プレゼント (incomingGifts)
+  if (Array.isArray(myDocData.incomingGifts)) {
+    if (!state.claimedGifts) state.claimedGifts = [];
+    const validGifts = myDocData.incomingGifts.filter(g => g && g.id && !g.claimed && !state.claimedGifts.includes(g.id));
+    if (validGifts.length > 0) {
+      validGifts.forEach(vg => {
+        if (!incomingGiftsList.some(x => x.id === vg.id)) {
+          incomingGiftsList.push(vg);
+        }
+      });
+      if (typeof renderIncomingGifts === 'function') renderIncomingGifts();
+      if (typeof updatePresentBadge === 'function') updatePresentBadge();
+    }
+  }
 }
 
-// リアルタイムフレンド申請＆招待リスナー（100%権限が通る players/{myCode} を常時監視！）
+// リアルタイムフレンド申請＆招待リスナー（100%権限が通る players/{myCode} を常時監視＆欠損時自動修復！）
 let friendReqUnsubscribe = null;
 function listenToIncomingFriendRequests() {
   if (friendReqUnsubscribe) {
@@ -8614,8 +8793,19 @@ function listenToIncomingFriendRequests() {
   const myCode = normalizeFriendCode(state.friendCode);
 
   friendReqUnsubscribe = db.collection('players').doc(myCode).onSnapshot(docSnap => {
-    if (!docSnap.exists) return;
-    processMyPlayerDocData(docSnap.data());
+    if (!docSnap.exists) {
+      // クラウド上から自分のドキュメントが消えていた場合は即座に自動再登録！
+      if (!isDataResetting && !state.isTestAccount) {
+        syncMyProfileToCloud();
+      }
+      return;
+    }
+    const d = docSnap.data() || {};
+    // フレンド申請・招待だけ先に届いてプロフィール情報(name/rp)が未セットだった場合も自動で補完！
+    if ((!d.name || d.rp === undefined) && !isDataResetting && !state.isTestAccount) {
+      syncMyProfileToCloud();
+    }
+    processMyPlayerDocData(d);
   }, err => {
     console.warn('listenToIncomingFriendRequests note:', err);
   });
@@ -9033,51 +9223,85 @@ function fetchAndRenderGlobalRanking() {
   const area = document.getElementById('rankingListArea');
   area.innerHTML = '<div style="text-align:center; padding:25px; font-weight:800; color:var(--text-sub);">📡 全国の実プレイヤーデータを読み込み中...</div>';
 
+  // まず自分の最新スコアをクラウドへ同期
+  syncMyProfileToCloud();
+
   const me = getMyPlayerRankData();
-  const isMeValidForGlobal = !state.isTestAccount && state.playerName && state.playerName !== '研究員001';
+  const myCode = normalizeFriendCode(state.friendCode);
+  const isMeValidForGlobal = !state.isTestAccount && state.playerName && (state.playerName !== '研究員001' || (state.stats && state.stats.wins > 0) || me.rp > 600);
 
   if (!db) {
     renderRankingListItems(isMeValidForGlobal ? [me] : []);
     return;
   }
 
-  db.collection('players').orderBy('rp', 'desc').limit(50).get().then(snapshot => {
+  db.collection('players').get().then(snapshot => {
     let players = [];
-    const seenNames = new Set();
+    const seenCodes = new Set();
 
     snapshot.forEach(doc => {
       if (doc.id.startsWith('ROOM_') || doc.id.startsWith('MATCH_')) return;
       const p = doc.data();
-      if (!p || p.isSystemDoc) return;
+      if (!p || p.isSystemDoc || p.isTestAccount) return;
+
+      const docCode = normalizeFriendCode(p.code || doc.id);
+      if (!docCode || seenCodes.has(docCode)) return;
+
       const cleanName = (p.name || '').trim();
+      if (!cleanName) return;
 
-      // ★ 初期ネーム「研究員001」やテスト用データはクラウドから削除し、ランキングには一切出さない！
-      if (!cleanName || cleanName === '研究員001' || p.isTestAccount) {
-        db.collection('players').doc(doc.id).delete().catch(() => {});
+      // 初期ネーム「研究員001」で、かつ一度もクイズや対戦を遊んでいない完全初期放置データのみ除外（遊んでいる友達は表示！）
+      const hasPlayed = (p.wins || 0) > 0 || (p.correct || 0) > 0 || (p.rp || 0) > 600;
+      if (cleanName === '研究員001' && !hasPlayed) {
         return;
       }
 
-      // ★ 同じ名前の人が重複して何個も出ないようにフィルタ（一番レートが高い1件だけ残す）
-      if (seenNames.has(cleanName)) {
-        if (p.code !== state.friendCode) {
-          db.collection('players').doc(doc.id).delete().catch(() => {});
-        }
-        return;
-      }
-      seenNames.add(cleanName);
+      seenCodes.add(docCode);
 
-      if (normalizeFriendCode(p.code) === normalizeFriendCode(state.friendCode)) {
+      if (docCode === myCode) {
         if (isMeValidForGlobal) players.push(me);
       } else {
         players.push({
+          code: docCode,
           name: cleanName,
           title: p.title || '🌱 新米研究助手',
           wins: p.wins || 0,
-          rp: p.rp || 0,
+          rp: p.rp !== undefined ? p.rp : 0,
           isMe: false
         });
       }
     });
+
+    // ★ もし登録済みフレンドのデータが（旧バージョンの不具合等で）クラウドから欠落していた場合、自動的にランキングへ補完＆クラウドへ復元！
+    if (Array.isArray(state.friendsList) && state.friendsList.length > 0) {
+      state.friendsList.forEach(f => {
+        if (!f || !f.code) return;
+        const fCode = normalizeFriendCode(f.code);
+        if (!fCode || fCode === myCode) return;
+        if (!seenCodes.has(fCode) && f.name) {
+          seenCodes.add(fCode);
+          players.push({
+            code: fCode,
+            name: f.name,
+            title: f.title || '🌱 新米研究助手',
+            wins: f.wins || 0,
+            rp: f.rp || 600,
+            isMe: false
+          });
+          // クラウド側にも安全に再登録して次回以降も残るようにする
+          db.collection('players').doc(fCode).set({
+            name: f.name,
+            code: fCode,
+            title: f.title || '🌱 新米研究助手',
+            wins: f.wins || 0,
+            losses: f.losses || 0,
+            rp: f.rp || 600,
+            leader: f.leader || null,
+            partyTeam: f.partyTeam || null
+          }, { merge: true }).catch(() => {});
+        }
+      });
+    }
 
     if (isMeValidForGlobal && !players.some(p => p.isMe)) {
       players.push(me);
@@ -9091,9 +9315,33 @@ function fetchAndRenderGlobalRanking() {
   });
 }
 
-// 🤝 フレンド内ランキング（自分＋登録したフレンドのみ！）
-function renderFriendRankingLocal() {
+// 🤝 フレンド内ランキング（自分＋登録したフレンドの最新クラウドRPをリアルタイム反映！）
+async function renderFriendRankingLocal() {
   const me = getMyPlayerRankData();
+  const area = document.getElementById('rankingListArea');
+
+  if (db && Array.isArray(state.friendsList) && state.friendsList.length > 0) {
+    if (area) {
+      area.innerHTML = '<div style="text-align:center; padding:25px; font-weight:800; color:var(--text-sub);">📡 フレンドの最新スコアを読み込み中...</div>';
+    }
+    try {
+      const codes = state.friendsList.map(f => normalizeFriendCode(f.code));
+      const docs = await Promise.all(codes.map(c => db.collection('players').doc(c).get()));
+      docs.forEach((d, idx) => {
+        if (d.exists && d.data()) {
+          const pd = d.data();
+          state.friendsList[idx] = {
+            ...state.friendsList[idx],
+            name: pd.name || state.friendsList[idx].name,
+            title: pd.title || state.friendsList[idx].title,
+            wins: pd.wins !== undefined ? pd.wins : (state.friendsList[idx].wins || 0),
+            rp: pd.rp !== undefined ? pd.rp : (state.friendsList[idx].rp || 0)
+          };
+        }
+      });
+    } catch (e) {}
+  }
+
   const friends = (state.friendsList || []).map(f => ({
     name: f.name,
     title: f.title || '🌱 新米研究助手',
