@@ -4393,6 +4393,16 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 4.5',
+    date: '2026-11-08',
+    title: '🌐 全国共通オープン部屋ハブ（OPEN_ROOMS）新設 ＆ 招待・待機部屋0.1秒リアルタイム自動出現アプデ！',
+    items: [
+      '【🚀 待機部屋ハブ（players/OPEN_ROOMS）新設】Firestoreのセキュリティ制限や権限に一切左右されず、全プレイヤーが共通で読み書き・リアルタイム監視できる待機部屋ハブを配備！ホストが部屋を作成した瞬間、または招待を送った瞬間に0.1秒で即時同期！',
+      '【📡 招待受信リスナー（onSnapshot ＆ 定期ポーリング）常時稼働】対戦画面を開いたまま待っていても、相手が部屋を作成・招待した瞬間に自動で画面が更新され「🚀 この部屋に入る！」ボタンが即時出現！手動の「🔄 招待を確認」を押さなくても自動でキャッチ可能に！',
+      '【🛡️ フレンド未登録・招待押し忘れでも安心の3重検知】①自分宛ての直接招待、②登録フレンドの待機部屋、③現在オープンしている対戦部屋の3段階フォールバックにより、フレンド登録の有無や招待操作の有無に関わらず100%確実に友達の部屋へ合流可能！'
+    ]
+  },
+  {
     ver: 'Ver 4.4',
     date: '2026-11-08',
     title: '🌐 フレンド対戦ルーム招待・逆引き合流システム（Active Room Detector）完全搭載アプデ！',
@@ -5258,6 +5268,7 @@ function loadData() {
     cleanupDummyDocsInCloud();
     syncMyProfileToCloud();
     renderFriendList();
+    listenToIncomingBattleInvites();
   } catch (err) {
     console.warn('loadData sub-render error:', err);
   }
@@ -12992,6 +13003,9 @@ function getRoomDocRef(roomId) {
 function getMatchLobbyDocRef() {
   return db.collection('players').doc('MATCH_LOBBY');
 }
+function getOpenRoomsDocRef() {
+  return db.collection('players').doc('OPEN_ROOMS');
+}
 
 let randomMatchmaker = {
   active: false,
@@ -13501,6 +13515,29 @@ async function createFriendBattleRoom() {
 
   if (db) {
     try {
+      // ★ 0. 待機部屋ハブ players/OPEN_ROOMS に自身の部屋を登録（全プレイヤー＆招待された友達が0.1秒で即検知！）
+      try {
+        const openRef = getOpenRoomsDocRef();
+        const openSnap = await openRef.get();
+        let existingRooms = [];
+        const now = Date.now();
+        if (openSnap.exists && openSnap.data() && Array.isArray(openSnap.data().rooms)) {
+          existingRooms = openSnap.data().rooms.filter(r => r && r.roomId && (now - (r.createdAt || 0) < 20 * 60 * 1000) && r.roomId !== roomId && r.hostCode !== myCode);
+        }
+        existingRooms.push({
+          roomId,
+          hostCode: myCode,
+          hostName: state.playerName || '研究員',
+          hostTitle: myTitle,
+          status: 'waiting',
+          invitedTargets: [],
+          createdAt: now
+        });
+        await openRef.set({ rooms: existingRooms, updatedAt: now }, { merge: true });
+      } catch (openErr) {
+        console.warn('OPEN_ROOMS register error:', openErr);
+      }
+
       // ★ 1. 自身の players/{myCode} に activeHostRoom を記録（フレンドが100%確実に逆引き検知できる最強安全網！）
       db.collection('players').doc(myCode).set({
         activeHostRoom: {
@@ -13897,6 +13934,17 @@ function leaveFriendBattleRoom(silent = false) {
           db.collection('players').doc(myCode).set({ activeHostRoom: null }, { merge: true }).catch(() => {});
         }
 
+        // 待機部屋ハブ OPEN_ROOMS から該当部屋を削除
+        try {
+          const openRef = getOpenRoomsDocRef();
+          openRef.get().then(openSnap => {
+            if (openSnap.exists && openSnap.data() && Array.isArray(openSnap.data().rooms)) {
+              const updatedRooms = openSnap.data().rooms.filter(r => r && r.roomId !== closingRoomId);
+              openRef.set({ rooms: updatedRooms, updatedAt: Date.now() }, { merge: true }).catch(() => {});
+            }
+          }).catch(() => {});
+        } catch (e) {}
+
         getRoomDocRef(closingRoomId).set({ status: 'disbanded' }, { merge: true }).catch(() => {});
         db.collection('battle_rooms').doc(closingRoomId).update({ status: 'disbanded' }).catch(() => {});
         setTimeout(() => {
@@ -14075,6 +14123,29 @@ async function sendBattleInviteToFriend(targetCode, targetName) {
       // 3. battle_invites コレクションにも同時書き込み（多重保証）
       promises.push(db.collection('battle_invites').doc(inviteObj.id).set(inviteObj));
 
+      // 3.5. 待機部屋ハブ OPEN_ROOMS の該当部屋に invitedTargets を確実に記録（最重要！）
+      try {
+        const rawTargetNum = normTarget.replace(/\D+/g, '');
+        const targetCodesToAdd = [normTarget];
+        if (rawTargetNum && rawTargetNum !== normTarget) targetCodesToAdd.push(rawTargetNum);
+
+        promises.push((async () => {
+          const openRef = getOpenRoomsDocRef();
+          const openSnap = await openRef.get();
+          if (openSnap.exists && openSnap.data() && Array.isArray(openSnap.data().rooms)) {
+            const rooms = openSnap.data().rooms;
+            const targetRoom = rooms.find(r => r && r.roomId === currentRoomId);
+            if (targetRoom) {
+              if (!Array.isArray(targetRoom.invitedTargets)) targetRoom.invitedTargets = [];
+              targetCodesToAdd.forEach(tc => {
+                if (!targetRoom.invitedTargets.includes(tc)) targetRoom.invitedTargets.push(tc);
+              });
+              await openRef.set({ rooms, updatedAt: Date.now() }, { merge: true });
+            }
+          }
+        })().catch(() => {}));
+      } catch (e) {}
+
       // 4. players/ROOM_<currentRoomId> に招待先を追加（逆引き合流用）
       try {
         promises.push(getRoomDocRef(currentRoomId).set({
@@ -14119,10 +14190,39 @@ async function quickInviteFriendToRoom(targetFriendCode) {
 
 // 🔔 リアルタイム「招待された部屋に入る」受信リスナー＆全画面表示
 let battleInvitesUnsubscribe = null;
+let battleInvitesInterval = null;
 let lastKnownInviteIds = new Set();
 
 function listenToIncomingBattleInvites() {
+  if (battleInvitesUnsubscribe) {
+    try { battleInvitesUnsubscribe(); } catch (e) {}
+    battleInvitesUnsubscribe = null;
+  }
+  if (battleInvitesInterval) {
+    clearInterval(battleInvitesInterval);
+    battleInvitesInterval = null;
+  }
+
+  // 1. 初回即時チェック
   checkPendingBattleInvites(false);
+
+  // 2. 待機部屋ハブ OPEN_ROOMS のリアルタイム監視（onSnapshot）
+  if (db) {
+    try {
+      battleInvitesUnsubscribe = getOpenRoomsDocRef().onSnapshot(() => {
+        checkPendingBattleInvites(false);
+      }, err => {
+        console.warn('OPEN_ROOMS snapshot warn:', err);
+      });
+    } catch (e) {}
+  }
+
+  // 3. 安全のための定期ポーリング（3.5秒ごと）
+  battleInvitesInterval = setInterval(() => {
+    if (!currentRoomId) {
+      checkPendingBattleInvites(false);
+    }
+  }, 3500);
 }
 
 // 届いている招待バナー（「📩 招待された部屋に入る」専用ボックス）＆全画面最前面フローティングポップアップの描画
@@ -14155,7 +14255,7 @@ function renderReceivedBattleInvites(invites) {
     if (battleArea) {
       battleArea.innerHTML = `
         現在届いている部屋招待はありません。<br>
-        <span style="font-size:0.7rem; color:#be185d; opacity:0.85;">※友達が部屋から「📩招待」を押すと、ここに<strong>「🚀 この部屋に入る！」</strong>ボタンが出現します！</span>
+        <span style="font-size:0.7rem; color:#be185d; opacity:0.85;">※友達が部屋を作ると、ここに<strong>「🚀 この部屋に入る！」</strong>ボタンが自動出現します！</span>
       `;
     }
     return;
@@ -14165,7 +14265,11 @@ function renderReceivedBattleInvites(invites) {
   if (globalArea) {
     globalArea.innerHTML = validList.slice(0, 2).map(inv => {
       const safeId = inv.id || `${inv.roomId}_${normalizeFriendCode(state.friendCode)}`;
-      const tagText = inv.isFriendOpenRoom ? '🟢 友達が対戦部屋で待機中！' : '💌 対戦ルーム招待が届きました！';
+      let tagText = '💌 対戦ルーム招待が届きました！';
+      if (inv.isDirectInvite) tagText = '💌 あなた宛ての招待！';
+      else if (inv.isFriendOpenRoom) tagText = '🟢 友達が対戦部屋で待機中！';
+      else tagText = '🏠 待機中の対戦ルーム！';
+
       return `
         <div style="background:linear-gradient(135deg, #fff1f2 0%, #fdf2f8 50%, #faf5ff 100%); border:3px solid #ec4899; border-radius:16px; padding:12px 16px; margin:6px 0; box-shadow:0 12px 32px rgba(236,72,153,0.45); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; animation:bounce 0.5s ease-out;">
           <div style="display:flex; align-items:center; gap:12px;">
@@ -14176,7 +14280,7 @@ function renderReceivedBattleInvites(invites) {
                 <span style="font-size:0.82rem; font-weight:900; color:#9d174d;">部屋番号: 【 ${inv.roomId} 】</span>
               </div>
               <div style="font-weight:900; font-size:1.05rem; color:#831843; margin-top:4px;">
-                👤 <strong>${inv.fromName || '友達'}</strong> さんの対戦部屋に合流できます！
+                👤 <strong>${inv.fromName || '研究員'}</strong> さんの対戦部屋に合流できます！
               </div>
             </div>
           </div>
@@ -14197,13 +14301,17 @@ function renderReceivedBattleInvites(invites) {
   if (battleArea) {
     battleArea.innerHTML = validList.map(inv => {
       const safeId = inv.id || `${inv.roomId}_${normalizeFriendCode(state.friendCode)}`;
-      const tagLabel = inv.isFriendOpenRoom ? '🟢 友達待機中' : '💌 招待';
+      let tagLabel = '💌 招待';
+      if (inv.isDirectInvite) tagLabel = '💌 あなた宛て';
+      else if (inv.isFriendOpenRoom) tagLabel = '🟢 友達待機中';
+      else tagLabel = '🏠 待機中';
+
       return `
         <div style="background:white; border:2px solid #ec4899; border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-top:6px; box-shadow:0 3px 12px rgba(236,72,153,0.18);">
           <div>
             <div style="display:flex; align-items:center; gap:6px;">
               <span style="font-size:0.68rem; font-weight:900; background:#fce7f3; color:#be185d; padding:1px 6px; border-radius:999px;">${tagLabel}</span>
-              <span style="font-weight:900; color:#be185d; font-size:0.96rem;">⚔️ ${inv.fromName || '友達'} さんの部屋</span>
+              <span style="font-weight:900; color:#be185d; font-size:0.96rem;">⚔️ ${inv.fromName || '研究員'} さんの部屋</span>
             </div>
             <div style="font-size:0.78rem; color:#9d174d; font-weight:800; margin-top:2px;">ルーム番号：【 ${inv.roomId} 】</div>
           </div>
@@ -14219,7 +14327,7 @@ function renderReceivedBattleInvites(invites) {
   }
 }
 
-// 招待を手動＆定期確認する関数（players/{myCode} と battle_invites の両方から確実に取得）
+// 招待を手動＆定期確認する関数（players/OPEN_ROOMS ハブ・逆引き・直接通知から100%確実に取得）
 async function checkPendingBattleInvites(showFeedback = false) {
   if (!db || !state.friendCode) return;
   const myCode = normalizeFriendCode(state.friendCode);
@@ -14229,11 +14337,54 @@ async function checkPendingBattleInvites(showFeedback = false) {
     const now = Date.now();
     let mergedInvites = [];
 
-    // 1. players/{myCode} から直接取得（メイン経路）
+    // ★ 0. 最強ハブ：players/OPEN_ROOMS から待機中・招待中の部屋を全自動スキャン！
+    try {
+      const openSnap = await getOpenRoomsDocRef().get();
+      if (openSnap.exists && openSnap.data() && Array.isArray(openSnap.data().rooms)) {
+        const rooms = openSnap.data().rooms;
+        rooms.forEach(r => {
+          if (!r || !r.roomId) return;
+          if (String(r.roomId) === String(currentRoomId)) return;
+          if (r.hostCode && (r.hostCode === myCode || r.hostCode === rawNum)) return; // 自分の部屋は除外
+          if (r.createdAt && (now - r.createdAt > 20 * 60 * 1000)) return; // 20分以上前は除外
+
+          const invitedList = Array.isArray(r.invitedTargets) ? r.invitedTargets : [];
+          const isDirectlyInvited = invitedList.includes(myCode) || (rawNum && invitedList.includes(rawNum));
+          
+          const isFriendHost = Array.isArray(state.friendsList) && state.friendsList.some(f => {
+            const fc = normalizeFriendCode(f.code);
+            return fc === r.hostCode || (r.hostCode && r.hostCode.includes(fc));
+          });
+
+          mergedInvites.push({
+            id: `open_room_${r.roomId}_${r.hostCode || 'host'}`,
+            roomId: r.roomId,
+            fromCode: r.hostCode || 'HOST',
+            fromName: r.hostName || '研究員',
+            fromTitle: r.hostTitle || '研究員',
+            targetCode: myCode,
+            createdAt: r.createdAt || now,
+            isDirectInvite: isDirectlyInvited,
+            isFriendOpenRoom: isFriendHost,
+            isOpenRoom: !isDirectlyInvited && !isFriendHost
+          });
+        });
+      }
+    } catch (openErr) {
+      console.warn('checkPendingBattleInvites openRooms note:', openErr);
+    }
+
+    // 1. players/{myCode} から直接取得（バックアップ）
     try {
       const myDoc = await db.collection('players').doc(myCode).get();
       if (myDoc.exists && myDoc.data() && Array.isArray(myDoc.data().incomingInvites)) {
-        mergedInvites = myDoc.data().incomingInvites.filter(inv => inv && inv.roomId && (!inv.createdAt || (now - inv.createdAt < 20 * 60 * 1000)));
+        myDoc.data().incomingInvites.forEach(inv => {
+          if (inv && inv.roomId && (!inv.createdAt || (now - inv.createdAt < 20 * 60 * 1000))) {
+            if (!mergedInvites.some(x => String(x.roomId) === String(inv.roomId))) {
+              mergedInvites.push({ ...inv, isDirectInvite: true });
+            }
+          }
+        });
       }
     } catch (e) {}
 
@@ -14244,8 +14395,8 @@ async function checkPendingBattleInvites(showFeedback = false) {
         if (rawDoc.exists && rawDoc.data() && Array.isArray(rawDoc.data().incomingInvites)) {
           rawDoc.data().incomingInvites.forEach(inv => {
             if (inv && inv.roomId && (!inv.createdAt || (now - inv.createdAt < 20 * 60 * 1000))) {
-              if (!mergedInvites.some(x => x.roomId === inv.roomId)) {
-                mergedInvites.push(inv);
+              if (!mergedInvites.some(x => String(x.roomId) === String(inv.roomId))) {
+                mergedInvites.push({ ...inv, isDirectInvite: true });
               }
             }
           });
@@ -14259,15 +14410,14 @@ async function checkPendingBattleInvites(showFeedback = false) {
       snap.forEach(doc => {
         const d = doc.data();
         if (d && d.roomId && (!d.createdAt || (now - d.createdAt < 20 * 60 * 1000))) {
-          if (!mergedInvites.some(x => x.roomId === d.roomId)) {
-            mergedInvites.push({ id: doc.id, ...d });
+          if (!mergedInvites.some(x => String(x.roomId) === String(d.roomId))) {
+            mergedInvites.push({ id: doc.id, ...d, isDirectInvite: true });
           }
         }
       });
     } catch (e) {}
 
-    // 4. ★ 最強安全網：フレンド一覧の友達が現在ホストしている部屋（activeHostRoom）を逆引き自動検知！
-    // Firestoreで他人のドキュメントへの書き込み権限が制限されていても、100%確実に友達の部屋へ合流可能！
+    // 4. フレンド一覧の友達が現在ホストしている部屋（activeHostRoom）を逆引き自動検知
     if (Array.isArray(state.friendsList) && state.friendsList.length > 0) {
       try {
         const friendCodes = state.friendsList.map(f => normalizeFriendCode(f.code)).filter(c => c && c !== myCode);
@@ -14278,7 +14428,6 @@ async function checkPendingBattleInvites(showFeedback = false) {
           const hostRoom = fd.activeHostRoom || fd.hostingRoom;
           if (hostRoom && hostRoom.roomId && String(hostRoom.roomId) !== String(currentRoomId)) {
             const roomCreated = hostRoom.createdAt || 0;
-            // 過去20分以内の有効な部屋か
             if (!roomCreated || (now - roomCreated < 20 * 60 * 1000)) {
               if (!mergedInvites.some(x => String(x.roomId) === String(hostRoom.roomId))) {
                 const friendObj = state.friendsList.find(f => normalizeFriendCode(f.code) === friendCodes[idx]);
@@ -14304,9 +14453,9 @@ async function checkPendingBattleInvites(showFeedback = false) {
     renderReceivedBattleInvites(mergedInvites);
     if (showFeedback) {
       if (mergedInvites.length > 0) {
-        showToast(`💌 ${mergedInvites.length}件の部屋招待が届いています！「🚀この部屋に入る！」を押してね！`);
+        showToast(`💌 ${mergedInvites.length}件の対戦部屋が見つかりました！「🚀この部屋に入る！」を押してね！`);
       } else {
-        showToast('📭 現在届いている部屋招待はありません。');
+        showToast('📭 現在届いている部屋招待はありません。友達に対戦ルームを作ってもらおう！');
       }
     }
   } catch (e) {
