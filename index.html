@@ -583,7 +583,7 @@
     <div class="logo-area">
       <div class="logo-icon">🧬</div>
       <div>
-        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 3.8</span></div>
+        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 4.1</span></div>
         <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
       </div>
     </div>
@@ -1872,14 +1872,22 @@
 
       <div class="card">
         <div class="card-title">📊 バトル戦績 ＆ 教科別データ</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
           <div style="background:#f8fafc; padding:8px; border-radius:8px; text-align:center;">
             <div style="font-size:0.75rem; color:var(--text-sub);">通算勝利</div>
-            <div id="statsWins" style="font-size:1.25rem; font-weight:900; color:#0284c7;">0 勝</div>
+            <div id="statsWins" style="font-size:1.15rem; font-weight:900; color:#0284c7;">0 勝</div>
           </div>
           <div style="background:#f8fafc; padding:8px; border-radius:8px; text-align:center;">
             <div style="font-size:0.75rem; color:var(--text-sub);">通算勝率</div>
-            <div id="statsWinRate" style="font-size:1.25rem; font-weight:900; color:#059669;">0 %</div>
+            <div id="statsWinRate" style="font-size:1.15rem; font-weight:900; color:#059669;">0 %</div>
+          </div>
+          <div style="background:#f8fafc; padding:8px; border-radius:8px; text-align:center;">
+            <div style="font-size:0.75rem; color:var(--text-sub);">現在連勝 / 最高連勝</div>
+            <div id="statsStreak" style="font-size:1.05rem; font-weight:900; color:#ea580c;">0 連勝 (最高 0)</div>
+          </div>
+          <div style="background:#f8fafc; padding:8px; border-radius:8px; text-align:center;">
+            <div style="font-size:0.75rem; color:var(--text-sub);">弱点ノート克服数</div>
+            <div id="statsOvercome" style="font-size:1.05rem; font-weight:900; color:#7c3aed;">0 問克服</div>
           </div>
         </div>
         <div style="font-size:0.82rem; font-weight:800; margin-bottom:4px;">📚 教科別 正解数グラフ</div>
@@ -2671,6 +2679,7 @@ const SUBJECTS = [
   { id: 'm1a', name: '数I・A', icon: '📐', cls: 'subj-m1a' },
   { id: 'm2b', name: '数II・B', icon: '📊', cls: 'subj-m2b' },
   { id: 'm3c', name: '数III・C', icon: '♾️', cls: 'subj-m3c' },
+  { id: 'eng', name: '高校英語', icon: '📖', cls: 'subj-eng' },
   { id: 'all', name: '全科目万能', icon: '🌈', cls: 'subj-all' }
 ];
 
@@ -2782,18 +2791,43 @@ const SKILLS = [
 ];
 
 const TITLES_MASTER = [
+  // --- 🔰 基本・研究員ランク称号 ---
   { id: 't_rookie', name: '🌱 新米研究助手', condText: '初期から解放', check: s => true },
   { id: 't_win3', name: '⚡ 気鋭のバイオロジスト', condText: 'バトルで通算3勝する', check: s => s.stats.wins >= 3 },
   { id: 't_win10', name: '🔬 一等主任研究員', condText: 'バトルで通算10勝する', check: s => s.stats.wins >= 10 },
   { id: 't_win25', name: '👑 生体解明グランドマスター', condText: 'バトルで通算25勝する', check: s => s.stats.wins >= 25 },
+  { id: 't_win_50', name: '⚔️ 百戦錬磨の闘士', condText: 'バトルで通算50勝する', check: s => (s.stats.wins || 0) >= 50 },
+  { id: 't_win_100', name: '👑 アリーナ絶対覇者', condText: 'バトルで通算100勝する', check: s => (s.stats.wins || 0) >= 100 },
+
+  // --- ⚡ バトル連勝・覇王系 ---
+  { id: 't_streak_5', name: '⚡ 破竹の電撃連勝', condText: 'バトルで5連勝を達成する', check: s => (s.stats.maxWinStreak || 0) >= 5 },
+  { id: 't_streak_10', name: '🔥 歴戦の無敗覇王', condText: 'バトルで10連勝を達成する', check: s => (s.stats.maxWinStreak || 0) >= 10 },
+  { id: 't_streak_50', name: '🌌 神話の絶対無敗', condText: 'バトルで50連勝を達成する（前人未到の金字塔）', check: s => (s.stats.maxWinStreak || 0) >= 50 },
+
+  // --- 🧬 理系科目マスター系 ---
   { id: 't_bio', name: '🧬 生命の探究者', condText: '生物の問題に10問以上正解する', check: s => (s.stats.subjCorrect.bio || 0) >= 10 },
   { id: 't_chem', name: '🧪 錬金術の継承者', condText: '化学の問題に10問以上正解する', check: s => (s.stats.subjCorrect.chem || 0) >= 10 },
   { id: 't_phys', name: '⚡ 物理法則の支配者', condText: '物理の問題に10問以上正解する', check: s => (s.stats.subjCorrect.phys || 0) >= 10 },
   { id: 't_math', name: '♾️ 微積分の魔術師', condText: '数学(IA/IIB/IIIC合計)に15問以上正解する', check: s => ((s.stats.subjCorrect.m1a||0)+(s.stats.subjCorrect.m2b||0)+(s.stats.subjCorrect.m3c||0)) >= 15 },
+
+  // --- 🔤 英語・語学マスター系 ---
+  { id: 't_eng_word', name: '🔤 英単語の求道者', condText: '英単語問題に通算50問以上正解する', check: s => (s.stats.engBreakdown?.word || 0) >= 50 },
+  { id: 't_eng_idiom', name: '🔗 イディオム・マスター', condText: '英熟語問題に通算50問以上正解する', check: s => (s.stats.engBreakdown?.idiom || 0) >= 50 },
+  { id: 't_eng_gram', name: '📚 文法構造の解読者', condText: '英文法問題に通算50問以上正解する', check: s => (s.stats.engBreakdown?.gram || 0) >= 50 },
+  { id: 't_eng_polyglot', name: '🌐 ポリグロット（多言語の支配者）', condText: '英語全ジャンルで通算150問以上正解する', check: s => (s.stats.engTotal || 0) >= 150 },
+  { id: 't_eng_god', name: '🔤 語彙の絶対神', condText: '英語全ジャンルで通算200問以上正解する（神域の語彙力）', check: s => (s.stats.engTotal || 0) >= 200 },
+
+  // --- 🎯 弱点克服・学習ストイック系 ---
+  { id: 't_revenge_10', name: '📝 不屈のリベンジャー', condText: '復習ノートから「解き直し」等で通算10問以上克服する', check: s => (s.stats.overcomeCount || 0) >= 10 },
+  { id: 't_revenge_50', name: '🎯 完全無欠の秀才', condText: '復習ノートから通算50問以上克服する（弱点を徹底粉砕）', check: s => (s.stats.overcomeCount || 0) >= 50 },
+  { id: 't_exam_master', name: '🏛️ 難関大突破の先駆者', condText: '東大・京大・早慶などの難関大入試問題に25問以上正解する', check: s => (s.stats.examCorrect || 0) >= 25 },
+
+  // --- 🧫 育成・コレクション・遺伝子系 ---
   { id: 't_lv30', name: '🐉 極限進化の到達者', condText: 'Lv.30（第5形態）の微生物を育てる', check: s => s.box.some(m => m.level >= 30) },
   { id: 't_mutant', name: '🌟 突然変異ハンター', condText: '突然変異種を仲間にする', check: s => s.box.some(m => m.isMutant) },
   { id: 't_god', name: '🌌 神個体(LR)の覚醒者', condText: 'LR（変異種×感覚100）を仲間にする', check: s => s.box.some(m => m.rarity === 'LR') },
-  { id: 't_collector', name: '📘 バイオ図鑑コンプリーター', condText: '手持ちボックスを15体以上にする', check: s => s.box.length >= 15 }
+  { id: 't_collector', name: '📘 バイオ図鑑コンプリーター', condText: '手持ちボックスを15体以上にする', check: s => s.box.length >= 15 },
+  { id: 't_dual_genome', name: '🧬 デュアルゲノムの開拓者', condText: 'いずれかのキャラに遺伝子チップを2枠とも装備させる', check: s => s.box.some(m => Array.isArray(m.chips) && m.chips.filter(Boolean).length >= 2) }
 ];
 
 const EXCHANGE_SHOP_ITEMS = [
@@ -4090,6 +4124,18 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 4.1',
+    date: '2026-11-08',
+    title: '🏆 超やりこみ新称号14種一挙解禁 ＆ 連勝・弱点克服・入試マスター統計システム完全実装アプデ！',
+    items: [
+      '【🔤 英語・語学マスター称号（全5種）新設】英単語50問マスター『🔤 英単語の求道者』、熟語50問『🔗 イディオム・マスター』、文法50問『📚 文法構造の解読者』、英語全ジャンル150問『🌐 ポリグロット（多言語の支配者）』、英語200問『🔤 語彙の絶対神』の超本格英語やりこみ称号を新設！',
+      '【🎯 弱点克服・ストイック称号（全3種）新設】復習ノートからの「解き直し」克服で10問克服『📝 不屈のリベンジャー』、50問克服『🎯 完全無欠の秀才』、さらに東大・京大・早慶などの難関大入試問題に25問正解『🏛️ 難関大突破の先駆者』を配備！',
+      '【⚡ バトル連勝・覇王称号（全5種）新設】バトルで5連勝達成『⚡ 破竹の電撃連勝』、10連勝『🔥 歴戦の無敗覇王』、前人未到の50連勝『🌌 神話の絶対無敗』、さらに通算50勝『⚔️ 百戦錬磨の闘士』、通算100勝『👑 アリーナ絶対覇者』を解放！',
+      '【🧬 遺伝子カスタム称号新設】いずれかのキャラに遺伝子チップを2枠とも装備『🧬 デュアルゲノムの開拓者』を新設！称号コレクションは全26種の大ボリュームへ！',
+      '【📊 プロフィール画面に連勝・克服数統計ボックス新設】プロフィール画面の戦績欄に「現在連勝 / 最高連勝」および「弱点ノート克服数」をリアルタイム表示！さらに教科別正解数グラフにも「📖 高校英語」が連動表示されるよう全面拡張！'
+    ]
+  },
+  {
     ver: 'Ver 4.0',
     date: '2026-11-08',
     title: '📖 公式要点ハンドブック全108項目超拡充 ＆ 📝 復習ノート詳細構造化解説大型アプデ！',
@@ -4555,7 +4601,13 @@ function getFreshInitialState() {
     stats: {
       wins: 0,
       losses: 0,
-      subjCorrect: { bio: 0, chem: 0, phys: 0, m1a: 0, m2b: 0, m3c: 0 }
+      winStreak: 0,
+      maxWinStreak: 0,
+      overcomeCount: 0,
+      examCorrect: 0,
+      engTotal: 0,
+      engBreakdown: { word: 0, idiom: 0, gram: 0 },
+      subjCorrect: { bio: 0, chem: 0, phys: 0, m1a: 0, m2b: 0, m3c: 0, eng: 0 }
     },
     starterCeremonyDone: false
   };
@@ -4846,8 +4898,15 @@ function loadData() {
   if (!state.ownedItems) state.ownedItems = {};
   if (!state.recentQIds) state.recentQIds = [];
   if (!state.lastReadNewsVer) state.lastReadNewsVer = '';
-  if (!state.stats) state.stats = { wins: 0, losses: 0, subjCorrect: { bio: 0, chem: 0, phys: 0, m1a: 0, m2b: 0, m3c: 0 } };
-  if (!state.stats.subjCorrect) state.stats.subjCorrect = { bio: 0, chem: 0, phys: 0, m1a: 0, m2b: 0, m3c: 0 };
+  if (!state.stats) state.stats = { wins: 0, losses: 0, winStreak: 0, maxWinStreak: 0, overcomeCount: 0, examCorrect: 0, engTotal: 0, engBreakdown: { word: 0, idiom: 0, gram: 0 }, subjCorrect: { bio: 0, chem: 0, phys: 0, m1a: 0, m2b: 0, m3c: 0, eng: 0 } };
+  if (!state.stats.subjCorrect) state.stats.subjCorrect = { bio: 0, chem: 0, phys: 0, m1a: 0, m2b: 0, m3c: 0, eng: 0 };
+  if (state.stats.subjCorrect.eng === undefined) state.stats.subjCorrect.eng = 0;
+  if (state.stats.winStreak === undefined) state.stats.winStreak = 0;
+  if (state.stats.maxWinStreak === undefined) state.stats.maxWinStreak = 0;
+  if (state.stats.overcomeCount === undefined) state.stats.overcomeCount = 0;
+  if (state.stats.examCorrect === undefined) state.stats.examCorrect = 0;
+  if (state.stats.engTotal === undefined) state.stats.engTotal = 0;
+  if (!state.stats.engBreakdown) state.stats.engBreakdown = { word: 0, idiom: 0, gram: 0 };
   if (!state.mistakes) state.mistakes = [];
   if (!state.box || state.box.length < 3) {
     const m1 = generateMicrobeInstance({ speciesObj: SPECIES_MASTER[0], isMutant: false, fixedSense: 0, highIv: false });
@@ -8429,15 +8488,55 @@ function getSpeedMultiplier() {
 }
 
 // バトル中の解答記録（※フリーズ防止のため毎問の重いsaveDataは呼ばず、メモリ上で更新。バトル終了時に一括保存！）
-function recordCorrect(subj) {
+function recordCorrect(subj, q) {
   try {
-    if (!state.stats) state.stats = { wins: 0, losses: 0, subjCorrect: {} };
+    if (!state.stats) state.stats = { wins: 0, losses: 0, winStreak: 0, maxWinStreak: 0, overcomeCount: 0, examCorrect: 0, engTotal: 0, engBreakdown: { word: 0, idiom: 0, gram: 0 }, subjCorrect: {} };
     if (!state.stats.subjCorrect) state.stats.subjCorrect = {};
+    if (!state.stats.engBreakdown) state.stats.engBreakdown = { word: 0, idiom: 0, gram: 0 };
+
     if (subj) {
       state.stats.subjCorrect[subj] = (state.stats.subjCorrect[subj] || 0) + 1;
     }
+
+    // 英語系ジャンルの包括判定（単語・熟語・文法・中学英語など）
+    const isEng = (subj === 'eng' || subj === 'eng_word' || subj === 'eng_idiom' || subj === 'eng_gram' || subj === 'j_eng' || (q && q.subj && String(q.subj).startsWith('eng')));
+    if (isEng) {
+      state.stats.subjCorrect.eng = (state.stats.subjCorrect.eng || 0) + 1;
+      state.stats.engTotal = (state.stats.engTotal || 0) + 1;
+
+      // 内訳判定
+      const qSubj = (q && q.subj) || subj || '';
+      const qId = (q && q.id) || '';
+      const qGramUnit = (q && q.gramUnit) || '';
+      if (qSubj === 'eng_idiom' || qGramUnit === 'idiom' || qId.startsWith('dyn_eng_idiom_')) {
+        state.stats.engBreakdown.idiom = (state.stats.engBreakdown.idiom || 0) + 1;
+      } else if (qSubj === 'eng_gram' || qGramUnit || qId.startsWith('v38_eg_')) {
+        state.stats.engBreakdown.gram = (state.stats.engBreakdown.gram || 0) + 1;
+      } else {
+        state.stats.engBreakdown.word = (state.stats.engBreakdown.word || 0) + 1;
+      }
+    }
+
+    // 難関大入試問題（東大・京大・早慶・共通テスト等）の判定
+    if (q) {
+      const isExamLvl = (q.level === 'exam' || (battle && battle.grade === 'exam'));
+      const qText = q.q || '';
+      const isUnivMatch = /過去問|東大|京大|阪大|東工大|早稲田|慶應|一橋|東北大|名大|九大|神戸大|同志社|立命館|関学|関西大|共通テスト|センター試験/.test(qText);
+      if (isExamLvl || isUnivMatch) {
+        state.stats.examCorrect = (state.stats.examCorrect || 0) + 1;
+      }
+    }
   } catch (e) {
     console.warn('recordCorrect error:', e);
+  }
+}
+
+function recordOvercome() {
+  try {
+    if (!state.stats) state.stats = { wins: 0, losses: 0, winStreak: 0, maxWinStreak: 0, overcomeCount: 0, examCorrect: 0, engTotal: 0, engBreakdown: { word: 0, idiom: 0, gram: 0 }, subjCorrect: {} };
+    state.stats.overcomeCount = (state.stats.overcomeCount || 0) + 1;
+  } catch (e) {
+    console.warn('recordOvercome error:', e);
   }
 }
 
@@ -8478,7 +8577,7 @@ function submitChoice(text, btn) {
 
     if (text === q.ans) {
       if (btn) btn.classList.add('correct');
-      recordCorrect(q.subj);
+      recordCorrect(q.subj, q);
       executeAttack('p1', false, getSpeedMultiplier());
     } else {
       if (btn) btn.classList.add('wrong');
@@ -8589,7 +8688,7 @@ function submitAnagram() {
 
   try {
     if (ansStr === q.ans) {
-      recordCorrect(q.subj);
+      recordCorrect(q.subj, q);
       executeAttack('p1', false, getSpeedMultiplier());
     } else {
       const f1 = battle.p1Team[battle.p1Idx];
@@ -8627,7 +8726,7 @@ function submitTyping() {
     const isMatch = (userVal === correctAns) || (rawWord && userVal === rawWord);
 
     if (isMatch) {
-      recordCorrect(q.subj);
+      recordCorrect(q.subj, q);
       executeAttack('p1', true, getSpeedMultiplier());
     } else {
       const f1 = battle.p1Team[battle.p1Idx];
@@ -9400,13 +9499,17 @@ function endBattle(isWin, isRetire) {
   if (!isRetire) {
     if (isWin) {
       state.stats.wins++;
+      state.stats.winStreak = (state.stats.winStreak || 0) + 1;
+      state.stats.maxWinStreak = Math.max(state.stats.maxWinStreak || 0, state.stats.winStreak);
       state.atp += 1500;
       const curParty = state.presets[state.activePresetIdx].ids;
       curParty.forEach(id => gainExp(getMicrobeById(id), 140)); // ★ バトル勝利経験値を35➔140にUP！
       saveData();
-      alert(`🏆 大勝利！！\n報酬として ⚡1500 ATP ＆ パーティ全員に大量EXP(+140) を獲得しました！`);
+      const streakMsg = state.stats.winStreak >= 2 ? `\n🔥 現在 ${state.stats.winStreak} 連勝中！（最高: ${state.stats.maxWinStreak} 連勝）` : '';
+      alert(`🏆 大勝利！！\n報酬として ⚡1500 ATP ＆ パーティ全員に大量EXP(+140) を獲得しました！${streakMsg}`);
     } else {
       state.stats.losses++;
+      state.stats.winStreak = 0;
       state.atp += 500;
       saveData();
       alert(`💦 敗北...\n参加報酬として ⚡500 ATP を獲得しました！`);
@@ -9904,11 +10007,13 @@ function checkMistakeAnswer(origIdx, chosenText, btnEl) {
   if (!m) return;
   if (chosenText === m.ans) {
     btnEl.classList.add('correct');
+    recordOvercome();
     showToast(`🎉 大正解！ 弱点を克服しました！（復習ノートから自動消去）`);
     setTimeout(() => {
       state.mistakes.splice(origIdx, 1);
       saveData();
       renderMistakes();
+      updateStatsDisplay();
     }, 600);
   } else {
     btnEl.classList.add('wrong');
@@ -9928,11 +10033,13 @@ function checkMistakeInputAnswer(origIdx) {
   const isMatch = (norm(val) === norm(m.ans)) || (m.rawWord && norm(val) === norm(m.rawWord));
 
   if (isMatch) {
+    recordOvercome();
     showToast(`🎉 記述正解！ 弱点を克服しました！（復習ノートから自動消去）`);
     setTimeout(() => {
       state.mistakes.splice(origIdx, 1);
       saveData();
       renderMistakes();
+      updateStatsDisplay();
     }, 600);
   } else {
     showToast(`❌ 不正解！ もう一度入力してみよう！`);
@@ -9940,9 +10047,11 @@ function checkMistakeInputAnswer(origIdx) {
 }
 
 function removeMistake(idx) {
+  recordOvercome();
   state.mistakes.splice(idx, 1);
   saveData();
   renderMistakes();
+  updateStatsDisplay();
 }
 
 /* ============================================================================
@@ -10949,6 +11058,18 @@ function updateStatsDisplay() {
   const rate = total > 0 ? Math.round((state.stats.wins / total) * 100) : 0;
   document.getElementById('statsWins').textContent = `${state.stats.wins} 勝 (${state.stats.losses} 敗)`;
   document.getElementById('statsWinRate').textContent = `${rate} %`;
+
+  const curStreak = state.stats.winStreak || 0;
+  const maxStreak = state.stats.maxWinStreak || 0;
+  const streakEl = document.getElementById('statsStreak');
+  if (streakEl) {
+    streakEl.textContent = `${curStreak} 連勝 (最高 ${maxStreak})`;
+  }
+
+  const overcomeEl = document.getElementById('statsOvercome');
+  if (overcomeEl) {
+    overcomeEl.textContent = `${state.stats.overcomeCount || 0} 問克服`;
+  }
 
   const equippedObj = TITLES_MASTER.find(t => t.id === state.equippedTitleId) || TITLES_MASTER[0];
   document.getElementById('currentTitleBadge').textContent = equippedObj.name;
@@ -14174,7 +14295,7 @@ async function submitRoomChoice(text, btn) {
     battle.answered = true;
     clearInterval(battleGaugeInterval);
     if (btn) btn.classList.add('correct');
-    recordCorrect(q.subj);
+    recordCorrect(q.subj, q);
 
     const f1 = battle.p1Team[battle.p1Idx] || battle.p1Team[0];
     const isCrit = Math.random() * 100 < getCritRatePct(f1);
@@ -14356,15 +14477,19 @@ function onRoomBattleFinished(r) {
 
   if (isMeWinner) {
     state.stats.wins++;
+    state.stats.winStreak = (state.stats.winStreak || 0) + 1;
+    state.stats.maxWinStreak = Math.max(state.stats.maxWinStreak || 0, state.stats.winStreak);
     state.atp += 1500;
     const curParty = (state.presets[state.activePresetIdx] && state.presets[state.activePresetIdx].ids) || [];
     curParty.forEach(id => gainExp(getMicrobeById(id), 140));
     saveData();
 
     const surrenderNotice = reason === 'surrender' ? '\n（相手が降参・リタイアしました）' : '';
-    alert(`🏆 大勝利！！${surrenderNotice}\n\n報酬として ⚡1500 ATP ＆ パーティ全員に大量EXP(+140) を獲得しました！`);
+    const streakMsg = state.stats.winStreak >= 2 ? `\n🔥 現在 ${state.stats.winStreak} 連勝中！（最高: ${state.stats.maxWinStreak} 連勝）` : '';
+    alert(`🏆 大勝利！！${surrenderNotice}\n\n報酬として ⚡1500 ATP ＆ パーティ全員に大量EXP(+140) を獲得しました！${streakMsg}`);
   } else {
     state.stats.losses++;
+    state.stats.winStreak = 0;
     state.atp += 500;
     saveData();
 
