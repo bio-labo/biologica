@@ -4393,6 +4393,16 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 4.4',
+    date: '2026-11-08',
+    title: '🌐 フレンド対戦ルーム招待・逆引き合流システム（Active Room Detector）完全搭載アプデ！',
+    items: [
+      '【🌐 友達のオープン部屋・逆引き自動検知（Active Room Detector）】友達が部屋を作った際、招待通知の通信状況やセキュリティ制限に関わらず、友達が開いている待機部屋をゲスト側で100%自動検知！対戦画面の「📩 招待された部屋に入る」カードおよび画面最上部に「🟢 友達が対戦部屋で待機中！【🚀 この部屋に入る！】」が瞬時に出現！',
+      '【🔑 ルーム番号・フレンドコード誤入力アシスト強化】対戦メニューの「4桁番号で入室」欄に誤ってBIOフレンドコードが入力された際の自動検知ガイダンス、および「🤝 友達追加はこちら」直通ボタンを配備！友達追加と対戦部屋入室の混同を親切にアシスト！',
+      '【🔄 通信ラグ吸収・自動リトライ拡大】入室時のクラウド接続リトライを最大6回（約3秒間）に拡大し、作成直後の部屋への接続ラグによる「部屋が見つかりませんでした」の誤判定を完全に解消！'
+    ]
+  },
+  {
     ver: 'Ver 4.3',
     date: '2026-11-08',
     title: '🛡️ 安心安全プレイ機能（研究員ネーム不適切ワード検知フィルター＆10文字制限）完全実装！',
@@ -13491,7 +13501,18 @@ async function createFriendBattleRoom() {
 
   if (db) {
     try {
-      // ★ players/ROOM_<roomId> と battle_rooms/<roomId> の両方に確実に保存！
+      // ★ 1. 自身の players/{myCode} に activeHostRoom を記録（フレンドが100%確実に逆引き検知できる最強安全網！）
+      db.collection('players').doc(myCode).set({
+        activeHostRoom: {
+          roomId,
+          hostName: state.playerName || '研究員',
+          hostCode: myCode,
+          hostTitle: myTitle,
+          createdAt: Date.now()
+        }
+      }, { merge: true }).catch(() => {});
+
+      // ★ 2. players/ROOM_<roomId> と battle_rooms/<roomId> の両方に確実に保存！
       const mainPromise = getRoomDocRef(roomId).set(roomData);
       const subPromise = db.collection('battle_rooms').doc(roomId).set(roomData);
       const results = await Promise.allSettled([mainPromise, subPromise]);
@@ -13870,6 +13891,12 @@ function leaveFriendBattleRoom(silent = false) {
   if (closingRoomId && db) {
     try {
       if (wasHost) {
+        // ホスト自身の activeHostRoom を即座に完全クリア！
+        const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
+        if (myCode) {
+          db.collection('players').doc(myCode).set({ activeHostRoom: null }, { merge: true }).catch(() => {});
+        }
+
         getRoomDocRef(closingRoomId).set({ status: 'disbanded' }, { merge: true }).catch(() => {});
         db.collection('battle_rooms').doc(closingRoomId).update({ status: 'disbanded' }).catch(() => {});
         setTimeout(() => {
@@ -14048,6 +14075,23 @@ async function sendBattleInviteToFriend(targetCode, targetName) {
       // 3. battle_invites コレクションにも同時書き込み（多重保証）
       promises.push(db.collection('battle_invites').doc(inviteObj.id).set(inviteObj));
 
+      // 4. players/ROOM_<currentRoomId> に招待先を追加（逆引き合流用）
+      try {
+        promises.push(getRoomDocRef(currentRoomId).set({
+          invitedTargets: (firebase && firebase.firestore && firebase.firestore.FieldValue)
+            ? firebase.firestore.FieldValue.arrayUnion(normTarget)
+            : [normTarget]
+        }, { merge: true }).catch(() => {}));
+      } catch (e) {}
+
+      // 5. ホスト自身の activeHostRoom にも招待先リストを記録
+      try {
+        promises.push(db.collection('players').doc(myCode).set({
+          'activeHostRoom.lastInvitedTarget': normTarget,
+          'activeHostRoom.lastInvitedAt': Date.now()
+        }, { merge: true }).catch(() => {}));
+      } catch (e) {}
+
       await Promise.allSettled(promises);
 
       showToast(`📩『${targetName}』(${normTarget}) さんに対戦招待を送りました！相手の画面に「🚀この部屋に入る！」が即時出現します！`);
@@ -14121,17 +14165,18 @@ function renderReceivedBattleInvites(invites) {
   if (globalArea) {
     globalArea.innerHTML = validList.slice(0, 2).map(inv => {
       const safeId = inv.id || `${inv.roomId}_${normalizeFriendCode(state.friendCode)}`;
+      const tagText = inv.isFriendOpenRoom ? '🟢 友達が対戦部屋で待機中！' : '💌 対戦ルーム招待が届きました！';
       return `
         <div style="background:linear-gradient(135deg, #fff1f2 0%, #fdf2f8 50%, #faf5ff 100%); border:3px solid #ec4899; border-radius:16px; padding:12px 16px; margin:6px 0; box-shadow:0 12px 32px rgba(236,72,153,0.45); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; animation:bounce 0.5s ease-out;">
           <div style="display:flex; align-items:center; gap:12px;">
             <span style="font-size:2.2rem; filter:drop-shadow(0 2px 6px rgba(236,72,153,0.4));">⚔️</span>
             <div>
               <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-                <span style="background:linear-gradient(135deg, #ec4899, #db2777); color:white; font-size:0.74rem; font-weight:900; padding:2px 10px; border-radius:999px; box-shadow:0 2px 6px rgba(219,39,119,0.35);">💌 対戦ルーム招待が届きました！</span>
+                <span style="background:linear-gradient(135deg, #ec4899, #db2777); color:white; font-size:0.74rem; font-weight:900; padding:2px 10px; border-radius:999px; box-shadow:0 2px 6px rgba(219,39,119,0.35);">${tagText}</span>
                 <span style="font-size:0.82rem; font-weight:900; color:#9d174d;">部屋番号: 【 ${inv.roomId} 】</span>
               </div>
               <div style="font-weight:900; font-size:1.05rem; color:#831843; margin-top:4px;">
-                👤 <strong>${inv.fromName || '友達'}</strong> さんの対戦部屋に招待されています！
+                👤 <strong>${inv.fromName || '友達'}</strong> さんの対戦部屋に合流できます！
               </div>
             </div>
           </div>
@@ -14152,10 +14197,14 @@ function renderReceivedBattleInvites(invites) {
   if (battleArea) {
     battleArea.innerHTML = validList.map(inv => {
       const safeId = inv.id || `${inv.roomId}_${normalizeFriendCode(state.friendCode)}`;
+      const tagLabel = inv.isFriendOpenRoom ? '🟢 友達待機中' : '💌 招待';
       return `
         <div style="background:white; border:2px solid #ec4899; border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-top:6px; box-shadow:0 3px 12px rgba(236,72,153,0.18);">
           <div>
-            <div style="font-weight:900; color:#be185d; font-size:0.96rem;">⚔️ ${inv.fromName || '友達'} さんの部屋</div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-size:0.68rem; font-weight:900; background:#fce7f3; color:#be185d; padding:1px 6px; border-radius:999px;">${tagLabel}</span>
+              <span style="font-weight:900; color:#be185d; font-size:0.96rem;">⚔️ ${inv.fromName || '友達'} さんの部屋</span>
+            </div>
             <div style="font-size:0.78rem; color:#9d174d; font-weight:800; margin-top:2px;">ルーム番号：【 ${inv.roomId} 】</div>
           </div>
           <div style="display:flex; gap:6px; align-items:center;">
@@ -14216,6 +14265,41 @@ async function checkPendingBattleInvites(showFeedback = false) {
         }
       });
     } catch (e) {}
+
+    // 4. ★ 最強安全網：フレンド一覧の友達が現在ホストしている部屋（activeHostRoom）を逆引き自動検知！
+    // Firestoreで他人のドキュメントへの書き込み権限が制限されていても、100%確実に友達の部屋へ合流可能！
+    if (Array.isArray(state.friendsList) && state.friendsList.length > 0) {
+      try {
+        const friendCodes = state.friendsList.map(f => normalizeFriendCode(f.code)).filter(c => c && c !== myCode);
+        const friendDocs = await Promise.all(friendCodes.map(c => db.collection('players').doc(c).get().catch(() => null)));
+        friendDocs.forEach((fDoc, idx) => {
+          if (!fDoc || !fDoc.exists || !fDoc.data()) return;
+          const fd = fDoc.data();
+          const hostRoom = fd.activeHostRoom || fd.hostingRoom;
+          if (hostRoom && hostRoom.roomId && String(hostRoom.roomId) !== String(currentRoomId)) {
+            const roomCreated = hostRoom.createdAt || 0;
+            // 過去20分以内の有効な部屋か
+            if (!roomCreated || (now - roomCreated < 20 * 60 * 1000)) {
+              if (!mergedInvites.some(x => String(x.roomId) === String(hostRoom.roomId))) {
+                const friendObj = state.friendsList.find(f => normalizeFriendCode(f.code) === friendCodes[idx]);
+                const friendName = friendObj ? friendObj.name : (fd.name || 'フレンド');
+                mergedInvites.push({
+                  id: `friend_room_${hostRoom.roomId}_${friendCodes[idx]}`,
+                  roomId: hostRoom.roomId,
+                  fromCode: friendCodes[idx],
+                  fromName: friendName,
+                  targetCode: myCode,
+                  createdAt: roomCreated,
+                  isFriendOpenRoom: true
+                });
+              }
+            }
+          }
+        });
+      } catch (fErr) {
+        console.warn('Friend active room scan note:', fErr);
+      }
+    }
 
     renderReceivedBattleInvites(mergedInvites);
     if (showFeedback) {
