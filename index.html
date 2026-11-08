@@ -1450,10 +1450,16 @@
             </button>
 
             <div style="background:white; padding:8px 10px; border-radius:10px; border:1px solid #d8b4fe; box-sizing:border-box;">
-              <label style="font-size:0.75rem; font-weight:900; color:#6b21a8; display:block; margin-bottom:4px;">🔑 ルーム番号（4桁）で入室</label>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <label style="font-size:0.75rem; font-weight:900; color:#6b21a8; display:block;">🔑 ルーム番号（4桁）で入室</label>
+                <button type="button" class="btn btn-outline" style="padding:2px 8px; font-size:0.68rem; border-color:#c084fc; color:#7e22ce; font-weight:900;" onclick="switchScreen('friends')">🤝 友達追加はこちら</button>
+              </div>
               <div style="display:flex; gap:6px; align-items:center;">
-                <input type="text" id="joinRoomIdInput" class="btn-outline" style="flex:1; min-width:0; padding:8px 6px; border-radius:8px; font-weight:900; text-align:center; font-size:0.95rem; box-sizing:border-box;" placeholder="例: 4829">
+                <input type="text" id="joinRoomIdInput" class="btn-outline" style="flex:1; min-width:0; padding:8px 6px; border-radius:8px; font-weight:900; text-align:center; font-size:0.95rem; box-sizing:border-box;" placeholder="部屋番号 4桁（例: 4829）">
                 <button class="btn btn-secondary" style="flex-shrink:0; white-space:nowrap; padding:8px 12px; font-size:0.85rem;" onclick="joinFriendBattleRoom()">🚀 入室</button>
+              </div>
+              <div style="font-size:0.68rem; color:#7e22ce; margin-top:4px; line-height:1.35;">
+                💡 <strong>ルーム番号とは：</strong>ホストが「🏠 対戦ルームを作る」を押した時に部屋上部に表示される黄色い4桁番号です。（※友達追加・フレンド申請は上の『🤝 フレンド・順位』から行えます）
               </div>
             </div>
           </div>
@@ -13513,13 +13519,21 @@ async function createFriendBattleRoom() {
 // 部屋参加（ゲスト）：4桁番号または「🚀この部屋に入る！」ボタンから自動リトライ付きで100%確実に入室！
 async function joinFriendBattleRoom(targetRoomId) {
   let rawId = targetRoomId || (document.getElementById('joinRoomIdInput') ? document.getElementById('joinRoomIdInput').value : '').trim();
+
+  // 💡 フレンドコード（BIO-XXXX等）が誤って入力された場合の自動検知＆親切ガイダンス
+  const upperRaw = String(rawId || '').toUpperCase().trim();
+  if (upperRaw.startsWith('BIO') || upperRaw.includes('-') || upperRaw.length >= 7) {
+    showToast('💡 それはフレンドコードです！友達追加は上のメニュー「🤝 フレンド・順位」から行えます！対戦部屋にはホストが発行した「4桁の部屋番号」で入室してください。');
+    return;
+  }
+
   const roomId = String(rawId || '')
     .replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
     .replace(/ROOM_/i, '')
     .replace(/\D+/g, '');
 
   if (!roomId || roomId.length !== 4) {
-    showToast('⚠️ 4桁のルーム番号を入力してください！（例: 4829）');
+    showToast('⚠️ 4桁の対戦ルーム番号を入力してください！（例: 4829）\n※ホストが部屋を作成した時に画面上部に表示される番号です。');
     const inp = document.getElementById('joinRoomIdInput');
     if (inp) inp.focus();
     return;
@@ -13538,8 +13552,8 @@ async function joinFriendBattleRoom(targetRoomId) {
   let activeRoomRef = null;
 
   if (db) {
-    // ★ クラウド上のレプリケーション遅延を考慮し、最大4回（約2秒間）自動リトライ！
-    for (let attempt = 1; attempt <= 4; attempt++) {
+    // ★ クラウド上のレプリケーション遅延を考慮し、最大6回（約3秒間）自動リトライ！
+    for (let attempt = 1; attempt <= 6; attempt++) {
       try {
         // 1. メイン経路 players/ROOM_<roomId>
         const mainRef = getRoomDocRef(roomId);
@@ -13579,7 +13593,7 @@ async function joinFriendBattleRoom(targetRoomId) {
         if (snap && snap.exists) {
           rData = snap.data();
           if (rData.status === 'disbanded' || rData.status === 'finished') {
-            showToast('⚠️ このルームはすでに解散または終了しています！');
+            showToast('⚠️ このルームはすでに解散または終了しています！ホストに新しく部屋を作ってもらってください。');
             return;
           }
           roomFound = true;
@@ -13589,7 +13603,7 @@ async function joinFriendBattleRoom(targetRoomId) {
         console.warn(`joinFriendBattleRoom attempt ${attempt} warning:`, err);
       }
 
-      if (attempt < 4) {
+      if (attempt < 6) {
         // 0.45秒待機して再試行
         await new Promise(r => setTimeout(r, 450));
       }
@@ -13618,7 +13632,7 @@ async function joinFriendBattleRoom(targetRoomId) {
   }
 
   if (db && !roomFound) {
-    showToast(`⚠️ ルーム【 ${roomId} 】が見つかりませんでした！部屋番号をご確認のうえもう一度お試しください。`);
+    showToast(`⚠️ ルーム【 ${roomId} 】が見つかりませんでした！\n※ホストが部屋を作った時の「4桁の部屋番号」をご確認ください。（友達追加は上の「🤝 フレンド・順位」画面です）`);
     return;
   }
 
