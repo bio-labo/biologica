@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 3.5 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 3.8 - 理系微生物育成＆戦略クイズバトル</title>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon.svg">
 <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
@@ -226,9 +226,9 @@
   .subj-eng-idiom { background: #fae8ff; color: #86198f; }
   .subj-eng-gram { background: #fef3c7; color: #92400e; }
 
-  /* 🧬 理系 vs 📖 英語 vs 🎒 中学生 3大モード選択バナー */
+  /* 🧬 理系 vs 📖 英語 vs 🎒 中学生 3大モード選択バナー（2ボタン・3ボタン両対応の自動均等グリッド） */
   .battle-category-toggle {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-bottom: 12px;
   }
   @media (max-width: 720px) {
     .battle-category-toggle {
@@ -598,7 +598,7 @@
     <div class="card">
       <div class="card-title">📱 研究所メインメニュー</div>
       <div class="help-box">
-        💡 ボックス編成・<strong>「💊 ガチャ（キャラ＆チップ）」</strong>・<strong>「🏪 交換所（キャラ＆チップ）」</strong>・<strong>「🧬 ゲノム編集」</strong>・ショップ・図鑑・復習ノート・設定（アカウント削除・データリセット）にここからアクセスできます！
+        💡 ボックス編成・<strong>「💊 ガチャ（キャラ＆チップ）」</strong>・<strong>「🏪 交換所（キャラ＆チップ）」</strong>・<strong>「🎒 もちもの（アイテム＆チップ）」</strong>・ショップ・図鑑・復習ノート・設定（アカウント削除・データリセット）にここからアクセスできます！
       </div>
       <div class="menu-grid">
         <div class="menu-app-card" onclick="switchScreen('box')">
@@ -617,9 +617,9 @@
           <div style="font-size:0.74rem; color:var(--text-sub);">キャラ指名交換所 ＆ 遺伝子チップ交換所</div>
         </div>
         <div class="menu-app-card" style="border-color:#a855f7; background:linear-gradient(180deg,#ffffff,#faf5ff);" onclick="switchScreen('genome')">
-          <div class="menu-app-icon" style="background:#f3e8ff;">🧬</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#6d28d9;">ゲノム編集ラボ</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">遺伝子スロット2枠の装着・能力強化確認</div>
+          <div class="menu-app-icon" style="background:#f3e8ff;">🎒</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#6d28d9;">もちもの・チップ管理</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">育成アイテム使用＆遺伝子チップ装着</div>
         </div>
         <div class="menu-app-card" onclick="switchScreen('shop')">
           <div class="menu-app-icon" style="background:#dcfce7;">🛒</div>
@@ -675,41 +675,46 @@
     </div>
   </section>
 
-  <!-- 🧬 ゲノム編集ラボ（遺伝子スロット2枠の装着・能力強化確認） -->
+  <!-- 🎒 もちもの・遺伝子チップ（アイテム使用＆スロット装着・管理） -->
   <section id="screen-genome" class="screen">
     <div class="subscreen-back-bar">
-      <strong style="color:#0369a1; font-size:0.9rem;">🧬 ゲノム編集ラボ（遺伝子スロット装着・カスタム）</strong>
+      <strong style="color:#6d28d9; font-size:0.9rem;">🎒 もちもの ＆ 遺伝子チップ管理（所持: ⚡<span id="genomeAtpText">500</span> ATP / 🧬<span id="genomeMedalText">0</span> メダル）</strong>
       <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <button class="btn btn-secondary" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('shop')">🛒 ATPショップへ</button>
         <button class="btn btn-purple" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('gacha'); switchGachaCategory('chip');">💊 チップガチャへ</button>
-        <button class="btn btn-accent" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('exchange'); switchExchangeCategory('chip');">🏪 チップ交換所へ</button>
+        <button class="btn btn-accent" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('exchange'); switchExchangeCategory('chip');">🏪 交換所へ</button>
         <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">🧬 遺伝子スロット組み換え（各キャラ最大2枠！）</div>
+      <div class="card-title">🎒 研究所もちものバッグ</div>
       <div class="help-box">
-        💡 ガチャキャラ（LR/UR）の固有性能はそのままに、<strong>好きな遺伝子チップを2つまで挿入して自分好みにカスタム</strong>できます！<br>
-        🔴 <strong>筋原線維（攻撃+15）</strong>・⚡ <strong>繊毛モーター（すばやさ+15）</strong>・🟣 <strong>二重生体膜（耐久+15）</strong>を装着すると、キャラの実際のステータス数値が<strong>即座に +15 上昇</strong>します！
+        💡 ショップで購入した<strong>育成・強化アイテム</strong>やガチャ・交換所で手に入れた<strong>遺伝子チップ</strong>をここで管理できます！<br>
+        アイテムやチップを選んで<strong>「🎯 キャラを選んで使う / 装着する」</strong>を押すと、手持ちキャラ一覧から対象を選んでいつでも使用・装着できます！
       </div>
 
-      <div style="background:#faf5ff; border:2px solid #a855f7; border-radius:12px; padding:12px; margin-bottom:12px;">
-        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
-          <span style="font-weight:900; font-size:0.85rem; color:#6d28d9;">🎯 ゲノム編集するキャラ：</span>
-          <select id="genomeTargetSelect" class="btn-outline" style="flex:1; min-width:220px; padding:7px 10px; border-radius:8px; font-weight:900;" onchange="changeGenomeTarget(this.value)"></select>
-        </div>
-        <div id="genomeTargetStatPreview" style="background:white; border:1.5px solid #e9d5ff; border-radius:10px; padding:8px 12px; margin-bottom:10px; font-size:0.8rem; font-weight:800; color:#1e293b; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;"></div>
-        <div id="genomeSlotsArea" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:10px;"></div>
+      <!-- カテゴリ切り替えタブ -->
+      <div class="battle-category-toggle" style="margin-bottom:14px;">
+        <button id="invTabAll" class="battle-cat-btn active" onclick="switchInventoryTab('all')">
+          🌟 すべて (<span id="invCountAll">0</span>)
+        </button>
+        <button id="invTabItems" class="battle-cat-btn cat-junior" onclick="switchInventoryTab('items')">
+          🧪 育成アイテム (<span id="invCountItems">0</span>)
+        </button>
+        <button id="invTabChips" class="battle-cat-btn cat-eng" onclick="switchInventoryTab('chips')">
+          🧬 遺伝子チップ (<span id="invCountChips">0</span>)
+        </button>
+        <button id="invTabEquipped" class="battle-cat-btn" onclick="switchInventoryTab('equipped')">
+          ⚙️ 装備中一覧 (<span id="invCountEquipped">0</span>)
+        </button>
       </div>
 
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
-        <div style="font-weight:900; font-size:0.92rem; color:#4c1d95;">📦 所持している遺伝子チップ一覧（タップで装着）</div>
-        <div style="display:flex; gap:6px;">
-          <button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; border-color:#a855f7; color:#6d28d9;" onclick="switchScreen('gacha'); switchGachaCategory('chip');">🎰 チップガチャを引く</button>
-          <button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; border-color:#d97706; color:#b45309;" onclick="switchScreen('exchange'); switchExchangeCategory('chip');">🏪 好きなチップをメダル交換</button>
-        </div>
-      </div>
-      <div id="ownedChipsGrid" class="exchange-grid"></div>
+      <!-- 所持アイテム・チップ一覧グリッド -->
+      <div id="inventoryItemsGrid" class="exchange-grid"></div>
+
+      <!-- 装着中チップ確認・取り外しエリア（タブ切り替えで表示） -->
+      <div id="inventoryEquippedArea" style="display:none; flex-direction:column; gap:10px;"></div>
     </div>
   </section>
 
@@ -1009,33 +1014,26 @@
     </div>
   </section>
 
-  <!-- 2.5 ATPショップ（レベルアップ＆スキル・教科・育成サポート） -->
+  <!-- 2.5 ATPショップ（アイテム購入＆メダル変換） -->
   <section id="screen-shop" class="screen">
     <div class="subscreen-back-bar">
-      <strong style="color:#0369a1; font-size:0.9rem;">🛒 ATP バイオ研究所ショップ</strong>
-      <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
+      <strong style="color:#0369a1; font-size:0.9rem;">🛒 ATP バイオ研究所ショップ（所持: ⚡<span id="atpShopBalance">500</span> ATP）</strong>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <button class="btn btn-purple" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('genome')">🎒 もちものを見る</button>
+        <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
+      </div>
     </div>
     <div class="card">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
-        <div class="card-title" style="margin-bottom:0;">🛒 ATP バイオ研究所ショップ（所持: ⚡<span id="atpShopBalance">500</span> ATP）</div>
-      </div>
+      <div class="card-title">🛒 ATP バイオ研究所ショップ</div>
       <div class="help-box">
-        💡 シャーレやバトルで貯めた <strong>⚡ATP</strong> を使って、ガチャで引いたお気に入りキャラを<strong>「一瞬でレベルアップ・最終進化」</strong>させたり、<strong>「固有スキル変更」「得意教科変更」「黄金栄養フィーバー」</strong>などを購入できます！（※「感覚100」や「突然変異種(LR/UR)」はガチャ＆メダル交換所だけの特別なレア個体です！）
+        💡 シャーレやバトルで貯めた <strong>⚡ATP</strong> を使って、育成・強化アイテムを購入できます！<br>
+        🎁 <strong>購入したアイテムはすべて「🎒 もちもの」にストック</strong>され、好きなキャラを選んでいつでも使用できます！
       </div>
 
-      <!-- ショップの対象キャラ選択バー -->
-      <div style="background:#f0f9ff; border:2px solid #0284c7; border-radius:12px; padding:10px 14px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
-        <div style="display:flex; align-items:center; gap:8px; flex:1; min-width:240px;">
-          <span style="font-weight:900; font-size:0.85rem; color:#0369a1; white-space:nowrap;">🎯 アイテムを使うキャラ：</span>
-          <select id="shopTargetSelect" class="btn-outline" style="flex:1; padding:7px 10px; border-radius:8px; font-weight:900; font-size:0.86rem;" onchange="changeShopTarget(this.value)"></select>
-        </div>
-        <div id="shopTargetSummary" style="font-size:0.8rem; font-weight:800; color:#0f172a;"></div>
-      </div>
-
-      <div style="font-weight:900; font-size:0.95rem; margin-bottom:8px; color:#059669;">🆙 1. 瞬間レベルアップ・極限進化アイテム</div>
+      <div style="font-weight:900; font-size:0.95rem; margin-bottom:8px; color:#059669;">🆙 1. 瞬間レベルアップ・極限進化アイテム（購入でアイテム化！）</div>
       <div class="exchange-grid" id="atpLevelShopGrid" style="margin-bottom:16px;"></div>
 
-      <div style="font-weight:900; font-size:0.95rem; margin-bottom:8px; color:#7c3aed;">🔧 2. スキル選択・得意教科変更・特別研究アイテム</div>
+      <div style="font-weight:900; font-size:0.95rem; margin-bottom:8px; color:#7c3aed;">🔧 2. スキル・得意教科・特別研究アイテム ＆ メダル変換</div>
       <div class="exchange-grid" id="atpCustomShopGrid"></div>
     </div>
   </section>
@@ -1058,7 +1056,7 @@
           🧫 微生物＆免疫細胞ガチャ (全15種)
         </button>
         <button id="gachaToggleChip" class="battle-cat-btn cat-eng" onclick="switchGachaCategory('chip')">
-          🧬 遺伝子チップガチャ (全12種)
+          🧬 遺伝子チップガチャ (全27種)
         </button>
       </div>
 
@@ -1119,7 +1117,7 @@
 
       <!-- ② 遺伝子チップガチャパネル -->
       <div id="gachaPanelChip" style="display:none;">
-        <div class="card-title">🧬 遺伝子チップ抽出ガチャ（全12種・所持: ⚡<span id="genomeAtpText">500</span> ATP）</div>
+        <div class="card-title">🧬 遺伝子チップ抽出ガチャ（全27種・所持: ⚡<span id="genomeAtpText">500</span> ATP）</div>
         <div class="help-box">
           💡 抽出した遺伝子チップは<strong>「🧬 ゲノム編集ラボ」</strong>で好きなキャラの遺伝子スロット（最大2枠）に装着できます！<br>
           💎 <strong>クマムシ乾眠（UR）</strong>・✂️ <strong>CRISPRハサミ（UR）</strong>・🛡️ <strong>メチル化保護（UR）</strong>や、ステータスが直接 <strong>+15 上昇</strong>する強化チップを手に入れよう！
@@ -2245,6 +2243,51 @@
   </div>
 </div>
 <canvas id="iconRenderCanvas" width="1024" height="1024" style="display:none;"></canvas>
+
+<!-- 🎒 もちものアイテム使用・チップ装着 対象キャラ選択モーダル -->
+<div id="inventoryTargetModal" class="modal-overlay" onclick="if(event.target===this) closeInventoryTargetModal()">
+  <div class="modal-card" style="max-width:620px; max-height:90vh; border:3px solid #8b5cf6;">
+    <div class="modal-header" style="background:linear-gradient(135deg, #0284c7, #8b5cf6);">
+      <span id="invModalTitle">🎒 アイテムを使うキャラを選択</span>
+      <button class="btn btn-outline" style="padding:3px 10px; font-size:0.78rem;" onclick="closeInventoryTargetModal()">✕ 閉じる</button>
+    </div>
+    <div class="modal-body" style="padding:12px; display:flex; flex-direction:column; gap:10px;">
+      <!-- 選択中アイテムの概要ヘッダー -->
+      <div id="invModalItemHeader" style="background:#f8fafc; border:2px solid #cbd5e1; border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; gap:8px;"></div>
+      
+      <!-- スキル選択・教科選択用エリア（該当アイテムの時のみ表示） -->
+      <div id="invModalExtraOptionArea" style="display:none; background:#faf5ff; border:2px solid #d8b4fe; border-radius:12px; padding:10px;"></div>
+
+      <!-- ボックス風ソート＆絞り込みバー -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:6px; background:#f0f9ff; padding:8px 10px; border-radius:10px; border:1px solid #bae6fd;">
+        <div>
+          <label style="font-size:0.72rem; font-weight:900; color:#0369a1; display:block; margin-bottom:2px;">📊 並び替え</label>
+          <select id="invSortSelect" class="btn-outline" style="width:100%; padding:5px 8px; border-radius:6px; font-weight:800; font-size:0.76rem;" onchange="renderInventoryTargetList()">
+            <option value="rarity">👑 レアリティ順</option>
+            <option value="level">🆙 レベル順</option>
+            <option value="total">💪 総合ステータス順</option>
+            <option value="speed">⚡ すばやさ順</option>
+            <option value="new">🆕 入手順</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:0.72rem; font-weight:900; color:#059669; display:block; margin-bottom:2px;">📚 得意教科</label>
+          <select id="invFilterSubj" class="btn-outline" style="width:100%; padding:5px 8px; border-radius:6px; font-weight:800; font-size:0.76rem;" onchange="renderInventoryTargetList()">
+            <option value="all_filter">すべての教科を表示</option>
+            <option value="all">🌈 全科目万能のみ</option>
+            <option value="bio">🧬 生物</option>
+            <option value="chem">🧪 化学</option>
+            <option value="phys">⚡ 物理</option>
+            <option value="m1">📐 数学</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 対象キャラ一覧リスト（ボックスと同じカード） -->
+      <div id="invTargetCardsArea" style="display:flex; flex-direction:column; gap:8px; max-height:50vh; overflow-y:auto; padding-right:2px;"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ⚙️ ボックス・編成枠から直接開ける微生物カスタム編集モーダル -->
 <div id="microbeEditModal" class="modal-overlay" onclick="if(event.target===this) closeMicrobeEditModal()">
@@ -4024,6 +4067,17 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 3.9',
+    date: '2026-11-08',
+    title: '🎒 もちもの管理バッグ新設 ＆ ショップ改造（アイテム化）大型アプデ！',
+    items: [
+      '【🎒 もちもの＆遺伝子チップ管理の新設】旧ゲノム編集ラボを「🎒 もちもの・チップ管理」へ大幅リニューアル！ショップで購入した育成アイテムや遺伝子チップをバッグで一括管理し、「🌟すべて」「🧪育成アイテム」「🧬遺伝子チップ」「⚙️装備中一覧」の4タブでスマートに確認・装着・取り外しが可能！',
+      '【🛒 ATPショップのアイテム化＆UI完全修復】ATPショップでのアイテム購入が「即時適用」から「アイテムとして所持（もちものに保管）」へ進化！以前発生していた上部キャラ選択セレクトボックスの重なり・はみ出しバグを完全解消し、クッキリ整然としたカードデザインに刷新！',
+      '【🎯 ボックス風キャラ選択＆専用チップ安全ガード】アイテム使用・チップ装着時に、ボックス画面と同等のソート（レアリティ・Lv・総合・すばやさ・入手順）や得意教科絞り込みができる選択モーダルを新設！種族専用チップは対象種族以外を安全にブロックする安心設計を実装！',
+      '【🍬 黄金フィーバーのいつでも散布】「黄金フィーバー栄養剤」もアイテムとしてストック可能になり、もちもの画面からいつでもワンタップでシャーレに特大経験値の黄金粒（15個）を一気に散布可能に！'
+    ]
+  },
+  {
     ver: 'Ver 3.8',
     date: '2026-11-08',
     title: '📚 全教科・全単元・全難易度の問題数360問超の大増量 ＆ 入試問題ローテーション完全改善アプデ！',
@@ -4239,11 +4293,89 @@ const PRESENTS_MASTER = [
   { id: 'gift_bio_test', title: '🧬 生物A テスト全力応援ボーナス', desc: '生物テスト対策＆学習応援プレゼント！', atp: 800, medals: 20 }
 ];
 
-/* 🛒 ATPショップ商品マスター（瞬間レベルアップ・極限進化） */
+/* 🎒 もちものアイテムマスター（ショップ購入・所持・キャラ適用） */
+const ITEMS_MASTER = [
+  {
+    id: 'item_exp120',
+    icon: '🍼',
+    name: '高濃度プロテイン液',
+    desc: '対象キャラに【経験値 +120】を付与！（序盤一気にレベルアップ！）',
+    cost: 150,
+    category: 'exp',
+    val: 120,
+    color: '#059669',
+    bgColor: '#f0fdf4',
+    borderColor: '#bbf7d0'
+  },
+  {
+    id: 'item_lv5',
+    icon: '🧪',
+    name: '超成長ホルモン注射',
+    desc: '対象キャラのレベルを【即座に +5 UP】！（進化も即発生！）',
+    cost: 500,
+    category: 'lv_add',
+    val: 5,
+    color: '#0d9488',
+    bgColor: '#f0fdfa',
+    borderColor: '#99f6e4'
+  },
+  {
+    id: 'item_lv30',
+    icon: '👑',
+    name: '極限進化エリクサー',
+    desc: '対象キャラを一瞬で【Lv.30（第5形態・極限完全体）】までMAX進化！',
+    cost: 2000,
+    category: 'lv_max',
+    val: 30,
+    color: '#b45309',
+    bgColor: '#fffbeb',
+    borderColor: '#fde68a'
+  },
+  {
+    id: 'item_skill_capsule',
+    icon: '✨',
+    name: 'スキル書き換えカプセル',
+    desc: '対象キャラの固有スキルを指名して好きなスキルに書き換えます！',
+    cost: 400,
+    category: 'skill',
+    color: '#7c3aed',
+    bgColor: '#faf5ff',
+    borderColor: '#e9d5ff'
+  },
+  {
+    id: 'item_subj_tuner',
+    icon: '📚',
+    name: '得意教科チューナー',
+    desc: '対象キャラの得意教科（属性）を指定した科目に変更（威力1.35倍）！',
+    cost: 350,
+    category: 'subject',
+    color: '#0284c7',
+    bgColor: '#f0f9ff',
+    borderColor: '#bae6fd'
+  },
+  {
+    id: 'item_gold_fever',
+    icon: '🍬✨',
+    name: '黄金フィーバー栄養剤',
+    desc: 'シャーレに大ボーナスの「黄金の粒」を一気に15個まきます！（経験値＆ATP大量獲得！）',
+    cost: 300,
+    category: 'fever',
+    val: 15,
+    color: '#d97706',
+    bgColor: '#fefce8',
+    borderColor: '#fde047'
+  }
+];
+
+function getItem(id) {
+  return ITEMS_MASTER.find(it => it.id === id);
+}
+
+/* 🛒 ATPショップ商品マスター（瞬間レベルアップ・極限進化 互換用） */
 const ATP_LEVEL_SHOP_ITEMS = [
-  { id: 'atp_exp120', icon: '🍼', name: '高濃度プロテイン液', desc: '経験値 +120 を即座に獲得（序盤一気にレベルアップ！）', cost: 150, type: 'exp', val: 120 },
-  { id: 'atp_lv5', icon: '🧪', name: '超成長ホルモン注射', desc: '対象キャラのレベルを【即座に +5 UP】！（進化も即発生！）', cost: 500, type: 'lv_add', val: 5 },
-  { id: 'atp_lv30', icon: '👑', name: '極限進化エリクサー', desc: '対象キャラを一瞬で【Lv.30（第5形態・極限完全体）】までMAX進化！', cost: 2000, type: 'lv_max', val: 30 }
+  { id: 'atp_exp120', itemId: 'item_exp120', icon: '🍼', name: '高濃度プロテイン液', desc: '経験値 +120 を即座に獲得（序盤一気にレベルアップ！）', cost: 150, type: 'exp', val: 120 },
+  { id: 'atp_lv5', itemId: 'item_lv5', icon: '🧪', name: '超成長ホルモン注射', desc: '対象キャラのレベルを【即座に +5 UP】！（進化も即発生！）', cost: 500, type: 'lv_add', val: 5 },
+  { id: 'atp_lv30', itemId: 'item_lv30', icon: '👑', name: '極限進化エリクサー', desc: '対象キャラを一瞬で【Lv.30（第5形態・極限完全体）】までMAX進化！', cost: 2000, type: 'lv_max', val: 30 }
 ];
 
 /* 🔑 シリアルコード（合言葉）マスター */
@@ -4367,6 +4499,7 @@ function getFreshInitialState() {
     friendsList: [],
     incomingRequests: [],
     ownedChips: {},
+    ownedItems: {},
     claimedPresents: [],
     claimedGifts: [],
     redeemedCodes: [],
@@ -4640,6 +4773,8 @@ function saveData() {
     if (exAtp) exAtp.textContent = state.atp;
     const genAtp = document.getElementById('genomeAtpText');
     if (genAtp) genAtp.textContent = state.atp;
+    const genMdl = document.getElementById('genomeMedalText');
+    if (genMdl) genMdl.textContent = state.medals;
     const atpShopB = document.getElementById('atpShopBalance');
     if (atpShopB) atpShopB.textContent = state.atp;
     updatePresentBadge();
@@ -4674,6 +4809,7 @@ function loadData() {
   if (!state.friendsList) state.friendsList = [];
   if (!state.incomingRequests) state.incomingRequests = [];
   if (!state.ownedChips) state.ownedChips = {};
+  if (!state.ownedItems) state.ownedItems = {};
   if (!state.recentQIds) state.recentQIds = [];
   if (!state.lastReadNewsVer) state.lastReadNewsVer = '';
   if (!state.stats) state.stats = { wins: 0, losses: 0, subjCorrect: { bio: 0, chem: 0, phys: 0, m1a: 0, m2b: 0, m3c: 0 } };
@@ -6183,11 +6319,11 @@ function renderMicrobeEditModal() {
       ${statRows}
     </div>
 
-    <!-- 🧬 遺伝子スロット2枠（ゲノム編集連携） -->
+    <!-- 🧬 遺伝子スロット2枠（ゲノム編集・もちもの連携） -->
     <div style="background:#fdf4ff; border:2px solid #e879f9; padding:10px; border-radius:12px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
         <span style="font-size:0.8rem; font-weight:900; color:#86198f;">🧬 装備中の遺伝子チップ（最大2枠）</span>
-        <button class="btn btn-purple" style="padding:2px 8px; font-size:0.7rem;" onclick="closeMicrobeEditModal(); switchScreen('genome');">🧬 ゲノムラボで編集</button>
+        <button class="btn btn-purple" style="padding:2px 8px; font-size:0.7rem;" onclick="closeMicrobeEditModal(); switchScreen('genome');">🎒 もちもの・チップ装着</button>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
         ${[0, 1].map(slotIdx => {
@@ -6211,8 +6347,8 @@ function renderMicrobeEditModal() {
     <div style="background:#faf5ff; padding:10px; border-radius:12px; border:1px solid #e9d5ff; display:flex; flex-direction:column; gap:8px;">
       <div>
         <label style="font-size:0.78rem; font-weight:900; color:#6d28d9; display:block; margin-bottom:3px;">✨ 固有スキルを選択して変更（⚡400 ATP）</label>
-        <div style="display:flex; gap:6px;">
-          <select id="modalSkillSelect" class="btn-outline" style="flex:1; padding:6px; border-radius:8px; font-size:0.78rem; font-weight:800;">${skillOptions}</select>
+        <div style="display:flex; gap:6px; align-items:center; width:100%;">
+          <select id="modalSkillSelect" class="btn-outline" style="flex:1; min-width:0; max-width:100%; padding:6px; border-radius:8px; font-size:0.78rem; font-weight:800; overflow:hidden; text-overflow:ellipsis;">${skillOptions}</select>
           <button class="btn btn-purple" style="padding:6px 10px; font-size:0.76rem; white-space:nowrap;" onclick="buySkillChange('${m.uid}', document.getElementById('modalSkillSelect').value)">⚡400 変更</button>
         </div>
       </div>
@@ -6224,8 +6360,8 @@ function renderMicrobeEditModal() {
             🌈 突然変異種のため、すでに「全科目万能（すべての教科で威力1.35倍！）」を所持しています！
           </div>
         ` : `
-          <div style="display:flex; gap:6px;">
-            <select id="modalSubjSelect" class="btn-outline" style="flex:1; padding:6px; border-radius:8px; font-size:0.78rem; font-weight:800;">${subjOptions}</select>
+          <div style="display:flex; gap:6px; align-items:center; width:100%;">
+            <select id="modalSubjSelect" class="btn-outline" style="flex:1; min-width:0; max-width:100%; padding:6px; border-radius:8px; font-size:0.78rem; font-weight:800; overflow:hidden; text-overflow:ellipsis;">${subjOptions}</select>
             <button class="btn btn-secondary" style="padding:6px 10px; font-size:0.76rem; white-space:nowrap;" onclick="buySubjChange('${m.uid}', document.getElementById('modalSubjSelect').value)">⚡350 変更</button>
           </div>
         `}
@@ -6249,112 +6385,93 @@ function adjustEffortInModal(uid, statKey, delta) {
   renderMicrobeEditModal();
 }
 
-/* 🛒 ATPショップ描画＆購入処理 */
-function changeShopTarget(uid) {
-  state.activeId = uid;
-  saveData();
-  renderAtpShop();
-}
-
+/* 🛒 ATPショップ描画＆購入処理（購入でアイテム化！） */
 function renderAtpShop() {
   const balEl = document.getElementById('atpShopBalance');
   if (balEl) balEl.textContent = state.atp;
+  state.ownedItems = state.ownedItems || {};
 
-  const sel = document.getElementById('shopTargetSelect');
-  if (!sel) return;
-  const m = getMicrobeById(state.activeId);
-  sel.innerHTML = state.box.map(item => `
-    <option value="${item.uid}" ${item.uid === m.uid ? 'selected' : ''}>
-      [${item.rarity}] ${item.nickname} (Lv.${item.level}/${MAX_LEVEL}・✨${getSkill(item.skillId).name})
-    </option>
-  `).join('');
-
-  const subj = getSubject(m.subjId);
-  const skill = getSkill(m.skillId);
-  const sumEl = document.getElementById('shopTargetSummary');
-  if (sumEl) {
-    sumEl.innerHTML = `
-      <span class="rarity-tag rarity-${m.rarity}">${m.rarity}</span>
-      <span class="subject-tag ${subj.cls}">${subj.icon}${subj.name}</span>
-      <span>Lv.${m.level}/${MAX_LEVEL} | 👁️感覚:${m.stats.sense}(会心${getCritRatePct(m)}%) | ✨${skill.name}</span>
-    `;
-  }
-
-  // 1. レベルアップ系アイテム描画
+  // 1. レベルアップ・進化系アイテム描画
   const lvGrid = document.getElementById('atpLevelShopGrid');
   if (lvGrid) {
-    lvGrid.innerHTML = ATP_LEVEL_SHOP_ITEMS.map(it => {
-      const isMax = m.level >= MAX_LEVEL;
+    const lvItems = ITEMS_MASTER.filter(it => ['exp', 'lv_add', 'lv_max'].includes(it.category));
+    lvGrid.innerHTML = lvItems.map(it => {
+      const owned = state.ownedItems[it.id] || 0;
       return `
-        <div class="card" style="padding:12px; display:flex; flex-direction:column; gap:6px; border-color:#bbf7d0; background:#f0fdf4;">
-          <div style="font-size:1.6rem;">${it.icon}</div>
-          <div style="font-weight:900; font-size:0.9rem; color:#14532d;">${it.name}</div>
-          <div style="font-size:0.75rem; color:var(--text-sub); flex:1;">${it.desc}</div>
-          <button class="btn btn-secondary" style="width:100%;" ${isMax ? 'disabled' : ''} onclick="buyAtpLevelItem('${m.uid}', '${it.id}')">
-            ${isMax ? '👑 Lv.30 到達済' : `⚡ ${it.cost} ATP で使用`}
+        <div class="card" style="padding:12px; display:flex; flex-direction:column; gap:6px; border-color:${it.borderColor}; background:${it.bgColor};">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:1.6rem;">${it.icon}</span>
+            <span style="font-size:0.75rem; font-weight:900; background:#ffffff; color:${it.color}; padding:2px 8px; border-radius:999px; border:1px solid ${it.borderColor};">
+              🎒 所持: ${owned}個
+            </span>
+          </div>
+          <div style="font-weight:900; font-size:0.92rem; color:${it.color};">${it.name}</div>
+          <div style="font-size:0.74rem; color:var(--text-sub); flex:1; line-height:1.35;">${it.desc}</div>
+          <button class="btn btn-secondary" style="width:100%; margin-top:4px;" onclick="buyShopItem('${it.id}')">
+            ⚡ ${it.cost} ATP で購入
           </button>
         </div>
       `;
     }).join('');
   }
 
-  // 2. スキル選択・教科選択・覚醒ラボ描画
+  // 2. スキル・教科・研究アイテム ＆ メダル変換描画
   const customGrid = document.getElementById('atpCustomShopGrid');
   if (customGrid) {
-    const skillOpts = SKILLS.map(sk => `<option value="${sk.id}" ${m.skillId === sk.id ? 'selected' : ''}>✨ ${sk.name}</option>`).join('');
-    const normalSubjs = SUBJECTS.filter(s => s.id !== 'all');
-    const subjOpts = normalSubjs.map(s => `<option value="${s.id}" ${m.subjId === s.id ? 'selected' : ''}>${s.icon} ${s.name}</option>`).join('');
-
-    customGrid.innerHTML = `
-      <!-- 固有スキル指名書き換え -->
-      <div class="card" style="padding:12px; display:flex; flex-direction:column; gap:6px; border-color:#e9d5ff; background:#faf5ff;">
-        <div style="font-size:1.5rem;">✨</div>
-        <div style="font-weight:900; font-size:0.9rem; color:#581c87;">スキル書き換えカプセル</div>
-        <div style="font-size:0.75rem; color:var(--text-sub);">好きな固有スキルを指名して即座に付け替えます！</div>
-        <select id="shopSkillPick" class="btn-outline" style="width:100%; padding:6px; border-radius:8px; font-size:0.78rem; font-weight:800;">${skillOpts}</select>
-        <button class="btn btn-purple" style="width:100%; margin-top:auto;" onclick="buySkillChange('${m.uid}', document.getElementById('shopSkillPick').value)">
-          ⚡ 400 ATP でスキル変更
-        </button>
-      </div>
-
-      <!-- 得意教科チューナー -->
-      <div class="card" style="padding:12px; display:flex; flex-direction:column; gap:6px; border-color:#bae6fd; background:#f0f9ff;">
-        <div style="font-size:1.5rem;">📚</div>
-        <div style="font-weight:900; font-size:0.9rem; color:#0c4a6e;">得意教科チューナー</div>
-        <div style="font-size:0.75rem; color:var(--text-sub);">自分の得意な科目にキャラの属性を変更します（威力1.35倍）！</div>
-        ${m.subjId === 'all' ? `
-          <div style="font-size:0.75rem; font-weight:900; color:#b45309; background:#fef3c7; padding:6px; border-radius:8px; text-align:center; margin-top:auto;">
-            🌈 全科目万能を所持済！
+    const customItems = ITEMS_MASTER.filter(it => ['skill', 'subject', 'fever'].includes(it.category));
+    const itemsHtml = customItems.map(it => {
+      const owned = state.ownedItems[it.id] || 0;
+      return `
+        <div class="card" style="padding:12px; display:flex; flex-direction:column; gap:6px; border-color:${it.borderColor}; background:${it.bgColor};">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:1.6rem;">${it.icon}</span>
+            <span style="font-size:0.75rem; font-weight:900; background:#ffffff; color:${it.color}; padding:2px 8px; border-radius:999px; border:1px solid ${it.borderColor};">
+              🎒 所持: ${owned}個
+            </span>
           </div>
-        ` : `
-          <select id="shopSubjPick" class="btn-outline" style="width:100%; padding:6px; border-radius:8px; font-size:0.78rem; font-weight:800;">${subjOpts}</select>
-          <button class="btn btn-primary" style="width:100%; margin-top:auto;" onclick="buySubjChange('${m.uid}', document.getElementById('shopSubjPick').value)">
-            ⚡ 350 ATP で教科変更
+          <div style="font-weight:900; font-size:0.92rem; color:${it.color};">${it.name}</div>
+          <div style="font-size:0.74rem; color:var(--text-sub); flex:1; line-height:1.35;">${it.desc}</div>
+          <button class="btn ${it.category === 'skill' ? 'btn-purple' : (it.category === 'subject' ? 'btn-primary' : 'btn-accent')}" style="width:100%; margin-top:4px;" onclick="buyShopItem('${it.id}')">
+            ⚡ ${it.cost} ATP で購入
           </button>
-        `}
-      </div>
+        </div>
+      `;
+    }).join('');
 
-      <!-- 黄金フィーバー栄養剤 -->
-      <div class="card" style="padding:12px; display:flex; flex-direction:column; gap:6px; border-color:#fde047; background:#fefce8;">
-        <div style="font-size:1.5rem;">🍬✨</div>
-        <div style="font-weight:900; font-size:0.9rem; color:#713f12;">黄金フィーバー栄養剤</div>
-        <div style="font-size:0.75rem; color:var(--text-sub); flex:1;">シャーレに大ボーナスの「黄金の粒」を一気に15個まきます！（経験値＆ATP大量獲得！）</div>
-        <button class="btn btn-accent" style="width:100%;" onclick="buyGoldFoodFever()">
-          ⚡ 300 ATP で黄金粒15個散布
-        </button>
-      </div>
-
-      <!-- DNAメダル変換パック -->
+    const medalCardHtml = `
       <div class="card" style="padding:12px; display:flex; flex-direction:column; gap:6px; border-color:#ddd6fe; background:#f5f3ff;">
-        <div style="font-size:1.5rem;">🧬</div>
-        <div style="font-weight:900; font-size:0.9rem; color:#4c1d95;">DNAメダル変換パック</div>
-        <div style="font-size:0.75rem; color:var(--text-sub); flex:1;">余ったATPを「🧬25 DNAメダル」に変換！メダルを貯めて交換所でURやLRを狙おう！</div>
-        <button class="btn btn-purple" style="width:100%;" onclick="buyMedalPackWithAtp()">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:1.6rem;">🧬</span>
+          <span style="font-size:0.75rem; font-weight:900; background:#ffffff; color:#6d28d9; padding:2px 8px; border-radius:999px; border:1px solid #ddd6fe;">
+            所持: ${state.medals}枚
+          </span>
+        </div>
+        <div style="font-weight:900; font-size:0.92rem; color:#4c1d95;">DNAメダル変換パック</div>
+        <div style="font-size:0.74rem; color:var(--text-sub); flex:1; line-height:1.35;">余ったATPを「🧬25 DNAメダル」に即時変換！交換所でUR・LRや限定チップを狙おう！</div>
+        <button class="btn btn-purple" style="width:100%; margin-top:4px;" onclick="buyMedalPackWithAtp()">
           ⚡ 1000 ATP → 🧬25 メダル
         </button>
       </div>
     `;
+
+    customGrid.innerHTML = itemsHtml + medalCardHtml;
   }
+}
+
+function buyShopItem(itemId) {
+  const item = getItem(itemId);
+  if (!item) return;
+  if (state.atp < item.cost) {
+    showToast(`⚠️ ATPが足りません！（⚡${item.cost} ATP必要 / 現在所持: ⚡${state.atp}）`);
+    return;
+  }
+  state.atp -= item.cost;
+  state.ownedItems = state.ownedItems || {};
+  state.ownedItems[itemId] = (state.ownedItems[itemId] || 0) + 1;
+  saveData();
+  renderAtpShop();
+  if (typeof renderInventory === 'function') renderInventory();
+  showToast(`🎒『${item.name}』を購入しました！（もちものに保管中）`);
 }
 
 function buyAtpLevelItem(uid, itemId) {
@@ -6477,8 +6594,10 @@ function buyMedalPackWithAtp() {
 }
 
 /* ============================================================================
-   4.8 🧬 ゲノム編集ラボ ＆ 遺伝子チップ装着・交換所連携
+   4.8 🎒 もちもの ＆ 遺伝子チップ管理（旧ゲノム編集ラボ後継）
 ============================================================================ */
+let currentInventoryTab = 'all';
+let currentInvModal = { id: null, isChip: false };
 let genomeTargetUid = null;
 let currentGachaCategory = 'bio';
 let currentExchangeCategory = 'char';
@@ -6525,171 +6644,597 @@ function switchExchangeCategory(mode) {
   }
 }
 
+function switchInventoryTab(tab) {
+  currentInventoryTab = tab;
+  ['all', 'items', 'chips', 'equipped'].forEach(t => {
+    const btn = document.getElementById('invTab' + t.charAt(0).toUpperCase() + t.slice(1));
+    if (btn) {
+      if (t === tab) btn.classList.add('active');
+      else btn.classList.remove('active');
+    }
+  });
+  renderInventory();
+}
+
 function changeGenomeTarget(uid) {
   genomeTargetUid = uid;
-  renderGenomeLab();
+  renderInventory();
 }
 
 function renderGenomeLab() {
+  renderInventory();
+}
+
+function renderInventory() {
   const atpEl = document.getElementById('genomeAtpText');
   if (atpEl) atpEl.textContent = state.atp;
+  const mdlEl = document.getElementById('genomeMedalText');
+  if (mdlEl) mdlEl.textContent = state.medals;
 
-  const targetSel = document.getElementById('genomeTargetSelect');
-  if (!targetSel) return;
+  state.ownedItems = state.ownedItems || {};
+  state.ownedChips = state.ownedChips || {};
 
-  if (!genomeTargetUid || !getMicrobeById(genomeTargetUid)) {
-    genomeTargetUid = state.activeId || (state.box[0] ? state.box[0].uid : null);
+  // カウント集計
+  let itemCount = 0;
+  ITEMS_MASTER.forEach(it => {
+    itemCount += (state.ownedItems[it.id] || 0);
+  });
+
+  let chipCount = 0;
+  Object.values(state.ownedChips).forEach(cnt => {
+    chipCount += (cnt || 0);
+  });
+
+  let equippedCount = 0;
+  (state.box || []).forEach(m => {
+    if (m.chips) {
+      if (m.chips[0]) equippedCount++;
+      if (m.chips[1]) equippedCount++;
+    }
+  });
+
+  const countAllEl = document.getElementById('invCountAll');
+  if (countAllEl) countAllEl.textContent = itemCount + chipCount;
+  const countItemsEl = document.getElementById('invCountItems');
+  if (countItemsEl) countItemsEl.textContent = itemCount;
+  const countChipsEl = document.getElementById('invCountChips');
+  if (countChipsEl) countChipsEl.textContent = chipCount;
+  const countEquippedEl = document.getElementById('invCountEquipped');
+  if (countEquippedEl) countEquippedEl.textContent = equippedCount;
+
+  const gridEl = document.getElementById('inventoryItemsGrid');
+  const equippedArea = document.getElementById('inventoryEquippedArea');
+  if (!gridEl || !equippedArea) return;
+
+  // 1. ⚙️ 装備中一覧タブの表示
+  if (currentInventoryTab === 'equipped') {
+    gridEl.style.display = 'none';
+    equippedArea.style.display = 'flex';
+
+    const equippedMicrobes = (state.box || []).filter(m => m.chips && (m.chips[0] || m.chips[1]));
+    if (equippedMicrobes.length === 0) {
+      equippedArea.innerHTML = `
+        <div style="text-align:center; padding:36px 16px; color:var(--text-sub); font-weight:800; background:#f8fafc; border-radius:12px; border:2px dashed #cbd5e1;">
+          現在、遺伝子チップを装備しているキャラはいません。<br>
+          「🧬 遺伝子チップ」タブからチップを選んで、好きなキャラに装着してみましょう！
+        </div>
+      `;
+      return;
+    }
+
+    equippedArea.innerHTML = equippedMicrobes.map(m => {
+      const sp = getSpecies(m.speciesId);
+      const subj = getSubject(m.subjId);
+      return `
+        <div class="card" style="padding:12px; border-color:#cbd5e1; background:white; display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span class="rarity-tag rarity-${m.rarity}">${m.rarity}</span>
+              <strong style="font-size:0.95rem; color:var(--text);">${m.nickname}</strong>
+              <span class="subject-tag ${subj.cls}">${subj.icon}${subj.name}</span>
+              <span style="font-size:0.75rem; color:var(--text-sub); font-weight:800;">Lv.${m.level}/${MAX_LEVEL}</span>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:8px;">
+            ${[0, 1].map(slotIdx => {
+              const chipId = (m.chips || [])[slotIdx];
+              const chip = getChip(chipId);
+              const isDedicated = (slotIdx === 0);
+              return `
+                <div style="background:#f8fafc; border:1px solid ${chip ? chip.color : '#cbd5e1'}; border-radius:8px; padding:8px; display:flex; flex-direction:column; justify-content:space-between; gap:4px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:0.7rem; font-weight:900; color:${isDedicated ? '#6d28d9' : '#0369a1'};">
+                      ${isDedicated ? `🧬 スロット1【${sp.name}専用枠】` : '⚙️ スロット2【汎用自由枠】'}
+                    </span>
+                    ${chip ? `<button class="btn btn-outline" style="padding:2px 8px; font-size:0.7rem; color:#dc2626;" onclick="unequipChipFromInv('${m.uid}', ${slotIdx})">取り外す</button>` : ''}
+                  </div>
+                  ${chip ? `
+                    <div style="font-weight:900; font-size:0.86rem; color:${chip.color};">${chip.icon} ${chip.name}</div>
+                    <div style="font-size:0.7rem; color:var(--text-sub); line-height:1.3;">${chip.desc}</div>
+                  ` : `
+                    <div style="font-size:0.74rem; color:#94a3b8; font-weight:800; padding:4px 0;">空きスロット</div>
+                  `}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }).join('');
+    return;
   }
 
-  targetSel.innerHTML = state.box.map(m => `
-    <option value="${m.uid}" ${m.uid === genomeTargetUid ? 'selected' : ''}>
-      [${m.rarity}] ${m.nickname} (Lv.${m.level})
-    </option>
-  `).join('');
+  // 2. アイテム ＆ チップのグリッド表示（'all', 'items', 'chips'）
+  gridEl.style.display = 'grid';
+  equippedArea.style.display = 'none';
 
-  const m = getMicrobeById(genomeTargetUid);
-  if (!m) return;
-  if (!m.chips) m.chips = [null, null];
+  let cardsHtml = '';
 
-  // 0. 対象キャラの現在のステータス＆チップ補正プレビュー
-  const statPrev = document.getElementById('genomeTargetStatPreview');
-  if (statPrev) {
-    const hasSize = m.chips.filter(c => c === 'chip_size').length;
-    const hasSpd = m.chips.filter(c => c === 'chip_spd').length;
-    const hasDef = m.chips.filter(c => c === 'chip_def').length;
-    const calcHp = Math.round(85 + m.stats.size * 1.3 + m.stats.defense * 0.8 + m.level * 8);
-    statPrev.innerHTML = `
-      <div>📊 <strong>現在の能力値：</strong> ❤️HP:${calcHp}</div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <span style="${hasSpd ? 'color:#0284c7; font-weight:900;' : ''}">⚡すばやさ: <strong>${m.stats.speed}</strong>${hasSpd ? ` <small style="color:#0284c7;">(+${hasSpd * 15}チップ補正中!)</small>` : ''}</span>
-        <span style="${hasSize ? 'color:#dc2626; font-weight:900;' : ''}">🔴大きさ(攻撃): <strong>${m.stats.size}</strong>${hasSize ? ` <small style="color:#dc2626;">(+${hasSize * 15}チップ補正中!)</small>` : ''}</span>
-        <span style="${hasDef ? 'color:#7c3aed; font-weight:900;' : ''}">🟣耐久(防御): <strong>${m.stats.defense}</strong>${hasDef ? ` <small style="color:#7c3aed;">(+${hasDef * 15}チップ補正中!)</small>` : ''}</span>
-        <span>🟢燃費: <strong>${m.stats.fuel}</strong></span>
-        <span>👁️感覚: <strong>${m.stats.sense}</strong> (会心${getCritRatePct(m)}%)</span>
+  // 育成アイテム群
+  if (currentInventoryTab === 'all' || currentInventoryTab === 'items') {
+    ITEMS_MASTER.forEach(it => {
+      const count = state.ownedItems[it.id] || 0;
+      const hasItem = count > 0;
+      const isFever = it.id === 'item_gold_fever';
+
+      cardsHtml += `
+        <div class="card" style="padding:12px; display:flex; flex-direction:column; gap:6px; border-color:${hasItem ? it.borderColor : '#e2e8f0'}; background:${hasItem ? it.bgColor : '#f8fafc'}; opacity:${hasItem ? '1' : '0.65'};">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-size:1.6rem;">${it.icon}</span>
+              <span style="background:#e0f2fe; color:#0369a1; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">育成アイテム</span>
+            </div>
+            <span style="font-size:0.76rem; font-weight:900; background:white; color:${hasItem ? it.color : '#94a3b8'}; padding:2px 8px; border-radius:999px; border:1px solid ${hasItem ? it.borderColor : '#cbd5e1'};">
+              所持: ${count}個
+            </span>
+          </div>
+          <div style="font-weight:900; font-size:0.92rem; color:${hasItem ? it.color : '#475569'};">${it.name}</div>
+          <div style="font-size:0.72rem; color:var(--text-sub); line-height:1.35; flex:1;">${it.desc}</div>
+          <div style="margin-top:4px;">
+            ${hasItem ? (
+              isFever
+                ? `<button class="btn btn-accent" style="width:100%; font-size:0.76rem; font-weight:900;" onclick="useGoldFeverFromInv()">🍬 今すぐシャーレに散布 (残${count}個)</button>`
+                : `<button class="btn btn-primary" style="width:100%; font-size:0.76rem; font-weight:900;" onclick="openInventoryTargetModal('${it.id}', false)">🎯 キャラを選んで使う</button>`
+            ) : `
+              <button class="btn btn-outline" style="width:100%; font-size:0.74rem; font-weight:800; color:#0284c7;" onclick="switchScreen('shop')">🛒 ショップで購入</button>
+            `}
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  // 遺伝子チップ群
+  if (currentInventoryTab === 'all' || currentInventoryTab === 'chips') {
+    GENE_CHIPS_MASTER.forEach(c => {
+      const count = state.ownedChips[c.id] || 0;
+      const hasChip = count > 0;
+      const isDedicated = !!c.speciesId;
+      const spObj = isDedicated ? getSpecies(c.speciesId) : null;
+
+      // 未所持の場合はチップタブのみ表示、あるいはallでは所持済み優先
+      if (currentInventoryTab === 'all' && !hasChip) return;
+
+      cardsHtml += `
+        <div class="card" style="padding:12px; display:flex; flex-direction:column; gap:6px; border-color:${hasChip ? c.color : '#e2e8f0'}; background:${hasChip ? '#ffffff' : '#f8fafc'}; opacity:${hasChip ? '1' : '0.65'};">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:5px;">
+              <span class="rarity-tag" style="background:${c.color}; font-size:0.68rem;">${c.rarity}</span>
+              ${isDedicated
+                ? `<span style="background:#ede9fe; color:#6d28d9; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">${spObj ? spObj.name : ''}専用</span>`
+                : `<span style="background:#e0f2fe; color:#0369a1; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">全キャラ共通</span>`
+              }
+            </div>
+            <span style="font-size:0.76rem; font-weight:900; background:white; color:${hasChip ? c.color : '#94a3b8'}; padding:2px 8px; border-radius:999px; border:1px solid ${hasChip ? c.color : '#cbd5e1'};">
+              所持: ${count}個
+            </span>
+          </div>
+          <div style="font-weight:900; font-size:0.92rem; color:${c.color};">${c.icon} ${c.name}</div>
+          <div style="font-size:0.72rem; color:var(--text-sub); line-height:1.35; flex:1;">${c.desc}</div>
+          <div style="margin-top:4px;">
+            ${hasChip ? `
+              <button class="btn ${isDedicated ? 'btn-purple' : 'btn-primary'}" style="width:100%; font-size:0.76rem; font-weight:900;" onclick="openInventoryTargetModal('${c.id}', true)">
+                ${isDedicated ? '🧬 専用枠1に装備' : '⚙️ 自由枠2に装備'}
+              </button>
+            ` : `
+              <button class="btn btn-outline" style="width:100%; font-size:0.74rem; font-weight:800; color:#8b5cf6;" onclick="switchScreen('gacha'); switchGachaCategory('chip');">💊 ガチャで入手</button>
+            `}
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  if (!cardsHtml) {
+    cardsHtml = `
+      <div style="grid-column:1/-1; text-align:center; padding:36px 16px; color:var(--text-sub); font-weight:800; background:#f8fafc; border-radius:12px; border:2px dashed #cbd5e1;">
+        該当するアイテムやチップがありません。<br>
+        「🛒 ショップ」や「💊 ガチャ」でアイテム・チップを手に入れてみましょう！
       </div>
     `;
   }
 
-  // 1. 対象キャラの2枠スロット描画（スロット1＝種族専用枠 / スロット2＝汎用自由枠）
-  const sp = getSpecies(m.speciesId);
-  const slotsArea = document.getElementById('genomeSlotsArea');
-  if (slotsArea) {
-    slotsArea.innerHTML = [0, 1].map(slotIdx => {
-      const chipId = m.chips[slotIdx];
-      const chip = getChip(chipId);
-      const isDedicatedSlot = (slotIdx === 0);
-      const slotTitle = isDedicatedSlot ? `🧬 スロット 1【🧬 ${sp.name}専用枠】` : `⚙️ スロット 2【⚙️ 汎用自由枠】`;
-      const slotBadge = isDedicatedSlot
-        ? `<span style="background:#ede9fe; color:#6d28d9; font-size:0.68rem; font-weight:900; padding:2px 8px; border-radius:999px;">種族専用</span>`
-        : `<span style="background:#e0f2fe; color:#0369a1; font-size:0.68rem; font-weight:900; padding:2px 8px; border-radius:999px;">全キャラ共通</span>`;
-      return `
-        <div style="background:white; border:2px solid ${chip ? chip.color : (isDedicatedSlot ? '#a855f7' : '#0284c7')}; border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:6px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div style="display:flex; align-items:center; gap:6px;">
-              <strong style="font-size:0.84rem; color:${isDedicatedSlot ? '#6b21a8' : '#0369a1'};">${slotTitle}</strong>
-              ${slotBadge}
-            </div>
-            ${chip ? `<button class="btn btn-outline" style="padding:2px 8px; font-size:0.7rem; color:#dc2626;" onclick="unequipGeneChip(${slotIdx})">取り外す</button>` : ''}
-          </div>
-          ${chip ? `
-            <div style="font-weight:900; font-size:0.95rem; color:${chip.color};">${chip.icon} ${chip.name} <span class="rarity-tag" style="background:${chip.color}; font-size:0.65rem;">${chip.rarity}</span></div>
-            <div style="font-size:0.75rem; color:var(--text-sub); line-height:1.35;">${chip.desc}</div>
-          ` : `
-            <div style="padding:14px; text-align:center; color:var(--text-sub); font-size:0.78rem; font-weight:800; border:2px dashed ${isDedicatedSlot ? '#d8b4fe' : '#bae6fd'}; border-radius:8px; background:${isDedicatedSlot ? '#faf5ff' : '#f0f9ff'};">
-              空きスロット<br><small>${isDedicatedSlot ? `下の「${sp.name}専用チップ」から【専用枠1に装着】を押してください` : '下の全キャラ共通チップから【自由枠2に装着】を押してください'}</small>
-            </div>
-          `}
-        </div>
-      `;
-    }).join('');
+  gridEl.innerHTML = cardsHtml;
+}
+
+/* 🍬 もちものから黄金フィーバーを直接散布 */
+function useGoldFeverFromInv() {
+  state.ownedItems = state.ownedItems || {};
+  if (!state.ownedItems['item_gold_fever'] || state.ownedItems['item_gold_fever'] <= 0) {
+    showToast('⚠️ 黄金フィーバー栄養剤を持っていません！');
+    return;
   }
+  state.ownedItems['item_gold_fever']--;
+  for (let i = 0; i < 15; i++) {
+    foods.push({
+      x: 40 + Math.random() * (petriCanvas.width - 80),
+      y: 40 + Math.random() * (petriCanvas.height - 80),
+      r: 13,
+      exp: 120,
+      atp: 4,
+      color: '#f59e0b',
+      isGold: true
+    });
+  }
+  saveData();
+  renderInventory();
+  showToast('🍬✨ シャーレに特大経験値(1粒120 EXP)の黄金粒を15個まきました！育成画面で食べよう！');
+}
 
-  // 2. 所持チップ一覧の描画
-  const ownedGrid = document.getElementById('ownedChipsGrid');
-  if (ownedGrid) {
-    const ownedKeys = Object.keys(state.ownedChips || {}).filter(k => (state.ownedChips[k] || 0) > 0);
-    if (ownedKeys.length === 0) {
-      ownedGrid.innerHTML = `
-        <div style="grid-column:1/-1; text-align:center; padding:24px; color:var(--text-sub); font-weight:800; background:#f8fafc; border-radius:12px; border:2px dashed #cbd5e1;">
-          まだ未使用の遺伝子チップを持っていません！<br>
-          「💊 ガチャ（遺伝子チップガチャ）」または「🏪 交換所（遺伝子チップ交換所）」で強力なチップを手に入れよう！
+/* ============================================================================
+   4.8.1 🎒 もちものアイテム使用・チップ装着モーダル制御
+============================================================================ */
+function openInventoryTargetModal(id, isChip) {
+  currentInvModal = { id, isChip };
+  const modal = document.getElementById('inventoryTargetModal');
+  if (!modal) return;
+
+  const titleEl = document.getElementById('invModalTitle');
+  const headerEl = document.getElementById('invModalItemHeader');
+  const extraArea = document.getElementById('invModalExtraOptionArea');
+
+  if (isChip) {
+    const chip = getChip(id);
+    if (!chip) return;
+    const isDedicated = !!chip.speciesId;
+    const spObj = isDedicated ? getSpecies(chip.speciesId) : null;
+
+    if (titleEl) titleEl.textContent = '🧬 遺伝子チップを装備するキャラを選択';
+    if (headerEl) {
+      headerEl.innerHTML = `
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:1.8rem;">${chip.icon}</span>
+          <div>
+            <div style="display:flex; align-items:center; gap:5px;">
+              <span class="rarity-tag" style="background:${chip.color}; font-size:0.68rem;">${chip.rarity}</span>
+              ${isDedicated
+                ? `<span style="background:#ede9fe; color:#6d28d9; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">${spObj ? spObj.name : ''}専用</span>`
+                : `<span style="background:#e0f2fe; color:#0369a1; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">全キャラ共通</span>`
+              }
+              <strong style="font-size:0.95rem; color:${chip.color};">${chip.name}</strong>
+            </div>
+            <div style="font-size:0.72rem; color:var(--text-sub); line-height:1.3; margin-top:2px;">${chip.desc}</div>
+          </div>
+        </div>
+        <div style="text-align:right; white-space:nowrap;">
+          <span style="font-size:0.78rem; font-weight:900; color:#475569;">所持数: ${state.ownedChips[id] || 0}個</span>
         </div>
       `;
-    } else {
-      ownedGrid.innerHTML = ownedKeys.map(k => {
-        const chip = getChip(k);
-        if (!chip) return '';
-        const count = state.ownedChips[k];
-        const isDedicated = !!chip.speciesId;
-        const isMatch = isDedicated && (chip.speciesId === m.speciesId);
-        const spObj = isDedicated ? getSpecies(chip.speciesId) : null;
+    }
 
-        let equipButtonHtml = '';
-        if (isDedicated) {
-          if (isMatch) {
-            equipButtonHtml = `<button class="btn btn-purple" style="flex:1; padding:5px 8px; font-size:0.75rem; font-weight:900;" onclick="equipGeneChip(0, '${chip.id}')">🧬 専用枠1に装着</button>`;
-          } else {
-            equipButtonHtml = `<span style="font-size:0.72rem; color:#94a3b8; font-weight:800; background:#f1f5f9; padding:4px 8px; border-radius:6px; text-align:center; width:100%;">🔒 ${spObj ? spObj.name : ''}専用 (装着不可)</span>`;
-          }
-        } else {
-          equipButtonHtml = `<button class="btn btn-primary" style="flex:1; padding:5px 8px; font-size:0.75rem; font-weight:900;" onclick="equipGeneChip(1, '${chip.id}')">⚙️ 自由枠2に装着</button>`;
-        }
-
-        return `
-          <div class="card" style="padding:10px; border-color:${chip.color}; background:#ffffff; display:flex; flex-direction:column; gap:5px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div style="display:flex; gap:4px; align-items:center;">
-                <span class="rarity-tag" style="background:${chip.color}; font-size:0.68rem;">${chip.rarity}</span>
-                ${isDedicated ? `<span style="background:#ede9fe; color:#6d28d9; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">${spObj ? spObj.name : ''}専用</span>` : '<span style="background:#e0f2fe; color:#0369a1; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">全キャラ共通</span>'}
-              </div>
-              <span style="font-weight:900; font-size:0.78rem; color:#475569;">所持数: ${count}個</span>
-            </div>
-            <div style="font-weight:900; font-size:0.88rem; color:${chip.color};">${chip.icon} ${chip.name}</div>
-            <div style="font-size:0.72rem; color:var(--text-sub); line-height:1.3; flex:1;">${chip.desc}</div>
-            <div style="display:flex; gap:4px; margin-top:4px;">
-              ${equipButtonHtml}
-            </div>
+    if (extraArea) {
+      if (isDedicated) {
+        extraArea.style.display = 'block';
+        extraArea.innerHTML = `
+          <div style="font-size:0.75rem; font-weight:900; color:#6d28d9;">
+            🧬 このチップは<strong>『${spObj ? spObj.name : ''}』専用チップ</strong>です！<br>
+            対象キャラの【🧬 スロット1（専用枠）】に装着されます。（他種族には装着できません）
           </div>
         `;
-      }).join('');
+      } else {
+        extraArea.style.display = 'block';
+        extraArea.innerHTML = `
+          <div style="font-size:0.75rem; font-weight:900; color:#0369a1;">
+            ⚙️ このチップは<strong>【全キャラ共通の汎用チップ】</strong>です！<br>
+            好きなキャラの【⚙️ スロット2（自由枠）】に装着されます。
+          </div>
+        `;
+      }
     }
+  } else {
+    const item = getItem(id);
+    if (!item) return;
+
+    if (titleEl) titleEl.textContent = '🎒 アイテムを使うキャラを選択';
+    if (headerEl) {
+      headerEl.innerHTML = `
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:1.8rem;">${item.icon}</span>
+          <div>
+            <div style="display:flex; align-items:center; gap:5px;">
+              <strong style="font-size:0.95rem; color:${item.color};">${item.name}</strong>
+            </div>
+            <div style="font-size:0.72rem; color:var(--text-sub); line-height:1.3; margin-top:2px;">${item.desc}</div>
+          </div>
+        </div>
+        <div style="text-align:right; white-space:nowrap;">
+          <span style="font-size:0.78rem; font-weight:900; color:#475569;">所持数: ${state.ownedItems[id] || 0}個</span>
+        </div>
+      `;
+    }
+
+    if (extraArea) {
+      if (item.category === 'skill') {
+        const skillOpts = SKILLS.map(sk => `<option value="${sk.id}">✨ ${sk.name}（${sk.desc}）</option>`).join('');
+        extraArea.style.display = 'block';
+        extraArea.innerHTML = `
+          <label style="font-size:0.78rem; font-weight:900; color:#6d28d9; display:block; margin-bottom:4px;">✨ 書き換え先の固有スキルを選択してください：</label>
+          <select id="invSelectedSkill" class="btn-outline" style="width:100%; padding:6px; border-radius:8px; font-size:0.78rem; font-weight:800;">${skillOpts}</select>
+        `;
+      } else if (item.category === 'subject') {
+        const normalSubjs = SUBJECTS.filter(s => s.id !== 'all');
+        const subjOpts = normalSubjs.map(s => `<option value="${s.id}">${s.icon} ${s.name}（威力1.35倍）</option>`).join('');
+        extraArea.style.display = 'block';
+        extraArea.innerHTML = `
+          <label style="font-size:0.78rem; font-weight:900; color:#0369a1; display:block; margin-bottom:4px;">📚 変更先の得意教科を選択してください：</label>
+          <select id="invSelectedSubj" class="btn-outline" style="width:100%; padding:6px; border-radius:8px; font-size:0.78rem; font-weight:800;">${subjOpts}</select>
+        `;
+      } else {
+        extraArea.style.display = 'none';
+        extraArea.innerHTML = '';
+      }
+    }
+  }
+
+  renderInventoryTargetList();
+  modal.classList.add('active');
+}
+
+function closeInventoryTargetModal() {
+  const modal = document.getElementById('inventoryTargetModal');
+  if (modal) modal.classList.remove('active');
+}
+
+function renderInventoryTargetList() {
+  const area = document.getElementById('invTargetCardsArea');
+  if (!area) return;
+
+  const { id, isChip } = currentInvModal;
+  const chip = isChip ? getChip(id) : null;
+  const item = !isChip ? getItem(id) : null;
+
+  const sortVal = (document.getElementById('invSortSelect') && document.getElementById('invSortSelect').value) || 'rarity';
+  const filterSubj = (document.getElementById('invFilterSubj') && document.getElementById('invFilterSubj').value) || 'all_filter';
+
+  let list = [...(state.box || [])];
+
+  // 1. 得意教科絞り込み
+  if (filterSubj !== 'all_filter') {
+    if (filterSubj === 'all') {
+      list = list.filter(m => m.subjId === 'all');
+    } else {
+      list = list.filter(m => m.subjId === filterSubj);
+    }
+  }
+
+  // 2. ソート順
+  const rarityRank = { 'LR': 4, 'UR': 3, 'SR': 2, 'R': 1, 'N': 0 };
+  list.sort((a, b) => {
+    if (sortVal === 'rarity') {
+      const rDiff = (rarityRank[b.rarity] || 0) - (rarityRank[a.rarity] || 0);
+      if (rDiff !== 0) return rDiff;
+      return (b.level || 1) - (a.level || 1);
+    } else if (sortVal === 'level') {
+      return (b.level || 1) - (a.level || 1);
+    } else if (sortVal === 'total') {
+      const totA = Object.values(a.stats || {}).reduce((x, y) => x + y, 0);
+      const totB = Object.values(b.stats || {}).reduce((x, y) => x + y, 0);
+      return totB - totA;
+    } else if (sortVal === 'speed') {
+      return (b.stats?.speed || 0) - (a.stats?.speed || 0);
+    } else if (sortVal === 'new') {
+      return (b.acquiredAt || 0) - (a.acquiredAt || 0);
+    }
+    return 0;
+  });
+
+  if (list.length === 0) {
+    area.innerHTML = `
+      <div style="text-align:center; padding:24px; color:var(--text-sub); font-weight:800;">
+        条件に一致するキャラが見つかりません。
+      </div>
+    `;
+    return;
+  }
+
+  area.innerHTML = list.map(m => {
+    const subj = getSubject(m.subjId);
+    const skill = getSkill(m.skillId);
+    const sp = getSpecies(m.speciesId);
+
+    // チップ装備時の適格判定
+    let canEquipChip = true;
+    let chipBlockReason = '';
+    if (isChip && chip) {
+      if (chip.speciesId) {
+        // 専用チップ
+        if (chip.speciesId !== m.speciesId) {
+          canEquipChip = false;
+          chipBlockReason = `🔒『${getSpecies(chip.speciesId)?.name || ''}』専用`;
+        }
+      }
+    }
+
+    // アイテム使用時の適格判定
+    let canUseItem = true;
+    let itemBlockReason = '';
+    if (!isChip && item) {
+      if (['exp', 'lv_add', 'lv_max'].includes(item.category) && m.level >= MAX_LEVEL) {
+        canUseItem = false;
+        itemBlockReason = '👑 Lv.30 到達済';
+      } else if (item.category === 'subject' && m.subjId === 'all') {
+        canUseItem = false;
+        itemBlockReason = '🌈 全科目万能所持済';
+      }
+    }
+
+    // アクションボタンのHTML生成
+    let actionBtnHtml = '';
+    if (isChip) {
+      const isDedicated = !!chip.speciesId;
+      const count = state.ownedChips[chip.id] || 0;
+      if (count <= 0) {
+        actionBtnHtml = `<button class="btn btn-secondary" disabled style="padding:4px 8px; font-size:0.74rem;">所持数0</button>`;
+      } else if (!canEquipChip) {
+        actionBtnHtml = `<span style="font-size:0.72rem; color:#94a3b8; font-weight:800; background:#f1f5f9; padding:4px 8px; border-radius:6px; text-align:center;">${chipBlockReason}</span>`;
+      } else {
+        actionBtnHtml = `
+          <button class="btn ${isDedicated ? 'btn-purple' : 'btn-primary'}" style="padding:5px 12px; font-size:0.76rem; font-weight:900;" onclick="equipChipOnTargetFromInv('${m.uid}', '${chip.id}')">
+            ${isDedicated ? '🧬 専用枠1に装着' : '⚙️ 自由枠2に装着'}
+          </button>
+        `;
+      }
+    } else {
+      const count = state.ownedItems[item.id] || 0;
+      if (count <= 0) {
+        actionBtnHtml = `<button class="btn btn-secondary" disabled style="padding:4px 8px; font-size:0.74rem;">所持数0</button>`;
+      } else if (!canUseItem) {
+        actionBtnHtml = `<span style="font-size:0.72rem; color:#94a3b8; font-weight:800; background:#f1f5f9; padding:4px 8px; border-radius:6px; text-align:center;">${itemBlockReason}</span>`;
+      } else {
+        actionBtnHtml = `
+          <button class="btn ${item.category === 'skill' ? 'btn-purple' : (item.category === 'subject' ? 'btn-secondary' : 'btn-accent')}" style="padding:5px 12px; font-size:0.76rem; font-weight:900;" onclick="useItemOnTarget('${m.uid}', '${item.id}')">
+            🎯 このキャラに使う
+          </button>
+        `;
+      }
+    }
+
+    // 装備中のチッププレビュー
+    const slot1Chip = getChip(m.chips ? m.chips[0] : null);
+    const slot2Chip = getChip(m.chips ? m.chips[1] : null);
+
+    return `
+      <div class="card" style="padding:10px 12px; display:flex; flex-direction:column; gap:6px; border-color:${(!canEquipChip || !canUseItem) ? '#e2e8f0' : '#cbd5e1'}; background:${(!canEquipChip || !canUseItem) ? '#f8fafc' : '#ffffff'}; opacity:${(!canEquipChip || !canUseItem) ? '0.75' : '1'};">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <span class="rarity-tag rarity-${m.rarity}">${m.rarity}</span>
+            <strong style="font-size:0.92rem; color:var(--text);">${m.nickname}</strong>
+            <span class="subject-tag ${subj.cls}">${subj.icon}${subj.name}</span>
+            <span style="font-size:0.76rem; font-weight:800; color:#0369a1;">Lv.${m.level}/${MAX_LEVEL}</span>
+            <span style="font-size:0.72rem; color:#6d28d9; font-weight:800;">✨${skill.name}</span>
+          </div>
+          <div>${actionBtnHtml}</div>
+        </div>
+
+        <!-- ステータス ＆ 装備中チップ簡易バー -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; font-size:0.72rem; color:var(--text-sub); background:#f8fafc; padding:4px 8px; border-radius:6px;">
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <span>⚡すばやさ:${m.stats.speed}</span>
+            <span>🔴攻:${m.stats.size}</span>
+            <span>🟣防:${m.stats.defense}</span>
+            <span>👁️感覚:${m.stats.sense}(会心${getCritRatePct(m)}%)</span>
+          </div>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <span>枠1: ${slot1Chip ? `<strong style="color:${slot1Chip.color};">${slot1Chip.icon}${slot1Chip.name}</strong>` : '<small>空き</small>'}</span>
+            <span>|</span>
+            <span>枠2: ${slot2Chip ? `<strong style="color:${slot2Chip.color};">${slot2Chip.icon}${slot2Chip.name}</strong>` : '<small>空き</small>'}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* 🎯 もちものアイテムを対象キャラに使用 */
+function useItemOnTarget(uid, itemId) {
+  const m = getMicrobeById(uid);
+  const item = getItem(itemId);
+  if (!m || !item) return;
+
+  state.ownedItems = state.ownedItems || {};
+  if (!state.ownedItems[itemId] || state.ownedItems[itemId] <= 0) {
+    showToast('⚠️ そのアイテムを持っていません！');
+    return;
+  }
+
+  if (item.category === 'exp') {
+    if (m.level >= MAX_LEVEL) {
+      showToast('👑 すでに最大レベル（Lv.30）に到達しています！');
+      return;
+    }
+    gainExp(m, item.val);
+  } else if (item.category === 'lv_add' || item.category === 'lv_max') {
+    if (m.level >= MAX_LEVEL) {
+      showToast('👑 すでに最大レベル（Lv.30）に到達しています！');
+      return;
+    }
+    const targetLv = item.category === 'lv_max' ? MAX_LEVEL : Math.min(MAX_LEVEL, m.level + item.val);
+    while (m.level < targetLv) {
+      m.exp = m.level * 22;
+      gainExp(m, 1);
+    }
+  } else if (item.category === 'skill') {
+    const selEl = document.getElementById('invSelectedSkill');
+    const newSkillId = selEl ? selEl.value : 'eye';
+    if (m.skillId === newSkillId) {
+      showToast('⚠️ すでにその固有スキルを習得しています！別のスキルを選択してください。');
+      return;
+    }
+    m.skillId = newSkillId;
+  } else if (item.category === 'subject') {
+    if (m.subjId === 'all') {
+      showToast('🌈 全科目万能個体のため教科変更は不要です！');
+      return;
+    }
+    const selEl = document.getElementById('invSelectedSubj');
+    const newSubjId = selEl ? selEl.value : 'bio';
+    if (m.subjId === newSubjId) {
+      showToast('⚠️ すでにその得意教科です！別の教科を選択してください。');
+      return;
+    }
+    m.subjId = newSubjId;
+  }
+
+  // アイテム消費
+  state.ownedItems[itemId]--;
+  saveData();
+  renderPetriStatusCard();
+  renderBoxAndParty();
+  renderInventory();
+
+  showToast(`🎒『${m.nickname}』に【${item.name}】を使用しました！`);
+
+  // 所持数がまだあればモーダル更新、無くなれば閉じる
+  if (state.ownedItems[itemId] > 0) {
+    openInventoryTargetModal(itemId, false);
+  } else {
+    closeInventoryTargetModal();
   }
 }
 
-function equipGeneChip(slotIdx, chipId) {
-  const m = getMicrobeById(genomeTargetUid || state.activeId);
-  if (!m) return;
-  if (!m.chips) m.chips = [null, null];
+/* 🧬 遺伝子チップを対象キャラに装着 */
+function equipChipOnTargetFromInv(uid, chipId) {
+  const m = getMicrobeById(uid);
+  const chip = getChip(chipId);
+  if (!m || !chip) return;
 
-  // 所持確認
+  state.ownedChips = state.ownedChips || {};
   if (!state.ownedChips[chipId] || state.ownedChips[chipId] <= 0) {
     showToast('⚠️ その遺伝子チップを持っていません！');
     return;
   }
 
-  const c = getChip(chipId);
-  if (!c) return;
+  if (!m.chips) m.chips = [null, null];
+  const slotIdx = chip.speciesId ? 0 : 1;
 
-  // 🧬 スロット制限チェック（スロット1＝種族専用枠 / スロット2＝汎用自由枠）
-  if (slotIdx === 0) {
-    if (!c.speciesId) {
-      showToast('⚠️ スロット1は【種族専用枠】です！全キャラ共通チップはスロット2（自由枠）に装着してください。');
-      return;
-    }
-    if (c.speciesId !== m.speciesId) {
-      const targetSp = getSpecies(m.speciesId);
-      const reqSp = getSpecies(c.speciesId);
-      showToast(`⚠️ このチップは『${reqSp.name}』専用です！『${targetSp.name}』には装着できません！`);
-      return;
-    }
-  } else if (slotIdx === 1) {
-    if (c.speciesId) {
-      showToast('⚠️ スロット2は【汎用自由枠】です！種族専用チップはスロット1（専用枠）に装着してください。');
-      return;
-    }
+  // 種族専用チェック
+  if (chip.speciesId && chip.speciesId !== m.speciesId) {
+    const spReq = getSpecies(chip.speciesId);
+    showToast(`⚠️ このチップは『${spReq ? spReq.name : ''}』専用です！`);
+    return;
   }
 
-  // すでに同じキャラの別スロットにある場合は入れ替え（別スロット側から取り外し＋ステータス減算）
+  // 同一キャラの別スロットにある場合は入れ替え
   const otherSlot = slotIdx === 0 ? 1 : 0;
   if (m.chips[otherSlot] === chipId) {
     applyChipStatDelta(m, chipId, -1);
@@ -6697,47 +7242,63 @@ function equipGeneChip(slotIdx, chipId) {
     m.chips[otherSlot] = null;
   }
 
-  // 装着先スロットに古いチップがあれば取り外して所持数へ戻し、ステータス補正も戻す
+  // 対象スロットの古いチップを取り外して返却
   const oldChipId = m.chips[slotIdx];
   if (oldChipId) {
     applyChipStatDelta(m, oldChipId, -1);
     state.ownedChips[oldChipId] = (state.ownedChips[oldChipId] || 0) + 1;
   }
 
-  // 新チップを装着して所持数から1減らし、ステータス上昇チップなら反映！
+  // 新チップ装着＆反映
   state.ownedChips[chipId]--;
   m.chips[slotIdx] = chipId;
   applyChipStatDelta(m, chipId, 1);
   m.chipStatApplied = true;
 
   saveData();
-  renderGenomeLab();
   renderPetriStatusCard();
   renderBoxAndParty();
-  if (document.getElementById('microbeEditModal')?.classList.contains('active')) {
-    renderMicrobeEditModal();
+  renderInventory();
+
+  showToast(`🧬『${m.nickname}』の${slotIdx === 0 ? '【種族専用枠1】' : '【自由枠2】'}に【${chip.name}】を装着しました！`);
+
+  if (state.ownedChips[chipId] > 0) {
+    openInventoryTargetModal(chipId, true);
+  } else {
+    closeInventoryTargetModal();
   }
-  showToast(`🧬『${m.nickname}』の${slotIdx === 0 ? '【種族専用枠1】' : '【汎用自由枠2】'}に【${c.name}】を組み込みました！`);
 }
 
-function unequipGeneChip(slotIdx) {
-  const m = getMicrobeById(genomeTargetUid || state.activeId);
+/* ⚙️ もちもの画面からチップを取り外す */
+function unequipChipFromInv(uid, slotIdx) {
+  const m = getMicrobeById(uid);
   if (!m || !m.chips) return;
   const oldChipId = m.chips[slotIdx];
   if (!oldChipId) return;
 
-  // 取り外し時にステータス上昇チップの補正を元に戻す
   applyChipStatDelta(m, oldChipId, -1);
+  state.ownedChips = state.ownedChips || {};
   state.ownedChips[oldChipId] = (state.ownedChips[oldChipId] || 0) + 1;
   m.chips[slotIdx] = null;
+
   saveData();
-  renderGenomeLab();
   renderPetriStatusCard();
   renderBoxAndParty();
-  if (document.getElementById('microbeEditModal')?.classList.contains('active')) {
-    renderMicrobeEditModal();
+  renderInventory();
+
+  if (currentInvModal.id && document.getElementById('inventoryTargetModal')?.classList.contains('active')) {
+    renderInventoryTargetList();
   }
-  showToast('🧬 遺伝子チップを取り外しました。');
+  showToast('🧬 遺伝子チップを取り外しました。（もちものへ返却）');
+}
+
+/* 🧬 従来のゲノム編集互換用装着/取り外し関数 */
+function equipGeneChip(slotIdx, chipId) {
+  equipChipOnTargetFromInv(genomeTargetUid || state.activeId, chipId);
+}
+
+function unequipGeneChip(slotIdx) {
+  unequipChipFromInv(genomeTargetUid || state.activeId, slotIdx);
 }
 
 // 遺伝子チップガチャ抽選（全15種族専用チップも平等に排出！ UR:1.5%, SR:12.0%, R:25.0%, N:61.5%）
