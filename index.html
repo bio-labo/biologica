@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 4.0 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 4.2 - 理系微生物育成＆戦略クイズバトル</title>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon.svg">
 <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
@@ -2913,62 +2913,62 @@ const QUIZ_MASTER = [
   { id: 'em12', grade: 'elem', subj: 'm1a', q: '300円の 20%引き（2割引）はいくら？（数字のみ）', ans: '240', c: ['240', '260', '280', '250'] },
 
   // ================= 🏫 中学生・社会人レベル (junior) =================
-  // --- 中学生物 (bio) ---
-  { id: 'jb1', grade: 'junior', subj: 'bio', q: '植物の細胞にあり、動物の細胞にはない「緑色の粒」を何という？', ans: '葉緑体', c: ['葉緑体', 'ミトコンドリア', '細胞膜', 'リボソーム'] },
-  { id: 'jb2', grade: 'junior', subj: 'bio', q: 'だ液に含まれ、デンプンを麦芽糖に分解する消化酵素は何？', ans: 'アミラーゼ', c: ['アミラーゼ', 'ペプシン', 'リパーゼ', 'トリプシン'] },
-  { id: 'jb3', grade: 'junior', subj: 'bio', q: '胃液に含まれ、タンパク質を分解する消化酵素は何？', ans: 'ペプシン', c: ['ペプシン', 'アミラーゼ', 'リパーゼ', 'マルターゼ'] },
-  { id: 'jb4', grade: 'junior', subj: 'bio', q: '血液の成分で、ヘモグロビンを含み全身に酸素を運ぶ細胞は？', ans: '赤血球', c: ['赤血球', '白血球', '血小板', '血しょう'] },
-  { id: 'jb5', grade: 'junior', subj: 'bio', q: '親の形質が子に伝わる際、対立形質で現れやすい方の形質を「顕性形質」、現れにくい方を何という？', ans: '潜性形質', c: ['潜性形質', '優性形質', '変異形質', '適応形質'] },
-  { id: 'jb6', grade: 'junior', subj: 'bio', q: '熱いヤカンに手が触れたとき、脳を経由せず脊髄で折り返す無意識の反応を何という？', ans: '反射', c: ['反射', '意識反応', '条件付け', '走性'] },
-  { id: 'jb7', grade: 'junior', subj: 'bio', q: '植物の根や茎の先端付近で行われる、染色体数が変わらない細胞分裂を何という？', ans: '体細胞分裂', c: ['体細胞分裂', '減数分裂', '出芽分裂', '無糸分裂'] },
-  { id: 'jb8', grade: 'junior', subj: 'bio', q: '小腸の内壁にある、栄養分を効率よく吸収するために表面積を広げている突起は？', ans: '柔毛', c: ['柔毛', '繊毛', '肺胞', '気孔'] },
-  { id: 'jb9', grade: 'junior', subj: 'bio', q: 'マツやイチョウのように、胚珠が子房に包まれずむき出しになっている植物を何植物という？', ans: '裸子植物', c: ['裸子植物', '被子植物', 'シダ植物', 'コケ植物'] },
-  { id: 'jb10', grade: 'junior', subj: 'bio', q: 'エンドウマメの交配実験を行い、遺伝の規則性を発見したオーストリアの修道士は誰？', ans: 'メンデル', c: ['メンデル', 'ダーウィン', 'ワトソン', 'フック'] },
-  { id: 'jb11', grade: 'junior', subj: 'bio', q: '顕微鏡でコルク片を観察し、小部屋を「細胞（Cell）」と名付けたイギリスの科学者は？', ans: 'フック', c: ['フック', 'レーウェンフック', 'パスツール', 'シュライデン'] },
-  { id: 'jb12', grade: 'junior', subj: 'bio', q: '生物が呼吸を行うとき、細胞内でグルコースと酸素を使って取り出す気体は何？', ans: '二酸化炭素', c: ['二酸化炭素', '酸素', '窒素', '水素'] },
-  { id: 'jb13', grade: 'junior', subj: 'bio', q: 'アミラーゼなどの消化酵素を分泌し、インスリンなどの血糖調節ホルモンも分泌する器官は？', ans: 'すい臓', c: ['すい臓', '肝臓', '脾臓', '腎臓'] },
-  { id: 'jb14', grade: 'junior', subj: 'bio', q: '胆汁をつくり、有害物質を解毒し、栄養を貯蔵する体内最大の臓器は？', ans: '肝臓', c: ['肝臓', 'すい臓', '腎臓', '胃'] },
+  // --- 中学理科・第2分野：生物 (j_sci_p2) 教科書基礎 ---
+  { id: 'jb1', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '植物の細胞にあり、動物の細胞にはない「緑色の粒」を何という？', ans: '葉緑体', c: ['葉緑体', 'ミトコンドリア', '細胞膜', 'リボソーム'] },
+  { id: 'jb2', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: 'だ液に含まれ、デンプンを麦芽糖に分解する消化酵素は何？', ans: 'アミラーゼ', c: ['アミラーゼ', 'ペプシン', 'リパーゼ', 'トリプシン'] },
+  { id: 'jb3', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '胃液に含まれ、タンパク質を分解する消化酵素は何？', ans: 'ペプシン', c: ['ペプシン', 'アミラーゼ', 'リパーゼ', 'マルターゼ'] },
+  { id: 'jb4', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '血液の成分で、ヘモグロビンを含み全身に酸素を運ぶ細胞は？', ans: '赤血球', c: ['赤血球', '白血球', '血小板', '血しょう'] },
+  { id: 'jb5', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '親の形質が子に伝わる際、対立形質で現れやすい方の形質を「顕性形質」、現れにくい方を何という？', ans: '潜性形質', c: ['潜性形質', '優性形質', '変異形質', '適応形質'] },
+  { id: 'jb6', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '熱いヤカンに手が触れたとき、脳を経由せず脊髄で折り返す無意識の反応を何という？', ans: '反射', c: ['反射', '意識反応', '条件付け', '走性'] },
+  { id: 'jb7', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '植物の根や茎の先端付近で行われる、染色体数が変わらない細胞分裂を何という？', ans: '体細胞分裂', c: ['体細胞分裂', '減数分裂', '出芽分裂', '無糸分裂'] },
+  { id: 'jb8', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '小腸の内壁にある、栄養分を効率よく吸収するために表面積を広げている突起は？', ans: '柔毛', c: ['柔毛', '繊毛', '肺胞', '気孔'] },
+  { id: 'jb9', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: 'マツやイチョウのように、胚珠が子房に包まれずむき出しになっている植物を何植物という？', ans: '裸子植物', c: ['裸子植物', '被子植物', 'シダ植物', 'コケ植物'] },
+  { id: 'jb10', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: 'エンドウマメの交配実験を行い、遺伝の規則性を発見したオーストリアの修道士は誰？', ans: 'メンデル', c: ['メンデル', 'ダーウィン', 'ワトソン', 'フック'] },
+  { id: 'jb11', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '顕微鏡でコルク片を観察し、小部屋を「細胞（Cell）」と名付けたイギリスの科学者は？', ans: 'フック', c: ['フック', 'レーウェンフック', 'パスツール', 'シュライデン'] },
+  { id: 'jb12', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '生物が呼吸を行うとき、細胞内でグルコースと酸素を使って取り出す気体は何？', ans: '二酸化炭素', c: ['二酸化炭素', '酸素', '窒素', '水素'] },
+  { id: 'jb13', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: 'アミラーゼなどの消化酵素を分泌し、インスリンなどの血糖調節ホルモンも分泌する器官は？', ans: 'すい臓', c: ['すい臓', '肝臓', '脾臓', '腎臓'] },
+  { id: 'jb14', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '胆汁をつくり、有害物質を解毒し、栄養を貯蔵する体内最大の臓器は？', ans: '肝臓', c: ['肝臓', 'すい臓', '腎臓', '胃'] },
 
-  // --- 中学化学 (chem) ---
-  { id: 'jc1', grade: 'junior', subj: 'chem', q: '二酸化炭素の化学式をアルファベットと数字で書くと？', ans: 'CO2', c: ['CO2', 'H2O', 'O2', 'NaCl'] },
-  { id: 'jc2', grade: 'junior', subj: 'chem', q: '食塩（塩化ナトリウム）の化学式は何？', ans: 'NaCl', c: ['NaCl', 'KCl', 'NaOH', 'HCl'] },
-  { id: 'jc3', grade: 'junior', subj: 'chem', q: '物質が酸素と激しく結びついて熱や光を出しながら激しく酸化する現象は？', ans: '燃焼', c: ['燃焼', '還元', '凝縮', '昇華'] },
-  { id: 'jc4', grade: 'junior', subj: 'chem', q: '酸化物から酸素を奪い、元の単体を取り出す化学変化を何という？', ans: '還元', c: ['還元', '酸化', '電離', '中和'] },
-  { id: 'jc5', grade: 'junior', subj: 'chem', q: 'ドライアイスのように、固体が液体を経ずに直接気体になる変化を何という？', ans: '昇華', c: ['昇華', '融解', '蒸発', '凝固'] },
-  { id: 'jc6', grade: 'junior', subj: 'chem', q: '電解質が水に溶けたとき、陽イオンと陰イオンに分かれる現象を何という？', ans: '電離', c: ['電離', '中和', '電気分解', '化合'] },
-  { id: 'jc7', grade: 'junior', subj: 'chem', q: '化学反応の前後で、反応物の総質量と生成物の総質量は等しいという法則は？', ans: '質量保存の法則', c: ['質量保存の法則', '定比例の法則', 'オームの法則', '気体反応の法則'] },
-  { id: 'jc8', grade: 'junior', subj: 'chem', q: '酸とアルカリが反応して、互いの性質を打ち消し合って水と塩ができる反応は？', ans: '中和', c: ['中和', '還元', '電離', '潮解'] },
-  { id: 'jc9', grade: 'junior', subj: 'chem', q: '宇宙で最も軽く、火をつけるとポンと音を立てて燃える気体は？', ans: '水素', c: ['水素', '酸素', 'アンモニア', '窒素'] },
-  { id: 'jc10', grade: 'junior', subj: 'chem', q: '刺激臭があり、水に非常によく溶けてアルカリ性を示す気体は？', ans: 'アンモニア', c: ['アンモニア', '二酸化炭素', '酸素', '塩素'] },
-  { id: 'jc11', grade: 'junior', subj: 'chem', q: '黄緑色で刺激臭があり、漂白・殺菌作用を持つ気体は？', ans: '塩素', c: ['塩素', '水素', '窒素', 'アルゴン'] },
-  { id: 'jc12', grade: 'junior', subj: 'chem', q: '原子番号1番、元素記号「H」で表される元素は何？', ans: '水素', c: ['水素', 'ヘリウム', '炭素', '酸素'] },
-  { id: 'jc13', grade: 'junior', subj: 'chem', q: '元素記号「Fe」で表される金属は何？', ans: '鉄', c: ['鉄', '銅', '金', '銀'] },
+  // --- 中学理科・第1分野：化学 (j_sci_p1) 教科書基礎 ---
+  { id: 'jc1', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '二酸化炭素の化学式をアルファベットと数字で書くと？', ans: 'CO2', c: ['CO2', 'H2O', 'O2', 'NaCl'] },
+  { id: 'jc2', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '食塩（塩化ナトリウム）の化学式は何？', ans: 'NaCl', c: ['NaCl', 'KCl', 'NaOH', 'HCl'] },
+  { id: 'jc3', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '物質が酸素と激しく結びついて熱や光を出しながら激しく酸化する現象は？', ans: '燃焼', c: ['燃焼', '還元', '凝縮', '昇華'] },
+  { id: 'jc4', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '酸化物から酸素を奪い、元の単体を取り出す化学変化を何という？', ans: '還元', c: ['還元', '酸化', '電離', '中和'] },
+  { id: 'jc5', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: 'ドライアイスのように、固体が液体を経ずに直接気体になる変化を何という？', ans: '昇華', c: ['昇華', '融解', '蒸発', '凝固'] },
+  { id: 'jc6', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '電解質が水に溶けたとき、陽イオンと陰イオンに分かれる現象を何という？', ans: '電離', c: ['電離', '中和', '電気分解', '化合'] },
+  { id: 'jc7', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '化学反応の前後で、反応物の総質量と生成物の総質量は等しいという法則は？', ans: '質量保存の法則', c: ['質量保存の法則', '定比例の法則', 'オームの法則', '気体反応の法則'] },
+  { id: 'jc8', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '酸とアルカリが反応して、互いの性質を打ち消し合って水と塩ができる反応は？', ans: '中和', c: ['中和', '還元', '電離', '潮解'] },
+  { id: 'jc9', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '宇宙で最も軽く、火をつけるとポンと音を立てて燃える気体は？', ans: '水素', c: ['水素', '酸素', 'アンモニア', '窒素'] },
+  { id: 'jc10', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '刺激臭があり、水に非常によく溶けてアルカリ性を示す気体は？', ans: 'アンモニア', c: ['アンモニア', '二酸化炭素', '酸素', '塩素'] },
+  { id: 'jc11', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '黄緑色で刺激臭があり、漂白・殺菌作用を持つ気体は？', ans: '塩素', c: ['塩素', '水素', '窒素', 'アルゴン'] },
+  { id: 'jc12', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '原子番号1番、元素記号「H」で表される元素は何？', ans: '水素', c: ['水素', 'ヘリウム', '炭素', '酸素'] },
+  { id: 'jc13', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '元素記号「Fe」で表される金属は何？', ans: '鉄', c: ['鉄', '銅', '金', '銀'] },
 
-  // --- 中学物理 (phys) ---
-  { id: 'jp1', grade: 'junior', subj: 'phys', q: 'オームの法則「電圧(V) ＝ 電流(A) × 〇〇」。〇〇に入る2文字は？', ans: '抵抗', c: ['抵抗', '電力', '熱量', '磁力'] },
-  { id: 'jp2', grade: 'junior', subj: 'phys', q: '1秒間に音源が振動する回数を表し、単位に「Hz（ヘルツ）」を使うものは？', ans: '振動数', c: ['振動数', '振幅', '波長', '音速'] },
-  { id: 'jp3', grade: 'junior', subj: 'phys', q: '物理で「加えた力の大きさ(N) × 力の向きに動いた距離(m)」で表される量は？', ans: '仕事', c: ['仕事', '圧力', '電力', '運動エネルギー'] },
-  { id: 'jp4', grade: 'junior', subj: 'phys', q: '外から力が働かないとき、静止している物体は静止し、動いている物体は等速直線運動を続ける法則は？', ans: '慣性の法則', c: ['慣性の法則', '作用反作用の法則', 'オームの法則', 'フックの法則'] },
-  { id: 'jp5', grade: 'junior', subj: 'phys', q: 'ばねの伸びは、ばねを引く力の大きさに比例するという法則は何の法則？', ans: 'フックの法則', c: ['フックの法則', 'オームの法則', 'ジュールの法則', 'アルキメデスの原理'] },
-  { id: 'jp6', grade: 'junior', subj: 'phys', q: '電圧 10V、電流 2A が流れる電熱線の消費電力は何W（ワット）？（数字のみ）', ans: '20', c: ['20', '5', '12', '200'] },
-  { id: 'jp7', grade: 'junior', subj: 'phys', q: '物体が他の物体に力を及ぼすとき、同時に同じ大きさで逆向きの力を受ける法則は？', ans: '作用反作用の法則', c: ['作用反作用の法則', '慣性の法則', '運動量保存則', '落体の法則'] },
-  { id: 'jp8', grade: 'junior', subj: 'phys', q: '光が空気中から水に入るとき、境界面で折れ曲がる現象を何という？', ans: '屈折', c: ['屈折', '反射', '干渉', '散乱'] },
-  { id: 'jp9', grade: 'junior', subj: 'phys', q: '凸レンズで、焦点の外側に置いた物体の光が集まってスクリーンに映る逆さまの像は？', ans: '実像', c: ['実像', '虚像', '鏡像', '倒立像'] },
-  { id: 'jp10', grade: 'junior', subj: 'phys', q: '常温の空気中を伝わる音の速さは、およそ毎秒何メートル？（数字のみ）', ans: '340', c: ['340', '1500', '300000', '100'] },
+  // --- 中学理科・第1分野：物理 (j_sci_p1) 教科書基礎 ---
+  { id: 'jp1', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: 'オームの法則「電圧(V) ＝ 電流(A) × 〇〇」。〇〇に入る2文字は？', ans: '抵抗', c: ['抵抗', '電力', '熱量', '磁力'] },
+  { id: 'jp2', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '1秒間に音源が振動する回数を表し、単位に「Hz（ヘルツ）」を使うものは？', ans: '振動数', c: ['振動数', '振幅', '波長', '音速'] },
+  { id: 'jp3', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '物理で「加えた力の大きさ(N) × 力の向きに動いた距離(m)」で表される量は？', ans: '仕事', c: ['仕事', '圧力', '電力', '運動エネルギー'] },
+  { id: 'jp4', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '外から力が働かないとき、静止している物体は静止し、動いている物体は等速直線運動を続ける法則は？', ans: '慣性の法則', c: ['慣性の法則', '作用反作用の法則', 'オームの法則', 'フックの法則'] },
+  { id: 'jp5', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: 'ばねの伸びは、ばねを引く力の大きさに比例するという法則は何の法則？', ans: 'フックの法則', c: ['フックの法則', 'オームの法則', 'ジュールの法則', 'アルキメデスの原理'] },
+  { id: 'jp6', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '電圧 10V、電流 2A が流れる電熱線の消費電力は何W（ワット）？（数字のみ）', ans: '20', c: ['20', '5', '12', '200'] },
+  { id: 'jp7', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '物体が他の物体に力を及ぼすとき、同時に同じ大きさで逆向きの力を受ける法則は？', ans: '作用反作用の法則', c: ['作用反作用の法則', '慣性の法則', '運動量保存則', '落体の法則'] },
+  { id: 'jp8', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '光が空気中から水に入るとき、境界面で折れ曲がる現象を何という？', ans: '屈折', c: ['屈折', '反射', '干渉', '散乱'] },
+  { id: 'jp9', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '凸レンズで、焦点の外側に置いた物体の光が集まってスクリーンに映る逆さまの像は？', ans: '実像', c: ['実像', '虚像', '鏡像', '倒立像'] },
+  { id: 'jp10', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '常温の空気中を伝わる音の速さは、およそ毎秒何メートル？（数字のみ）', ans: '340', c: ['340', '1500', '300000', '100'] },
 
-  // --- 中学数学 (m1a) ---
-  { id: 'jm1', grade: 'junior', subj: 'm1a', q: '直角三角形の直角をはさむ2辺 a, b と斜辺 c の関係「a² + b² = c²」を何の定理という？', ans: '三平方の定理', c: ['三平方の定理', '中点連結定理', '円周角の定理', '余弦定理'] },
-  { id: 'jm2', grade: 'junior', subj: 'm1a', q: '2、3、5、7、11のように、1と自分自身でしか割り切れない2以上の自然数は？', ans: '素数', c: ['素数', '無理数', '合成数', '実数'] },
-  { id: 'jm3', grade: 'junior', subj: 'm1a', q: 'x² - 9 を因数分解すると (x + 3)(〇) になる。〇に入る式は？', ans: 'x-3', c: ['x-3', 'x+3', 'x-9', '3x'] },
-  { id: 'jm4', grade: 'junior', subj: 'm1a', q: '円周上の1つの弧に対する「円周角」の大きさは、同じ弧に対する「中心角」の何倍？（例: 1/2）', ans: '1/2', c: ['1/2', '2', '1/3', '1'] },
-  { id: 'jm5', grade: 'junior', subj: 'm1a', q: '1次関数 y = 3x + 2 のグラフにおいて、「傾き」はいくつ？（数字のみ）', ans: '3', c: ['3', '2', '5', '1'] },
-  { id: 'jm6', grade: 'junior', subj: 'm1a', q: '1次関数 y = -2x + 5 のグラフにおいて、「切片」はいくつ？（数字のみ）', ans: '5', c: ['5', '-2', '3', '0'] },
-  { id: 'jm7', grade: 'junior', subj: 'm1a', q: '方程式 2x - 4 = 10 を解くと、x の値はいくつ？（数字のみ）', ans: '7', c: ['7', '3', '5', '14'] },
-  { id: 'jm8', grade: 'junior', subj: 'm1a', q: '2乗すると 49 になる正の平方根（√49）はいくつ？（数字のみ）', ans: '7', c: ['7', '6', '8', '9'] },
-  { id: 'jm9', grade: 'junior', subj: 'm1a', q: 'さいころを1回投げるとき、「偶数の目」が出る確率を分数で書くと？（例: 1/2）', ans: '1/2', c: ['1/2', '1/3', '1/6', '2/3'] },
-  { id: 'jm10', grade: 'junior', subj: 'm1a', q: 'n角形の内角の和を求める公式「180° × (n - 〇)」。〇に入る数字は？', ans: '2', c: ['2', '1', '3', '4'] },
-  { id: 'jm11', grade: 'junior', subj: 'm1a', q: '半径 r の円の面積を求める公式は？', ans: 'πr²', c: ['πr²', '2πr', '4πr²', '4/3πr³'] },
-  { id: 'jm12', grade: 'junior', subj: 'm1a', q: '半径 r の円の円周の長さを求める公式は？', ans: '2πr', c: ['2πr', 'πr²', 'πr', '2πr²'] },
+  // --- 中学数学 (j_math) 教科書基礎 ---
+  { id: 'jm1', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '直角三角形の直角をはさむ2辺 a, b と斜辺 c の関係「a² + b² = c²」を何の定理という？', ans: '三平方の定理', c: ['三平方の定理', '中点連結定理', '円周角の定理', '余弦定理'] },
+  { id: 'jm2', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '2、3、5、7、11のように、1と自分自身でしか割り切れない2以上の自然数は？', ans: '素数', c: ['素数', '無理数', '合成数', '実数'] },
+  { id: 'jm3', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: 'x² - 9 を因数分解すると (x + 3)(〇) になる。〇に入る式は？', ans: 'x-3', c: ['x-3', 'x+3', 'x-9', '3x'] },
+  { id: 'jm4', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '円周上の1つの弧に対する「円周角」の大きさは、同じ弧に対する「中心角」の何倍？（例: 1/2）', ans: '1/2', c: ['1/2', '2', '1/3', '1'] },
+  { id: 'jm5', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook', q: '1次関数 y = 3x + 2 のグラフにおいて、「傾き」はいくつ？（数字のみ）', ans: '3', c: ['3', '2', '5', '1'] },
+  { id: 'jm6', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook', q: '1次関数 y = -2x + 5 のグラフにおいて、「切片」はいくつ？（数字のみ）', ans: '5', c: ['5', '-2', '3', '0'] },
+  { id: 'jm7', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '方程式 2x - 4 = 10 を解くと、x の値はいくつ？（数字のみ）', ans: '7', c: ['7', '3', '5', '14'] },
+  { id: 'jm8', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '2乗すると 49 になる正の平方根（√49）はいくつ？（数字のみ）', ans: '7', c: ['7', '6', '8', '9'] },
+  { id: 'jm9', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'textbook', q: 'さいころを1回投げるとき、「偶数の目」が出る確率を分数で書くと？（例: 1/2）', ans: '1/2', c: ['1/2', '1/3', '1/6', '2/3'] },
+  { id: 'jm10', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: 'n角形の内角の和を求める公式「180° × (n - 〇)」。〇に入る数字は？', ans: '2', c: ['2', '1', '3', '4'] },
+  { id: 'jm11', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '半径 r の円の面積を求める公式は？', ans: 'πr²', c: ['πr²', '2πr', '4πr²', '4/3πr³'] },
+  { id: 'jm12', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '半径 r の円の円周の長さを求める公式は？', ans: '2πr', c: ['2πr', 'πr²', 'πr', '2πr²'] },
 
   // ================= 🔬 高校理系レベル (high) =================
   // --- 高校生物 (bio) ---
@@ -3110,13 +3110,13 @@ const QUIZ_MASTER = [
   { id: 'hp19', grade: 'high', subj: 'phys', q: '磁場中を運動する荷電粒子が受ける力を何力という？', ans: 'ローレンツ力', c: ['ローレンツ力', 'クーロン力', 'アンペール力', '慣性力'] },
   { id: 'hp20', grade: 'high', subj: 'phys', q: '放射性同位元素の原子数が初めの半分に減少するまでにかかる時間を何期という？', ans: '半減期', c: ['半減期', '周期', '減衰期', '平均寿命'] },
 
-  // --- 中学・小学理科 拡充 ---
-  { id: 'jb15', grade: 'junior', subj: 'bio', q: '食べた食物が通る「口 → 食道 → 胃 → 小腸 → 大腸」という一連の管を何という？', ans: '消化管', c: ['消化管', '気管', '血管', 'リンパ管'] },
-  { id: 'jb16', grade: 'junior', subj: 'bio', q: '地層の中で、その地層が堆積した「時代（年代）」を知る手がかりとなる化石を何化石という？', ans: '示準化石', c: ['示準化石', '示相化石', '生痕化石', '生きた化石'] },
-  { id: 'jb17', grade: 'junior', subj: 'bio', q: 'アサリやサンゴのように、その地層が堆積した当時の「環境」を知る手がかりとなる化石は？', ans: '示相化石', c: ['示相化石', '示準化石', '標準化石', '示期化石'] },
-  { id: 'jc14', grade: 'junior', subj: 'chem', q: '金属化合物を炎に入れると元素特有の色を示す現象（ナトリウムなら黄色など）を何反応という？', ans: '炎色反応', c: ['炎色反応', '中和反応', '触媒反応', '沈殿反応'] },
-  { id: 'jp11', grade: 'junior', subj: 'phys', q: '北半球において、低気圧のまわりでは風は「時計回り・反時計回り」のどちら向きに吹き込む？', ans: '反時計回り', c: ['反時計回り', '時計回り', '直線的', '上空から下へ'] },
-  { id: 'jp12', grade: 'junior', subj: 'phys', q: '夕方の西の空に見える金星のことを「〇の明星」という？（漢字1文字）', ans: '宵', c: ['宵', '明', '暁', '夕'] },
+  // --- 中学理科・教科書基礎 拡充 ---
+  { id: 'jb15', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '食べた食物が通る「口 → 食道 → 胃 → 小腸 → 大腸」という一連の管を何という？', ans: '消化管', c: ['消化管', '気管', '血管', 'リンパ管'] },
+  { id: 'jb16', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '地層の中で、その地層が堆積した「時代（年代）」を知る手がかりとなる化石を何化石という？', ans: '示準化石', c: ['示準化石', '示相化石', '生痕化石', '生きた化石'] },
+  { id: 'jb17', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: 'アサリやサンゴのように、その地層が堆積した当時の「環境」を知る手がかりとなる化石は？', ans: '示相化石', c: ['示相化石', '示準化石', '標準化石', '示期化石'] },
+  { id: 'jc14', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '金属化合物を炎に入れると元素特有の色を示す現象（ナトリウムなら黄色など）を何反応という？', ans: '炎色反応', c: ['炎色反応', '中和反応', '触媒反応', '沈殿反応'] },
+  { id: 'jp11', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '北半球において、低気圧のまわりでは風は「時計回り・反時計回り」のどちら向きに吹き込む？', ans: '反時計回り', c: ['反時計回り', '時計回り', '直線的', '上空から下へ'] },
+  { id: 'jp12', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '夕方の西の空に見える金星のことを「〇の明星」という？（漢字1文字）', ans: '宵', c: ['宵', '明', '暁', '夕'] },
 
   // ================= 📚 参考書・標準・入試レベル（リードα・セミナー・基礎問レベル） ＆ 物理大増量！ =================
   // --- 物理：力学 (phys_mech) ---
@@ -3390,6 +3390,262 @@ const QUIZ_MASTER = [
   { id: 'j_eng_exam_4', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【灘高 過去問・関係詞省略】This is the scientific book ( 〇 ) at the bookstore yesterday.', ans: 'I bought', c: ['I bought', 'what I bought', 'buying', 'which bought'] },
   { id: 'j_eng_exam_5', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【筑波大附属高 過去問・構文】The runner was so tired ( 〇 ) he could not take another step.', ans: 'that', c: ['that', 'as', 'to', 'than'] },
   { id: 'j_eng_exam_6', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【ラ・サール高 過去問・動名詞】Would you mind ( 〇 ) the window for me?', ans: 'opening', c: ['opening', 'to open', 'open', 'opened'] },
+
+  // ================= 🎒 中学理科・超充実アーカイブ（第1分野＆第2分野・全単元・全難易度完全網羅） =================
+  // --- 中学理科・第1分野（物理・化学）教科書基礎 (textbook) ---
+  { id: 'v42_jsci_p1_tb1', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学物理・光】鏡に光が当たるとき、入射角と反射角の大きさは常に等しい。この規則を何の法則という？', ans: '反射の法則', c: ['反射の法則', '屈折の法則', '慣性の法則', '作用反作用の法則'] },
+  { id: 'v42_jsci_p1_tb2', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学物理・力】地球上で質量100gの物体にはたらく重力の大きさはおよそ何N（ニュートン）？（数字のみ）', ans: '1', c: ['1', '10', '100', '0.1'] },
+  { id: 'v42_jsci_p1_tb3', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学物理・圧力】1m²の面積に1Nの力が加わるときの圧力の単位を何という？（アルファベット2文字）', ans: 'Pa', c: ['Pa', 'N', 'W', 'J'] },
+  { id: 'v42_jsci_p1_tb4', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学物理・電気】抵抗が20Ωの電熱線に3Vの電圧を加えたとき、流れる電流は何A？', ans: '0.15', c: ['0.15', '0.3', '60', '1.5'] },
+  { id: 'v42_jsci_p1_tb5', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学物理・電気】10Ωと30Ωの2つの抵抗を「直列」につないだとき、全体の合成抵抗は何Ω？（数字のみ）', ans: '40', c: ['40', '20', '300', '7.5'] },
+  { id: 'v42_jsci_p1_tb6', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学物理・力学】定滑車を使って物体を持ち上げるとき、必要な力の大きさは手で直接持ち上げるときの何倍？', ans: '1倍', c: ['1倍', '1/2倍', '2倍', '4倍'] },
+  { id: 'v42_jsci_p1_tb7', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学物理・熱量】100Wの電熱線を30秒間使ったとき、発生する熱量（電力量）は何J？（数字のみ）', ans: '3000', c: ['3000', '300', '1000', '30000'] },
+  { id: 'v42_jsci_p1_tb8', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学物理・磁界】電流が流れる導線のまわりにできる磁界の向きを表す規則は「右〇〇の法則」？（漢字2文字）', ans: 'ねじ', c: ['ねじ', '手の', '足の', '針の'] },
+  { id: 'v42_jsci_p1_tb9', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学化学・水溶液】水溶液に溶けている物質そのもののことを何という？（例: 食塩水における食塩）', ans: '溶質', c: ['溶質', '溶媒', '溶液', '沈殿'] },
+  { id: 'v42_jsci_p1_tb10', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学化学・気体】二酸化マンガンにうすい過酸化水素水（オキシドール）を加えると発生する気体は何？', ans: '酸素', c: ['酸素', '二酸化炭素', '水素', 'アンモニア'] },
+  { id: 'v42_jsci_p1_tb11', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学化学・気体】石灰石にうすい塩酸を加えると発生する気体は何？', ans: '二酸化炭素', c: ['二酸化炭素', '酸素', '水素', '塩素'] },
+  { id: 'v42_jsci_p1_tb12', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学化学・物質】スチールウール（鉄）を空気中で燃やすと、黒い物質ができる。この反応は何？', ans: '酸化', c: ['酸化', '還元', '分解', '中和'] },
+  { id: 'v42_jsci_p1_tb13', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学化学・イオン】原子が電子を失ってプラスの電気を帯びたものを何イオンという？', ans: '陽イオン', c: ['陽イオン', '陰イオン', '中性子', '同位体'] },
+  { id: 'v42_jsci_p1_tb14', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学化学・酸アルカリ】BTB溶液に酸性の水溶液を加えると何色に変化する？（漢字1文字）', ans: '黄', c: ['黄', '青', '緑', '赤'] },
+  { id: 'v42_jsci_p1_tb15', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学化学・酸アルカリ】水酸化ナトリウム水溶液にフェノールフタレイン溶液を加えると何色に変化する？（漢字1文字）', ans: '赤', c: ['赤', '青', '黄', '無色'] },
+  { id: 'v42_jsci_p1_tb16', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'textbook', q: '【中学化学・化学式】水の分子を化学式で表した正しい表記は？', ans: 'H2O', c: ['H2O', 'HO', 'H2O2', '2HO'] },
+
+  // --- 中学理科・第1分野（物理・化学）公立高校入試・標準 (refbook) ---
+  { id: 'v42_jsci_p1_ref1', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・物理】60Ωと40Ωの抵抗を「並列」につないだときの回路全体の合成抵抗は何Ω？（数字のみ）', ans: '24', c: ['24', '100', '50', '20'] },
+  { id: 'v42_jsci_p1_ref2', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・物理】質量500gの台車を斜面に沿って4m引き上げた。このとき垂直には2m上がった。手のした仕事は何J？（100g=1N）', ans: '10', c: ['10', '20', '5', '50'] },
+  { id: 'v42_jsci_p1_ref3', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・物理】仕事率の単位で、「1秒間に1Jの仕事をする割合」を表す単位記号は何？（アルファベット1文字）', ans: 'W', c: ['W', 'J', 'N', 'Pa'] },
+  { id: 'v42_jsci_p1_ref4', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・物理】高いところにある物体が持つ「位置エネルギー」は何と何に比例する？', ans: '質量と高さ', c: ['質量と高さ', '質量と速さ', '体積と高さ', '底面積と速さ'] },
+  { id: 'v42_jsci_p1_ref5', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・物理】運動している物体が持つ運動エネルギーは、物体の「速さの何」に比例する？', ans: '2乗', c: ['2乗', '1乗', '3乗', '平方根'] },
+  { id: 'v42_jsci_p1_ref6', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・化学】銅と酸素が化合するときの質量の比は常に「銅 : 酸素 ＝ 4 : 1」である。銅8.0gを完全燃焼させると何gの酸化銅ができる？', ans: '10.0', c: ['10.0', '2.0', '8.0', '12.0'] },
+  { id: 'v42_jsci_p1_ref7', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・化学】塩化銅水溶液の電気分解において、陰極に赤褐色で付着する金属は何？', ans: '銅', c: ['銅', '亜鉛', '鉄', 'ナトリウム'] },
+  { id: 'v42_jsci_p1_ref8', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・化学】塩化銅水溶液の電気分解において、陽極から発生するプールの消毒臭がする気体は何？', ans: '塩素', c: ['塩素', '酸素', '水素', '二酸化炭素'] },
+  { id: 'v42_jsci_p1_ref9', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・化学】水酸化バリウム水溶液にうすい硫酸を加えたとき、沈殿する白い物質は何？', ans: '硫酸バリウム', c: ['硫酸バリウム', '塩化ナトリウム', '炭酸カルシウム', '水酸化銅'] },
+  { id: 'v42_jsci_p1_ref10', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'refbook', q: '【公立高校入試・化学】塩酸に亜鉛を入れると激しく気泡を出して溶ける。発生する気体は何？', ans: '水素', c: ['水素', '酸素', '二酸化炭素', '塩素'] },
+
+  // --- 中学理科・第1分野（物理・化学）難関高校入試過去問 (exam) ---
+  { id: 'v42_jsci_p1_ex1', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【灘高 過去問・力学】体積200cm³、質量160gの直方体の木片を水に浮かべた。水面より上に出ている部分の体積は何cm³？（水1cm³=1g）', ans: '40', c: ['40', '160', '80', '20'] },
+  { id: 'v42_jsci_p1_ex2', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【開成高 過去問・電気】100V-500Wの電熱線Aと100V-1000Wの電熱線Bを「直列」に100Vの電源につないだ。消費電力が大きいのはどっち？', ans: '電熱線A', c: ['電熱線A', '電熱線B', '両方同じ', 'どちらも点灯しない'] },
+  { id: 'v42_jsci_p1_ex3', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【慶應義塾高 過去問・浮力】密度0.8g/cm³の物体を水中に完全に沈めるために真下へ加えるべき下向きの力は、物体の重力の何倍？', ans: '0.25倍', c: ['0.25倍', '0.2倍', '0.8倍', '1.25倍'] },
+  { id: 'v42_jsci_p1_ex4', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【早大学院 過去問・気体】水上置換法で捕集するのに最も適した気体の性質は「空気より重い」ではなく何？', ans: '水に溶けにくい', c: ['水に溶けにくい', '水によく溶ける', '無色無臭', '燃えやすい'] },
+  { id: 'v42_jsci_p1_ex5', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【洛南高 過去問・化学】炭酸水素ナトリウムを加熱分解したときに試験管の口の内側に付着する液体は何？', ans: '水', c: ['水', 'エタノール', '塩酸', '二酸化炭素'] },
+  { id: 'v42_jsci_p1_ex6', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【東大寺学園 過去問・化学】塩酸（塩化水素HClの水溶液）が水の中で電離するときの電離式で生じる陽イオンは？', ans: 'H⁺', c: ['H⁺', 'Na⁺', 'Cl⁻', 'OH⁻'] },
+  { id: 'v42_jsci_p1_ex7', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【筑波大附属高 過去問・光学】焦点距離12cmの凸レンズの前方18cmに置いた物体の実像の倍率は何倍？', ans: '2倍', c: ['2倍', '1.5倍', '3倍', '1倍'] },
+  { id: 'v42_jsci_p1_ex8', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【ラ・サール高 過去問・化学】質量パーセント濃度10%の食塩水200gに水を加えて5%に薄めたい。加える水は何g？', ans: '200', c: ['200', '100', '50', '400'] },
+
+  // --- 中学理科・第2分野（生物・地学）教科書基礎 (textbook) ---
+  { id: 'v42_jsci_p2_tb1', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学生物・植物】植物の葉の裏側に多くあり、水蒸気や酸素・二酸化炭素が出入りするすき間を何という？', ans: '気孔', c: ['気孔', '道管', '師管', '柔毛'] },
+  { id: 'v42_jsci_p2_tb2', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学生物・植物】植物の維管束の中で、根から吸い上げた水分や養分が通る管を何管という？', ans: '道管', c: ['道管', '師管', '気管', '血管'] },
+  { id: 'v42_jsci_p2_tb3', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学生物・動物】背骨を持つ動物（魚類・両生類・は虫類・鳥類・哺乳類）を総称して何動物という？', ans: 'セキツイ動物', c: ['セキツイ動物', '無セキツイ動物', '節足動物', '軟体動物'] },
+  { id: 'v42_jsci_p2_tb4', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学生物・動物】昆虫やカニのように、体が外骨格でおおわれ節（ふし）のある足を持つ動物は何動物？', ans: '節足動物', c: ['節足動物', '軟体動物', '環形動物', '両生類'] },
+  { id: 'v42_jsci_p2_tb5', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学生物・人体】血液中のアンモニアを無害な「尿素」につくりかえる内臓器官はどこ？', ans: '肝臓', c: ['肝臓', '腎臓', 'すい臓', '小腸'] },
+  { id: 'v42_jsci_p2_tb6', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学生物・人体】血液中の不要な尿素や余分な水分をこし取り、尿をつくる器官はどこ？', ans: '腎臓', c: ['腎臓', '肝臓', '膀胱', '胆のう'] },
+  { id: 'v42_jsci_p2_tb7', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学生物・人体】心臓から全身へ血液を送り出す、最も筋肉の壁が厚い部屋はどこ？', ans: '左心室', c: ['左心室', '右心室', '左心房', '右心房'] },
+  { id: 'v42_jsci_p2_tb8', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学生物・細胞】細胞分裂が始まると核の中に現れる、遺伝情報（DNA）を含むひも状の構造を何という？', ans: '染色体', c: ['染色体', '細胞膜', '葉緑体', '液胞'] },
+  { id: 'v42_jsci_p2_tb9', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学地学・天気】空気中の水蒸気が冷やされて水滴に変わり始める温度を何点という？', ans: '露点', c: ['露点', '沸点', '融点', '凝固点'] },
+  { id: 'v42_jsci_p2_tb10', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学地学・天気】暖気が寒気の上に這い上がり、おだやかな雨を広い範囲に降らせる前線は何前線？', ans: '温暖前線', c: ['温暖前線', '寒冷前線', '停滞前線', '閉そく前線'] },
+  { id: 'v42_jsci_p2_tb11', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学地学・地層】マグマが地下深くでゆっくり冷え固まってできた、等粒状組織を持つ火成岩を何岩という？', ans: '深成岩', c: ['深成岩', '火山岩', '堆積岩', '変成岩'] },
+  { id: 'v42_jsci_p2_tb12', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学地学・地震】地震が発生したとき、速いスピードで最初に伝わる縦波を「〇波」という？（アルファベット1文字）', ans: 'P', c: ['P', 'S', 'L', 'M'] },
+  { id: 'v42_jsci_p2_tb13', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学地学・天体】地球の自転軸（地軸）は、公転面の垂直方向から何度傾いている？（数字のみ）', ans: '23.4', c: ['23.4', '45', '66.6', '30'] },
+  { id: 'v42_jsci_p2_tb14', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学地学・天体】1年の中で最も昼の時間が長く、正午の太陽高度が最も高くなる日を何という？', ans: '夏至', c: ['夏至', '冬至', '春分', '秋分'] },
+  { id: 'v42_jsci_p2_tb15', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学地学・天体】太陽のように、みずから光を発して輝く天体を何星という？', ans: '恒星', c: ['恒星', '惑星', '衛星', 'すい星'] },
+  { id: 'v42_jsci_p2_tb16', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'textbook', q: '【中学地学・天体】太陽系の中で最も大きく、大赤斑（だいせきはん）と呼ばれる渦を持つ第5惑星は？', ans: '木星', c: ['木星', '土星', '火星', '金星'] },
+
+  // --- 中学理科・第2分野（生物・地学）公立高校入試・標準 (refbook) ---
+  { id: 'v42_jsci_p2_ref1', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'refbook', q: '【公立高校入試・生物】生殖細胞をつくるときに行われ、染色体の数が半分に減る細胞分裂を何という？', ans: '減数分裂', c: ['減数分裂', '体細胞分裂', '出芽分裂', '二分裂'] },
+  { id: 'v42_jsci_p2_ref2', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'refbook', q: '【公立高校入試・生物】無性生殖において、親の体の一部がそのまま成長して新しい個体になる生殖方法は何生殖？', ans: '栄養生殖', c: ['栄養生殖', '有性生殖', '受精生殖', '接合'] },
+  { id: 'v42_jsci_p2_ref3', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'refbook', q: '【公立高校入試・生物】生物が長い年月をかけて世代を重ねる間に変化していく現象を何という？', ans: '進化', c: ['進化', '分化', '退化', '変態'] },
+  { id: 'v42_jsci_p2_ref4', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'refbook', q: '【公立高校入試・地学】気温20℃の空気1m³中に12gの水蒸気が含まれている。20℃の飽和水蒸気量が17g/m³のとき、湿度は約何%？', ans: '71', c: ['71', '60', '82', '50'] },
+  { id: 'v42_jsci_p2_ref5', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'refbook', q: '【公立高校入試・地学】日本付近の天気が西から東へと移り変わる原因となっている、上空を吹く強い西寄りの風を何という？', ans: '偏西風', c: ['偏西風', '貿易風', '季節風', '極東風'] },
+  { id: 'v42_jsci_p2_ref6', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'refbook', q: '【公立高校入試・地学】地震の揺れの強さを各地点で表した階級を何という？（日本の気象庁では0〜7の10段階）', ans: '震度', c: ['震度', 'マグニチュード', '初期微動', 'ガル'] },
+  { id: 'v42_jsci_p2_ref7', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'refbook', q: '【公立高校入試・地学】地震そのものの規模（エネルギーの大きさ）を表す数値を何という？', ans: 'マグニチュード', c: ['マグニチュード', '震度', '深さ', '震央距離'] },
+  { id: 'v42_jsci_p2_ref8', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'refbook', q: '【公立高校入試・地学】南の空に見えるオリオン座の星は、1か月後には同じ時刻に何度東から西へ動いて見える？', ans: '30°', c: ['30°', '15°', '1°', '45°'] },
+
+  // --- 中学理科・第2分野（生物・地学）難関高校入試過去問 (exam) ---
+  { id: 'v42_jsci_p2_ex1', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'exam', q: '【開成高 過去問・地学】太陽と地球の間に月が一直線に入り込み、太陽が月に隠される現象を何という？', ans: '日食', c: ['日食', '月食', '金星の日面通過', '衝'] },
+  { id: 'v42_jsci_p2_ex2', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'exam', q: '【灘高 過去問・地学】太陽の見かけの通り道を「黄道」というのに対し、地球の赤道を天球上に延長した大円を何という？', ans: '天の赤道', c: ['天の赤道', '子午線', '地平線', '白道'] },
+  { id: 'v42_jsci_p2_ex3', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'exam', q: '【慶應義塾高 過去問・生物】鳥の翼とクジラの胸びれのように、起源は同じ骨格が異なる形に進化した器官を何という？', ans: '相同器官', c: ['相同器官', '相似器官', '痕跡器官', '感覚器官'] },
+  { id: 'v42_jsci_p2_ex4', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'exam', q: '【早大学院 過去問・地学】マグマの粘り気が非常に強く、白っぽくて爆発的な噴火を起こす代表的な火山岩は何岩？', ans: '流紋岩', c: ['流紋岩', '玄武岩', '安山岩', '花崗岩'] },
+  { id: 'v42_jsci_p2_ex5', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'exam', q: '【洛南高 過去問・生物】植物の葉にワセリンを塗って蒸散量を調べる実験で、水面からの自然蒸発を防ぐために水面に垂らす液体は何？', ans: '油', c: ['油', 'エタノール', '食塩水', '石けん水'] },
+  { id: 'v42_jsci_p2_ex6', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'exam', q: '【日比谷高 過去問・地学】中生代の海に大繁栄し、中生代の示準化石として極めて重要な殻を持つ軟体動物は何？', ans: 'アンモナイト', c: ['アンモナイト', '三葉虫', 'フズリナ', 'ビカリア'] },
+
+  // ================= 📐 中学数学・超充実アーカイブ（数と式・関数・図形・確率 全単元・全難易度完全網羅） =================
+  // --- 中学数学・数と式 (j_math_num) 教科書基礎 (textbook) ---
+  { id: 'v42_jmath_num_tb1', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '【中学数学・正負の数】(-6) + (-8) の計算結果はいくつ？', ans: '-14', c: ['-14', '-2', '14', '48'] },
+  { id: 'v42_jmath_num_tb2', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '【中学数学・正負の数】(-3) × (-7) の計算結果はいくつ？', ans: '21', c: ['21', '-21', '-10', '10'] },
+  { id: 'v42_jmath_num_tb3', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '【中学数学・文字式】3(2x - 4) を分配法則で展開した正しい式は？', ans: '6x - 12', c: ['6x - 12', '6x - 4', '5x - 7', '6x + 12'] },
+  { id: 'v42_jmath_num_tb4', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '【中学数学・方程式】1次方程式 3x + 5 = 20 を解くと、x の値はいくつ？', ans: '5', c: ['5', '15', '25/3', '3'] },
+  { id: 'v42_jmath_num_tb5', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '【中学数学・連立方程式】連立方程式 { x + y = 10, x - y = 4 } を解いたとき、x の値はいくつ？', ans: '7', c: ['7', '3', '6', '8'] },
+  { id: 'v42_jmath_num_tb6', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '【中学数学・展開】乗法公式 (x + 3)(x + 5) を展開したときの真ん中の x の係数はいくつ？', ans: '8', c: ['8', '15', '2', '16'] },
+  { id: 'v42_jmath_num_tb7', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '【中学数学・因数分解】x² - 8x + 16 を因数分解した正しい形は？', ans: '(x - 4)²', c: ['(x - 4)²', '(x + 4)²', '(x - 2)(x - 8)', '(x - 16)(x - 1)'] },
+  { id: 'v42_jmath_num_tb8', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '【中学数学・平方根】√12 を簡単な「a√b」の形に変形すると？', ans: '2√3', c: ['2√3', '3√2', '4√3', '6'] },
+  { id: 'v42_jmath_num_tb9', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '【中学数学・平方根】√2 × √6 の計算結果を最も簡単な平方根の形で表すと？', ans: '2√3', c: ['2√3', '√12', '3√2', '4'] },
+  { id: 'v42_jmath_num_tb10', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '【中学数学・2次方程式】2次方程式 x² = 25 の解は？', ans: 'x = ±5', c: ['x = ±5', 'x = 5', 'x = ±25', 'x = ±√5'] },
+
+  // --- 中学数学・数と式 (j_math_num) 公立高校入試・標準 (refbook) ---
+  { id: 'v42_jmath_num_ref1', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・数と式】(x + 2)² - (x + 1)(x - 1) を計算して簡単にすると？', ans: '4x + 5', c: ['4x + 5', '4x + 3', '2x + 5', '4x - 3'] },
+  { id: 'v42_jmath_num_ref2', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・平方根】分母を有理化： 6 / √3 を計算した結果は？', ans: '2√3', c: ['2√3', '3√2', '6√3', '2'] },
+  { id: 'v42_jmath_num_ref3', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・方程式】2次方程式 2x² - 3x - 1 = 0 を解の公式で解いたときの根号（√）の中身の数値は？', ans: '17', c: ['17', '1', '7', '13'] },
+  { id: 'v42_jmath_num_ref4', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・因数分解】2x²y - 8y を因数分解した正しい結果は？', ans: '2y(x + 2)(x - 2)', c: ['2y(x + 2)(x - 2)', '2(x²y - 4y)', '2y(x - 2)²', 'y(2x + 4)(x - 2)'] },
+  { id: 'v42_jmath_num_ref5', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・平方根】√5 の整数部分を a、小数部分を b とするとき、a の値はいくつ？', ans: '2', c: ['2', '1', '3', '5'] },
+  { id: 'v42_jmath_num_ref6', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・方程式】2次方程式 x² + ax - 12 = 0 の解の1つが 3 のとき、定数 a の値はいくつ？', ans: '1', c: ['1', '-1', '4', '-4'] },
+  { id: 'v42_jmath_num_ref7', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・式の計算】x = 103 のとき、x² - 6x + 9 の値はいくつ？', ans: '10000', c: ['10000', '10600', '10009', '10300'] },
+  { id: 'v42_jmath_num_ref8', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・整数】√n が 3 より大きく 4 より小さくなるような自然数 n は全部で何個ある？', ans: '6個', c: ['6個', '7個', '5個', '8個'] },
+
+  // --- 中学数学・数と式 (j_math_num) 難関高校入試過去問 (exam) ---
+  { id: 'v42_jmath_num_ex1', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'exam', q: '【開成高 過去問・式の値】x = √5 + √3, y = √5 - √3 のとき、x² - xy + y² の値はいくつ？', ans: '14', c: ['14', '16', '12', '10'] },
+  { id: 'v42_jmath_num_ex2', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'exam', q: '【灘高 過去問・整数】連続する3つの整数の積に真ん中の数を足したものは、常に何の3乗になる？', ans: '真ん中の数', c: ['真ん中の数', '最小の数', '最大の数', '合計の数'] },
+  { id: 'v42_jmath_num_ex3', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'exam', q: '【慶應義塾高 過去問・因数分解】x⁴ - 13x² + 36 を因数分解したとき、一次式の因数は全部で何個？', ans: '4個', c: ['4個', '2個', '3個', '1個'] },
+  { id: 'v42_jmath_num_ex4', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'exam', q: '【早大学院 過去問・平方根】√(54 - 3n) が整数となるような自然数 n の個数は全部で何個？', ans: '4個', c: ['4個', '3個', '5個', '2個'] },
+  { id: 'v42_jmath_num_ex5', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'exam', q: '【洛南高 過去問・整数】2桁の自然数で、十の位の数字と一の位の数字の和が 9 の倍数である数は、必ず何の倍数？', ans: '9の倍数', c: ['9の倍数', '3の倍数だが9ではない', '6の倍数', '11の倍数'] },
+  { id: 'v42_jmath_num_ex6', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'exam', q: '【東大寺学園 過去問・連立方程式】連立方程式 { ax + by = 5, bx + ay = 7 } の解が (x,y)=(2,1) のとき、a+b の値は？', ans: '4', c: ['4', '12', '3', '2'] },
+
+  // --- 中学数学・関数 (j_math_func) 教科書基礎 (textbook) ---
+  { id: 'v42_jmath_func_tb1', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook', q: '【中学数学・比例】y が x に比例し、x = 2 のとき y = 8 である。比例定数 a の値は？', ans: '4', c: ['4', '16', '2', '6'] },
+  { id: 'v42_jmath_func_tb2', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook', q: '【中学数学・反比例】y が x に反比例し、x = 3 のとき y = 6 である。この反比例の式は？', ans: 'y = 18/x', c: ['y = 18/x', 'y = 2x', 'y = 2/x', 'y = 18x'] },
+  { id: 'v42_jmath_func_tb3', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook', q: '【中学数学・1次関数】1次関数 y = -3x + 4 について、x の値が 1 増えると y の値はいくつ増える？', ans: '-3', c: ['-3', '3', '4', '1'] },
+  { id: 'v42_jmath_func_tb4', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook', q: '【中学数学・1次関数】直線 y = 2x - 6 が x 軸と交わる点の座標は？', ans: '(3, 0)', c: ['(3, 0)', '(0, -6)', '(-3, 0)', '(6, 0)'] },
+  { id: 'v42_jmath_func_tb5', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook', q: '【中学数学・1次関数】直線 y = 4x + 1 に平行で、点 (0, -3) を通る直線の式は？', ans: 'y = 4x - 3', c: ['y = 4x - 3', 'y = -3x + 1', 'y = 4x + 3', 'y = -4x - 3'] },
+  { id: 'v42_jmath_func_tb6', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook', q: '【中学数学・2次関数】関数 y = ax² のグラフの形を何という？', ans: '放物線', c: ['放物線', '双曲線', '直線', '楕円'] },
+  { id: 'v42_jmath_func_tb7', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook', q: '【中学数学・2次関数】関数 y = 3x² において、x = -2 のときの y の値はいくつ？', ans: '12', c: ['12', '-12', '6', '-6'] },
+  { id: 'v42_jmath_func_tb8', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook', q: '【中学数学・2次関数】関数 y = -2x² のグラフは、x 軸に対して上に開く？下に開く？', ans: '下に開く', c: ['下に開く', '上に開く', '右に開く', '左に開く'] },
+  { id: 'v42_jmath_func_tb9', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook', q: '【中学数学・2次関数】関数 y = x² について、x の変域が -1 ≦ x ≦ 3 のとき、y の最小値は？', ans: '0', c: ['0', '1', '9', '-1'] },
+  { id: 'v42_jmath_func_tb10', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook', q: '【中学数学・2次関数】関数 y = x² について、x の変域が -2 ≦ x ≦ 3 のとき、y の最大値は？', ans: '9', c: ['9', '4', '0', '6'] },
+
+  // --- 中学数学・関数 (j_math_func) 公立高校入試・標準 (refbook) ---
+  { id: 'v42_jmath_func_ref1', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'refbook', q: '【公立高校入試・関数】関数 y = ax² で、x が 2 から 4 まで増加するときの変化の割合が 18 であった。a の値は？', ans: '3', c: ['3', '2', '6', '1'] },
+  { id: 'v42_jmath_func_ref2', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'refbook', q: '【公立高校入試・関数】放物線 y = x² と直線 y = x + 2 の2つの交点の x 座標は？', ans: 'x = -1, 2', c: ['x = -1, 2', 'x = 1, -2', 'x = 2, 4', 'x = -2, 0'] },
+  { id: 'v42_jmath_func_ref3', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'refbook', q: '【公立高校入試・関数】2点 (-2, -1), (4, 11) を通る直線の傾きはいくつ？', ans: '2', c: ['2', '3', '1/2', '4'] },
+  { id: 'v42_jmath_func_ref4', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'refbook', q: '【公立高校入試・関数】放物線 y = 1/2 x² 上の点 A(4, a) における a の値は？', ans: '8', c: ['8', '4', '16', '2'] },
+  { id: 'v42_jmath_func_ref5', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'refbook', q: '【公立高校入試・関数】2直線 y = 3x - 2 と y = -x + 6 の交点の座標は？', ans: '(2, 4)', c: ['(2, 4)', '(4, 2)', '(1, 1)', '(2, 6)'] },
+  { id: 'v42_jmath_func_ref6', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'refbook', q: '【公立高校入試・関数】関数 y = -1/2 x² において、x の変域が -4 ≦ x ≦ 2 のとき、y の変域は？', ans: '-8 ≦ y ≦ 0', c: ['-8 ≦ y ≦ 0', '-8 ≦ y ≦ -2', '0 ≦ y ≦ 8', '-2 ≦ y ≦ 0'] },
+
+  // --- 中学数学・関数 (j_math_func) 難関高校入試過去問 (exam) ---
+  { id: 'v42_jmath_func_ex1', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'exam', q: '【開成高 過去問・放物線】放物線 y = ax² 上に2点 A(-2, 4a), B(6, 36a) がある。直線ABの切片を表す式は？', ans: '12a', c: ['12a', '18a', '8a', '4a'] },
+  { id: 'v42_jmath_func_ex2', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'exam', q: '【灘高 過去問・関数】放物線 y = x² と直線 y = 2x + 8 の交点をA, Bとするとき、原点Oと結んでできる三角形OABの面積は？', ans: '24', c: ['24', '16', '32', '12'] },
+  { id: 'v42_jmath_func_ex3', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'exam', q: '【慶應女子高 過去問・等積変形】放物線上の点Pを通り直線ABに平行な直線とx軸の交点を求める手筋を何の変形という？', ans: '等積変形', c: ['等積変形', '相似拡大', '対称移動', '平行移動'] },
+  { id: 'v42_jmath_func_ex4', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'exam', q: '【早大学院 過去問・関数】動点Pが長方形の周上を動くとき、三角形の面積 y を x の式で表す問題でグラフの折れ曲がる点は？', ans: '頂点を通過する瞬間', c: ['頂点を通過する瞬間', '中点に達した瞬間', '出発した直後', '停止する瞬間'] },
+  { id: 'v42_jmath_func_ex5', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'exam', q: '【日比谷高 過去問・2次関数】関数 y = ax² と y = bx + c において、交点の x 座標の和は変化の割合の公式から何と等しい？', ans: 'b / a', c: ['b / a', 'a / b', 'bc', 'c / a'] },
+
+  // --- 中学数学・図形 (j_math_geom) 教科書基礎 (textbook) ---
+  { id: 'v42_jmath_geom_tb1', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '【中学数学・図形】向かい合う2本の直線が交わるとき、向かい合う角（対頂角）の大きさは？', ans: '常に等しい', c: ['常に等しい', '足すと180°', '足すと90°', '異なる'] },
+  { id: 'v42_jmath_geom_tb2', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '【中学数学・図形】五角形の内角の和は何度？（数字のみ）', ans: '540', c: ['540', '360', '720', '180'] },
+  { id: 'v42_jmath_geom_tb3', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '【中学数学・図形】どんな多角形でも、「外角の和」は常に何度？（数字のみ）', ans: '360', c: ['360', '180', '540', '720'] },
+  { id: 'v42_jmath_geom_tb4', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '【中学数学・合同条件】三角形の合同条件で、「3組の〇がそれぞれ等しい」？', ans: '辺', c: ['辺', '角', '頂点', '高さ'] },
+  { id: 'v42_jmath_geom_tb5', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '【中学数学・二等辺三角形】二等辺三角形の底角（底辺の両端の角）の大きさは？', ans: '等しい', c: ['等しい', '直角', '足すと90°', '異なる'] },
+  { id: 'v42_jmath_geom_tb6', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '【中学数学・相似条件】三角形の相似条件で最もよく使われるのは「〇組の角がそれぞれ等しい」？（数字1文字）', ans: '2', c: ['2', '3', '1', '4'] },
+  { id: 'v42_jmath_geom_tb7', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '【中学数学・中点連結定理】三角形ABCでAB, ACの中点をM, Nとするとき、MNとBCの長さの比は？', ans: '1 : 2', c: ['1 : 2', '1 : 1', '2 : 3', '1 : 3'] },
+  { id: 'v42_jmath_geom_tb8', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '【中学数学・円周角】円の直径を1辺とする内接三角形において、直径に対する円周角の大きさは何度？（数字のみ）', ans: '90', c: ['90', '180', '45', '60'] },
+  { id: 'v42_jmath_geom_tb9', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '【中学数学・三平方】直角をはさむ2辺が 3cm, 4cm の直角三角形の斜辺の長さは何cm？（数字のみ）', ans: '5', c: ['5', '7', '6', '25'] },
+  { id: 'v42_jmath_geom_tb10', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '【中学数学・三平方】45°-45°-90°の直角二等辺三角形の3辺の比は「1 : 1 : 〇」？', ans: '√2', c: ['√2', '√3', '2', '3'] },
+
+  // --- 中学数学・図形 (j_math_geom) 公立高校入試・標準 (refbook) ---
+  { id: 'v42_jmath_geom_ref1', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'refbook', q: '【公立高校入試・三平方】30°-60°-90°の直角三角形において、斜辺が 10cm のとき最も短い辺の長さは何cm？', ans: '5', c: ['5', '5√3', '10√3', '2.5'] },
+  { id: 'v42_jmath_geom_ref2', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'refbook', q: '【公立高校入試・相似と比】相似比が 2 : 3 の2つの相似な図形の「面積比」は何対何？', ans: '4 : 9', c: ['4 : 9', '2 : 3', '8 : 27', '6 : 9'] },
+  { id: 'v42_jmath_geom_ref3', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'refbook', q: '【公立高校入試・相似と比】相似比が 1 : 2 の2つの相似な立体の「体積比」は何対何？', ans: '1 : 8', c: ['1 : 8', '1 : 4', '1 : 2', '1 : 6'] },
+  { id: 'v42_jmath_geom_ref4', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'refbook', q: '【公立高校入試・三平方】1辺が 6cm の立方体の対角線の長さは何√3 cm？（数字のみ）', ans: '6', c: ['6', '3', '12', '36'] },
+  { id: 'v42_jmath_geom_ref5', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'refbook', q: '【公立高校入試・図形】円外の1点Pから円に引いた2本の接線の接点をA, Bとするとき、PAとPBの長さの関係は？', ans: '等しい', c: ['等しい', 'PAが長い', 'PBが長い', '半径による'] },
+  { id: 'v42_jmath_geom_ref6', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'refbook', q: '【公立高校入試・三平方】底面の半径が 3cm、母線の長さが 5cm の円錐の高さは何cm？（数字のみ）', ans: '4', c: ['4', '2', '√34', '8'] },
+
+  // --- 中学数学・図形 (j_math_geom) 難関高校入試過去問 (exam) ---
+  { id: 'v42_jmath_geom_ex1', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'exam', q: '【開成高 過去問・図形】円に内接する四角形ABCDにおいて、向かい合う2つの内角の和（∠A + ∠C）は常に何度？', ans: '180°', c: ['180°', '360°', '90°', '270°'] },
+  { id: 'v42_jmath_geom_ex2', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'exam', q: '【灘高 過去問・三平方】三角形の3辺が 5, 12, 13 のとき、この三角形の外接円の半径はいくつ？', ans: '6.5', c: ['6.5', '6', '13', '2.5'] },
+  { id: 'v42_jmath_geom_ex3', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'exam', q: '【慶應義塾高 過去問・立体】1辺が a の正四面体の体積を表す公式は「(〇/12) a³」？（根号付き数値）', ans: '√2', c: ['√2', '√3', '2√2', '1'] },
+  { id: 'v42_jmath_geom_ex4', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'exam', q: '【早大学院 過去問・最短距離】直方体の表面に沿って頂点Aから対角の頂点Bまで最短距離で糸を張るとき、考えるべき図は？', ans: '展開図', c: ['展開図', '見取図', '投影図', '断面図'] },
+  { id: 'v42_jmath_geom_ex5', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'exam', q: '【洛南高 過去問・図形】三角形の内角の二等分線定理により、AB:AC = BD:DC となる点はDが辺BCをどう分ける点？', ans: '内分する点', c: ['内分する点', '外分する点', '中点', '垂直二等分点'] },
+
+  // --- 中学数学・確率と資料 (j_math_prob) 教科書基礎 (textbook) ---
+  { id: 'v42_jmath_prob_tb1', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'textbook', q: '【中学数学・確率】1枚のコインを投げるとき、表が出る確率を分数で書くと？', ans: '1/2', c: ['1/2', '1/4', '1', '0'] },
+  { id: 'v42_jmath_prob_tb2', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'textbook', q: '【中学数学・確率】1個のサイコロを投げるとき、3以上の目が出る確率は？（約分した既約分数）', ans: '2/3', c: ['2/3', '1/2', '1/3', '4/6'] },
+  { id: 'v42_jmath_prob_tb3', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'textbook', q: '【中学数学・確率】袋の中に赤玉3個、白玉2個が入っている。1個取り出すとき赤玉が出る確率は？', ans: '3/5', c: ['3/5', '2/5', '1/2', '3/2'] },
+  { id: 'v42_jmath_prob_tb4', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'textbook', q: '【中学数学・資料】度数分布表において、各階級の度数の合計に対する各階級の度数の割合を何度数という？', ans: '相対度数', c: ['相対度数', '累積度数', '階級値', '平均度数'] },
+  { id: 'v42_jmath_prob_tb5', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'textbook', q: '【中学数学・資料】データを小さい順に並べたとき、中央値（メジアン）は第何四分位数と同じ？', ans: '第2四分位数', c: ['第2四分位数', '第1四分位数', '第3四分位数', '四分位範囲'] },
+  { id: 'v42_jmath_prob_tb6', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'textbook', q: '【中学数学・資料】箱ひげ図において、第3四分位数から第1四分位数を引いた差を「四分位〇〇」という？', ans: '範囲', c: ['範囲', '偏差', '分散', '比'] },
+
+  // --- 中学数学・確率と資料 (j_math_prob) 公立高校入試・標準 (refbook) ---
+  { id: 'v42_jmath_prob_ref1', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'refbook', q: '【公立高校入試・確率】大小2個のサイコロを同時に投げるとき、出た目の積が偶数になる確率は？', ans: '3/4', c: ['3/4', '1/4', '1/2', '5/6'] },
+  { id: 'v42_jmath_prob_ref2', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'refbook', q: '【公立高校入試・確率】3枚の硬貨を同時に投げるとき、少なくとも1枚は表が出る確率は？', ans: '7/8', c: ['7/8', '1/8', '3/8', '1/2'] },
+  { id: 'v42_jmath_prob_ref3', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'refbook', q: '【公立高校入試・確率】1から4までの数字が書かれた4枚のカードから続けて2枚引いて2桁の整数を作るとき、奇数になる確率は？', ans: '1/2', c: ['1/2', '1/4', '3/4', '1/3'] },
+  { id: 'v42_jmath_prob_ref4', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'refbook', q: '【公立高校入試・確率】A, Bの2人がじゃんけんを1回するとき、あいこになる確率は？', ans: '1/3', c: ['1/3', '1/2', '2/3', '1/9'] },
+
+  // --- 中学数学・確率と資料 (j_math_prob) 難関高校入試過去問 (exam) ---
+  { id: 'v42_jmath_prob_ex1', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'exam', q: '【開成高 過去問・確率】大小2個のサイコロを同時に投げるとき、出た目の数の積が平方数（ある整数の2乗）になる確率は？', ans: '2/9', c: ['2/9', '1/6', '7/36', '1/4'] },
+  { id: 'v42_jmath_prob_ex2', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'exam', q: '【灘高 過去問・確率】白玉4個、黒玉2個が入った袋から1個ずつ取り出す（戻さない）。3回目に初めて黒玉が出る確率は？', ans: '1/5', c: ['1/5', '2/15', '4/15', '1/3'] },
+  { id: 'v42_jmath_prob_ex3', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'exam', q: '【慶應義塾高 過去問・確率】1個のサイコロを3回投げるとき、出た目の最大値が 5 以下である確率は？', ans: '125/216', c: ['125/216', '1/6', '25/36', '91/216'] },
+
+  // ================= 📖 中学英語・超充実アーカイブ（基本英単語・中学英文法 全単元・全難易度完全網羅） =================
+  // --- 中学英語・基本英単語 (j_eng_word) 教科書基礎 (textbook) ---
+  { id: 'v42_jeng_w_tb1', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】「水曜日」を英語で書いたときの正しいスペルは？', ans: 'Wednesday', c: ['Wednesday', 'Wenesday', 'Wedensday', 'Wendsday'] },
+  { id: 'v42_jeng_w_tb2', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】「2月」を英語で書いたときの正しいスペルは？', ans: 'February', c: ['February', 'Feburary', 'Febrary', 'Febuary'] },
+  { id: 'v42_jeng_w_tb3', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】「図書館」を意味する英単語は？', ans: 'library', c: ['library', 'station', 'museum', 'hospital'] },
+  { id: 'v42_jeng_w_tb4', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】「科学・理科」を意味する英単語は？', ans: 'science', c: ['science', 'math', 'history', 'society'] },
+  { id: 'v42_jeng_w_tb5', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】「注意深く、慎重に」を意味する副詞は？', ans: 'carefully', c: ['carefully', 'quickly', 'slowly', 'easily'] },
+  { id: 'v42_jeng_w_tb6', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】「美しい」を英語で書いたときの正しいスペルは？', ans: 'beautiful', c: ['beautiful', 'beautifull', 'beautful', 'beatiful'] },
+  { id: 'v42_jeng_w_tb7', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】「〜の間に（2つのものの間）」を表す前置詞は？', ans: 'between', c: ['between', 'among', 'through', 'across'] },
+  { id: 'v42_jeng_w_tb8', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】動詞 write（書く）の過去形は？', ans: 'wrote', c: ['wrote', 'written', 'writed', 'write'] },
+  { id: 'v42_jeng_w_tb9', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】動詞 buy（買う）の過去形・過去分詞は？', ans: 'bought', c: ['bought', 'brought', 'buyed', 'boaght'] },
+  { id: 'v42_jeng_w_tb10', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】「環境」を意味する重要英単語は？', ans: 'environment', c: ['environment', 'government', 'development', 'experiment'] },
+  { id: 'v42_jeng_w_tb11', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】「伝統的な」を意味する形容詞は？', ans: 'traditional', c: ['traditional', 'cultural', 'national', 'historical'] },
+  { id: 'v42_jeng_w_tb12', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】「外国の」を意味する形容詞 foreign の正しいスペルは？', ans: 'foreign', c: ['foreign', 'forign', 'forein', 'foriegn'] },
+  { id: 'v42_jeng_w_tb13', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】「世紀、100年間」を意味する英単語は？', ans: 'century', c: ['century', 'decade', 'generation', 'period'] },
+  { id: 'v42_jeng_w_tb14', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】「経験」を意味する英単語は？', ans: 'experience', c: ['experience', 'experiment', 'explanation', 'expression'] },
+  { id: 'v42_jeng_w_tb15', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】動詞 catch（捕まえる）の過去形・過去分詞は？', ans: 'caught', c: ['caught', 'catched', 'cought', 'chaught'] },
+  { id: 'v42_jeng_w_tb16', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語】「都合が良い、便利な」を意味する英単語は？', ans: 'convenient', c: ['convenient', 'comfortable', 'popular', 'difficult'] },
+
+  // --- 中学英語・基本英単語 (j_eng_word) 公立高校入試・標準 (refbook) ---
+  { id: 'v42_jeng_w_ref1', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'refbook', q: '【公立高校入試・単語】「〜を保護する、守る」を意味する動詞は？', ans: 'protect', c: ['protect', 'pollute', 'produce', 'prevent'] },
+  { id: 'v42_jeng_w_ref2', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'refbook', q: '【公立高校入試・単語】「〜を減らす、少なくする」を意味する動詞は？', ans: 'reduce', c: ['reduce', 'recycle', 'reuse', 'repeat'] },
+  { id: 'v42_jeng_w_ref3', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'refbook', q: '【公立高校入試・単語】「ボランティア活動」の正しいスペルは？', ans: 'volunteer', c: ['volunteer', 'voluntier', 'valunteer', 'volunter'] },
+  { id: 'v42_jeng_w_ref4', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'refbook', q: '【公立高校入試・単語】「国際的な」を意味する英単語は？', ans: 'international', c: ['international', 'national', 'global', 'universal'] },
+  { id: 'v42_jeng_w_ref5', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'refbook', q: '【公立高校入試・単語】「〜を改善する、上達させる」を意味する動詞は？', ans: 'improve', c: ['improve', 'impress', 'increase', 'include'] },
+  { id: 'v42_jeng_w_ref6', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'refbook', q: '【公立高校入試・単語】「機会、チャンス」を意味する英単語は？', ans: 'opportunity', c: ['opportunity', 'possibility', 'difficulty', 'activity'] },
+  { id: 'v42_jeng_w_ref7', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'refbook', q: '【公立高校入試・単語】「普通は、普段は」を意味する頻度副詞は？', ans: 'usually', c: ['usually', 'sometimes', 'always', 'rarely'] },
+  { id: 'v42_jeng_w_ref8', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'refbook', q: '【公立高校入試・単語】「〜を開発する、発展させる」を意味する動詞は？', ans: 'develop', c: ['develop', 'discover', 'destroy', 'describe'] },
+  { id: 'v42_jeng_w_ref9', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'refbook', q: '【公立高校入試・単語】「〜に成功する」を意味する動詞 succeed の過去形は？', ans: 'succeeded', c: ['succeeded', 'successed', 'successful', 'success'] },
+  { id: 'v42_jeng_w_ref10', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'refbook', q: '【公立高校入試・単語】「〜に気づいている、知っている」を表す熟語：be ( 〇 ) of', ans: 'aware', c: ['aware', 'afraid', 'fond', 'tired'] },
+
+  // --- 中学英語・基本英単語 (j_eng_word) 難関高校入試過去問 (exam) ---
+  { id: 'v42_jeng_w_ex1', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'exam', q: '【開成高 過去問・語彙】「絶滅の危機に瀕した」を表す形容詞句：( 〇 ) species', ans: 'endangered', c: ['endangered', 'dangerous', 'disappeared', 'extincted'] },
+  { id: 'v42_jeng_w_ex2', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'exam', q: '【慶應女子高 過去問・語彙】名詞「勇気（courage）」から派生した動詞「〜を勇気づける、励ます」は？', ans: 'encourage', c: ['encourage', 'discourage', 'courageous', 'enable'] },
+  { id: 'v42_jeng_w_ex3', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'exam', q: '【灘高 過去問・多義語】動詞 address には「演説する」のほかに「問題に（〇〇）」という意味がある？', ans: '取り組む', c: ['取り組む', '手紙を出す', '後回しにする', '否定する'] },
+  { id: 'v42_jeng_w_ex4', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'exam', q: '【早大学院 過去問・語彙】「〜にもかかわらず（in spite of）」と同じ意味を持つ1語の前置詞は？', ans: 'despite', c: ['despite', 'although', 'unless', 'besides'] },
+  { id: 'v42_jeng_w_ex5', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'exam', q: '【洛南高 過去問・語彙】「〜に貢献する、寄与する」を表す重要熟語：contribute ( 〇 )', ans: 'to', c: ['to', 'for', 'with', 'in'] },
+  { id: 'v42_jeng_w_ex6', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'exam', q: '【日比谷高 過去問・語彙】「代替の、代わりの」を意味する形容詞は？', ans: 'alternative', c: ['alternative', 'attractive', 'effective', 'positive'] },
+
+  // --- 中学英語・中学英文法 (j_eng_gram) 教科書基礎 (textbook) ---
+  { id: 'v42_jeng_g_tb1', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・三人称単数】Ken ( 〇 ) to the local park every Sunday.', ans: 'goes', c: ['goes', 'go', 'going', 'is go'] },
+  { id: 'v42_jeng_g_tb2', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・過去進行形】They ( 〇 ) soccer when it started to rain.', ans: 'were playing', c: ['were playing', 'was playing', 'are playing', 'played'] },
+  { id: 'v42_jeng_g_tb3', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・助動詞】You ( 〇 ) be late for school tomorrow morning.', ans: 'must not', c: ['must not', 'do not have to', 'may not', 'need not'] },
+  { id: 'v42_jeng_g_tb4', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・不定詞】I want ( 〇 ) a doctor in the future.', ans: 'to be', c: ['to be', 'be', 'being', 'been'] },
+  { id: 'v42_jeng_g_tb5', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・動名詞】Thank you for ( 〇 ) me with my homework.', ans: 'helping', c: ['helping', 'help', 'to help', 'helped'] },
+  { id: 'v42_jeng_g_tb6', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・比較】This computer is ( 〇 ) expensive than that one.', ans: 'more', c: ['more', 'most', 'much', 'as'] },
+  { id: 'v42_jeng_g_tb7', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・比較】He can run ( 〇 ) fast as Ken.', ans: 'as', c: ['as', 'so', 'more', 'than'] },
+  { id: 'v42_jeng_g_tb8', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・受動態】Japanese anime is ( 〇 ) by many people all over the world.', ans: 'loved', c: ['loved', 'loving', 'loves', 'love'] },
+  { id: 'v42_jeng_g_tb9', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・現在完了】I have already ( 〇 ) my homework.', ans: 'finished', c: ['finished', 'finishing', 'finish', 'finishes'] },
+  { id: 'v42_jeng_g_tb10', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・現在完了】How ( 〇 ) have you lived in this city?', ans: 'long', c: ['long', 'many', 'much', 'far'] },
+  { id: 'v42_jeng_g_tb11', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・There構文】There ( 〇 ) five apples on the kitchen table.', ans: 'are', c: ['are', 'is', 'be', 'have'] },
+  { id: 'v42_jeng_g_tb12', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・疑問詞】( 〇 ) wrote this famous book about biology?', ans: 'Who', c: ['Who', 'Which', 'What', 'Whose'] },
+  { id: 'v42_jeng_g_tb13', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・命令文】( 〇 ) kind to your classmates.', ans: 'Be', c: ['Be', 'Do', 'Are', 'Is'] },
+  { id: 'v42_jeng_g_tb14', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・付加疑問】You like science, ( 〇 ) you?', ans: 'don\'t', c: ['don\'t', 'aren\'t', 'do', 'can\'t'] },
+  { id: 'v42_jeng_g_tb15', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・前置詞】We usually have lunch ( 〇 ) noon.', ans: 'at', c: ['at', 'in', 'on', 'for'] },
+  { id: 'v42_jeng_g_tb16', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・不定詞】I went to the store ( 〇 ) buy some milk.', ans: 'to', c: ['to', 'for', 'at', 'in'] },
+
+  // --- 中学英語・中学英文法 (j_eng_gram) 公立高校入試・標準 (refbook) ---
+  { id: 'v42_jeng_g_ref1', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・文法】The girl ( 〇 ) is singing a song under the tree is my sister.', ans: 'who', c: ['who', 'which', 'whom', 'whose'] },
+  { id: 'v42_jeng_g_ref2', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・文法】This is the scientific report ( 〇 ) he wrote last week.', ans: 'which', c: ['which', 'who', 'whom', 'where'] },
+  { id: 'v42_jeng_g_ref3', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・文法】My teacher told me ( 〇 ) read this book carefully.', ans: 'to', c: ['to', 'for', 'that', 'at'] },
+  { id: 'v42_jeng_g_ref4', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・文法】Playing video games ( 〇 ) a lot of fun for him.', ans: 'is', c: ['is', 'are', 'be', 'were'] },
+  { id: 'v42_jeng_g_ref5', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・文法】I have lived in Osaka ( 〇 ) three years.', ans: 'for', c: ['for', 'since', 'during', 'from'] },
+  { id: 'v42_jeng_g_ref6', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・文法】I have known her ( 〇 ) we were elementary school students.', ans: 'since', c: ['since', 'for', 'when', 'from'] },
+  { id: 'v42_jeng_g_ref7', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・文法】Can you tell me how ( 〇 ) to the train station?', ans: 'to get', c: ['to get', 'getting', 'got', 'get'] },
+  { id: 'v42_jeng_g_ref8', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・文法】I was so busy ( 〇 ) I could not watch the soccer game.', ans: 'that', c: ['that', 'to', 'as', 'than'] },
+
+  // --- 中学英語・中学英文法 (j_eng_gram) 難関高校入試過去問 (exam) ---
+  { id: 'v42_jeng_g_ex1', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【開成高 過去問・知覚動詞】I saw a strange boy ( 〇 ) into the laboratory.', ans: 'enter', c: ['enter', 'to enter', 'entered', 'enters'] },
+  { id: 'v42_jeng_g_ex2', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【灘高 過去問・間接疑問】Nobody knows where ( 〇 ) the key.', ans: 'she found', c: ['she found', 'did she find', 'she finds', 'found she'] },
+  { id: 'v42_jeng_g_ex3', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【慶應義塾高 過去問・分詞構文】( 〇 ) from the hill, the city looks like a glowing toy box.', ans: 'Seen', c: ['Seen', 'Seeing', 'Saw', 'See'] },
+  { id: 'v42_jeng_g_ex4', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【早大学院 過去問・関係詞】This is the park ( 〇 ) I used to play when I was a child.', ans: 'where', c: ['where', 'which', 'that', 'what'] },
+  { id: 'v42_jeng_g_ex5', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【筑波大附属高 過去問・使役】My parents let me ( 〇 ) abroad alone last summer.', ans: 'travel', c: ['travel', 'to travel', 'traveled', 'traveling'] },
+  { id: 'v42_jeng_g_ex6', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【日比谷高 過去問・仮定法】If I ( 〇 ) you, I would take that challenging exam.', ans: 'were', c: ['were', 'was', 'am', 'had been'] },
 
   // ================= 🏛️ Ver 3.8 超大型増量アーカイブ：全教科・全単元・全難易度（特に大学入試過去問・高校入試過去問・標準） =================
   // --- 🧬 高校生物 第1章：細胞と分子 (bio_ch1) 大学入試＆標準 ---
@@ -4123,6 +4379,17 @@ QUIZ_MASTER.forEach(q => {
 
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
+  {
+    ver: 'Ver 4.2',
+    date: '2026-11-08',
+    title: '🎒 中学生向け全教科・全単元・全難易度250問超メガ拡充 ＆ 出題ループ完全根絶アプデ！',
+    items: [
+      '【🎒 中学生問題の大規模超拡充（合計250問超へ跳ね上げ）】「同じ問題ばかり連続して出てくる」現象を根本根絶！中学理科（第1分野：物理・化学／第2分野：生物・地学）、中学数学（数と式・関数・図形・確率）、中学英語（必須英単語・基礎英文法）の全単元にわたって、教科書基礎・公立入試標準・難関高校入試過去問を200問以上新規一挙配備！',
+      '【🔄 出題ループ完全遮断＆スマートブレンドエンジン】単元や難易度を絞り込んだ際に問題が尽きても同じ問題が再出題されないよう、プール残数が少なくなった際に同一教科の関連単元から未出題問題を自動合流させる新ローテーションロジックを実装！さらに中学数学・英語の動的ランダム生成問題も最適比率でブレンドし、連続プレイでも毎回新鮮な問題演習を実現！',
+      '【🏷️ 初期中学問題の単元タグ・難易度属性の完全正規化】初期の中学理科・数学問題に単元属性（unit）と難易度（level）を網羅的に付与し、単元指定時にも漏れなく出題されるようデータを完全修正！',
+      '【🛡️ 全画面UIレイアウト＆ゲーム全機能の徹底総点検】出題システム、フレンド対戦、全国マッチ、ランキング、ガチャ、交換所、シャーレ、もちものバッグなど全機能の連動および文字はみ出しゼロを目視レベルで徹底総点検完了！'
+    ]
+  },
   {
     ver: 'Ver 4.1',
     date: '2026-11-08',
@@ -7986,7 +8253,7 @@ function nextBattleQuestion() {
   const isEngBattle = !isJuniorBattle && ((battle.category === 'eng') || (currentBattleCategory === 'eng' && battle.mode !== 'online_room'));
 
   if (isJuniorBattle) {
-    // 🎒 中学生・高校受験モードの出題処理（理科・数学・英語）
+    // 🎒 中学生・高校受験モードの出題処理（理科・数学・英語・全難易度完全ループ遮断）
     const selGrade = (battle.grade && battle.grade !== 'junior') ? battle.grade : ((document.getElementById('juniorGradeSelect') || {}).value || 'all');
     let jSubj = battle.subj || 'j_all';
     if (jSubj === 'j_all') {
@@ -7995,29 +8262,33 @@ function nextBattleQuestion() {
     }
 
     if (jSubj === 'j_math') {
-      // 数学：基礎・標準・入試すべての難易度に応じた動的計算問題もブレンド（飽きずに毎回新しい数値で演習可能！）
-      const dynProb = (selGrade === 'exam') ? 0.32 : 0.45;
+      // 数学：基礎・標準・入試すべての難易度に応じた動的計算問題もブレンド（数値が毎回ランダム生成され絶対ループしない！）
+      const dynProb = (selGrade === 'exam') ? 0.35 : 0.40;
       if (Math.random() < dynProb) {
         q = generateDynamicMathQuestion('junior', 'j_math', battle.unit);
       }
     } else if (jSubj === 'j_eng') {
-      // 英語：基礎レベルでは英単語ジェネレーターを活用
-      if (selGrade === 'textbook' && Math.random() < 0.45) {
+      // 英語：単語単元または基礎レベルで動的英単語もブレンド
+      const isWordUnit = (battle.unit === 'j_eng_word' || battle.unit === 'all_units');
+      if (isWordUnit && (selGrade === 'textbook' || selGrade === 'all') && Math.random() < 0.35) {
         q = generateDynamicEnglishQuestion('eng_word');
         if (q) {
           q.grade = 'junior';
           q.subj = 'j_eng';
           q.level = 'textbook';
+          q.unit = 'j_eng_word';
         }
       }
     }
 
     if (!q) {
       const selUnit = battle.unit || 'all_units';
+      
+      // 1. 完全一致プール（指定難易度 × 指定教科 × 指定単元）
       let pool = QUIZ_MASTER.filter(item => {
         if (item.grade !== 'junior' && item.grade !== 'elem') return false;
 
-        // ★ 難易度（selGrade）の厳格フィルタリング
+        // 難易度厳格判定
         const itemLvl = item.level || 'textbook';
         if (selGrade !== 'all' && itemLvl !== selGrade) return false;
 
@@ -8038,7 +8309,26 @@ function nextBattleQuestion() {
         return true;
       });
 
-      // 単元指定で不足する場合（単元は広げるが難易度 selGrade は絶対に死守！）
+      // 🔄 ループ完全防止：このプールで現在のバトル未出題の問題が残り2問以下になった場合、
+      // 同じ問題がすぐ再出題されるのを防ぐため、同難易度・同教科の他単元の未出題問題をブレンド！
+      const currentUnused = pool.filter(item => !battle.usedQIds.includes(item.id));
+      if (currentUnused.length <= 2 && selUnit !== 'all_units') {
+        const fallbackPool = QUIZ_MASTER.filter(item => {
+          if (item.grade !== 'junior' && item.grade !== 'elem') return false;
+          const itemLvl = item.level || 'textbook';
+          if (selGrade !== 'all' && itemLvl !== selGrade) return false;
+          if (jSubj === 'j_sci' && (item.subj === 'j_sci' || item.subj === 'bio' || item.subj === 'chem' || item.subj === 'phys')) return true;
+          if (jSubj === 'j_math' && (item.subj === 'j_math' || item.subj === 'm1a' || item.subj === 'math')) return true;
+          if (jSubj === 'j_eng' && item.subj === 'j_eng') return true;
+          return false;
+        });
+        const fallbackUnused = fallbackPool.filter(item => !battle.usedQIds.includes(item.id));
+        if (fallbackUnused.length > 0) {
+          pool = [...pool, ...fallbackUnused];
+        }
+      }
+
+      // 単元指定で万一候補がゼロの場合（難易度は絶対に死守して同教科の全単元に広げる）
       if (pool.length === 0) {
         pool = QUIZ_MASTER.filter(item => {
           if (item.grade !== 'junior' && item.grade !== 'elem') return false;
@@ -8051,7 +8341,7 @@ function nextBattleQuestion() {
         });
       }
 
-      // さらに不足する場合（教科を全体に広げる場合でも難易度は死守！）
+      // さらに不足する場合（教科を全体に広げる場合でも指定難易度は死守！）
       if (pool.length === 0) {
         pool = QUIZ_MASTER.filter(item => {
           if (item.grade !== 'junior' && item.grade !== 'elem') return false;
