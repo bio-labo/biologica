@@ -13701,6 +13701,23 @@ async function joinFriendBattleRoom(targetRoomId) {
           } catch (e) {}
         }
 
+        // 4. 最強フォールバック：MATCH_LOBBY の friendRooms から該当部屋を直接探索！
+        if (!snap || !snap.exists) {
+          try {
+            const lobbySnap = await getMatchLobbyDocRef().get();
+            if (lobbySnap.exists && lobbySnap.data() && Array.isArray(lobbySnap.data().friendRooms)) {
+              const matchedRoom = lobbySnap.data().friendRooms.find(r => r && String(r.roomId) === String(roomId));
+              if (matchedRoom) {
+                rData = matchedRoom;
+                activeRoomRef = mainRef;
+                mainRef.set({ isSystemDoc: true, ...matchedRoom }, { merge: true }).catch(() => {});
+                roomFound = true;
+                break;
+              }
+            }
+          } catch (e) {}
+        }
+
         if (snap && snap.exists) {
           rData = snap.data();
           if (rData.status === 'disbanded' || rData.status === 'finished') {
@@ -14573,10 +14590,6 @@ async function checkPendingBattleInvites(showFeedback = false) {
         showToast('📭 現在待機中の部屋はありません。ホストに対戦ルームを作成してもらってね！');
       }
     }
-  } catch (e) {
-    console.warn('checkPendingBattleInvites error:', e);
-  }
-}
   } catch (e) {
     console.warn('checkPendingBattleInvites error:', e);
   }
