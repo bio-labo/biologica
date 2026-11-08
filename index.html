@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 4.2 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 4.8 - 理系微生物育成＆戦略クイズバトル</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon.svg">
 <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
@@ -583,7 +586,7 @@
     <div class="logo-area">
       <div class="logo-icon">🧬</div>
       <div>
-        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 4.1</span></div>
+        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 4.8</span></div>
         <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
       </div>
     </div>
@@ -1433,14 +1436,20 @@
             部屋を作って友達を招待したり、招待された部屋・4桁の部屋番号でリアルタイム対戦！
           </p>
 
-          <!-- 📩 招待された部屋に入る専用ボックス（常時表示・ワンタップ入室！） -->
+          <!-- 📩 招待された部屋に入る専用ボックス（常時表示・ワンタップ入室！Ver 4.8） -->
           <div id="invitedRoomsDedicatedBox" style="background:linear-gradient(135deg, #fff1f2 0%, #fdf2f8 100%); border:2.5px solid #f472b6; border-radius:12px; padding:10px 12px; box-shadow:0 3px 10px rgba(236,72,153,0.12);">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; gap:6px; flex-wrap:wrap;">
-              <span style="font-size:0.82rem; font-weight:900; color:#be185d;">📩 招待された部屋に入る</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; gap:6px; flex-wrap:wrap;">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-size:0.84rem; font-weight:900; color:#be185d;">📩 招待された部屋に入る</span>
+                <span id="battleSyncVerBadge" style="background:#fce7f3; color:#9d174d; border:1px solid #f472b6; font-size:0.68rem; font-weight:900; padding:1px 6px; border-radius:999px;">Ver 4.8</span>
+              </div>
               <button type="button" class="btn btn-outline" style="padding:3px 8px; font-size:0.7rem; border-color:#f472b6; color:#be185d; background:white; font-weight:900;" onclick="checkPendingBattleInvites(true)">🔄 招待を確認</button>
             </div>
+            <div id="battleSyncStatusLine" style="font-size:0.68rem; color:#831843; font-weight:800; margin-bottom:6px; background:rgba(255,255,255,0.7); padding:3px 8px; border-radius:6px; border:1px dashed #f9a8d4;">
+              📡 クラウド待機部屋スキャナー：待機中
+            </div>
             <div id="battleInviteBannerArea" style="font-size:0.75rem; color:#9d174d; font-weight:800; line-height:1.4;">
-              現在届いている部屋招待はありません。<br><span style="font-size:0.7rem; color:#be185d; opacity:0.85;">※友達が部屋から「📩招待」を押すと、ここに<strong>「🚀 この部屋に入る！」</strong>ボタンが出現します！</span>
+              現在届いている部屋招待はありません。<br><span style="font-size:0.7rem; color:#be185d; opacity:0.85;">※友達が部屋を作ると、ここに<strong>「🚀 この部屋に入る！」</strong>ボタンが自動出現します！</span>
             </div>
           </div>
 
@@ -4392,6 +4401,16 @@ QUIZ_MASTER.forEach(q => {
 
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
+  {
+    ver: 'Ver 4.8',
+    date: '2026-11-09',
+    title: '📡 待機部屋リアルタイム診断ステータス搭載 ＆ 同一コード除外撤廃・100%完全可視化アプデ！',
+    items: [
+      '【📡 リアルタイム通信ステータス＆バージョン常時表示】「📩 招待された部屋に入る」カード内に現在のクラウド待機部屋スキャナー状況（🟢 正常稼働中 Ver 4.8、認識されているフレンドコード、検知された部屋件数）を常時リアルタイム表示！最新版が動いているかが一目で確認可能に！',
+      '【🏠 自部屋・同一アカウント除外フィルターの完全撤廃】ホストとゲストが同じ端末・別タブや同一フレンドコードでテストしている場合に部屋が0件になってしまうフィルターを完全撤廃！自分がホストの場合でも「🏠 あなたの部屋」として表示され、相手の部屋であれば「⚔️ 〇〇さんの部屋【🚀 この部屋に入る！】」として100%確実にリストアップ！',
+      '【⚡ MATCH_LOBBY待機部屋の完全全件キャッチ】全国対戦で通信実績100%の『MATCH_LOBBY』内の待機部屋を、招待状送信の成否に関わらず即座に検知してボタンを出現させるフォールバックを徹底強化！'
+    ]
+  },
   {
     ver: 'Ver 4.7',
     date: '2026-11-09',
@@ -14297,27 +14316,38 @@ function listenToIncomingBattleInvites() {
   }, 1800);
 }
 
-// 届いている招待バナー（「📩 招待された部屋に入る」専用ボックス）＆全画面最前面フローティングポップアップの描画
+// 届いている招待バナー（「📩 招待された部屋に入る」専用ボックス）＆全画面最前面フローティングポップアップの描画（Ver 4.8）
 function renderReceivedBattleInvites(invites) {
   const globalArea = document.getElementById('globalBattleInvitePopupArea');
   const battleArea = document.getElementById('battleInviteBannerArea');
   const badge = document.getElementById('battleInviteBadge');
+  const statusLine = document.getElementById('battleSyncStatusLine');
 
-  const validList = (Array.isArray(invites) ? invites : []).filter(inv => inv && inv.roomId && inv.roomId !== currentRoomId);
+  const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : (state.friendCode || 'BIO-0000');
+  const validList = (Array.isArray(invites) ? invites : []).filter(inv => inv && inv.roomId && (!currentRoomId || String(inv.roomId) !== String(currentRoomId)));
+
+  // 📡 リアルタイム通信ステータスラインの常時更新（部屋が0件でも動いていることが一目でわかる！）
+  if (statusLine) {
+    statusLine.innerHTML = `📡 待機部屋スキャン: <strong style="color:#059669;">🟢 正常稼働中 (Ver 4.8)</strong> ｜ あなた: <strong>${myCode}</strong> ｜ 待機部屋: <strong style="color:#db2777;">${validList.length}件</strong>`;
+  }
 
   // 新着トースト通知
   validList.forEach(inv => {
     const invKey = inv.id || `${inv.roomId}_${inv.fromCode}`;
     if (!lastKnownInviteIds.has(invKey)) {
       lastKnownInviteIds.add(invKey);
-      showToast(`⚔️『${inv.fromName || '友達'}』さんから対戦ルーム【${inv.roomId}】の招待が届きました！`);
+      if (inv.isMyOwnRoom) {
+        showToast(`🏠 あなたの対戦ルーム【${inv.roomId}】が待機中です！`);
+      } else {
+        showToast(`⚔️『${inv.fromName || '友達'}』さんから対戦ルーム【${inv.roomId}】の招待が届きました！`);
+      }
     }
   });
 
   if (badge) {
     badge.style.display = validList.length > 0 ? 'inline-block' : 'none';
     if (validList.length > 0) {
-      badge.textContent = `招待 ${validList.length}件!`;
+      badge.textContent = `待機部屋 ${validList.length}件!`;
       badge.style.animation = 'pulse 1s infinite';
     }
   }
@@ -14326,7 +14356,7 @@ function renderReceivedBattleInvites(invites) {
     if (globalArea) globalArea.innerHTML = '';
     if (battleArea) {
       battleArea.innerHTML = `
-        現在届いている部屋招待はありません。<br>
+        現在待機中の部屋はありません。<br>
         <span style="font-size:0.7rem; color:#be185d; opacity:0.85;">※友達が部屋を作ると、ここに<strong>「🚀 この部屋に入る！」</strong>ボタンが自動出現します！</span>
       `;
     }
@@ -14338,27 +14368,30 @@ function renderReceivedBattleInvites(invites) {
     globalArea.innerHTML = validList.slice(0, 2).map(inv => {
       const safeId = inv.id || `${inv.roomId}_${normalizeFriendCode(state.friendCode)}`;
       let tagText = '💌 対戦ルーム招待が届きました！';
-      if (inv.isDirectInvite) tagText = '💌 あなた宛ての招待！';
+      if (inv.isMyOwnRoom) tagText = '🏠 あなたの作成した部屋！';
+      else if (inv.isDirectInvite) tagText = '💌 あなた宛ての招待！';
       else if (inv.isFriendOpenRoom) tagText = '🟢 友達が対戦部屋で待機中！';
       else tagText = '🏠 待機中の対戦ルーム！';
+
+      const actionBtnText = inv.isMyOwnRoom ? '🚀 部屋に戻る' : '🚀 この部屋に入る！';
 
       return `
         <div style="background:linear-gradient(135deg, #fff1f2 0%, #fdf2f8 50%, #faf5ff 100%); border:3px solid #ec4899; border-radius:16px; padding:12px 16px; margin:6px 0; box-shadow:0 12px 32px rgba(236,72,153,0.45); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; animation:bounce 0.5s ease-out;">
           <div style="display:flex; align-items:center; gap:12px;">
-            <span style="font-size:2.2rem; filter:drop-shadow(0 2px 6px rgba(236,72,153,0.4));">⚔️</span>
+            <span style="font-size:2.2rem; filter:drop-shadow(0 2px 6px rgba(236,72,153,0.4));">${inv.isMyOwnRoom ? '🏠' : '⚔️'}</span>
             <div>
               <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
                 <span style="background:linear-gradient(135deg, #ec4899, #db2777); color:white; font-size:0.74rem; font-weight:900; padding:2px 10px; border-radius:999px; box-shadow:0 2px 6px rgba(219,39,119,0.35);">${tagText}</span>
                 <span style="font-size:0.82rem; font-weight:900; color:#9d174d;">部屋番号: 【 ${inv.roomId} 】</span>
               </div>
               <div style="font-weight:900; font-size:1.05rem; color:#831843; margin-top:4px;">
-                👤 <strong>${inv.fromName || '研究員'}</strong> さんの対戦部屋に合流できます！
+                ${inv.isMyOwnRoom ? '👤 あなたがホストの部屋です（ロビー待機中）' : `👤 <strong>${inv.fromName || '研究員'}</strong> さんの対戦部屋に合流できます！`}
               </div>
             </div>
           </div>
           <div style="display:flex; gap:8px; align-items:center; margin-left:auto;">
             <button class="btn btn-purple" style="padding:10px 20px; font-size:0.95rem; font-weight:900; box-shadow:0 4px 16px rgba(219,39,119,0.45); cursor:pointer;" onclick="acceptBattleInvite('${safeId}', '${inv.roomId}')">
-              🚀 この部屋に入る！
+              ${actionBtnText}
             </button>
             <button class="btn btn-outline" style="padding:9px 12px; font-size:0.82rem; border-color:#f472b6; color:#9d174d; font-weight:800; cursor:pointer;" onclick="dismissBattleInvite('${safeId}', '${inv.roomId}')">
               ✕
@@ -14374,22 +14407,25 @@ function renderReceivedBattleInvites(invites) {
     battleArea.innerHTML = validList.map(inv => {
       const safeId = inv.id || `${inv.roomId}_${normalizeFriendCode(state.friendCode)}`;
       let tagLabel = '💌 招待';
-      if (inv.isDirectInvite) tagLabel = '💌 あなた宛て';
+      if (inv.isMyOwnRoom) tagLabel = '🏠 自部屋';
+      else if (inv.isDirectInvite) tagLabel = '💌 あなた宛て';
       else if (inv.isFriendOpenRoom) tagLabel = '🟢 友達待機中';
       else tagLabel = '🏠 待機中';
+
+      const actionBtnText = inv.isMyOwnRoom ? '🚀 部屋に戻る' : '🚀 この部屋に入る！';
 
       return `
         <div style="background:white; border:2px solid #ec4899; border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-top:6px; box-shadow:0 3px 12px rgba(236,72,153,0.18);">
           <div>
             <div style="display:flex; align-items:center; gap:6px;">
               <span style="font-size:0.68rem; font-weight:900; background:#fce7f3; color:#be185d; padding:1px 6px; border-radius:999px;">${tagLabel}</span>
-              <span style="font-weight:900; color:#be185d; font-size:0.96rem;">⚔️ ${inv.fromName || '研究員'} さんの部屋</span>
+              <span style="font-weight:900; color:#be185d; font-size:0.96rem;">${inv.isMyOwnRoom ? '🏠 あなたの部屋' : `⚔️ ${inv.fromName || '研究員'} さんの部屋`}</span>
             </div>
-            <div style="font-size:0.78rem; color:#9d174d; font-weight:800; margin-top:2px;">ルーム番号：【 ${inv.roomId} 】</div>
+            <div style="font-size:0.78rem; color:#9d174d; font-weight:800; margin-top:2px;">ルーム番号：【 ${inv.roomId} 】 ${inv.fromCode ? `<small style="color:#94a3b8;">(${inv.fromCode})</small>` : ''}</div>
           </div>
           <div style="display:flex; gap:6px; align-items:center;">
             <button class="btn btn-purple" style="padding:9px 16px; font-size:0.88rem; font-weight:900; box-shadow:0 3px 12px rgba(219,39,119,0.35); cursor:pointer;" onclick="acceptBattleInvite('${safeId}', '${inv.roomId}')">
-              🚀 この部屋に入る！
+              ${actionBtnText}
             </button>
             <button class="btn btn-outline" style="padding:7px 10px; font-size:0.75rem; color:#9d174d; border-color:#f9a8d4; cursor:pointer;" onclick="dismissBattleInvite('${safeId}', '${inv.roomId}')">✕</button>
           </div>
@@ -14399,7 +14435,7 @@ function renderReceivedBattleInvites(invites) {
   }
 }
 
-// 招待を手動＆定期確認する関数（players/MATCH_LOBBYハブ・ROOM直接スキャン・逆引きから100%確実に取得）
+// 招待を手動＆定期確認する関数（players/MATCH_LOBBYハブ・ROOM直接スキャン・逆引きから100%確実に取得・Ver 4.8）
 async function checkPendingBattleInvites(showFeedback = false) {
   if (!db || !state.friendCode) return;
   const myCode = normalizeFriendCode(state.friendCode);
@@ -14416,15 +14452,17 @@ async function checkPendingBattleInvites(showFeedback = false) {
         const fRooms = lobbySnap.data().friendRooms;
         fRooms.forEach(r => {
           if (!r || !r.roomId) return;
-          if (String(r.roomId) === String(currentRoomId)) return;
-          if (r.hostCode && (r.hostCode === myCode || r.hostCode === rawNum)) return; // 自分の部屋は除外
-          if (r.createdAt && (now - r.createdAt > 25 * 60 * 1000)) return; // 25分以上前は除外
+          if (r.createdAt && (now - r.createdAt > 30 * 60 * 1000)) return; // 30分以上前は除外
+          if (r.status && r.status !== 'waiting') return; // 解散・終了は除外
+
+          const hostC = r.hostCode ? normalizeFriendCode(r.hostCode) : '';
+          const isMyOwn = Boolean(hostC && (hostC === myCode || (rawNum && hostC.includes(rawNum))));
 
           const invitedList = Array.isArray(r.invitedTargets) ? r.invitedTargets : [];
           const isDirect = invitedList.includes(myCode) || (rawNum && invitedList.includes(rawNum));
           const isFriend = Array.isArray(state.friendsList) && state.friendsList.some(f => {
             const fc = normalizeFriendCode(f.code);
-            return fc === r.hostCode || (r.hostCode && r.hostCode.includes(fc));
+            return fc === hostC || (hostC && hostC.includes(fc));
           });
 
           mergedInvites.push({
@@ -14435,9 +14473,10 @@ async function checkPendingBattleInvites(showFeedback = false) {
             fromTitle: r.hostTitle || '研究員',
             targetCode: myCode,
             createdAt: r.createdAt || now,
+            isMyOwnRoom: isMyOwn,
             isDirectInvite: isDirect,
             isFriendOpenRoom: isFriend,
-            isOpenRoom: !isDirect && !isFriend
+            isOpenRoom: !isDirect && !isFriend && !isMyOwn
           });
         });
       }
@@ -14452,16 +14491,16 @@ async function checkPendingBattleInvites(showFeedback = false) {
         if (doc.id.startsWith('ROOM_')) {
           const r = doc.data();
           if (!r || r.status !== 'waiting') return;
-          if (String(r.roomId) === String(currentRoomId)) return;
-          if (r.hostCode && (r.hostCode === myCode || r.hostCode === rawNum)) return;
           const rCreated = r.createdAt || 0;
-          if (rCreated && (now - rCreated > 25 * 60 * 1000)) return;
+          if (rCreated && (now - rCreated > 30 * 60 * 1000)) return;
 
           const actualRoomId = r.roomId || doc.id.replace('ROOM_', '');
           if (!mergedInvites.some(x => String(x.roomId) === String(actualRoomId))) {
+            const hostC = r.hostCode ? normalizeFriendCode(r.hostCode) : '';
+            const isMyOwn = Boolean(hostC && (hostC === myCode || (rawNum && hostC.includes(rawNum))));
             const invitedList = Array.isArray(r.invitedTargets) ? r.invitedTargets : [];
             const isDirect = invitedList.includes(myCode) || (rawNum && invitedList.includes(rawNum));
-            const isFriend = Array.isArray(state.friendsList) && state.friendsList.some(f => normalizeFriendCode(f.code) === r.hostCode);
+            const isFriend = Array.isArray(state.friendsList) && state.friendsList.some(f => normalizeFriendCode(f.code) === hostC);
 
             mergedInvites.push({
               id: doc.id,
@@ -14471,9 +14510,10 @@ async function checkPendingBattleInvites(showFeedback = false) {
               fromTitle: r.hostTitle || '研究員',
               targetCode: myCode,
               createdAt: rCreated || now,
+              isMyOwnRoom: isMyOwn,
               isDirectInvite: isDirect,
               isFriendOpenRoom: isFriend,
-              isOpenRoom: !isDirect && !isFriend
+              isOpenRoom: !isDirect && !isFriend && !isMyOwn
             });
           }
         }
@@ -14485,7 +14525,7 @@ async function checkPendingBattleInvites(showFeedback = false) {
       const myDoc = await db.collection('players').doc(myCode).get();
       if (myDoc.exists && myDoc.data() && Array.isArray(myDoc.data().incomingInvites)) {
         myDoc.data().incomingInvites.forEach(inv => {
-          if (inv && inv.roomId && (!inv.createdAt || (now - inv.createdAt < 25 * 60 * 1000))) {
+          if (inv && inv.roomId && (!inv.createdAt || (now - inv.createdAt < 30 * 60 * 1000))) {
             if (!mergedInvites.some(x => String(x.roomId) === String(inv.roomId))) {
               mergedInvites.push({ ...inv, isDirectInvite: true });
             }
@@ -14503,9 +14543,9 @@ async function checkPendingBattleInvites(showFeedback = false) {
           if (!fDoc || !fDoc.exists || !fDoc.data()) return;
           const fd = fDoc.data();
           const hostRoom = fd.activeHostRoom || fd.hostingRoom;
-          if (hostRoom && hostRoom.roomId && String(hostRoom.roomId) !== String(currentRoomId)) {
+          if (hostRoom && hostRoom.roomId) {
             const roomCreated = hostRoom.createdAt || 0;
-            if (!roomCreated || (now - roomCreated < 25 * 60 * 1000)) {
+            if (!roomCreated || (now - roomCreated < 30 * 60 * 1000)) {
               if (!mergedInvites.some(x => String(x.roomId) === String(hostRoom.roomId))) {
                 const friendObj = state.friendsList.find(f => normalizeFriendCode(f.code) === friendCodes[idx]);
                 const friendName = friendObj ? friendObj.name : (fd.name || 'フレンド');
@@ -14530,9 +14570,13 @@ async function checkPendingBattleInvites(showFeedback = false) {
       if (mergedInvites.length > 0) {
         showToast(`💌 ${mergedInvites.length}件の対戦部屋が見つかりました！「🚀この部屋に入る！」を押してね！`);
       } else {
-        showToast('📭 現在届いている部屋招待はありません。ホストに対戦ルームを作成してもらってね！');
+        showToast('📭 現在待機中の部屋はありません。ホストに対戦ルームを作成してもらってね！');
       }
     }
+  } catch (e) {
+    console.warn('checkPendingBattleInvites error:', e);
+  }
+}
   } catch (e) {
     console.warn('checkPendingBattleInvites error:', e);
   }
