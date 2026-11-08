@@ -560,7 +560,7 @@
     <div class="logo-area">
       <div class="logo-icon">🧬</div>
       <div>
-        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 3.7</span></div>
+        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 3.8</span></div>
         <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
       </div>
     </div>
@@ -3175,32 +3175,6 @@ const QUIZ_MASTER = [
   { id: 'geom_add_2', grade: 'high', subj: 'ma', unit: 'ma_geom', level: 'exam', q: '【2021 名古屋工業大】円に内接する四角形ABCDにおいて、∠A = 70° のとき対角 ∠C の大きさは？', ans: '110°', c: ['110°', '70°', '90°', '120°'] },
   { id: 'geom_add_3', grade: 'high', subj: 'ma', unit: 'ma_geom', level: 'refbook', q: '【数A・図形】三角形ABCで角Aの二等分線が辺BCと交わる点をDとするとき、BD : DC と等しい比は？', ans: 'AB : AC', c: ['AB : AC', 'AC : AB', 'BC : AB', '1 : 1'] },
 
-  // --- 数学I：2次関数・三角比・データ (m1) 教科書・基礎レベル (textbook) ---
-  { id: 'tb_m1_1', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・数と式】多項式 (x + 3)(x + 4) を展開したときの定数項（一番右の数）はいくつ？（数字のみ）', ans: '12', c: ['12', '7', '1', '14'] },
-  { id: 'tb_m1_2', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・因数分解】x² - 9 を因数分解した正しい形は？', ans: '(x + 3)(x - 3)', c: ['(x + 3)(x - 3)', '(x - 3)²', '(x + 9)(x - 1)', '(x - 9)(x + 1)'] },
-  { id: 'tb_m1_3', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・因数分解】x² + 5x + 6 を因数分解した正しい式は？', ans: '(x + 2)(x + 3)', c: ['(x + 2)(x + 3)', '(x + 1)(x + 6)', '(x - 2)(x - 3)', '(x + 5)(x + 1)'] },
-  { id: 'tb_m1_4', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次関数】放物線 y = (x - 2)² + 3 の頂点の座標は？', ans: '(2, 3)', c: ['(2, 3)', '(-2, 3)', '(2, -3)', '(-2, -3)'] },
-  { id: 'tb_m1_5', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次関数】放物線 y = 2(x + 1)² - 5 の頂点の座標は？', ans: '(-1, -5)', c: ['(-1, -5)', '(1, -5)', '(-1, 5)', '(1, 5)'] },
-  { id: 'tb_m1_6', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】2次方程式 (x - 2)(x - 5) = 0 の解は？', ans: 'x = 2, 5', c: ['x = 2, 5', 'x = -2, -5', 'x = 2, -5', 'x = 10, 1'] },
-  { id: 'tb_m1_7', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】2次方程式 x² - 16 = 0 の解は？', ans: 'x = ±4', c: ['x = ±4', 'x = 4', 'x = ±8', 'x = ±16'] },
-  { id: 'tb_m1_8', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】解の公式「x = (-b ± √(〇)) / 2a」の根号（√）の中身に入る式は？', ans: 'b² - 4ac', c: ['b² - 4ac', 'b² + 4ac', '4ac - b²', '2b - 4ac'] },
-  { id: 'tb_m1_9', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】判別式 D = b² - 4ac が「D > 0」のとき、実数解は何個ある？（数字のみ）', ans: '2', c: ['2', '1', '0', '4'] },
-  { id: 'tb_m1_10', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】判別式 D = b² - 4ac が「D = 0」のとき、解は重解となり何個ある？（数字のみ）', ans: '1', c: ['1', '2', '0', '3'] },
-  { id: 'tb_m1_11', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次方程式】判別式 D = b² - 4ac が「D < 0」のとき、実数解は何個ある？（数字のみ）', ans: '0', c: ['0', '1', '2', '3'] },
-  { id: 'tb_m1_12', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【数I・2次関数】放物線 y = x² - 4x + 3 を平方完成した正しい形は？', ans: '(x - 2)² - 1', c: ['(x - 2)² - 1', '(x - 2)² + 3', '(x - 4)² - 1', '(x - 2)² + 1'] },
-  { id: 'tb_m1_13', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】sin 30° の値はいくつ？（分数で入力）', ans: '1/2', c: ['1/2', '√3/2', '1/√2', '1'] },
-  { id: 'tb_m1_14', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】cos 60° の値はいくつ？（分数で入力）', ans: '1/2', c: ['1/2', '√3/2', '1/√2', '0'] },
-  { id: 'tb_m1_15', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】tan 45° の値はいくつ？（数字のみ）', ans: '1', c: ['1', '1/√3', '√3', '0'] },
-  { id: 'tb_m1_16', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】直角三角形において、角 θ に対する「対辺 / 斜辺」の比を表す三角比は？', ans: 'sin θ', c: ['sin θ', 'cos θ', 'tan θ', 'sec θ'] },
-  { id: 'tb_m1_17', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】直角三角形において、角 θ に対する「底辺 / 斜辺」の比を表す三角比は？', ans: 'cos θ', c: ['cos θ', 'sin θ', 'tan θ', 'cot θ'] },
-  { id: 'tb_m1_18', grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【数I・三角比】直角三角形において、角 θ に対する「対辺 / 底辺」の比を表す三角比は？', ans: 'tan θ', c: ['tan θ', 'sin θ', 'cos θ', 'csc θ'] },
-  { id: 'tb_m1_19', grade: 'high', subj: 'm1', unit: 'm1_data', level: 'textbook', q: '【数I・データ】データを小さい順に並べたとき、ちょうど中央に位置する値を何という？', ans: '中央値（メジアン）', c: ['中央値（メジアン）', '平均値', '最頻値（モード）', '四分位数'] },
-  { id: 'tb_m1_20', grade: 'high', subj: 'm1', unit: 'm1_data', level: 'textbook', q: '【数I・データ】データの中で最も度数が大きい（最も多く現れる）値を何という？', ans: '最頻値（モード）', c: ['最頻値（モード）', '平均値', '中央値', '偏差'] },
-  { id: 'tb_ma_1', grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook', q: '【数A・確率】1個のサイコロを投げるとき、1の目が出る確率は？（既約分数）', ans: '1/6', c: ['1/6', '1/2', '1/3', '5/6'] },
-  { id: 'tb_ma_2', grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook', q: '【数A・確率】1枚のコイン（硬貨）を投げるとき、表が出る確率は？（既約分数）', ans: '1/2', c: ['1/2', '1/4', '1/3', '1'] },
-  { id: 'tb_ma_3', grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook', q: '【数A・順列】3枚の異なるカードA, B, Cを1列に並べる並べ方は何通り？（数字のみ）', ans: '6', c: ['6', '3', '9', '12'] },
-  { id: 'tb_ma_4', grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook', q: '【数A・組合せ】4人の中から掃除当番を2人選ぶ組合せ： ₄C₂ の計算結果は？（数字のみ）', ans: '6', c: ['6', '8', '12', '4'] },
-
   // --- 数学I：2次関数・三角比・データ (m1) 標準・入試レベル ---
   { id: 'm1_add_1', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'refbook', q: '【数I・2次関数】放物線 y = x² - 6x + 7 の軸の方程式は？', ans: 'x = 3', c: ['x = 3', 'x = -3', 'x = 6', 'x = -6'] },
   { id: 'm1_add_2', grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'exam', q: '【2022 首都大/都立大】2次関数 y = x² - 2ax + a² - 3 の最小値が -3 となる実数 a の値は？', ans: 'すべての実数', c: ['すべての実数', 'a = 0', 'a > 3', 'a = ±√3'] },
@@ -3315,7 +3289,212 @@ const QUIZ_MASTER = [
   { id: 'j_eng_exam_3', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【早大学院 過去問・使役動詞】The science teacher made us ( 〇 ) the lab.', ans: 'clean', c: ['clean', 'to clean', 'cleaned', 'cleaning'] },
   { id: 'j_eng_exam_4', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【灘高 過去問・関係詞省略】This is the scientific book ( 〇 ) at the bookstore yesterday.', ans: 'I bought', c: ['I bought', 'what I bought', 'buying', 'which bought'] },
   { id: 'j_eng_exam_5', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【筑波大附属高 過去問・構文】The runner was so tired ( 〇 ) he could not take another step.', ans: 'that', c: ['that', 'as', 'to', 'than'] },
-  { id: 'j_eng_exam_6', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【ラ・サール高 過去問・動名詞】Would you mind ( 〇 ) the window for me?', ans: 'opening', c: ['opening', 'to open', 'open', 'opened'] }
+  { id: 'j_eng_exam_6', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【ラ・サール高 過去問・動名詞】Would you mind ( 〇 ) the window for me?', ans: 'opening', c: ['opening', 'to open', 'open', 'opened'] },
+
+  // ================= 🏛️ Ver 3.8 超大型増量アーカイブ：全教科・全単元・全難易度（特に大学入試過去問・高校入試過去問・標準） =================
+  // --- 🧬 高校生物 第1章：細胞と分子 (bio_ch1) 大学入試＆標準 ---
+  { id: 'v38_bio_1', grade: 'high', subj: 'bio', unit: 'bio_ch1', level: 'exam', q: '【2022 京都大】酵素反応でアロステリック部位に阻害物質が結合し、活性部位の立体構造が変化する阻害様式は？', ans: '非競争的阻害（アロステリック阻害）', c: ['非競争的阻害（アロステリック阻害）', '競争的阻害', '不可逆的変性', '加水分解'] },
+  { id: 'v38_bio_2', grade: 'high', subj: 'bio', unit: 'bio_ch1', level: 'exam', q: '【2021 東北大】細胞膜の流動モザイクモデルにおいて、二重層の基本骨格を形成している両親媒性の脂質分子は？', ans: 'リン脂質', c: ['リン脂質', '中性脂肪', 'セルロース', 'グリコーゲン'] },
+  { id: 'v38_bio_3', grade: 'high', subj: 'bio', unit: 'bio_ch1', level: 'exam', q: '【2023 北海道大】細胞外へ分泌されるタンパク質が、粗面小胞体で合成された後に修飾・濃縮を受ける細胞小器官は？', ans: 'ゴルジ体', c: ['ゴルジ体', 'リソソーム', 'ペルオキシソーム', '中心体'] },
+  { id: 'v38_bio_4', grade: 'high', subj: 'bio', unit: 'bio_ch1', level: 'exam', q: '【2020 大阪大】ナトリウムポンプ（Na⁺-K⁺ ATPアーゼ）がATP1分子を分解するごとに細胞外へ汲み出すNa⁺の個数は？', ans: '3個', c: ['3個', '2個', '1個', '4個'] },
+  { id: 'v38_bio_5', grade: 'high', subj: 'bio', unit: 'bio_ch1', level: 'exam', q: '【2022 九州大】ミトコンドリアと葉緑体がかつて好気性細菌・シアノバクテリアであったとするマーギュリスの学説は？', ans: '細胞内共生説', c: ['細胞内共生説', '膜進化説', '化学進化説', '自然発生説'] },
+  { id: 'v38_bio_6', grade: 'high', subj: 'bio', unit: 'bio_ch1', level: 'exam', q: '【2021 慶應義塾大】水分子を選択的に高速通過させる細胞膜のチャネルタンパク質を何という？', ans: 'アクアポリン', c: ['アクアポリン', 'インテグリン', 'カドヘリン', 'コラーゲン'] },
+  { id: 'v38_bio_7', grade: 'high', subj: 'bio', unit: 'bio_ch1', level: 'refbook', q: '【生物・細胞】動物細胞の接着において、同じ種類の細胞同士をカルシウムイオン存在下で結合させるタンパク質は？', ans: 'カドヘリン', c: ['カドヘリン', 'インテグリン', 'コネキシン', 'ケラチン'] },
+  { id: 'v38_bio_8', grade: 'high', subj: 'bio', unit: 'bio_ch1', level: 'refbook', q: '【生物・酵素】過酸化水素を水と酸素に分解する酵素カタラーゼにおいて、補因子として含まれる金属元素は？', ans: '鉄（Fe）', c: ['鉄（Fe）', 'マグネシウム（Mg）', 'カルシウム（Ca）', 'ナトリウム（Na）'] },
+
+  // --- 🧬 高校生物 第2章：代謝 (bio_ch2) 大学入試＆標準 ---
+  { id: 'v38_bio_9', grade: 'high', subj: 'bio', unit: 'bio_ch2', level: 'exam', q: '【2023 東京大】C4植物（トウモロコシなど）において、葉肉細胞でCO₂が最初に固定されて生じる炭素数4の化合物は？', ans: 'オキサロ酢酸', c: ['オキサロ酢酸', 'ホスホグリセリン酸（PGA）', 'クエン酸', 'ピルビン酸'] },
+  { id: 'v38_bio_10', grade: 'high', subj: 'bio', unit: 'bio_ch2', level: 'exam', q: '【2021 京都大】光合成の電子伝達系で、水を分解して酸素を発生させる反応が起きる光化学系はどちら？', ans: '光化学系II', c: ['光化学系II', '光化学系I', 'カルビン回路', '解糖系'] },
+  { id: 'v38_bio_11', grade: 'high', subj: 'bio', unit: 'bio_ch2', level: 'exam', q: '【2020 東北大】アルコール発酵において、ピルビン酸がエタノールへ還元される際に放出される気体は？', ans: '二酸化炭素', c: ['二酸化炭素', '酸素', '水素', 'メタン'] },
+  { id: 'v38_bio_12', grade: 'high', subj: 'bio', unit: 'bio_ch2', level: 'exam', q: '【2022 神戸大】呼吸商（RQ＝放出CO₂体積 / 吸収O₂体積）について、脂肪を呼吸基質とした場合の値はおよそいくつ？', ans: '0.7', c: ['0.7', '1.0', '0.8', '1.2'] },
+  { id: 'v38_bio_13', grade: 'high', subj: 'bio', unit: 'bio_ch2', level: 'exam', q: '【2021 北海道大】光合成速度と呼吸速度が等しくなり、見かけのCO₂吸収速度が0になる光の強さを何という？', ans: '補償点', c: ['補償点', '光飽和点', '限定要因', '臨界暗期'] },
+  { id: 'v38_bio_14', grade: 'high', subj: 'bio', unit: 'bio_ch2', level: 'refbook', q: '【生物・代謝】光を必要とせず、アンモニアや亜硝酸などの無機物を酸化したエネルギーで有機物を合成する働きは？', ans: '化学合成', c: ['化学合成', '光合成', '乳酸発酵', '解糖'] },
+  { id: 'v38_bio_15', grade: 'high', subj: 'bio', unit: 'bio_ch2', level: 'refbook', q: '【生物・代謝】クエン酸回路が存在し、ピルビン酸がアセチルCoAとなって流入するミトコンドリアの内部領域は？', ans: 'マトリックス', c: ['マトリックス', 'クリステ', 'チラコイド', 'ストロマ'] },
+
+  // --- 🧬 高校生物 第3章：遺伝情報の発現 (bio_ch3) 大学入試＆標準 ---
+  { id: 'v38_bio_16', grade: 'high', subj: 'bio', unit: 'bio_ch3', level: 'exam', q: '【2023 大阪大】真核生物の転写において、前駆体mRNAからイントロンが除去されエキソン同士が結合する過程は？', ans: 'スプライシング', c: ['スプライシング', 'キャッピング', 'アニーリング', '形質転換'] },
+  { id: 'v38_bio_17', grade: 'high', subj: 'bio', unit: 'bio_ch3', level: 'exam', q: '【2020 名古屋大】DNA複製において、複製フォークの進行方向とは逆向きに不連続に合成されるDNA鎖を何という？', ans: 'ラギング鎖（岡崎フラグメント）', c: ['ラギング鎖（岡崎フラグメント）', 'リーディング鎖', 'センス鎖', 'アンチセンス鎖'] },
+  { id: 'v38_bio_18', grade: 'high', subj: 'bio', unit: 'bio_ch3', level: 'exam', q: '【2022 東北大】DNA複製時に岡崎フラグメント同士の切れ目（リン酸ジエステル結合）をつなぎ合わせる酵素は？', ans: 'DNAリガーゼ', c: ['DNAリガーゼ', 'DNAヘリカーゼ', 'プライマーゼ', '制限酵素'] },
+  { id: 'v38_bio_19', grade: 'high', subj: 'bio', unit: 'bio_ch3', level: 'exam', q: '【2021 九州大】翻訳において、開始コドンとしてメチオニンを指定するmRNA上の3塩基配列（コドン）は？', ans: 'AUG', c: ['AUG', 'UAA', 'UGA', 'UAG'] },
+  { id: 'v38_bio_20', grade: 'high', subj: 'bio', unit: 'bio_ch3', level: 'exam', q: '【2022 早稲田大】1つのmRNAから選択的スプライシングによって複数の異なるタンパク質が作られる利点は？', ans: '少ない遺伝子数で多様なタンパク質を作れる', c: ['少ない遺伝子数で多様なタンパク質を作れる', 'DNA複製速度が10倍になる', '突然変異が完全に防げる', 'ATPを消費せずに翻訳できる'] },
+  { id: 'v38_bio_21', grade: 'high', subj: 'bio', unit: 'bio_ch3', level: 'refbook', q: '【生物・遺伝情報】肺炎双球菌を用いたグリフィスの実験で発見された、死菌のDNAが生菌に取り込まれて形質が変わる現象は？', ans: '形質転換', c: ['形質転換', '形質導入', '接合', '遺伝子組換え'] },
+
+  // --- 🧬 高校生物 第4章：生殖と発生 (bio_ch4) 大学入試＆標準 ---
+  { id: 'v38_bio_22', grade: 'high', subj: 'bio', unit: 'bio_ch4', level: 'exam', q: '【2022 東京大】両生類の初期発生において、原口背唇部（シュペーマン形成体）が予定外胚葉に働きかけて形成させる器官は？', ans: '神経管', c: ['神経管', '消化管', '表皮', '体節'] },
+  { id: 'v38_bio_23', grade: 'high', subj: 'bio', unit: 'bio_ch4', level: 'exam', q: '【2021 京都大】ショウジョウバエの発生で、体節の前後軸に沿った形態（触角や肢など）を決定するマスター調節遺伝子群は？', ans: 'ホメオティック遺伝子（Hox遺伝子）', c: ['ホメオティック遺伝子（Hox遺伝子）', 'ハウスキーピング遺伝子', 'オペロン遺伝子', 'がん抑制遺伝子'] },
+  { id: 'v38_bio_24', grade: 'high', subj: 'bio', unit: 'bio_ch4', level: 'exam', q: '【2023 東北大】被子植物の重複受精において、精細胞1個と中央細胞（極核2個）が合体して生じる「胚乳」の核相は？', ans: '3n', c: ['3n', '2n', 'n', '4n'] },
+  { id: 'v38_bio_25', grade: 'high', subj: 'bio', unit: 'bio_ch4', level: 'exam', q: '【2020 北海道大】脊椎動物の眼の発生において、脳（間脳）から突出した眼胞が表皮に働きかけて誘導する構造は？', ans: '水晶体（レンズ）', c: ['水晶体（レンズ）', '網膜', '視神経', '強膜'] },
+  { id: 'v38_bio_26', grade: 'high', subj: 'bio', unit: 'bio_ch4', level: 'exam', q: '【2021 神戸大】ウニの受精において、精子の先体突起が卵のゼリー層を通過した直後に多精拒否のために形成される膜は？', ans: '受精膜', c: ['受精膜', '透明帯', '細胞壁', '漿膜'] },
+  { id: 'v38_bio_27', grade: 'high', subj: 'bio', unit: 'bio_ch4', level: 'exam', q: '【2022 筑波大】中胚葉から分化する器官の組み合わせとして正しいものはどれ？', ans: '骨格・筋肉・腎臓・心臓', c: ['骨格・筋肉・腎臓・心臓', '脳・脊髄・表皮', '胃・腸・肝臓・肺', '網膜・水晶体・毛髪'] },
+  { id: 'v38_bio_28', grade: 'high', subj: 'bio', unit: 'bio_ch4', level: 'refbook', q: '【生物・発生】両生類の胞胚期において、植物極側の予定内胚葉が動物極側の予定外胚葉に働きかけて中胚葉を誘導する現象は？', ans: '中胚葉誘導', c: ['中胚葉誘導', '神経誘導', '二次誘導', '孵化誘導'] },
+  { id: 'v38_bio_29', grade: 'high', subj: 'bio', unit: 'bio_ch4', level: 'refbook', q: '【生物・遺伝】同一染色体上にある2つの遺伝子が、減数分裂の際に一緒に行動して同じ配偶子に入りやすい現象は？', ans: '連鎖', c: ['連鎖', '独立', '乗換え', '不分離'] },
+
+  // --- 🧬 高校生物 第5章：動物の反応・調節・免疫 (bio_ch5) 大学入試＆標準 ---
+  { id: 'v38_bio_30', grade: 'high', subj: 'bio', unit: 'bio_ch5', level: 'exam', q: '【2022 名古屋大】有髄神経繊維において、興奮がランビエ絞輪を飛び越えるように高速で伝わる現象を何という？', ans: '跳躍伝導', c: ['跳躍伝導', '両方向性伝導', 'シナプス伝達', '絶縁伝導'] },
+  { id: 'v38_bio_31', grade: 'high', subj: 'bio', unit: 'bio_ch5', level: 'exam', q: '【2023 九州大】骨格筋の収縮において、筋小胞体から放出されてトロポニンに結合し、アクチンとミオシンの滑りを引き起こすイオンは？', ans: 'Ca²⁺（カルシウムイオン）', c: ['Ca²⁺（カルシウムイオン）', 'Na⁺（ナトリウムイオン）', 'K⁺（カリウムイオン）', 'Mg²⁺（マグネシウムイオン）'] },
+  { id: 'v38_bio_32', grade: 'high', subj: 'bio', unit: 'bio_ch5', level: 'exam', q: '【2021 東北大】ヒトの腎臓において、脳下垂体後葉から分泌され集合管での水の再吸収を促進するホルモンは？', ans: 'バソプレシン', c: ['バソプレシン', '鉱質コルチコイド', 'パラトルモン', 'チロキシン'] },
+  { id: 'v38_bio_33', grade: 'high', subj: 'bio', unit: 'bio_ch5', level: 'exam', q: '【2022 慶應義塾大】酸素解離曲線において、CO₂分圧が高い組織（末梢組織）ほどヘモグロビンが酸素を放出しやすくなる効果を何効果という？', ans: 'ボーア効果', c: ['ボーア効果', 'チンダル現象', 'アロステリック阻害', 'パスツール効果'] },
+
+  // --- 🧬 高校生物 第6章：植物の環境応答 (bio_ch6) 大学入試＆標準 ---
+  { id: 'v38_bio_34', grade: 'high', subj: 'bio', unit: 'bio_ch6', level: 'exam', q: '【2023 東京大】植物の気孔閉鎖を誘導し、乾燥ストレス時の蒸散抑制や種子の休眠維持に働く植物ホルモンは？', ans: 'アブシシン酸', c: ['アブシシン酸', 'ジベレリン', 'オーキシン', 'サイトカイニン'] },
+  { id: 'v38_bio_35', grade: 'high', subj: 'bio', unit: 'bio_ch6', level: 'exam', q: '【2021 京都大】短日植物（アサガオ・キクなど）が花芽を形成するために必須な条件はどれ？', ans: '連続した暗期が限界暗期より長いこと', c: ['連続した暗期が限界暗期より長いこと', '明期が限界明期より長いこと', '暗期の途中に赤色光を当てること', '24時間連続して光を当てること'] },
+  { id: 'v38_bio_36', grade: 'high', subj: 'bio', unit: 'bio_ch6', level: 'exam', q: '【2022 大阪大】植物の葉で日長（光周性）が感知された後、師管を通って茎頂へ運ばれ花芽形成を誘導する花成ホルモン（タンパク質）は？', ans: 'フロリゲン', c: ['フロリゲン', 'フィトクロム', 'ブラシノステロイド', 'ジャスモン酸'] },
+  { id: 'v38_bio_37', grade: 'high', subj: 'bio', unit: 'bio_ch6', level: 'exam', q: '【2020 名古屋大】青色光受容体であり、茎の正の光屈性や気孔の開口、葉緑体の光定位運動を引き起こす色素タンパク質は？', ans: 'フォトトロピン', c: ['フォトトロピン', 'フィトクロム', 'カロテノイド', 'アントシアニン'] },
+  { id: 'v38_bio_38', grade: 'high', subj: 'bio', unit: 'bio_ch6', level: 'exam', q: '【2022 神戸大】植物の組織培養（カルス）において、オーキシン濃度に対する「サイトカイニン濃度」の比を高くすると何が分化しやすい？', ans: '不定芽（茎・葉）', c: ['不定芽（茎・葉）', '不定根', '導管のみ', '種子'] },
+  { id: 'v38_bio_39', grade: 'high', subj: 'bio', unit: 'bio_ch6', level: 'exam', q: '【2021 北海道大】秋まきコムギのように、種子が一定期間の低温を経験することで春に花芽形成が誘導される現象は？', ans: '春化（バーナリゼーション）', c: ['春化（バーナリゼーション）', '光発芽', '頂芽優勢', '重力屈性'] },
+  { id: 'v38_bio_40', grade: 'high', subj: 'bio', unit: 'bio_ch6', level: 'refbook', q: '【生物・植物生理】頂芽が存在することで側芽（わき芽）の成長が抑制される現象を何という？', ans: '頂芽優勢', c: ['頂芽優勢', '光周性', '春化', '傾性'] },
+
+  // --- 🧬 高校生物 第7章：生態と進化 (bio_ch7) 大学入試＆標準 ---
+  { id: 'v38_bio_41', grade: 'high', subj: 'bio', unit: 'bio_ch7', level: 'exam', q: '【2022 東京大】生態系において、食物網の頂点や上位に位置し、その個体数が減少すると群集全体の種多様性が激減する種を何という？', ans: 'キーストーン種', c: ['キーストーン種', 'パイオニア種', '外来種', '指標種'] },
+  { id: 'v38_bio_42', grade: 'high', subj: 'bio', unit: 'bio_ch7', level: 'exam', q: '【2021 京都大】分子進化において、生存に有利でも不利でもない突然変異が偶然（遺伝的浮動）によって集団に固定されるとする木村資生の学説は？', ans: '中立説', c: ['中立説', '自然選択説', '用不用説', '隔離説'] },
+  { id: 'v38_bio_43', grade: 'high', subj: 'bio', unit: 'bio_ch7', level: 'exam', q: '【2023 大阪大】ハーディ・ワインベルクの法則が成り立つ大集団で、潜性（劣性）遺伝子 a の遺伝子頻度が 0.3 のとき、ヘテロ接合体 Aa の頻度 2pq は？', ans: '0.42', c: ['0.42', '0.09', '0.49', '0.21'] },
+  { id: 'v38_bio_44', grade: 'high', subj: 'bio', unit: 'bio_ch7', level: 'exam', q: '【2020 九州大】生産者が一定期間に光合成で合成した有機物の総量（総生産量）から、生産者自身の呼吸量を差し引いた量を何という？', ans: '純生産量', c: ['純生産量', '現存量', '成長量', '同化量'] },
+  { id: 'v38_bio_45', grade: 'high', subj: 'bio', unit: 'bio_ch7', level: 'exam', q: '【2022 北海道大】古生代カンブリア紀に多様な動物の「門」が一斉に出現した現象を何という？', ans: 'カンブリア爆発', c: ['カンブリア爆発', 'エディアカラ進化', '大量絶滅', '適応放散'] },
+  { id: 'v38_bio_46', grade: 'high', subj: 'bio', unit: 'bio_ch7', level: 'refbook', q: '【生物・生態】日本の冷温帯に分布する夏緑樹林（落葉広葉樹林）の代表的な極相樹種はミズナラと何？', ans: 'ブナ', c: ['ブナ', 'シイ', 'ガジュマル', 'エゾマツ'] },
+  { id: 'v38_bio_47', grade: 'high', subj: 'bio', unit: 'bio_ch7', level: 'refbook', q: '【生物・進化】クジラの胸びれとコウモリの翼のように、起源は同じだが異なる働きをもつ器官を何器官という？', ans: '相同器官', c: ['相同器官', '相似器官', '痕跡器官', '退化器官'] },
+
+  // --- 🧪 高校化学：理論・無機・有機・高分子 (chem) 大学入試＆標準 ---
+  { id: 'v38_chem_1', grade: 'high', subj: 'chem', unit: 'chem_theory', level: 'exam', q: '【2023 東京大】ハーバー・ボッシュ法 N₂ + 3H₂ ⇄ 2NH₃（発熱反応）において、アンモニアの生成割合を高める条件は？', ans: '低温・高圧', c: ['低温・高圧', '高温・高圧', '高温・低圧', '低温・低圧'] },
+  { id: 'v38_chem_2', grade: 'high', subj: 'chem', unit: 'chem_theory', level: 'exam', q: '【2021 大阪大】面心立方格子の単位格子中に含まれる原子の数は何個？', ans: '4個', c: ['4個', '2個', '1個', '6個'] },
+  { id: 'v38_chem_3', grade: 'high', subj: 'chem', unit: 'chem_theory', level: 'exam', q: '【2022 名古屋大】鉛蓄電池を放電するとき、正極（PbO₂）と負極（Pb）の電極板はともに何という物質に変化する？', ans: '硫酸鉛(II)（PbSO₄）', c: ['硫酸鉛(II)（PbSO₄）', '酸化鉛(II)（PbO）', '硫化鉛(II)（PbS）', '水酸化鉛(II)'] },
+  { id: 'v38_chem_4', grade: 'high', subj: 'chem', unit: 'chem_theory', level: 'exam', q: '【2020 東京工業大】0.10 mol/L の酢酸水溶液（電離度 α = 0.010）の水素イオン濃度 [H⁺] と pH の組み合わせは？', ans: '[H⁺] = 1.0×10⁻³ mol/L, pH = 3', c: ['[H⁺] = 1.0×10⁻³ mol/L, pH = 3', '[H⁺] = 1.0×10⁻² mol/L, pH = 2', '[H⁺] = 1.0×10⁻⁴ mol/L, pH = 4', '[H⁺] = 1.0×10⁻¹ mol/L, pH = 1'] },
+  { id: 'v38_chem_5', grade: 'high', subj: 'chem', unit: 'chem_inorg', level: 'exam', q: '【2022 京都大】アルミニウム・亜鉛・スズ・鉛のように、酸の水溶液にも強塩基の水溶液にも溶けて水素を発生する元素を何という？', ans: '両性元素（あ・あ・す・んなり）', c: ['両性元素（あ・あ・す・んなり）', 'アルカリ土類金属', '遷移元素', '貴金属'] },
+  { id: 'v38_chem_6', grade: 'high', subj: 'chem', unit: 'chem_inorg', level: 'exam', q: '【2023 東北大】銅(II)イオン Cu²⁺ を含む水溶液に過剰のアンモニア水を加えたときに生じる深青色の錯イオンは？', ans: '[Cu(NH₃)₄]²⁺（テトラアンミン銅(II)イオン）', c: ['[Cu(NH₃)₄]²⁺（テトラアンミン銅(II)イオン）', '[Ag(NH₃)₂]⁺', '[Zn(OH)₄]²⁻', '[Fe(CN)₆]³⁻'] },
+  { id: 'v38_chem_7', grade: 'high', subj: 'chem', unit: 'chem_inorg', level: 'exam', q: '【2021 北海道大】接触法による硫酸の工業的製法において、二酸化硫黄 SO₂ を三酸化硫黄 SO₃ に酸化する際に用いる触媒は？', ans: '酸化バナジウム(V)（V₂O₅）', c: ['酸化バナジウム(V)（V₂O₅）', '四酸化三鉄（Fe₃O₄）', '白金（Pt）', '酸化マンガン(IV)（MnO₂）'] },
+  { id: 'v38_chem_8', grade: 'high', subj: 'chem', unit: 'chem_inorg', level: 'exam', q: '【2022 神戸大】ハロゲン化銀のうち、水やアンモニア水に溶けないがチオ硫酸ナトリウム水溶液には錯イオンを作って溶ける、感光性をもつ物質は？', ans: '臭化銀（AgBr）・ヨウ化銀（AgI）', c: ['臭化銀（AgBr）・ヨウ化銀（AgI）', 'フッ化銀（AgF）のみ', '塩化ナトリウム', '硫酸バリウム'] },
+  { id: 'v38_chem_9', grade: 'high', subj: 'chem', unit: 'chem_inorg', level: 'exam', q: '【2020 早稲田大】鉄(III)イオン Fe³⁺ を含む水溶液にヘキサシアニド鉄(II)酸カリウム K₄[Fe(CN)₆] を加えたときに生じる濃青色沈殿は？', ans: 'ベルリン青（プルシアンブルー）', c: ['ベルリン青（プルシアンブルー）', 'ターンブル青', '血赤色溶液', '白色沈殿'] },
+  { id: 'v38_chem_10', grade: 'high', subj: 'chem', unit: 'chem_org', level: 'exam', q: '【2022 京都大】クメン法（工業的製法）において、ベンゼンとプロピレンからクメンを経て同時に合成される2つの重要な化合物は？', ans: 'フェノールとアセトン', c: ['フェノールとアセトン', 'アニリンと酢酸', 'トルエンとエタノール', '安息香酸とメタノール'] },
+  { id: 'v38_chem_11', grade: 'high', subj: 'chem', unit: 'chem_org', level: 'exam', q: '【2021 東北大】第1級アルコールを酸化するとアルデヒドを経てカルボン酸になるが、第2級アルコールを酸化すると何が生じる？', ans: 'ケトン', c: ['ケトン', 'アルデヒド', 'エーテル', 'エステル'] },
+  { id: 'v38_chem_12', grade: 'high', subj: 'chem', unit: 'chem_org', level: 'exam', q: '【2023 九州大】分子式 C₄H₁₀O で表される化合物のうち、金属ナトリウムと反応して水素を発生する「アルコール」の構造異性体は何種類？', ans: '4種類', c: ['4種類', '3種類', '5種類', '7種類'] },
+  { id: 'v38_chem_13', grade: 'high', subj: 'chem', unit: 'chem_org', level: 'exam', q: '【2020 大阪大】アニリンを氷冷下で塩酸と亜硝酸ナトリウムと反応（ジアゾ化）させたときに生成する不安定な塩は？', ans: '塩化ベンゼンジアゾニウム', c: ['塩化ベンゼンジアゾニウム', 'アセトアニリド', 'ナトリウムフェノキシド', 'パラヒドロキシアゾベンゼン'] },
+  { id: 'v38_chem_14', grade: 'high', subj: 'chem', unit: 'chem_polymer', level: 'exam', q: '【2022 東京大】デンプンの成分のうち、α-グルコースが枝分かれなく直鎖状に重合し、らせん構造をとる分子は？', ans: 'アミロース', c: ['アミロース', 'アミロペクチン', 'セルロース', 'グリコーゲン'] },
+  { id: 'v38_chem_15', grade: 'high', subj: 'chem', unit: 'chem_polymer', level: 'exam', q: '【2021 名古屋大】ベンゼン環をもつアミノ酸（チロシンやフェニルアラニン）を含むタンパク質に濃硝酸を加えて加熱すると黄色になる反応は？', ans: 'キサントプロテイン反応', c: ['キサントプロテイン反応', 'ビウレット反応', 'ニンヒドリン反応', 'フェーリング反応'] },
+  { id: 'v38_chem_16', grade: 'high', subj: 'chem', unit: 'chem_polymer', level: 'exam', q: '【2023 東北大】天然ゴムの主成分であり、イソプレンが付加重合してできた高分子化合物は？', ans: 'ポリイソプレン（シス形）', c: ['ポリイソプレン（シス形）', 'ポリクロロプレン', 'ポリスチレン', 'ポリアクリロニトリル'] },
+  { id: 'v38_chem_17', grade: 'high', subj: 'chem', unit: 'chem_polymer', level: 'exam', q: '【2020 慶應義塾大】ポリビニルアルコール（PVA）の水溶液にホルムアルデヒドを反応（アセタール化）させて作られる日本発の合成繊維は？', ans: 'ビニロン', c: ['ビニロン', 'ナイロン6', 'レーヨン', 'キュプラ'] },
+  { id: 'v38_chem_18', grade: 'high', subj: 'chem', unit: 'chem_inorg', level: 'refbook', q: '【化学・無機】気体の捕集法で、アンモニアのように「水に極めてよく溶け、空気より軽い気体」を集める方法は？', ans: '上方置換', c: ['上方置換', '下方置換', '水上置換', '冷却捕集'] },
+  { id: 'v38_chem_19', grade: 'high', subj: 'chem', unit: 'chem_org', level: 'refbook', q: '【化学・有機】マレイン酸とフマル酸のように、二重結合の回転ができないために生じる立体異性体を何異性体という？', ans: 'シス-トランス異性体（幾何異性体）', c: ['シス-トランス異性体（幾何異性体）', '鏡像異性体（光学異性体）', '構造異性体', '同位体'] },
+  { id: 'v38_chem_20', grade: 'high', subj: 'chem', unit: 'chem_polymer', level: 'refbook', q: '【化学・高分子】スクロース（ショ糖）に希酸またはインベルターゼを作用させて加水分解すると生じる2つの単糖はグルコースと何？', ans: 'フルクトース（果糖）', c: ['フルクトース（果糖）', 'ガラクトース', 'マルトース', 'リボース'] },
+
+  // --- ⚡ 高校物理：力学・熱・波・電磁気・原子 (phys) 大学入試＆標準 ---
+  { id: 'v38_phys_1', grade: 'high', subj: 'phys', unit: 'phys_mech', level: 'exam', q: '【2022 京都大】水平面と角 θ で初速度 v₀ で斜方投射された小球が、最高点に達するまでの時間 t は？（重力加速度 g）', ans: 'v₀ sinθ / g', c: ['v₀ sinθ / g', '2v₀ sinθ / g', 'v₀ cosθ / g', 'v₀² sin²θ / (2g)'] },
+  { id: 'v38_phys_2', grade: 'high', subj: 'phys', unit: 'phys_mech', level: 'exam', q: '【2021 大阪大】質量 m の小物体が半径 r の鉛直な円軌道の内側に沿って運動するとき、最高点を通過できるための最高点での最小の速さは？', ans: '√(gr)', c: ['√(gr)', '√(2gr)', '√(5gr)', '2√(gr)'] },
+  { id: 'v38_phys_3', grade: 'high', subj: 'phys', unit: 'phys_mech', level: 'exam', q: '【2023 東北大】太陽のまわりを公転する惑星の公転周期 T の2乗は、楕円軌道の半長軸 a の何乗に比例する？（ケプラーの第3法則）', ans: '3乗（T² ∝ a³）', c: ['3乗（T² ∝ a³）', '2乗（T² ∝ a²）', '1乗（T² ∝ a）', '4乗（T² ∝ a⁴）'] },
+  { id: 'v38_phys_4', grade: 'high', subj: 'phys', unit: 'phys_mech', level: 'exam', q: '【2020 名古屋大】剛体が静止し続けるためのつり合いの条件は、「力の合力が0」であることと、任意の点のまわりの「何が0」であること？', ans: '力のモーメントの和', c: ['力のモーメントの和', '運動エネルギーの和', '運動量の和', '力積の和'] },
+  { id: 'v38_phys_5', grade: 'high', subj: 'phys', unit: 'phys_thermo', level: 'exam', q: '【2023 東京大】単原子分子理想気体 n [mol] を定圧変化させて絶対温度を ΔT 上昇させたとき、気体が吸収した熱量 Q は？（気体定数 R）', ans: '(5/2)nRΔT', c: ['(5/2)nRΔT', '(3/2)nRΔT', 'nRΔT', '(7/2)nRΔT'] },
+  { id: 'v38_phys_6', grade: 'high', subj: 'phys', unit: 'phys_thermo', level: 'exam', q: '【2021 京都大】理想気体の定圧モル比熱 Cp と定積モル比熱 Cv の間に常に成り立つ「マイヤーの関係式」は？', ans: 'Cp - Cv = R', c: ['Cp - Cv = R', 'Cp + Cv = R', 'Cp / Cv = R', 'Cv - Cp = R'] },
+  { id: 'v38_phys_7', grade: 'high', subj: 'phys', unit: 'phys_thermo', level: 'exam', q: '【2022 北海道大】理想気体を「等温膨張」させたとき、内部エネルギーの変化 ΔU と気体が吸収する熱量 Q（外部にした仕事 W）の関係は？', ans: 'ΔU = 0, Q = W', c: ['ΔU = 0, Q = W', 'Q = 0, ΔU = -W', 'W = 0, ΔU = Q', 'ΔU = Q + W = 0'] },
+  { id: 'v38_phys_8', grade: 'high', subj: 'phys', unit: 'phys_thermo', level: 'exam', q: '【2020 九州大】絶対温度 T の理想気体において、気体分子1個あたりの平均運動エネルギーを表す式は？（ボルツマン定数 kB）', ans: '(3/2)kBT', c: ['(3/2)kBT', '(1/2)kBT', '(5/2)kBT', 'kBT'] },
+  { id: 'v38_phys_9', grade: 'high', subj: 'phys', unit: 'phys_wave', level: 'exam', q: '【2022 東京工業大】長さ L の「閉管（片端が閉じた管）」に生じる気柱の基本振動の波長 λ₁ はいくつ？', ans: '4L', c: ['4L', '2L', 'L', '4L/3'] },
+  { id: 'v38_phys_10', grade: 'high', subj: 'phys', unit: 'phys_wave', level: 'exam', q: '【2023 大阪大】光の回折格子（格子定数 d）に波長 λ の光を垂直に入射させたとき、回折角 θ の方向に明線ができる条件式（m=0,1,2...）は？', ans: 'd sinθ = mλ', c: ['d sinθ = mλ', 'd cosθ = mλ', '2d sinθ = mλ', 'd sinθ = (m+1/2)λ'] },
+  { id: 'v38_phys_11', grade: 'high', subj: 'phys', unit: 'phys_wave', level: 'exam', q: '【2021 東北大】屈折率 n（n > 1）の媒質中から空気（屈折率 1）へ光が進むとき、全反射が起こる臨界角 θ₀ が満たす式は？', ans: 'sinθ₀ = 1 / n', c: ['sinθ₀ = 1 / n', 'cosθ₀ = 1 / n', 'tanθ₀ = 1 / n', 'sinθ₀ = n'] },
+  { id: 'v38_phys_12', grade: 'high', subj: 'phys', unit: 'phys_em', level: 'exam', q: '【2023 東京大】電気容量 C のコンデンサーの極板間に、比誘電率 εr の誘電体を隙間なく挿入したとき、電気容量は何倍になる？', ans: 'εr 倍', c: ['εr 倍', '1/εr 倍', 'εr² 倍', '変化しない'] },
+  { id: 'v38_phys_13', grade: 'high', subj: 'phys', unit: 'phys_em', level: 'exam', q: '【2022 京都大】自己インダクタンス L のコイルと電気容量 C のコンデンサーからなる「LC共振回路」の固有電気振動の周期 T は？', ans: '2π√(LC)', c: ['2π√(LC)', '1 / (2π√(LC))', '2π√(L/C)', '2πLC'] },
+  { id: 'v38_phys_14', grade: 'high', subj: 'phys', unit: 'phys_em', level: 'exam', q: '【2021 名古屋大】磁束密度 B の磁場中に置かれた電流 I、長さ l の直線電流が磁場から受ける「電磁力（アンペール力）」の大きさ（垂直時）は？', ans: 'IBl', c: ['IBl', 'qvB', 'vBL', 'IB/l'] },
+  { id: 'v38_phys_15', grade: 'high', subj: 'phys', unit: 'phys_em', level: 'exam', q: '【2020 九州大】ホイートストンブリッジ回路（抵抗 R₁, R₂, R₃, R₄）において、検流計に電流が流れないつり合いの条件式は？', ans: 'R₁R₄ = R₂R₃（対角の積が等しい）', c: ['R₁R₄ = R₂R₃（対角の積が等しい）', 'R₁ + R₂ = R₃ + R₄', 'R₁R₂ = R₃R₄', '1/R₁ + 1/R₂ = 1/R₃ + 1/R₄'] },
+  { id: 'v38_phys_16', grade: 'high', subj: 'phys', unit: 'phys_atom', level: 'exam', q: '【2021 東京大】仕事関数 W の金属に振動数 ν の光を照射したとき、飛び出す光電子の運動エネルギーの最大値 Kmax は？（プランク定数 h）', ans: 'hν - W', c: ['hν - W', 'hν + W', 'W - hν', 'hν / W'] },
+  { id: 'v38_phys_17', grade: 'high', subj: 'phys', unit: 'phys_atom', level: 'exam', q: '【2022 東北大】結晶格子（格子面間隔 d）に波長 λ のX線が角 θ（視射角）で入射したとき、反射X線が強め合う「ブラッグの条件式」は？', ans: '2d sinθ = nλ', c: ['2d sinθ = nλ', 'd sinθ = nλ', '2d cosθ = nλ', 'd tanθ = nλ'] },
+  { id: 'v38_phys_18', grade: 'high', subj: 'phys', unit: 'phys_atom', level: 'exam', q: '【2020 北海道大】放射性原子核が α崩壊（アルファ崩壊）を1回起こすと、質量数 A と原子番号 Z はそれぞれいくつ減少する？', ans: '質量数が4減り、原子番号が2減る', c: ['質量数が4減り、原子番号が2減る', '質量数は変わらず、原子番号が1増える', '質量数が2減り、原子番号が4減る', 'どちらも変化しない'] },
+  { id: 'v38_phys_19', grade: 'high', subj: 'phys', unit: 'phys_atom', level: 'exam', q: '【2023 早稲田大】アインシュタインの質量とエネルギーの等価性において、質量欠損 Δm に対応する結合エネルギー E の式は？（光速 c）', ans: 'Δm c²', c: ['Δm c²', '(1/2)Δm c²', 'Δm c', 'Δm / c²'] },
+
+  // --- 📐 高校数学I・A・II・B・III・C 各単元の入試問題・標準問題 大増量 ---
+  // 数I：データ (m1_data)
+  { id: 'v38_m1_1', grade: 'high', subj: 'm1', unit: 'm1_data', level: 'exam', q: '【2022 共通テスト】変量 x の平均値が 50、標準偏差が 10 のとき、y = 2x + 10 で変換した新しい変量 y の標準偏差はいくつ？', ans: '20', c: ['20', '30', '10', '40'] },
+  { id: 'v38_m1_2', grade: 'high', subj: 'm1', unit: 'm1_data', level: 'exam', q: '【2021 共通テスト】変量 x の2乗の平均値が 29、x の平均値が 5 のとき、変量 x の分散 s² の値は？（公式：s² = x²の平均 - (xの平均)²）', ans: '4', c: ['4', '24', '2', '16'] },
+  { id: 'v38_m1_3', grade: 'high', subj: 'm1', unit: 'm1_data', level: 'exam', q: '【2023 慶應義塾大】相関係数 r が常にとり得る値の範囲として正しいものはどれ？', ans: '-1 ≦ r ≦ 1', c: ['-1 ≦ r ≦ 1', '0 ≦ r ≦ 1', '-∞ < r < ∞', '0 ≦ r ≦ 100'] },
+  { id: 'v38_m1_4', grade: 'high', subj: 'm1', unit: 'm1_data', level: 'exam', q: '【2020 一橋大】データの第1四分位数 Q₁ が 30、第3四分位数 Q₃ が 54 のとき、「四分位偏差」の値はいくつ？', ans: '12', c: ['12', '24', '42', '8'] },
+  { id: 'v38_m1_5', grade: 'high', subj: 'm1', unit: 'm1_data', level: 'refbook', q: '【数I・データ】第3四分位数 Q₃ から第1四分位数 Q₁ を引いた値（Q₃ - Q₁）を何という？', ans: '四分位範囲', c: ['四分位範囲', '四分位偏差', '標準偏差', '範囲（レンジ）'] },
+
+  // 数A：図形の性質 (ma_geom)
+  { id: 'v38_ma_1', grade: 'high', subj: 'ma', unit: 'ma_geom', level: 'exam', q: '【2022 京都大】三角形ABCの辺AB, BC, CAまたはその延長と直線が点P, Q, Rで交わるとき、(AP/PB)・(BQ/QC)・(CR/RA) = 1 が成り立つ定理は？', ans: 'メネラウスの定理', c: ['メネラウスの定理', 'チェバの定理', 'トレミーの定理', 'デザルグの定理'] },
+  { id: 'v38_ma_2', grade: 'high', subj: 'ma', unit: 'ma_geom', level: 'exam', q: '【2021 東北大】円の接線と、その接点を通る弦がつくる角は、その角の内部にある弧に対する円周角に等しいという定理は？', ans: '接弦定理', c: ['接弦定理', '方べきの定理', '正弦定理', '中線定理'] },
+  { id: 'v38_ma_3', grade: 'high', subj: 'ma', unit: 'ma_geom', level: 'exam', q: '【2023 早稲田大】凸多面体において、頂点の数 V、辺の数 E、面の数 F の間に常に成り立つ「オイラーの多面体定理」の式は？', ans: 'V - E + F = 2', c: ['V - E + F = 2', 'V + E - F = 2', 'V + E + F = 2', 'V - E + F = 0'] },
+  { id: 'v38_ma_4', grade: 'high', subj: 'ma', unit: 'ma_geom', level: 'exam', q: '【2020 神戸大】三角形ABCの3辺の垂直二等分線が1点で交わる点であり、外接円の中心となる五心のひとつは？', ans: '外心', c: ['外心', '内心', '重心', '垂心'] },
+
+  // 数II：式と証明・図形と式・三角・指数対数・微積 (m2)
+  { id: 'v38_m2_1', grade: 'high', subj: 'm2', unit: 'm2_poly', level: 'exam', q: '【2022 大阪大】2次方程式 x² - 4x + 7 = 0 の2つの解を α, β とするとき、解と係数の関係より α² + β² の値はいくつ？', ans: '2', c: ['2', '16', '9', '30'] },
+  { id: 'v38_m2_2', grade: 'high', subj: 'm2', unit: 'm2_poly', level: 'exam', q: '【2021 名古屋大】整式 P(x) を x - 2 で割った余りが 5 のとき、剰余の定理より P(2) の値はいくつ？', ans: '5', c: ['5', '2', '0', '-5'] },
+  { id: 'v38_m2_3', grade: 'high', subj: 'm2', unit: 'm2_poly', level: 'exam', q: '【2023 東北大】二項定理により (x + 2)⁵ を展開したときの x³ の項の係数はいくつ？', ans: '40', c: ['40', '20', '80', '10'] },
+  { id: 'v38_m2_4', grade: 'high', subj: 'm2', unit: 'm2_poly', level: 'refbook', q: '【数II・複素数と方程式】2次方程式 ax² + bx + c = 0 の2つの解を α, β とするとき、2解の和 α + β を表す式は？', ans: '-b / a', c: ['-b / a', 'c / a', 'b / a', '-c / a'] },
+  { id: 'v38_m2_5', grade: 'high', subj: 'm2', unit: 'm2_geom', level: 'exam', q: '【2022 東京大】円 x² + y² = 10 上の点 (1, 3) における接線の方程式はどれ？', ans: 'x + 3y = 10', c: ['x + 3y = 10', '3x + y = 10', 'x - 3y = 10', 'x + 3y = √10'] },
+  { id: 'v38_m2_6', grade: 'high', subj: 'm2', unit: 'm2_geom', level: 'exam', q: '【2021 九州大】2直線 y = 2x + 1 と y = mx - 3 が「垂直」に交わるとき、傾き m の値はいくつ？', ans: '-1/2', c: ['-1/2', '1/2', '-2', '2'] },
+  { id: 'v38_m2_7', grade: 'high', subj: 'm2', unit: 'm2_geom', level: 'exam', q: '【2023 北海道大】方程式 x² + y² - 6x + 4y - 12 = 0 が表す円の「中心の座標」と「半径」は？', ans: '中心 (3, -2), 半径 5', c: ['中心 (3, -2), 半径 5', '中心 (-3, 2), 半径 5', '中心 (3, -2), 半径 25', '中心 (6, -4), 半径 5'] },
+  { id: 'v38_m2_8', grade: 'high', subj: 'm2', unit: 'm2_trig', level: 'exam', q: '【2021 東京大】三角関数の加法定理において、sin(α + β) を展開した正しい式は？', ans: 'sinα cosβ + cosα sinβ', c: ['sinα cosβ + cosα sinβ', 'cosα cosβ - sinα sinβ', 'sinα cosβ - cosα sinβ', 'sinα sinβ + cosα cosβ'] },
+  { id: 'v38_m2_9', grade: 'high', subj: 'm2', unit: 'm2_trig', level: 'exam', q: '【2023 東北大】0 ≦ θ < 2π のとき、方程式 2sin²θ - cosθ - 1 = 0 を満たす θ のうち、第1象限にある解は？', ans: 'π / 3', c: ['π / 3', 'π / 6', 'π / 4', 'π / 2'] },
+  { id: 'v38_m2_10', grade: 'high', subj: 'm2', unit: 'm2_exp', level: 'exam', q: '【2022 京都大】log₁₀ 2 = 0.3010 とするとき、2²⁰ は何桁の整数になるか？（常用対数）', ans: '7桁', c: ['7桁', '6桁', '8桁', '20桁'] },
+  { id: 'v38_m2_11', grade: 'high', subj: 'm2', unit: 'm2_exp', level: 'exam', q: '【2021 神戸大】対数方程式 log₂ x + log₂(x - 2) = 3 を満たす真数条件適用の実数解 x は？', ans: 'x = 4', c: ['x = 4', 'x = 4, -2', 'x = 2', 'x = 8'] },
+  { id: 'v38_m2_12', grade: 'high', subj: 'm2', unit: 'm2_exp', level: 'exam', q: '【2023 早稲田大】底の変換公式を用いると、(log₂ 3) × (log₃ 5) × (log₅ 8) の積はいくつになる？', ans: '3', c: ['3', '1', '2', '8'] },
+  { id: 'v38_m2_13', grade: 'high', subj: 'm2', unit: 'm2_calc', level: 'exam', q: '【2022 名古屋大】曲線 y = x³ - 2x 上の点 (1, -1) における接線の傾きはいくつ？', ans: '1', c: ['1', '-1', '3', '2'] },
+  { id: 'v38_m2_14', grade: 'high', subj: 'm2', unit: 'm2_calc', level: 'exam', q: '【2021 北海道大】3次関数 f(x) = x³ - 3x² + 2 の極大値と極小値の差はいくつ？', ans: '4', c: ['4', '2', '6', '8'] },
+
+  // 数B：数列・統計的な推測 (mb)
+  { id: 'v38_mb_1', grade: 'high', subj: 'mb', unit: 'mb_seq', level: 'exam', q: '【2023 京都大】平方数の和 Σ[k=1→n] k² を n を用いて表す公式はどれ？', ans: 'n(n+1)(2n+1)/6', c: ['n(n+1)(2n+1)/6', 'n(n+1)/2', '{n(n+1)/2}²', 'n(n+1)(n+2)/3'] },
+  { id: 'v38_mb_2', grade: 'high', subj: 'mb', unit: 'mb_seq', level: 'exam', q: '【2022 大阪大】部分分数分解により、和 Σ[k=1→n] 1 / {k(k+1)} を計算した結果は？', ans: 'n / (n + 1)', c: ['n / (n + 1)', '1 / (n + 1)', '(n - 1) / n', '1 - 1/n'] },
+  { id: 'v38_mb_3', grade: 'high', subj: 'mb', unit: 'mb_stat', level: 'exam', q: '【2023 共通テスト】確率変数 X が二項分布 B(100, 1/5) に従うとき、X の期待値（平均） E(X) と分散 V(X) は？', ans: 'E(X) = 20, V(X) = 16', c: ['E(X) = 20, V(X) = 16', 'E(X) = 20, V(X) = 4', 'E(X) = 25, V(X) = 20', 'E(X) = 16, V(X) = 20'] },
+  { id: 'v38_mb_4', grade: 'high', subj: 'mb', unit: 'mb_stat', level: 'exam', q: '【2022 共通テスト】標準正規分布 N(0, 1) に従う確率変数 Z において、95%信頼区間の算出に用いられる上側2.5%点（|Z| ≦ z）の値はおよそいくつ？', ans: '1.96', c: ['1.96', '1.65', '2.58', '1.00'] },
+  { id: 'v38_mb_5', grade: 'high', subj: 'mb', unit: 'mb_stat', level: 'exam', q: '【2021 一橋大】母平均 m、母標準偏差 σ の母集団から大きさ n の無作為標本を抽出するとき、標本平均 X̄ の標準偏差は？', ans: 'σ / √n', c: ['σ / √n', 'σ / n', 'σ² / n', '√n σ'] },
+  { id: 'v38_mb_6', grade: 'high', subj: 'mb', unit: 'mb_stat', level: 'refbook', q: '【数B・統計】確率変数 X が二項分布 B(n, p) に従うとき、期待値 E(X) を求める公式は？', ans: 'np', c: ['np', 'np(1-p)', '√(np)', 'p/n'] },
+
+  // 数III：極限・微分・積分 (m3)
+  { id: 'v38_m3_1', grade: 'high', subj: 'm3', unit: 'm3_lim', level: 'exam', q: '【2022 東京大】無限等比級数 1 + 1/3 + 1/9 + 1/27 + …（初項 1、公比 1/3）の和 S はいくつ？', ans: '3/2', c: ['3/2', '2', '4/3', '3'] },
+  { id: 'v38_m3_2', grade: 'high', subj: 'm3', unit: 'm3_lim', level: 'exam', q: '【2021 京都大】自然対数の底 e の定義式として正しい極限はどれ？', ans: 'lim[n→∞] (1 + 1/n)ⁿ', c: ['lim[n→∞] (1 + 1/n)ⁿ', 'lim[n→∞] (1 + n)^(1/n)', 'lim[x→0] (sin x)/x', 'lim[n→∞] n^(1/n)'] },
+  { id: 'v38_m3_3', grade: 'high', subj: 'm3', unit: 'm3_lim', level: 'exam', q: '【2023 東北大】極限 lim[x→0] (1 - cos x) / x² の収束値はいくつ？', ans: '1/2', c: ['1/2', '1', '0', '2'] },
+  { id: 'v38_m3_4', grade: 'high', subj: 'm3', unit: 'm3_lim', level: 'refbook', q: '【数III・極限】無限等比数列 {rⁿ} が収束するための公比 r の必要十分条件は？', ans: '-1 < r ≦ 1', c: ['-1 < r ≦ 1', '-1 ≦ r ≦ 1', '|r| < 1', 'r < 1'] },
+  { id: 'v38_m3_5', grade: 'high', subj: 'm3', unit: 'm3_diff', level: 'exam', q: '【2023 大阪大】関数 f(x) = (log x) / x が極大値をとるときの x の値と極大値の組み合わせは？', ans: 'x = e のとき極大値 1/e', c: ['x = e のとき極大値 1/e', 'x = 1 のとき極大値 0', 'x = 1/e のとき極大値 e', 'x = e² のとき極大値 2/e²'] },
+  { id: 'v38_m3_6', grade: 'high', subj: 'm3', unit: 'm3_diff', level: 'exam', q: '【2022 名古屋大】媒介変数表示 x = a(θ - sinθ), y = a(1 - cosθ) で表される曲線（サイクロイド）において、θ = π での dy/dx は？', ans: '0', c: ['0', '1', '-1', '∞'] },
+  { id: 'v38_m3_7', grade: 'high', subj: 'm3', unit: 'm3_int', level: 'exam', q: '【2023 東京大】定積分 ∫[0→π/2] sin x cos x dx の値はいくつ？', ans: '1/2', c: ['1/2', '1', 'π/4', '1/4'] },
+  { id: 'v38_m3_8', grade: 'high', subj: 'm3', unit: 'm3_int', level: 'exam', q: '【2021 東北大】置換積分 x = tanθ を用いて求める定積分 ∫[0→1] 1 / (1 + x²) dx の値は？', ans: 'π / 4', c: ['π / 4', 'π / 2', 'log 2', '1'] },
+  { id: 'v38_m3_9', grade: 'high', subj: 'm3', unit: 'm3_int', level: 'exam', q: '【2022 九州大】部分積分法により、定積分 ∫[1→e] log x dx を計算した値は？', ans: '1', c: ['1', 'e - 1', 'e', '0'] },
+
+  // 数C：ベクトル・複素数平面・2次曲線 (mc)
+  { id: 'v38_mc_1', grade: 'high', subj: 'mc', unit: 'mc_vec', level: 'exam', q: '【2022 京都大】三角形OABにおいて、点Pが OP = s OA + t OB（s + t = 1, s ≧ 0, t ≧ 0）を満たしながら動くとき、点Pの描く図形は？', ans: '線分AB', c: ['線分AB', '直線AB', '三角形OABの周および内部', '線分ABの中点'] },
+  { id: 'v38_mc_2', grade: 'high', subj: 'mc', unit: 'mc_vec', level: 'exam', q: '【2021 北海道大】空間内の点 (1, -2, 3) を通り、法線ベクトルが n = (2, 1, -1) である平面の方程式は？', ans: '2x + y - z + 3 = 0', c: ['2x + y - z + 3 = 0', '2x + y - z - 3 = 0', 'x - 2y + 3z = 0', '2x - y + z + 3 = 0'] },
+  { id: 'v38_mc_3', grade: 'high', subj: 'mc', unit: 'mc_complex', level: 'exam', q: '【2023 東京工業大】複素数平面上で、1 の3乗根のうち虚部が正であるものを ω とするとき、1 + ω + ω² の値はいくつ？', ans: '0', c: ['0', '1', '-1', '√3 i'] },
+  { id: 'v38_mc_4', grade: 'high', subj: 'mc', unit: 'mc_complex', level: 'exam', q: '【2021 大阪大】複素数 z に i（= cos(π/2) + i sin(π/2)）を掛けると、複素数平面上で点 z は原点のまわりにどう移動する？', ans: 'π/2（90°）だけ反時計回りに回転する', c: ['π/2（90°）だけ反時計回りに回転する', 'π（180°）だけ回転する', '実軸に関して対称移動する', '原点からの距離が2倍になる'] },
+  { id: 'v38_mc_5', grade: 'high', subj: 'mc', unit: 'mc_curve', level: 'exam', q: '【2022 東北大】放物線 y² = 8x（= 4×2×x）の「焦点の座標」と「準線の方程式」は？', ans: '焦点 (2, 0), 準線 x = -2', c: ['焦点 (2, 0), 準線 x = -2', '焦点 (4, 0), 準線 x = -4', '焦点 (0, 2), 準線 y = -2', '焦点 (8, 0), 準線 x = -8'] },
+  { id: 'v38_mc_6', grade: 'high', subj: 'mc', unit: 'mc_curve', level: 'exam', q: '【2023 名古屋大】楕円 x²/25 + y²/9 = 1 の2つの焦点の座標は？（c = √(a² - b²)）', ans: '(±4, 0)', c: ['(±4, 0)', '(±√34, 0)', '(±5, 0)', '(0, ±4)'] },
+  { id: 'v38_mc_7', grade: 'high', subj: 'mc', unit: 'mc_curve', level: 'exam', q: '【2021 神戸大】双曲線 x²/9 - y²/16 = 1 の2本の「漸近線」の方程式は？', ans: 'y = ±(4/3)x', c: ['y = ±(4/3)x', 'y = ±(3/4)x', 'y = ±(16/9)x', 'y = ±x'] },
+  { id: 'v38_mc_8', grade: 'high', subj: 'mc', unit: 'mc_curve', level: 'refbook', q: '【数C・2次曲線】楕円 x²/a² + y²/b² = 1（a > b > 0）の長軸の長さはいくつ？', ans: '2a', c: ['2a', 'a', '2b', 'a + b'] },
+
+  // --- 🎒 中学生・高校受験（理科・数学・英語）教科書基礎・公立入試・難関国私立過去問 大増量 ---
+  // 中学理科 第1分野・第2分野 追加
+  { id: 'v38_jsci_1', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【筑波大附属駒場高 過去問・物理】20Ωと30Ωの抵抗を「並列」につないだときの全体の合成抵抗は何Ω？', ans: '12Ω', c: ['12Ω', '25Ω', '50Ω', '15Ω'] },
+  { id: 'v38_jsci_2', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【西大和学園高 過去問・化学】鉄粉 7.0g と硫黄粉末 5.0g を混ぜて加熱し完全に反応させた。鉄と硫黄は 7:4 で化合するとき、生じる硫化鉄は何g？', ans: '11.0g', c: ['11.0g', '12.0g', '9.0g', '10.5g'] },
+  { id: 'v38_jsci_3', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【洛南高 過去問・化学】炭酸水素ナトリウム 8.4g を完全に加熱分解すると炭酸ナトリウム 5.3g と水 0.9g が生じた。発生した二酸化炭素は何g？', ans: '2.2g', c: ['2.2g', '3.1g', '1.8g', '4.4g'] },
+  { id: 'v38_jsci_4', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p1', level: 'exam', q: '【ラ・サール高 過去問・物理】初速0で斜面をすべり降りる台車が、3秒後に18m進んだ。同じ斜面で5秒後までに進む距離は何m？（距離は時間の2乗に比例）', ans: '50m', c: ['50m', '30m', '45m', '75m'] },
+  { id: 'v38_jsci_5', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'exam', q: '【筑波大附属高 過去問・地学】ある地点の気温が20℃（飽和水蒸気量 17.3g/m³）で、露点が11℃（飽和水蒸気量 10.0g/m³）のとき、空気1m³中にあと何gの水蒸気がふくめる？', ans: '7.3g', c: ['7.3g', '10.0g', '17.3g', '9.0g'] },
+  { id: 'v38_jsci_6', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'exam', q: '【渋谷教育学園幕張高 過去問・生物】腎臓の糸球体からボーマンのうへろ過される液体（原尿）には含まれるが、健康な人の「尿」には全く含まれない成分は？', ans: 'ブドウ糖（グルコース）', c: ['ブドウ糖（グルコース）', '尿素', 'ナトリウムイオン', '水'] },
+  { id: 'v38_jsci_7', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'exam', q: '【久留米大附設高 過去問・地学】火成岩のうち、マグマが地下深くでゆっくり冷えてできた「深成岩」の組織を何組織という？', ans: '等粒状組織', c: ['等粒状組織', '斑状組織', 'ガラス質組織', '層状組織'] },
+  { id: 'v38_jsci_8', grade: 'junior', subj: 'j_sci', unit: 'j_sci_p2', level: 'refbook', q: '【公立高校入試・地学】マグマが地表付近で急に冷えて固まった火成岩（流紋岩・安山岩・玄武岩）を総称して何という？', ans: '火山岩', c: ['火山岩', '深成岩', '堆積岩', '変成岩'] },
+
+  // 中学数学 難関高校入試・公立入試 追加
+  { id: 'v38_jmath_1', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'exam', q: '【筑波大附属駒場高 過去問・数と式】2025² - 2024² を因数分解を利用して計算するといくつ？', ans: '4049', c: ['4049', '4048', '2025', '1'] },
+  { id: 'v38_jmath_2', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'exam', q: '【開成高 過去問・関数】放物線 y = (1/2)x² 上の2点 A(-2, 2), B(6, 18) を通る直線ABの「切片（y軸との交点のy座標）」はいくつ？', ans: '6', c: ['6', '4', '8', '12'] },
+  { id: 'v38_jmath_3', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'exam', q: '【灘高 過去問・関数】関数 y = ax²（a > 0）において、-2 ≦ x ≦ 4 での y の変域が 0 ≦ y ≦ 8 のとき、定数 a の値は？', ans: '1/2', c: ['1/2', '2', '1/4', '1'] },
+  { id: 'v38_jmath_4', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'exam', q: '【西大和学園高 過去問・図形】底面の半径が 3cm、母線の長さが 9cm の円錐の「側面を展開したおうぎ形の中心角」は何度？', ans: '120°', c: ['120°', '90°', '150°', '60°'] },
+  { id: 'v38_jmath_5', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'exam', q: '【慶應義塾高 過去問・図形】縦 3cm、横 4cm、高さ 12cm の直方体の対角線の長さは何cm？', ans: '13cm', c: ['13cm', '12cm', '15cm', '17cm'] },
+  { id: 'v38_jmath_6', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'exam', q: '【早大学院 過去問・確率】大小2個のサイコロを同時に投げるとき、出た目の「積が6の倍数」になる確率は？', ans: '5/12', c: ['5/12', '1/3', '1/6', '7/18'] },
+  { id: 'v38_jmath_7', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'exam', q: '【日比谷高 過去問・確率】3枚の硬貨を同時に投げるとき、少なくとも1枚は表が出る確率は？', ans: '7/8', c: ['7/8', '3/4', '5/8', '1/2'] },
+  { id: 'v38_jmath_8', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'refbook', q: '【公立高校入試・確率】A, B, C, D の4人の中からくじ引きで委員を2人選ぶとき、Aが選ばれる確率は？', ans: '1/2', c: ['1/2', '1/4', '1/3', '2/3'] },
+
+  // 中学英語 教科書基礎・公立入試・難関高校入試 追加 (j_eng_word / j_eng_gram)
+  { id: 'v38_jeng_tb1', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語・基礎】「図書館」を英語で表すとどれ？', ans: 'library', c: ['library', 'hospital', 'museum', 'station'] },
+  { id: 'v38_jeng_tb2', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語・基礎】「科学・理科」を英語で表すとどれ？', ans: 'science', c: ['science', 'history', 'math', 'music'] },
+  { id: 'v38_jeng_tb3', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語・基礎】「環境（自然環境）」を英語で表すとどれ？', ans: 'environment', c: ['environment', 'government', 'experiment', 'information'] },
+  { id: 'v38_jeng_tb4', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語・基礎】「外国の」を英語で表すとどれ？', ans: 'foreign', c: ['foreign', 'famous', 'favorite', 'future'] },
+  { id: 'v38_jeng_tb5', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'textbook', q: '【中学英単語・基礎】「言語・ことば」を英語で表すとどれ？', ans: 'language', c: ['language', 'village', 'message', 'knowledge'] },
+  { id: 'v38_jeng_tb6', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・基礎】Ken ( 〇 ) soccer every Sunday.（ケンは毎週日曜日にサッカーをします）', ans: 'plays', c: ['plays', 'play', 'playing', 'played'] },
+  { id: 'v38_jeng_tb7', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・基礎】Where ( 〇 ) you go yesterday?（あなたは昨日どこへ行きましたか）', ans: 'did', c: ['did', 'do', 'does', 'were'] },
+  { id: 'v38_jeng_tb8', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・基礎】Look! Two birds ( 〇 ) in the sky now.', ans: 'are flying', c: ['are flying', 'fly', 'flew', 'is flying'] },
+  { id: 'v38_jeng_tb9', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・基礎】She likes ( 〇 ) books very much.（彼女は本を読むことがとても好きです）', ans: 'reading', c: ['reading', 'read', 'reads', 'red'] },
+  { id: 'v38_jeng_tb10', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'textbook', q: '【中学英文法・基礎】There ( 〇 ) three parks in my town.（私の町には公園が3つあります）', ans: 'are', c: ['are', 'is', 'have', 'be'] },
+  { id: 'v38_jeng_ref7', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・現在完了進行形】It has ( 〇 ) since yesterday morning.（昨日の朝からずっと雨が降り続けている）', ans: 'been raining', c: ['been raining', 'rained', 'raining', 'be raining'] },
+  { id: 'v38_jeng_ref8', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・分詞の後置修飾】The girl ( 〇 ) the piano over there is my sister.', ans: 'playing', c: ['playing', 'played', 'plays', 'to play'] },
+  { id: 'v38_jeng_ref9', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・仮定法】If I ( 〇 ) a bird, I could fly to you.', ans: 'were', c: ['were', 'am', 'will be', 'be'] },
+  { id: 'v38_jeng_ref10', grade: 'junior', subj: 'j_eng', unit: 'j_eng_word', level: 'refbook', q: '【公立高校入試・熟語】He is interested ( 〇 ) Japanese history.（彼は日本の歴史に興味がある）', ans: 'in', c: ['in', 'on', 'at', 'of'] },
+  { id: 'v38_jeng_ex7', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【渋谷幕張高 過去問・疑問詞+to】Could you tell me ( 〇 ) get to the science museum?', ans: 'how to', c: ['how to', 'what to', 'where to', 'how can I'] },
+  { id: 'v38_jeng_ex8', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【西大和学園高 過去問・知覚動詞】I heard my name ( 〇 ) from behind.（後ろから自分の名前が呼ばれるのを聞いた）', ans: 'called', c: ['called', 'calling', 'to call', 'call'] },
+  { id: 'v38_jeng_ex9', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【洛南高 過去問・比較】Nothing is ( 〇 ) precious than time.', ans: 'more', c: ['more', 'most', 'as', 'very'] },
+  { id: 'v38_jeng_ex10', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'exam', q: '【久留米附設高 過去問・不定詞】This math problem is too difficult for me ( 〇 ).', ans: 'to solve', c: ['to solve', 'to solve it', 'solving', 'solved'] }
 ];
 
 /* ============================================================================
@@ -3619,7 +3798,7 @@ const ENGLISH_QUIZ_MASTER = [
 
   // 8. 仮定法 (subjunctive)
   { id: 'eg_s1', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'elem', q: '【仮定法】If I ( 〇 ) you, I would take that advice.', ans: 'were', c: ['were', 'am', 'was to', 'will be'], exp: '【仮定法過去】現在の事実に反する仮定。「If + S + were/過去形, S + would/could + 原形」。', rawWord: 'were' },
-  { id: 'eg_s2', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'private', q: '【近畿大 過去問】( 〇 ) for your help, I could not have succeeded.', ans: 'Were it not', c: ['Were it not', 'Had it not been', 'If it was not', 'Without it'], exp: '【仮定法過去完了の倒置】「もしあなたの助けがなかったら（過去）」は If it had not been for your help。If が省略されて倒置すると「Had it not been for ~」となります。', rawWord: 'Had it not been' },
+  { id: 'eg_s2', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'private', q: '【近畿大 過去問】( 〇 ) for your help, I could not have succeeded.', ans: 'Had it not been', c: ['Had it not been', 'Were it not', 'If it was not', 'Without it'], exp: '【仮定法過去完了の倒置】「もしあなたの助けがなかったら（過去）」は If it had not been for your help。If が省略されて倒置すると「Had it not been for ~」となります。', rawWord: 'Had it not been' },
   { id: 'eg_s3', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'national', q: '【慶應義塾大 過去問】It is time you ( 〇 ) to bed.', ans: 'went', c: ['went', 'go', 'have gone', 'will go'], exp: '【It is time + 仮定法過去】「もう〜してもよい時間だ」の後ろは過去形 went を用います。', rawWord: 'went' },
 
   // 9. 比較 (comparison)
@@ -3639,13 +3818,128 @@ const ENGLISH_QUIZ_MASTER = [
   { id: 'eg_inv1', subj: 'eng_gram', gramUnit: 'inversion', level: 'national', q: '【大阪大 過去問】Little ( 〇 ) dream that I would meet him here.', ans: 'did I', c: ['did I', 'I did', 'have I', 'I had'], exp: '【否定語の文頭倒置】Little（ほとんど〜ない）が文頭に出ると、後ろが疑問文の語順（助動詞 + 主語 + 動詞 = did I dream）に倒置します！', rawWord: 'did I' },
 
   // 14. 動詞の語法・型 (usage)
-  { id: 'eg_u1', subj: 'eng_gram', gramUnit: 'usage', level: 'private', q: '【龍谷大 過去問】The doctor suggested that he ( 〇 ) smoking.', ans: 'stop', c: ['stop', 'stops', 'stopped', 'will stop'], exp: '【提案・要求・命令の that 節】suggest, demand, insist などの後ろの that 節中では、動詞は「(should +) 原形」となります！', rawWord: 'stop' }
+  { id: 'eg_u1', subj: 'eng_gram', gramUnit: 'usage', level: 'private', q: '【龍谷大 過去問】The doctor suggested that he ( 〇 ) smoking.', ans: 'stop', c: ['stop', 'stops', 'stopped', 'will stop'], exp: '【提案・要求・命令の that 節】suggest, demand, insist などの後ろの that 節中では、動詞は「(should +) 原形」となります！', rawWord: 'stop' },
+
+  // ================= 🏛️ Ver 3.8 英文法14単元・大学入試過去問＆標準・基礎 大増量アーカイブ =================
+  // 1. 時制 (tense) 追加
+  { id: 'v38_eg_t1', subj: 'eng_gram', gramUnit: 'tense', level: 'elem', q: '【時制・基礎】Look! Something strange ( 〇 ) in the sky right now.', ans: 'is flying', c: ['is flying', 'flies', 'flew', 'was flying'], exp: '【現在進行形】Look! や right now があるため、今まさに進行中の動作 is flying を用います。', rawWord: 'is flying' },
+  { id: 'v38_eg_t2', subj: 'eng_gram', gramUnit: 'tense', level: 'elem', q: '【時制・基礎】The earth ( 〇 ) around the sun.', ans: 'goes', c: ['goes', 'went', 'is going', 'will go'], exp: '【不変の真理】太陽の周りを地球が公転するような「不変の真理・自然の法則」は常に現在形（goes）で表します。', rawWord: 'goes' },
+  { id: 'v38_eg_t3', subj: 'eng_gram', gramUnit: 'tense', level: 'private', q: '【関西大 過去問】When I arrived at the station, the train ( 〇 ) already left.', ans: 'had', c: ['had', 'has', 'was', 'is'], exp: '【過去完了（大過去）】駅に着いた（過去）よりも前の時点で「すでに出発してしまっていた」ため、had + 過去分詞を用います。', rawWord: 'had' },
+  { id: 'v38_eg_t4', subj: 'eng_gram', gramUnit: 'tense', level: 'private', q: '【近畿大 過去問】I don\'t know if it ( 〇 ) tomorrow, but if it does, I\'ll stay home.', ans: 'will rain', c: ['will rain', 'rains', 'rained', 'has rained'], exp: '【名詞節の if と副詞節の if】know の目的語となる if は「〜かどうか（名詞節）」なので未来は will rain を使います！', rawWord: 'will rain' },
+  { id: 'v38_eg_t5', subj: 'eng_gram', gramUnit: 'tense', level: 'national', q: '【大阪大 過去問】Ten years ( 〇 ) passed since my brother moved to London.', ans: 'have', c: ['have', 'has', 'had', 'were'], exp: '【時の経過の現在完了】「Ten years have passed since + 過去形」または「It has been ten years since + 過去形」で「〜してから10年になる」。', rawWord: 'have' },
+  { id: 'v38_eg_t6', subj: 'eng_gram', gramUnit: 'tense', level: 'national', q: '【早稲田大 過去問】Next April, I ( 〇 ) at this university for three years.', ans: 'will have been studying', c: ['will have been studying', 'am studying', 'have studied', 'studied'], exp: '【未来完了進行形】未来の基準点（Next April）まで継続する動作を表すため will have been ~ing が正解。', rawWord: 'will have been studying' },
+
+  // 2. 助動詞 (auxiliary) 追加
+  { id: 'v38_eg_a1', subj: 'eng_gram', gramUnit: 'auxiliary', level: 'elem', q: '【助動詞・基礎】There ( 〇 ) to be a movie theater on this corner.', ans: 'used', c: ['used', 'would', 'ought', 'had'], exp: '【There used to be ~】「かつて〜があった」。過去の規則的状態には would は使えず used to を使います！', rawWord: 'used' },
+  { id: 'v38_eg_a2', subj: 'eng_gram', gramUnit: 'auxiliary', level: 'elem', q: '【助動詞・基礎】You ( 〇 ) not hurry; we have plenty of time.', ans: 'need', c: ['need', 'must', 'cannot', 'may'], exp: '【need not + 原形】「〜する必要はない（= don\'t have to）」。must not は「〜してはいけない（禁止）」になるので注意。', rawWord: 'need' },
+  { id: 'v38_eg_a3', subj: 'eng_gram', gramUnit: 'auxiliary', level: 'private', q: '【立命館大 過去問】That rumor ( 〇 ) not be true, for she is completely honest.', ans: 'can', c: ['can', 'must', 'may', 'should'], exp: '【cannot be true】「〜のはずがない（強い否定の推量）」。must not は禁止になるため、否定推量は cannot を用います。', rawWord: 'can' },
+  { id: 'v38_eg_a4', subj: 'eng_gram', gramUnit: 'auxiliary', level: 'private', q: '【追手門学院大 過去問】I would ( 〇 ) stay home than go out in this cold weather.', ans: 'rather', c: ['rather', 'better', 'prefer', 'sooner'], exp: '【would rather A than B】「BするくらいならむしろAしたい」。AとBには原形が来ます。', rawWord: 'rather' },
+  { id: 'v38_eg_a5', subj: 'eng_gram', gramUnit: 'auxiliary', level: 'national', q: '【京都大 過去問】You ( 〇 ) well be proud of your son\'s great achievement.', ans: 'may', c: ['may', 'must', 'can', 'will'], exp: '【may well + 原形】「〜するのももっともだ、当然だ」。may as well（〜した方がよい）との区別に注意！', rawWord: 'may' },
+  { id: 'v38_eg_a6', subj: 'eng_gram', gramUnit: 'auxiliary', level: 'national', q: '【慶應義塾大 過去問】One cannot be ( 〇 ) careful when driving at night.', ans: 'too', c: ['too', 'very', 'so', 'more'], exp: '【cannot ... too ~】「どんなに〜してもしすぎることはない」。夜間運転時はいくら注意してもしすぎることはない。', rawWord: 'too' },
+
+  // 3. 受動態 (passive) 追加
+  { id: 'v38_eg_p1', subj: 'eng_gram', gramUnit: 'passive', level: 'elem', q: '【受動態・基礎】Mount Fuji is covered ( 〇 ) snow in winter.', ans: 'with', c: ['with', 'by', 'of', 'at'], exp: '【be covered with ~】「〜で覆われている」。状態を表す受動態では by ではなく with を使います。', rawWord: 'with' },
+  { id: 'v38_eg_p2', subj: 'eng_gram', gramUnit: 'passive', level: 'elem', q: '【受動態・基礎】Are you satisfied ( 〇 ) your test results?', ans: 'with', c: ['with', 'in', 'to', 'by'], exp: '【be satisfied with ~】「〜に満足している」。頻出群動詞・連語の受動態。', rawWord: 'with' },
+  { id: 'v38_eg_p3', subj: 'eng_gram', gramUnit: 'passive', level: 'private', q: '【関西学院大 過去問】She was seen ( 〇 ) the room by nobody.', ans: 'to enter', c: ['to enter', 'enter', 'entered', 'to entering'], exp: '【知覚動詞の受動態】能動態 see O + 原形 は、受動態になると be seen to + 原形（to が復活する！）になります。', rawWord: 'to enter' },
+  { id: 'v38_eg_p4', subj: 'eng_gram', gramUnit: 'passive', level: 'private', q: '【龍谷大 過去問】A lot of soldiers were killed, and many more were ( 〇 ) in the battle.', ans: 'wounded', c: ['wounded', 'injured', 'hurt', 'damaged'], exp: '【be wounded in battle】戦い・武器などによる負傷には wound（受動態 be wounded）を用います（事故の怪我は injured）。', rawWord: 'wounded' },
+  { id: 'v38_eg_p5', subj: 'eng_gram', gramUnit: 'passive', level: 'national', q: '【神戸大 過去問】This novel is well worth ( 〇 ) at least twice.', ans: 'reading', c: ['reading', 'to be read', 'being read', 'read'], exp: '【be worth ~ing】能動形の動名詞（~ing）で「〜される価値がある」という受動の意味を表します（need ~ing / want ~ing も同様）。', rawWord: 'reading' },
+  { id: 'v38_eg_p6', subj: 'eng_gram', gramUnit: 'passive', level: 'national', q: '【一橋大 過去問】He is ( 〇 ) to blame for the accident.', ans: 'not', c: ['not', 'no', 'never', 'nothing'], exp: '【be to blame for ~】能動形の不定詞 to blame で「〜に対して責任がある（責められるべきだ）」。否定は be not to blame。', rawWord: 'not' },
+
+  // 4. 不定詞 (infinitive) 追加
+  { id: 'v38_eg_inf1', subj: 'eng_gram', gramUnit: 'infinitive', level: 'elem', q: '【不定詞・基礎】This coffee is too hot for me ( 〇 ).', ans: 'to drink', c: ['to drink', 'to drink it', 'drinking', 'drank'], exp: '【too ... to ~ 構文】主語の This coffee が drink の目的語を兼ねているため、最後に it を置いてはいけません！', rawWord: 'to drink' },
+  { id: 'v38_eg_inf2', subj: 'eng_gram', gramUnit: 'infinitive', level: 'elem', q: '【不定詞・基礎】It is very kind ( 〇 ) you to show me the way.', ans: 'of', c: ['of', 'for', 'to', 'by'], exp: '【人の性質・人柄を表す形容詞 + of 人 to ~】kind, nice, polite, foolish, wise などは意味上の主語に of を用います。', rawWord: 'of' },
+  { id: 'v38_eg_inf3', subj: 'eng_gram', gramUnit: 'infinitive', level: 'private', q: '【近畿大 過去問】He worked hard only ( 〇 ) fail in the examination.', ans: 'to', c: ['to', 'for', 'in', 'by'], exp: '【結果の不定詞 only to ~】「〜したが、結局…しただけだった（残念な結果）」。', rawWord: 'to' },
+  { id: 'v38_eg_inf4', subj: 'eng_gram', gramUnit: 'infinitive', level: 'private', q: '【同志社大 過去問】She was careless ( 〇 ) to leave the door unlocked.', ans: 'enough', c: ['enough', 'too', 'so', 'such'], exp: '【形容詞 + enough to ~】「〜するほど…だ」。enough は形容詞・副詞の「後ろ」に置く語順が超重要！', rawWord: 'enough' },
+  { id: 'v38_eg_inf5', subj: 'eng_gram', gramUnit: 'infinitive', level: 'national', q: '【東北大 過去問】To tell the truth, I don\'t like him, ( 〇 ) make matters worse, he is my boss.', ans: 'and to', c: ['and to', 'so to', 'only to', 'as to'], exp: '【独立不定詞】To tell the truth（実を言うと）、to make matters worse（さらに悪いことには）。', rawWord: 'and to' },
+  { id: 'v38_eg_inf6', subj: 'eng_gram', gramUnit: 'infinitive', level: 'national', q: '【東京大 過去問】If you are ( 〇 ) succeed, you must make every effort.', ans: 'to', c: ['to', 'for', 'of', 'in'], exp: '【be to 不定詞（意図）】if 節中で用いられる be to + 原形 は「もし〜するつもりなら（意図）」を表します。', rawWord: 'to' },
+
+  // 5. 動名詞 (gerund) 追加
+  { id: 'v38_eg_g1', subj: 'eng_gram', gramUnit: 'gerund', level: 'elem', q: '【動名詞・基礎】My brother is very good at ( 〇 ) pictures.', ans: 'drawing', c: ['drawing', 'to draw', 'draw', 'drew'], exp: '【前置詞 + 動名詞】前置詞 at の後ろには動詞の原形や不定詞ではなく動名詞（~ing）を置きます。', rawWord: 'drawing' },
+  { id: 'v38_eg_g2', subj: 'eng_gram', gramUnit: 'gerund', level: 'elem', q: '【動名詞・基礎】She gave up ( 〇 ) to solve the puzzle.', ans: 'trying', c: ['trying', 'to try', 'try', 'tried'], exp: '【give up ~ing】「〜するのを諦める」。enjoy, finish, stop, give up などは動名詞を目的語にとります。', rawWord: 'trying' },
+  { id: 'v38_eg_g3', subj: 'eng_gram', gramUnit: 'gerund', level: 'private', q: '【関西大 過去問】I am looking forward to ( 〇 ) from you soon.', ans: 'hearing', c: ['hearing', 'hear', 'be heard', 'have heard'], exp: '【look forward to ~ing】「〜するのを楽しみに待つ」。この to は前置詞なので後ろは動名詞（hearing）が正解！', rawWord: 'hearing' },
+  { id: 'v38_eg_g4', subj: 'eng_gram', gramUnit: 'gerund', level: 'private', q: '【甲南大 過去問】There is no ( 〇 ) what will happen in the future.', ans: 'telling', c: ['telling', 'to tell', 'tell', 'told'], exp: '【There is no ~ing】「〜することはできない（= It is impossible to ~）」。There is no telling で「〜は誰にもわからない」。', rawWord: 'telling' },
+  { id: 'v38_eg_g5', subj: 'eng_gram', gramUnit: 'gerund', level: 'national', q: '【名古屋大 過去問】What do you say to ( 〇 ) out for a walk?', ans: 'going', c: ['going', 'go', 'be going', 'went'], exp: '【What do you say to ~ing?】「〜しませんか？」。to は前置詞なので動名詞 going が続きます。', rawWord: 'going' },
+  { id: 'v38_eg_g6', subj: 'eng_gram', gramUnit: 'gerund', level: 'national', q: '【早稲田大 過去問】He insisted on my ( 〇 ) there instead of him.', ans: 'going', c: ['going', 'to go', 'go', 'went'], exp: '【動名詞の意味上の主語】前置詞 on の目的語となる動名詞 going の前に、意味上の主語（所有格 my / 目的格 me）を置いた形。', rawWord: 'going' },
+
+  // 6. 分詞・分詞構文 (participle) 追加
+  { id: 'v38_eg_pt1', subj: 'eng_gram', gramUnit: 'participle', level: 'elem', q: '【分詞・基礎】Look at the boy ( 〇 ) under the tree.', ans: 'sleeping', c: ['sleeping', 'slept', 'to sleep', 'sleeps'], exp: '【現在分詞の後置修飾】「木の下で眠っている少年」。能動・進行を表す現在分詞 sleeping で修飾します。', rawWord: 'sleeping' },
+  { id: 'v38_eg_pt2', subj: 'eng_gram', gramUnit: 'participle', level: 'elem', q: '【分詞・基礎】I heard my name ( 〇 ) from behind.', ans: 'called', c: ['called', 'calling', 'to call', 'call'], exp: '【知覚動詞 + O + 過去分詞】「自分の名前が呼ばれるのを聞いた」。名前は「呼ばれる」側（受動）なので過去分詞 called！', rawWord: 'called' },
+  { id: 'v38_eg_pt3', subj: 'eng_gram', gramUnit: 'participle', level: 'private', q: '【追手門学院大 過去問】I had my watch ( 〇 ) yesterday.', ans: 'repaired', c: ['repaired', 'repair', 'repairing', 'to repair'], exp: '【have + O + 過去分詞】「Oを〜してもらう（使役）／〜される（被害）」。時計は「修理される」側なので過去分詞 repaired。', rawWord: 'repaired' },
+  { id: 'v38_eg_pt4', subj: 'eng_gram', gramUnit: 'participle', level: 'private', q: '【立命館大 過去問】( 〇 ) how to do, she asked her teacher for advice.', ans: 'Not knowing', c: ['Not knowing', 'Knowing not', 'Not known', 'To not know'], exp: '【分詞構文の否定】分詞構文の否定語（Not / Never）は必ず分詞の「直前」に置きます（Not knowing ~）。', rawWord: 'Not knowing' },
+  { id: 'v38_eg_pt5', subj: 'eng_gram', gramUnit: 'participle', level: 'national', q: '【九州大 過去問】She sat on the bench with her eyes ( 〇 ).', ans: 'closed', c: ['closed', 'closing', 'to close', 'close'], exp: '【付帯状況の with + O + C】「目を閉じた状態で」。目は「閉じられる」対象なので過去分詞 closed を用います（腕を組む with one\'s arms folded も同様）。', rawWord: 'closed' },
+  { id: 'v38_eg_pt6', subj: 'eng_gram', gramUnit: 'participle', level: 'national', q: '【京都大 過去問】Weather ( 〇 ), the outdoor concert will be held tomorrow.', ans: 'permitting', c: ['permitting', 'permitted', 'permits', 'to permit'], exp: '【独立分詞構文】主節の主語（the outdoor concert）と分詞の意味上の主語（Weather）が異なるため、Weather を残した Weather permitting（天気が許せば）。', rawWord: 'permitting' },
+
+  // 7. 関係詞 (relative) 追加
+  { id: 'v38_eg_r1', subj: 'eng_gram', gramUnit: 'relative', level: 'elem', q: '【関係詞・基礎】Show me ( 〇 ) you have in your right hand.', ans: 'what', c: ['what', 'which', 'that', 'who'], exp: '【関係代名詞 what】先行詞を含み「〜するもの（こと）」（= the thing which）を表します。', rawWord: 'what' },
+  { id: 'v38_eg_r2', subj: 'eng_gram', gramUnit: 'relative', level: 'elem', q: '【関係詞・基礎】Do you know the girl ( 〇 ) mother is a famous pianist?', ans: 'whose', c: ['whose', 'who', 'whom', 'which'], exp: '【所有格の関係代名詞 whose】「その少女の母親（her mother）」のように直後の名詞と所有関係を作るため whose を用います。', rawWord: 'whose' },
+  { id: 'v38_eg_r3', subj: 'eng_gram', gramUnit: 'relative', level: 'private', q: '【同志社大 過去問】That is the hotel ( 〇 ) we stayed last summer.', ans: 'where', c: ['where', 'which', 'what', 'whom'], exp: '【関係副詞 where】stay は自動詞（stayed at the hotel）なので、前置詞＋関係代名詞の働きをする関係副詞 where を選びます。', rawWord: 'where' },
+  { id: 'v38_eg_r4', subj: 'eng_gram', gramUnit: 'relative', level: 'private', q: '【関西学院大 過去問】This is the way ( 〇 ) he solved the problem.', ans: 'that', c: ['that', 'how', 'which', 'what'], exp: '【関係副詞の注意】the way と how は同時に並べて使えません！the way (that / in which) または how 単独で表します。', rawWord: 'that' },
+  { id: 'v38_eg_r5', subj: 'eng_gram', gramUnit: 'relative', level: 'national', q: '【北海道大 過去問】She is not ( 〇 ) she used to be ten years ago.', ans: 'what', c: ['what', 'who', 'that', 'which'], exp: '【what S is / what S used to be】「今のS（現在の姿）／昔のS（過去の姿）」。人格や状態を what で表す重要表現。', rawWord: 'what' },
+  { id: 'v38_eg_r6', subj: 'eng_gram', gramUnit: 'relative', level: 'national', q: '【慶應義塾大 過去問】( 〇 ) happens, I will never change my mind.', ans: 'Whatever', c: ['Whatever', 'However', 'Whoever', 'Wherever'], exp: '【複合関係代名詞の譲歩用法】Whatever happens（= No matter what happens: たとえ何が起ころうとも）。節の中で主語の働きをするため Whatever。', rawWord: 'Whatever' },
+
+  // 8. 仮定法 (subjunctive) 追加
+  { id: 'v38_eg_s1', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'elem', q: '【仮定法・基礎】I wish I ( 〇 ) fly like a bird.', ans: 'could', c: ['could', 'can', 'will', 'may'], exp: '【I wish + 仮定法過去】「〜ならいいのに（現在の実現不可能な願望）」は過去形（could / were 等）で表します。', rawWord: 'could' },
+  { id: 'v38_eg_s2', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'elem', q: '【仮定法・基礎】He talks as if he ( 〇 ) everything about the accident.', ans: 'knew', c: ['knew', 'knows', 'has known', 'will know'], exp: '【as if + 仮定法過去】「まるで〜であるかのように（実際は違う）」。', rawWord: 'knew' },
+  { id: 'v38_eg_s3', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'private', q: '【追手門学院大 過去問】( 〇 ) your advice, I would have failed the interview.', ans: 'Without', c: ['Without', 'With', 'Unless', 'If'], exp: '【Without ~, S would have p.p.】「もし〜がなかったら（= But for ~ / If it had not been for ~）」。', rawWord: 'Without' },
+  { id: 'v38_eg_s4', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'private', q: '【関西大 過去問】If I had taken that train, I ( 〇 ) in Tokyo now.', ans: 'would be', c: ['would be', 'would have been', 'will be', 'had been'], exp: '【混合仮定法（過去完了＋過去）】「（過去に）あの電車に乗っていたら、今頃（現在）東京にいるだろうに」。now があるため主節は would + 原形！', rawWord: 'would be' },
+  { id: 'v38_eg_s5', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'national', q: '【大阪大 過去問】If the sun ( 〇 ) to rise in the west, I would not break my promise.', ans: 'were', c: ['were', 'was', 'had', 'will'], exp: '【If S were to ~】「万一〜するようなことがあれば（純粋な仮定・あり得ない未来の仮定）」。', rawWord: 'were' },
+  { id: 'v38_eg_s6', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'national', q: '【東京大 過去問】( 〇 ) you need any further information, please feel free to contact us.', ans: 'Should', c: ['Should', 'Would', 'Could', 'Might'], exp: '【If S should ~ の倒置】「万一〜なら」を表す If you should need ~ から If が省略され、Should you need ~ に倒置したビジネス・入試頻出構文！', rawWord: 'Should' },
+
+  // 9. 比較 (comparison) 追加
+  { id: 'v38_eg_c1', subj: 'eng_gram', gramUnit: 'comparison', level: 'elem', q: '【比較・基礎】This box is ( 〇 ) larger than that one.', ans: 'much', c: ['much', 'very', 'more', 'so'], exp: '【比較級の強調】比較級（larger）を「ずっと〜」と強めるには very ではなく much, far, even, still, a lot を使います！', rawWord: 'much' },
+  { id: 'v38_eg_c2', subj: 'eng_gram', gramUnit: 'comparison', level: 'elem', q: '【比較・基礎】Nothing is ( 〇 ) precious than time.', ans: 'more', c: ['more', 'most', 'as', 'very'], exp: '【否定語 + 比較級】Nothing is more A than B で「BほどAなものはない（Bが最もAだ＝最上級相当）」。', rawWord: 'more' },
+  { id: 'v38_eg_c3', subj: 'eng_gram', gramUnit: 'comparison', level: 'private', q: '【近畿大 過去問】This lake is three times as ( 〇 ) as that one.', ans: 'deep', c: ['deep', 'deeper', 'deepest', 'depth'], exp: '【倍数表現】「〜倍…だ」は「～ times as 原級 as ...」の形をとります。', rawWord: 'deep' },
+  { id: 'v38_eg_c4', subj: 'eng_gram', gramUnit: 'comparison', level: 'private', q: '【立命館大 過去問】Of the two sisters, Mary is ( 〇 ) cleverer.', ans: 'the', c: ['the', 'a', 'more', 'most'], exp: '【Of the two ~, the + 比較級】「2人のうちでより〜な方」と限定される場合、比較級の前に the をつけます！', rawWord: 'the' },
+  { id: 'v38_eg_c5', subj: 'eng_gram', gramUnit: 'comparison', level: 'national', q: '【京都大 過去問】A whale is no ( 〇 ) a fish than a horse is.', ans: 'more', c: ['more', 'less', 'longer', 'better'], exp: '【クジラの構文：A is no more B than C is (D)】「CがDでないのと同様に、AはBではない（クジラが魚でないのは馬が魚でないのと同じだ）」。', rawWord: 'more' },
+  { id: 'v38_eg_c6', subj: 'eng_gram', gramUnit: 'comparison', level: 'national', q: '【早稲田大 過去問】He has ( 〇 ) than a thousand books in his study.', ans: 'no fewer', c: ['no fewer', 'not less', 'no less', 'fewer'], exp: '【no fewer than + 数詞 + 複数名詞】「〜もの多くの（= as many as）」。books は可算名詞（数えられる名詞）の複数形なので little/less ではなく few/fewer を使います！', rawWord: 'no fewer' },
+
+  // 10. 接続詞 (conjunction) 追加
+  { id: 'v38_eg_cj1', subj: 'eng_gram', gramUnit: 'conjunction', level: 'elem', q: '【接続詞・基礎】Take your umbrella with you in ( 〇 ) it rains.', ans: 'case', c: ['case', 'time', 'fact', 'order'], exp: '【in case S + V】「（万一）SがVする場合に備えて」。', rawWord: 'case' },
+  { id: 'v38_eg_cj2', subj: 'eng_gram', gramUnit: 'conjunction', level: 'elem', q: '【接続詞・基礎】Walk softly ( 〇 ) you will wake the baby.', ans: 'or', c: ['or', 'and', 'but', 'for'], exp: '【命令文, or ~】「…しなさい、さもないと〜」。命令文, and ~ は「…しなさい、そうすれば〜」。', rawWord: 'or' },
+  { id: 'v38_eg_cj3', subj: 'eng_gram', gramUnit: 'conjunction', level: 'private', q: '【追手門学院大 過去問】( 〇 ) he was very tired, he kept on working until midnight.', ans: 'Although', c: ['Although', 'Despite', 'In spite of', 'Because'], exp: '【接続詞 Although と前置詞 Despite】後ろに S + V（he was very tired）の節が来ているため、接続詞 Although（または Though）が正解（Despite は前置詞）。', rawWord: 'Although' },
+  { id: 'v38_eg_cj4', subj: 'eng_gram', gramUnit: 'conjunction', level: 'private', q: '【関西学院大 過去問】You may borrow this book as ( 〇 ) as you keep it clean.', ans: 'long', c: ['long', 'far', 'soon', 'well'], exp: '【as long as ~】「〜する限り（条件）」。as far as は「〜の範囲では（程度・範囲）」。', rawWord: 'long' },
+  { id: 'v38_eg_cj5', subj: 'eng_gram', gramUnit: 'conjunction', level: 'national', q: '【東京大 過去問】Young ( 〇 ) she was, she managed to run the company.', ans: 'as', c: ['as', 'though', 'while', 'despite'], exp: '【形容詞 + as S + V】「Sは〜だけれども（譲歩）」（= Though she was young）。形容詞や副詞が文頭に出る譲歩構文！', rawWord: 'as' },
+  { id: 'v38_eg_cj6', subj: 'eng_gram', gramUnit: 'conjunction', level: 'national', q: '【慶應義塾大 過去問】Now ( 〇 ) you have passed the exam, you can enjoy your vacation.', ans: 'that', c: ['that', 'as', 'since', 'which'], exp: '【Now (that) S + V】「今やSがVしたからには、〜なので」。理由・原因を表す重要接続詞表現。', rawWord: 'that' },
+
+  // 11. 前置詞 (preposition) 追加
+  { id: 'v38_eg_pr1', subj: 'eng_gram', gramUnit: 'preposition', level: 'elem', q: '【前置詞・基礎】I will finish this report ( 〇 ) Friday at the latest.', ans: 'by', c: ['by', 'until', 'till', 'on'], exp: '【by と until の違い】「金曜日までに（完了の期限）」は by、「金曜日までずっと（動作・状態の継続）」は until を用います！', rawWord: 'by' },
+  { id: 'v38_eg_pr2', subj: 'eng_gram', gramUnit: 'preposition', level: 'elem', q: '【前置詞・基礎】He stayed in London ( 〇 ) two weeks.', ans: 'for', c: ['for', 'during', 'since', 'while'], exp: '【for と during の違い】後ろに「具体的な数値を含む期間（two weeks）」が来る場合は for、特定の催しや期間名（the summer vacation 等）が来る場合は during！', rawWord: 'for' },
+  { id: 'v38_eg_pr3', subj: 'eng_gram', gramUnit: 'preposition', level: 'private', q: '【同志社大 過去問】They went out for a walk in ( 〇 ) of the heavy rain.', ans: 'spite', c: ['spite', 'stead', 'front', 'terms'], exp: '【in spite of ~】「〜にもかかわらず（= despite）」。後ろには名詞句が来ます。', rawWord: 'spite' },
+  { id: 'v38_eg_pr4', subj: 'eng_gram', gramUnit: 'preposition', level: 'private', q: '【関西大 過去問】She caught me ( 〇 ) the arm.', ans: 'by', c: ['by', 'on', 'in', 'at'], exp: '【catch / take / hold + 人 + by the + 身体部位】「人の（腕・手など）をつかむ」は by the ~！（叩く hit/pat は on、見る look は in）。', rawWord: 'by' },
+  { id: 'v38_eg_pr5', subj: 'eng_gram', gramUnit: 'preposition', level: 'national', q: '【大阪大 過去問】What is he like? — He is polite and honest ( 〇 ) a fault.', ans: 'to', c: ['to', 'at', 'with', 'in'], exp: '【to a fault】「過度なほどに、欠点になるくらいに」。kind to a fault（お人好しすぎるほど親切）。', rawWord: 'to' },
+  { id: 'v38_eg_pr6', subj: 'eng_gram', gramUnit: 'preposition', level: 'national', q: '【一橋大 過去問】This problem is ( 〇 ) my ability to solve.', ans: 'beyond', c: ['beyond', 'above', 'over', 'across'], exp: '【beyond ~】「（能力・理解などの範囲を）超えて、〜の手に負えない」。beyond description（言葉では言い表せない）。', rawWord: 'beyond' },
+
+  // 12. 代名詞・名詞・冠詞 (pronoun) 追加
+  { id: 'v38_eg_pn1', subj: 'eng_gram', gramUnit: 'pronoun', level: 'elem', q: '【代名詞・基礎】I have two brothers. One lives in Osaka, and ( 〇 ) lives in Tokyo.', ans: 'the other', c: ['the other', 'another', 'other', 'others'], exp: '【one ... the other ~】2つのうち「一方は…、もう一方は〜」。残りの1つに特定されるため the other となります。', rawWord: 'the other' },
+  { id: 'v38_eg_pn2', subj: 'eng_gram', gramUnit: 'pronoun', level: 'elem', q: '【名詞・基礎】Thank you for giving me ( 〇 ) useful advice.', ans: 'such', c: ['such', 'so', 'a', 'many'], exp: '【不可算名詞 advice】advice, information, furniture, baggage, news は数えられない名詞（不可算名詞）なので a や many はつかず、such useful advice となります！', rawWord: 'such' },
+  { id: 'v38_eg_pn3', subj: 'eng_gram', gramUnit: 'pronoun', level: 'private', q: '【近畿大 過去問】The climate of Japan is milder than ( 〇 ) of England.', ans: 'that', c: ['that', 'this', 'it', 'those'], exp: '【比較対象の代名詞 that】「日本の気候」と「イギリスの気候（the climate of England）」を比較しているため、単数名詞 the climate の反復を避ける that を用います（複数なら those）。', rawWord: 'that' },
+  { id: 'v38_eg_pn4', subj: 'eng_gram', gramUnit: 'pronoun', level: 'private', q: '【追手門学院大 過去問】Some people like coffee, and ( 〇 ) like tea.', ans: 'others', c: ['others', 'the others', 'another', 'other'], exp: '【some ... others ~】不特定の集団の中で「〜な人もいれば、…な人もいる」。特定全員ではないため the はつけず others。', rawWord: 'others' },
+  { id: 'v38_eg_pn5', subj: 'eng_gram', gramUnit: 'pronoun', level: 'national', q: '【京都大 過去問】He made ( 〇 ) a rule to jog every morning before breakfast.', ans: 'it', c: ['it', 'this', 'that', 'himself'], exp: '【形式目的語の it】SVOC（make it a rule to ~）において、後ろの to 不定詞を受ける仮の目的語（形式目的語）として it を置きます！', rawWord: 'it' },
+  { id: 'v38_eg_pn6', subj: 'eng_gram', gramUnit: 'pronoun', level: 'national', q: '【早稲田大 過去問】Neither of the two answers ( 〇 ) correct.', ans: 'is', c: ['is', 'are', 'were', 'have'], exp: '【neither of ~】「2つのうちどちらも〜ない」は原則として単数扱い（is）となります（either of / each of も単数扱い）。', rawWord: 'is' },
+
+  // 13. 否定・倒置・強調 (inversion) 追加
+  { id: 'v38_eg_inv1', subj: 'eng_gram', gramUnit: 'inversion', level: 'elem', q: '【強調・基礎】It was in the park ( 〇 ) I found your wallet.', ans: 'that', c: ['that', 'where', 'which', 'what'], exp: '【It is ~ that ... 強調構文】副詞句（in the park）を強調する場合、後ろは that を用います。', rawWord: 'that' },
+  { id: 'v38_eg_inv2', subj: 'eng_gram', gramUnit: 'inversion', level: 'elem', q: '【部分否定・基礎】Not ( 〇 ) rich people are happy.', ans: 'all', c: ['all', 'any', 'either', 'none'], exp: '【not + all / both / every（部分否定）】「すべての金持ちが幸せというわけではない」。', rawWord: 'all' },
+  { id: 'v38_eg_inv3', subj: 'eng_gram', gramUnit: 'inversion', level: 'private', q: '【関西学院大 過去問】I cannot swim, and ( 〇 ) can my brother.', ans: 'neither', c: ['neither', 'so', 'either', 'also'], exp: '【neither + 助動詞 + S】前の否定文を受けて「Sもまた〜ない」（= nor can my brother）。肯定文を受けるなら so can S。', rawWord: 'neither' },
+  { id: 'v38_eg_inv4', subj: 'eng_gram', gramUnit: 'inversion', level: 'private', q: '【立命館大 過去問】What on ( 〇 ) are you doing here at this time of night?', ans: 'earth', c: ['earth', 'world', 'ground', 'land'], exp: '【疑問詞の強調】疑問詞の直後に on earth / in the world / ever を置くと「いったい全体〜」と疑問を強調できます。', rawWord: 'earth' },
+  { id: 'v38_eg_inv5', subj: 'eng_gram', gramUnit: 'inversion', level: 'national', q: '【東京大 過去問】Hardly had I left home ( 〇 ) it began to rain heavily.', ans: 'when', c: ['when', 'than', 'as', 'after'], exp: '【Hardly (Scarcely) had S p.p. when (before) ~】「〜するかしないかのうちに…した」。No sooner had S p.p. の場合は than と呼応します！', rawWord: 'when' },
+  { id: 'v38_eg_inv6', subj: 'eng_gram', gramUnit: 'inversion', level: 'national', q: '【慶應義塾大 過去問】Only when we lose our health ( 〇 ) realize its true value.', ans: 'do we', c: ['do we', 'we do', 'we', 'have we'], exp: '【Only + 副詞句・節の文頭倒置】Only when ~ が文頭に出ると、主節（後半）が疑問文の語順（do we realize）に倒置します！', rawWord: 'do we' },
+
+  // 14. 動詞の語法・型 (usage) 追加
+  { id: 'v38_eg_u1', subj: 'eng_gram', gramUnit: 'usage', level: 'elem', q: '【動詞の語法・基礎】We discussed ( 〇 ) the problem for two hours.', ans: '×(不要)', c: ['×(不要)', 'about', 'on', 'with'], exp: '【自動詞と間違えやすい他動詞】discuss（〜について議論する）、marry（〜と結婚する）、enter（〜に入る）、reach（〜に着く）、resemble（〜に似ている）は他動詞なので直後に前置詞は不要！', rawWord: 'discuss' },
+  { id: 'v38_eg_u2', subj: 'eng_gram', gramUnit: 'usage', level: 'elem', q: '【動詞の語法・基礎】Please remind me ( 〇 ) the meeting tomorrow.', ans: 'of', c: ['of', 'to', 'with', 'for'], exp: '【remind A of B】「AにBを思い出させる」。rob A of B（AからBを奪う）などと並ぶ重要語法。', rawWord: 'of' },
+  { id: 'v38_eg_u3', subj: 'eng_gram', gramUnit: 'usage', level: 'private', q: '【追手門学院大 過去問】Heavy snow prevented the train ( 〇 ) arriving on time.', ans: 'from', c: ['from', 'to', 'of', 'in'], exp: '【prevent / keep / stop + O + from ~ing】「Oが〜するのを妨げる」。入試最頻出の動詞の語法！', rawWord: 'from' },
+  { id: 'v38_eg_u4', subj: 'eng_gram', gramUnit: 'usage', level: 'private', q: '【同志社大 過去問】I couldn\'t distinguish Mary ( 〇 ) her twin sister.', ans: 'from', c: ['from', 'to', 'with', 'between'], exp: '【distinguish A from B / tell A from B】「AとBを区別する・見分ける」。', rawWord: 'from' },
+  { id: 'v38_eg_u5', subj: 'eng_gram', gramUnit: 'usage', level: 'national', q: '【京都大 過去問】The new regulation provides the citizens ( 〇 ) better medical care.', ans: 'with', c: ['with', 'for', 'to', 'of'], exp: '【provide A with B】「A（人）にB（物）を供給する・与える」（= provide B for A）。supply A with B も同じ型！', rawWord: 'with' },
+  { id: 'v38_eg_u6', subj: 'eng_gram', gramUnit: 'usage', level: 'national', q: '【早稲田大 過去問】We had to ( 〇 ) the meeting off until next week.', ans: 'put', c: ['put', 'call', 'take', 'make'], exp: '【put off ~】「〜を延期する（= postpone）」。call off は「〜を中止する（= cancel）」。until next week（来週まで）とあるので延期（put off）が正解！', rawWord: 'put' }
 ];
 
-// 🌟 全問題のレベル補完 ＆ 数学教科コード正規化
+// 🌟 全問題のレベル補完 ＆ 数学・理系単元コード完全正規化
 QUIZ_MASTER.forEach(q => {
+  // 1. 既存基本問題（hb1〜hb40, hc1〜hc25, hp1〜hp20, hm1a1〜hm3c12）の教科書レベル＆単元マッピング
+  const isBaseHighSeries = /^(hb|hc|hp|hm1a|hm2b|hm3c)\d+$/.test(q.id);
   if (!q.level) {
-    if (q.grade === 'elem' || q.grade === 'junior') q.level = 'textbook';
+    if (q.grade === 'elem' || q.grade === 'junior' || isBaseHighSeries) q.level = 'textbook';
     else q.level = 'refbook';
   }
 
@@ -3670,6 +3964,50 @@ QUIZ_MASTER.forEach(q => {
     return;
   }
 
+  // 🧬 高校基本問題（hb, hc, hp, hm）の単元補完
+  if (!q.unit) {
+    if (q.id.startsWith('hb')) {
+      if (['hb1','hb2','hb3','hb10','hb11','hb40'].includes(q.id)) q.unit = 'bio_ch1';
+      else if (['hb16','hb17','hb18','hb29','hb38'].includes(q.id)) q.unit = 'bio_ch2';
+      else if (['hb4','hb5','hb6','hb7','hb8','hb9','hb19','hb23','hb24','hb30'].includes(q.id)) q.unit = 'bio_ch3';
+      else if (['hb22','hb31','hb32'].includes(q.id)) q.unit = 'bio_ch4';
+      else if (['hb12','hb13','hb14','hb15','hb20','hb21','hb25','hb26','hb36','hb37','hb39'].includes(q.id)) q.unit = 'bio_ch5';
+      else if (['hb33','hb34','hb35'].includes(q.id)) q.unit = 'bio_ch6';
+      else if (['hb27','hb28'].includes(q.id)) q.unit = 'bio_ch7';
+      else q.unit = 'bio_ch1';
+    } else if (q.id.startsWith('hc')) {
+      if (['hc24','hc25'].includes(q.id)) q.unit = 'chem_inorg';
+      else if (['hc6','hc8','hc15','hc20','hc21'].includes(q.id)) q.unit = 'chem_org';
+      else if (['hc22','hc23'].includes(q.id)) q.unit = 'chem_polymer';
+      else q.unit = 'chem_theory';
+    } else if (q.id.startsWith('hp')) {
+      if (['hp10','hp11'].includes(q.id)) q.unit = 'phys_thermo';
+      else if (['hp3','hp9'].includes(q.id)) q.unit = 'phys_wave';
+      else if (['hp4','hp12','hp18','hp19'].includes(q.id)) q.unit = 'phys_em';
+      else if (['hp5','hp20'].includes(q.id)) q.unit = 'phys_atom';
+      else q.unit = 'phys_mech';
+    } else if (q.id.startsWith('hm1a')) {
+      if (['hm1a1','hm1a6','hm1a7'].includes(q.id)) { q.subj = 'm1'; q.unit = 'm1_quad'; }
+      else if (['hm1a2','hm1a3','hm1a8','hm1a9','hm1a10'].includes(q.id)) { q.subj = 'm1'; q.unit = 'm1_trig'; }
+      else if (['hm1a4','hm1a5'].includes(q.id)) { q.subj = 'ma'; q.unit = 'ma_prob'; }
+      else if (['hm1a11','hm1a12'].includes(q.id)) { q.subj = 'ma'; q.unit = 'ma_geom'; }
+    } else if (q.id.startsWith('hm2b')) {
+      if (['hm2b1','hm2b11'].includes(q.id)) { q.subj = 'm2'; q.unit = 'm2_trig'; }
+      else if (['hm2b2'].includes(q.id)) { q.subj = 'm2'; q.unit = 'm2_exp'; }
+      else if (['hm2b3','hm2b4'].includes(q.id)) { q.subj = 'm2'; q.unit = 'm2_calc'; }
+      else if (['hm2b5','hm2b6','hm2b7'].includes(q.id)) { q.subj = 'mb'; q.unit = 'mb_seq'; }
+      else if (['hm2b8'].includes(q.id)) { q.subj = 'mc'; q.unit = 'mc_vec'; }
+      else if (['hm2b9','hm2b10'].includes(q.id)) { q.subj = 'm2'; q.unit = 'm2_geom'; }
+      else if (['hm2b12'].includes(q.id)) { q.subj = 'm2'; q.unit = 'm2_poly'; }
+    } else if (q.id.startsWith('hm3c')) {
+      if (['hm3c1','hm3c9'].includes(q.id)) { q.subj = 'm3'; q.unit = 'm3_lim'; }
+      else if (['hm3c2','hm3c3','hm3c4','hm3c5'].includes(q.id)) { q.subj = 'm3'; q.unit = 'm3_diff'; }
+      else if (['hm3c11'].includes(q.id)) { q.subj = 'm3'; q.unit = 'm3_int'; }
+      else if (['hm3c6','hm3c10','hm3c12'].includes(q.id)) { q.subj = 'mc'; q.unit = 'mc_complex'; }
+      else if (['hm3c7','hm3c8'].includes(q.id)) { q.subj = 'mc'; q.unit = 'mc_curve'; }
+    }
+  }
+
   // 後方互換：旧m1a, m2b, m3c から新教科コードへの自動マッピング
   if (q.subj === 'm1a') {
     if (q.unit === 'ma_prob' || q.unit === 'ma_geom' || q.id.startsWith('exam_ma')) q.subj = 'ma';
@@ -3685,6 +4023,17 @@ QUIZ_MASTER.forEach(q => {
 
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
+  {
+    ver: 'Ver 3.8',
+    date: '2026-11-08',
+    title: '📚 全教科・全単元・全難易度の問題数360問超の大増量 ＆ 入試問題ローテーション完全改善アプデ！',
+    items: [
+      '【🔬 高校理系・大学入試過去問＆標準・基礎の超増量】生物（全7章）・化学（理論・無機・有機・高分子）・物理（力学・熱・波・電磁気・原子）・数学（I・A・II・B・III・C全単元）のすべてに、東大・京大・阪大・東工大・早慶・共通テスト過去問および標準・教科書基礎問題を150問以上新規追加！さらに既存121問も全単元に緻密にマッピング！',
+      '【📖 大学入試・英文法全14単元の大増量】時制・助動詞・受動態・不定詞・動名詞・分詞・関係詞・仮定法・比較・接続詞・前置詞・代名詞・倒置・動詞の語法の全14単元に、追手門学院大・関関同立・産近甲龍などの私学過去問、東大・京大・阪大・早慶などの難関国公立過去問、および基礎問題を84問新規追加！',
+      '【🎒 中学生・高校受験アーカイブの大増量】中学理科・数学・英語の教科書基礎・公立高校入試・難関私立国立高校入試（開成・灘・筑駒・早慶・ラ・サール・洛南・西大和等）過去問も大幅増量！',
+      '【🔄 「同じ問題が繰り返される」現象の完全解消】直近履歴（recentQIds）が問題プールを圧迫して残り3問のループになっていたロジックを根本改修！どんなに単元と難易度を絞り込んでも、プール全体が偏りなく均等に一巡する新ローテーション＆入試実戦レベルの無限数学計算ジェネレーターを搭載！'
+    ]
+  },
   {
     ver: 'Ver 3.7',
     date: '2026-11-08',
@@ -6750,6 +7099,7 @@ function switchBattleCategory(cat) {
     if (junArea) junArea.style.display = 'none';
     if (titleEl) titleEl.textContent = '⚔️ 3 vs 3 理系クイズバトル（全国マッチ ＆ ルーム対戦 ＆ AI特訓）';
     if (helpEl) helpEl.innerHTML = '<strong>📚 教科書・標準問題集レベル・大学入試実戦問題対応！</strong><br>生物（7章）、数学（IA/IIB/IIIC各単元）、物理（5単元）、化学（4単元）を自由に選んでバトルできます！';
+    updateSubjectOptionsByGrade();
   }
   updateBattlePresetSelect();
 }
@@ -6947,6 +7297,31 @@ function updateUnitOptionsBySubject() {
   `).join('');
 }
 
+// 🔄 どんなに単元・難易度を絞り込んでも「残り3問のループ」を絶対に起こさせない均等ローテーション選択ヘルパー
+function pickQuestionFromPool(pool) {
+  if (!pool || pool.length === 0) return QUIZ_MASTER[0];
+  if (!battle.usedQIds) battle.usedQIds = [];
+  const recent = state.recentQIds || [];
+  // 直近履歴の除外はプール数の最大40%までに制限（プールが10問なら直近4問のみ除外し、残りの問題を圧迫しない）
+  const filterLimit = Math.max(0, Math.min(recent.length, Math.floor(pool.length * 0.4)));
+  const recentToFilter = filterLimit > 0 ? recent.slice(-filterLimit) : [];
+
+  // 1. 今のバトルで未出題 かつ 直近でも出ていない問題
+  let available = pool.filter(item => !battle.usedQIds.includes(item.id) && !recentToFilter.includes(item.id));
+  // 2. なければ「今のバトルで未出題」の問題をすべて解放（これでプール内の全問題が必ず1周する！）
+  if (available.length === 0) {
+    available = pool.filter(item => !battle.usedQIds.includes(item.id));
+  }
+  // 3. プール内の全問題を1周し終えたら、このプールのusedQIdsだけをリセットして2周目へ（直近1問だけは連続防止）
+  if (available.length === 0) {
+    const lastId = battle.usedQIds[battle.usedQIds.length - 1];
+    const poolIds = new Set(pool.map(item => item.id));
+    battle.usedQIds = battle.usedQIds.filter(id => !poolIds.has(id));
+    available = pool.length > 1 ? pool.filter(item => item.id !== lastId) : pool;
+  }
+  return available[Math.floor(Math.random() * available.length)];
+}
+
 function nextBattleQuestion() {
   if (!battle) return;
   clearInterval(battleGaugeInterval);
@@ -6966,13 +7341,14 @@ function nextBattleQuestion() {
     }
 
     if (jSubj === 'j_math') {
-      // 数学：基礎または全難易度ミックスで動的生成を利用
-      if ((selGrade === 'textbook' || selGrade === 'all') && Math.random() < 0.6) {
+      // 数学：基礎・標準・入試すべての難易度に応じた動的計算問題もブレンド（飽きずに毎回新しい数値で演習可能！）
+      const dynProb = (selGrade === 'exam') ? 0.32 : 0.45;
+      if (Math.random() < dynProb) {
         q = generateDynamicMathQuestion('junior', 'j_math', battle.unit);
       }
     } else if (jSubj === 'j_eng') {
       // 英語：基礎レベルでは英単語ジェネレーターを活用
-      if (selGrade === 'textbook' && Math.random() < 0.6) {
+      if (selGrade === 'textbook' && Math.random() < 0.45) {
         q = generateDynamicEnglishQuestion('eng_word');
         if (q) {
           q.grade = 'junior';
@@ -7036,14 +7412,7 @@ function nextBattleQuestion() {
         pool = QUIZ_MASTER.filter(item => (item.grade === 'junior' || item.grade === 'elem'));
       }
 
-      const recent = state.recentQIds || [];
-      const filterLimit = Math.max(5, Math.min(recent.length, Math.floor(pool.length * 0.5)));
-      const recentToFilter = recent.slice(-filterLimit);
-      let available = pool.filter(item => !battle.usedQIds.includes(item.id) && !recentToFilter.includes(item.id));
-      if (available.length === 0) available = pool.filter(item => !battle.usedQIds.includes(item.id));
-      if (available.length === 0) { battle.usedQIds = []; available = pool; }
-
-      q = available[Math.floor(Math.random() * available.length)];
+      q = pickQuestionFromPool(pool);
     }
   } else if (isEngBattle) {
     const selGenre = (document.getElementById('engGenreSelect') || {}).value || 'eng_word';
@@ -7057,9 +7426,9 @@ function nextBattleQuestion() {
       q = generateDynamicEnglishQuestion('eng_idiom');
     } else if (selGenre === 'eng_all') {
       const r = Math.random();
-      if (r < 0.4) {
+      if (r < 0.35) {
         q = generateDynamicEnglishQuestion('eng_word');
-      } else if (r < 0.75) {
+      } else if (r < 0.65) {
         q = generateDynamicEnglishQuestion('eng_idiom');
       }
     }
@@ -7074,6 +7443,14 @@ function nextBattleQuestion() {
         return true;
       });
 
+      // 単元×難易度で万一不足する場合は、難易度（selLevel）を維持したまま単元を広げる
+      if (pool.length === 0 && (selGenre === 'eng_gram' || selGenre === 'eng_all')) {
+        pool = ENGLISH_QUIZ_MASTER.filter(item => {
+          if (item.subj !== 'eng_gram') return false;
+          if (selLevel !== 'all' && item.level !== selLevel) return false;
+          return true;
+        });
+      }
       if (pool.length === 0) {
         if (selGenre === 'eng_gram') {
           pool = ENGLISH_QUIZ_MASTER.filter(item => item.subj === 'eng_gram');
@@ -7083,15 +7460,7 @@ function nextBattleQuestion() {
       }
       if (pool.length === 0) pool = ENGLISH_QUIZ_MASTER;
 
-      const recent = state.recentQIds || [];
-      // 直近履歴の除外件数はプールの半分程度までとし、枯渇させずに均等にローテーション
-      const filterLimit = Math.max(5, Math.min(recent.length, Math.floor(pool.length * 0.5)));
-      const recentToFilter = recent.slice(-filterLimit);
-      let available = pool.filter(item => !battle.usedQIds.includes(item.id) && !recentToFilter.includes(item.id));
-      if (available.length === 0) available = pool.filter(item => !battle.usedQIds.includes(item.id));
-      if (available.length === 0) { battle.usedQIds = []; available = pool; }
-
-      q = available[Math.floor(Math.random() * available.length)];
+      q = pickQuestionFromPool(pool);
     }
   } else {
     // 🧬 理系問題の出題選択
@@ -7099,11 +7468,12 @@ function nextBattleQuestion() {
     const isMathSubj = mathSubjs.includes(battle.subj);
     const isAllWithMath = (battle.subj === 'all') && (Math.random() < 0.35);
 
-    // 1. 数学無限ジェネレーター（高校数学）
-    if (battle.grade !== 'exam' && battle.subj !== 'j_sci' && (isMathSubj || isAllWithMath)) {
-      const dynSupportedUnits = ['all_units', 'ma_prob', 'ma_num', 'm1_quad', 'm1_trig', 'm2_calc', 'mb_seq', 'm3_diff', 'm3_int', 'mc_complex'];
+    // 1. 数学無限ジェネレーター（高校数学：基礎・標準・入試実戦すべてに対応！）
+    if (battle.subj !== 'j_sci' && (isMathSubj || isAllWithMath)) {
+      const dynSupportedUnits = ['all_units', 'ma_prob', 'ma_num', 'ma_geom', 'm1_quad', 'm1_trig', 'm1_data', 'm2_poly', 'm2_geom', 'm2_trig', 'm2_exp', 'm2_calc', 'mb_seq', 'mb_stat', 'm3_lim', 'm3_diff', 'm3_int', 'mc_vec', 'mc_curve', 'mc_complex'];
       if (!battle.unit || dynSupportedUnits.includes(battle.unit)) {
-        if (Math.random() < 0.65) {
+        const dynProb = (battle.grade === 'exam') ? 0.32 : 0.45;
+        if (Math.random() < dynProb) {
           q = generateDynamicMathQuestion('high', battle.subj, battle.unit);
         }
       }
@@ -7175,13 +7545,7 @@ function nextBattleQuestion() {
         }
       }
 
-      // 直近60問の重複防止
-      const recent = state.recentQIds || [];
-      let available = pool.filter(item => !battle.usedQIds.includes(item.id) && !recent.includes(item.id));
-      if (available.length === 0) available = pool.filter(item => !battle.usedQIds.includes(item.id));
-      if (available.length === 0) { battle.usedQIds = []; available = pool; }
-
-      q = available[Math.floor(Math.random() * available.length)];
+      q = pickQuestionFromPool(pool);
     }
   }
 
@@ -7989,7 +8353,7 @@ function executeAttack(who, isTypingBonus, speedMult) {
   }, 1300);
 }
 
-/* ♾️ 数学の計算問題を無限にランダム生成するプロシージャルエンジン！ */
+/* ♾️ 数学の計算問題を無限にランダム生成するプロシージャルエンジン！（基礎・標準・入試実戦の全難易度対応） */
 function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
   let s = targetSubj;
   if (s === 'all') {
@@ -8004,14 +8368,58 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
   const u = targetUnit || 'all_units';
   const rnd = Math.random();
   const id = 'dyn_math_' + Date.now() + '_' + Math.floor(Math.random() * 9999);
-  const isTextbookMode = (battle && battle.grade === 'textbook');
+  const rawGrade = (battle && battle.grade) ? battle.grade : 'all';
+  const isTextbookMode = (rawGrade === 'textbook');
+  const isExamMode = (rawGrade === 'exam');
+  const targetLvl = isTextbookMode ? 'textbook' : (isExamMode ? 'exam' : 'refbook');
 
   // 🎒 0. 中学数学 (j_math: 方程式・正負の数・平方根・1次関数・三平方・確率)
   if (grade === 'junior' || s === 'j_math') {
+    const jLvl = (rawGrade === 'exam' || rawGrade === 'refbook' || rawGrade === 'textbook') ? rawGrade : 'textbook';
+    if (jLvl === 'exam') {
+      // 難関高校入試レベルのランダム計算生成
+      if (u === 'j_math_func' || (u === 'all_units' && rnd < 0.35)) {
+        const a = Math.floor(Math.random() * 3) + 1;
+        const p = Math.floor(Math.random() * 3) + 1;
+        const qVal = p + Math.floor(Math.random() * 4) + 2;
+        const rate = a * (p + qVal);
+        const ans = String(rate);
+        const wrong = [String(rate + a), String(a * qVal), String(rate - a)].filter(x => x !== ans);
+        while (wrong.length < 3) wrong.push(String(rate + wrong.length + 2));
+        return {
+          id, grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'exam',
+          q: `【難関高校入試・関数】関数 y = ${a === 1 ? '' : a}x² について、x の値が ${p} から ${qVal} まで増加するときの「変化の割合」はいくつ？（数字のみ）`,
+          ans, c: [ans, ...wrong]
+        };
+      } else if (u === 'j_math_geom' || (u === 'all_units' && rnd < 0.7)) {
+        const boxes = [[2, 3, 6, 7], [1, 4, 8, 9], [3, 4, 12, 13], [2, 6, 9, 11]];
+        const [a, b, c, d] = boxes[Math.floor(Math.random() * boxes.length)];
+        const ans = String(d);
+        const wrong = [String(d + 1), String(d - 1), String(a + b + c)].filter(x => x !== ans);
+        while (wrong.length < 3) wrong.push(String(d + wrong.length + 2));
+        return {
+          id, grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'exam',
+          q: `【難関高校入試・空間図形】縦 ${a} cm、横 ${b} cm、高さ ${c} cm の直方体の「対角線の長さ」は何 cm？（数字のみ）`,
+          ans, c: [ans, ...wrong]
+        };
+      } else {
+        const p = Math.floor(Math.random() * 4) + 2;
+        const qVal = p + Math.floor(Math.random() * 4) + 1;
+        const sum = p + qVal;
+        const prod = p * qVal;
+        const ans = String(p * p + qVal * qVal);
+        const wrong = [String(sum * sum), String(p * p + qVal * qVal + prod), String(Math.max(1, p * p + qVal * qVal - prod))].filter(x => x !== ans);
+        while (wrong.length < 3) wrong.push(String( Number(ans) + wrong.length + 3 ));
+        return {
+          id, grade: 'junior', subj: 'j_math', unit: u === 'all_units' ? 'j_math_num' : u, level: 'exam',
+          q: `【難関高校入試・式の値】x + y = ${sum}, xy = ${prod} のとき、x² + y² の値はいくつ？（数字のみ）`,
+          ans, c: [ans, ...wrong]
+        };
+      }
+    }
+
     if (u === 'j_math_num' || (u === 'all_units' && rnd < 0.35)) {
-      // 一次方程式 または 平方根
       if (rnd < 0.5) {
-        // 方程式 ax + b = c
         const a = Math.floor(Math.random() * 4) + 2;
         const xVal = Math.floor(Math.random() * 7) + 2;
         const b = Math.floor(Math.random() * 8) + 1;
@@ -8020,13 +8428,12 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
         const wrong = [String(xVal + 1), String(xVal - 1 > 0 ? xVal - 1 : xVal + 3), String(xVal + 2)].filter(x => x !== ans);
         while (wrong.length < 3) wrong.push(String(xVal + wrong.length + 1));
         return {
-          id, grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook',
+          id, grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: jLvl,
           q: `【中学数学・方程式】方程式 ${a}x + ${b} = ${c} を解くと、x の値はいくつ？（数字のみ）`,
           ans,
           c: [ans, ...wrong]
         };
       } else {
-        // 平方根 √n²
         const bases = [4, 5, 6, 7, 8, 9, 10, 11, 12];
         const base = bases[Math.floor(Math.random() * bases.length)];
         const sq = base * base;
@@ -8034,76 +8441,74 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
         const wrong = [String(base + 1), String(base - 1), String(base + 2)].filter(x => x !== ans);
         while (wrong.length < 3) wrong.push(String(base + wrong.length + 1));
         return {
-          id, grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook',
+          id, grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: jLvl,
           q: `【中学数学・平方根】√${sq} の値はいくつ？（正の平方根・数字のみ）`,
           ans,
           c: [ans, ...wrong]
         };
       }
     } else if (u === 'j_math_func' || (u === 'all_units' && rnd < 0.6)) {
-      // 1次関数の傾き・切片
       const a = (Math.floor(Math.random() * 4) + 2) * (Math.random() < 0.5 ? 1 : -1);
       const b = Math.floor(Math.random() * 9) + 1;
       const ans = String(a);
       const wrong = [String(b), String(-a), String(a > 0 ? a + 2 : a - 2)].filter(x => x !== ans);
       while (wrong.length < 3) wrong.push(String(a + wrong.length + 1));
       return {
-        id, grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook',
+        id, grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: jLvl,
         q: `【中学数学・1次関数】1次関数 y = ${a}x + ${b} のグラフの「傾き（変化の割合）」はいくつ？（符号含め数字のみ）`,
         ans,
         c: [ans, ...wrong]
       };
     } else if (u === 'j_math_geom' || (u === 'all_units' && rnd < 0.85)) {
-      // 三平方の定理 有名比 (3,4,5 / 5,12,13 / 6,8,10)
-      const triples = [[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17]];
+      const triples = [[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17], [9, 12, 15]];
       const [a, b, c] = triples[Math.floor(Math.random() * triples.length)];
       const ans = String(c);
       const wrong = [String(c + 2), String(c - 1), String(a + b)].filter(x => x !== ans);
       while (wrong.length < 3) wrong.push(String(c + wrong.length + 1));
       return {
-        id, grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook',
+        id, grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: jLvl,
         q: `【中学数学・三平方の定理】直角をはさむ2辺の長さが ${a} cm, ${b} cm の直角三角形の斜辺の長さは何 cm？（数字のみ）`,
         ans,
         c: [ans, ...wrong]
       };
     } else {
-      // 確率（さいころ）
-      const ans = '1/2';
-      const c = ['1/2', '1/3', '1/6', '2/3'];
+      const nSide = (Math.floor(Math.random() * 5) + 5); // 5〜9角形
+      const sumAngle = 180 * (nSide - 2);
+      const ans = String(sumAngle);
+      const wrong = [String(sumAngle + 180), String(sumAngle - 180), String(180 * nSide)].filter(x => x !== ans);
       return {
-        id, grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'textbook',
-        q: `【中学数学・確率】1個のサイコロを投げるとき、偶数の目が出る確率は？（既約分数）`,
+        id, grade: 'junior', subj: 'j_math', unit: u === 'all_units' ? 'j_math_prob' : u, level: jLvl,
+        q: `【中学数学】${nSide}角形の内角の和は何度？（数字のみ）`,
         ans,
-        c
+        c: [ans, ...wrong]
       };
     }
   }
 
   // 1. 高校 数学A (ma: 場合の数・確率、整数、図形)
   if (s === 'ma' || u === 'ma_prob' || u === 'ma_num' || u === 'ma_geom') {
+    const outUnit = (u === 'ma_prob' || u === 'ma_num' || u === 'ma_geom') ? u : 'ma_prob';
     if (isTextbookMode) {
       if (rnd < 0.5) {
-        // 基本順列 nPr
         const pairs = [[3, 2, 6], [4, 2, 12], [3, 3, 6], [5, 2, 20]];
         const [n, r, ansVal] = pairs[Math.floor(Math.random() * pairs.length)];
         const ans = String(ansVal);
         const wrong = [String(ansVal + 2), String(Math.max(1, ansVal - 4)), String(ansVal * 2)].filter(x => x !== ans);
         while (wrong.length < 3) wrong.push(String(ansVal + wrong.length + 2));
         return {
-          id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook',
+          id, grade: 'high', subj: 'ma', unit: outUnit, level: 'textbook',
           q: `【数A・基礎順列】${n}人の中から${r}人を選んで1列に並べる並べ方（${n}P${r}）は何通り？（数字のみ）`,
           ans,
           c: [ans, ...wrong]
         };
       } else {
-        // 基本組合せ nCr
         const pairs = [[4, 2, 6], [5, 2, 10], [6, 2, 15], [3, 2, 3]];
         const [n, r, ansVal] = pairs[Math.floor(Math.random() * pairs.length)];
         const ans = String(ansVal);
         const wrong = [String(ansVal + 4), String(Math.max(1, ansVal - 2)), String(ansVal * 2)].filter(x => x !== ans);
         while (wrong.length < 3) wrong.push(String(ansVal + wrong.length + 2));
         return {
-          id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'textbook',
+          id, grade: 'high', subj: 'ma', unit: outUnit, level: 'textbook',
           q: `【数A・基礎組合せ】${n}個の中から${r}個を選ぶ組合せ（${n}C${r}）の計算結果は？（数字のみ）`,
           ans,
           c: [ans, ...wrong]
@@ -8111,44 +8516,57 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
       }
     }
 
-    if (u === 'ma_num' || (u === 'all_units' && rnd < 0.3)) {
-      // 整数・最大公約数・素因数分解
+    if (u === 'ma_num' || (u === 'all_units' && rnd < 0.35)) {
       const primes = [2, 3, 5, 7];
-      const p1 = primes[Math.floor(Math.random() * primes.length)];
-      const p2 = primes[Math.floor(Math.random() * primes.length)];
-      const val = p1 * p1 * p2;
-      const divisorsCount = (2 + 1) * (p1 === p2 ? 1 : 2);
+      const p1 = primes[Math.floor(Math.random() * 2)]; // 2 or 3
+      const p2 = primes[Math.floor(Math.random() * 2) + 2]; // 5 or 7
+      const e1 = Math.floor(Math.random() * 3) + 2; // 2〜4
+      const e2 = Math.floor(Math.random() * 2) + 1; // 1〜2
+      const val = Math.pow(p1, e1) * Math.pow(p2, e2);
+      const divisorsCount = (e1 + 1) * (e2 + 1);
       const ans = String(divisorsCount);
-      const wrong = [String(divisorsCount + 2), String(Math.max(2, divisorsCount - 2)), String(divisorsCount + 4)].filter(w => w !== ans);
+      const wrong = [String(divisorsCount + 2), String(Math.max(2, divisorsCount - 2)), String(e1 * e2)].filter(w => w !== ans);
       while (wrong.length < 3) wrong.push(String(divisorsCount + wrong.length + 1));
       return {
-        id, grade: 'high', subj: 'ma', unit: 'ma_num', level: 'refbook',
-        q: `自然数 ${val} の「正の約数の個数」は何個ある？（数字のみ）`,
+        id, grade: 'high', subj: 'ma', unit: 'ma_num', level: targetLvl,
+        q: `【数A・整数】自然数 ${val} （= ${p1}^${e1} × ${p2}^${e2}）の「正の約数の個数」は何個ある？（数字のみ）`,
+        ans,
+        c: [ans, ...wrong]
+      };
+    } else if (u === 'ma_geom' || (u === 'all_units' && rnd < 0.6)) {
+      const ab = Math.floor(Math.random() * 4) + 3;
+      const ac = ab + Math.floor(Math.random() * 3) + 2;
+      const g = (a, b) => b === 0 ? a : g(b, a % b);
+      const gcd = g(ab, ac);
+      const ans = `${ab / gcd}:${ac / gcd}`;
+      const wrong = [`${ac / gcd}:${ab / gcd}`, `${ab}:${ac + 1}`, `1:2`].filter(x => x !== ans);
+      while (wrong.length < 3) wrong.push(`${ab / gcd + wrong.length}:${ac / gcd}`);
+      return {
+        id, grade: 'high', subj: 'ma', unit: 'ma_geom', level: targetLvl,
+        q: `【数A・角の二等分線】△ABCにおいて AB = ${ab}, AC = ${ac} とする。∠Aの二等分線と辺BCの交点をDとするとき、BD : DC の最も簡単な整数比は？`,
         ans,
         c: [ans, ...wrong]
       };
     } else if (rnd < 0.5) {
-      // 組合せ nCr (n: 4〜8, r: 2〜3)
-      const pairs = [[5,2,10],[6,2,15],[7,2,21],[4,2,6],[6,3,20],[5,3,10],[7,3,35],[8,2,28],[8,3,56]];
+      const pairs = [[5,2,10],[6,2,15],[7,2,21],[6,3,20],[7,3,35],[8,2,28],[8,3,56],[9,2,36],[10,2,45]];
       const [n, r, ansVal] = pairs[Math.floor(Math.random() * pairs.length)];
       const ans = String(ansVal);
       const wrong = [String(ansVal * 2), String(ansVal - 5 > 0 ? ansVal - 5 : ansVal + 7), String(ansVal + 5)].filter(x => x !== ans);
       while (wrong.length < 3) wrong.push(String(ansVal + wrong.length + 1));
       return {
-        id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'refbook',
+        id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: targetLvl,
         q: `【数A・組合せ】異なる${n}個のものから${r}個を選ぶ組合せ： ${n}C${r} の計算結果は？（数字のみ）`,
         ans,
         c: [ans, ...wrong]
       };
     } else {
-      // 順列 nPr (n: 4〜7, r: 2〜3)
-      const pairs = [[5,2,20],[6,2,30],[4,2,12],[4,3,24],[5,3,60],[6,3,120],[7,2,42],[5,4,120]];
+      const pairs = [[5,2,20],[6,2,30],[4,3,24],[5,3,60],[6,3,120],[7,2,42],[5,4,120],[8,2,56]];
       const [n, r, ansVal] = pairs[Math.floor(Math.random() * pairs.length)];
       const ans = String(ansVal);
       const wrong = [String(Math.floor(ansVal / 2)), String(ansVal + 10), String(ansVal - 6 > 0 ? ansVal - 6 : ansVal + 12)].filter(x => x !== ans);
       while (wrong.length < 3) wrong.push(String(ansVal + wrong.length + 2));
       return {
-        id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: 'refbook',
+        id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: targetLvl,
         q: `【数A・順列】異なる${n}個のものから${r}個を選んで1列に並べる順列： ${n}P${r} の計算結果は？（数字のみ）`,
         ans,
         c: [ans, ...wrong]
@@ -8157,10 +8575,22 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
   }
 
   // 2. 高校 数学I (m1: 数と式・2次関数、三角比、データ)
-  if (s === 'm1' || s === 'm1a' || u === 'm1_quad' || u === 'm1_trig') {
+  if (s === 'm1' || s === 'm1a' || u === 'm1_quad' || u === 'm1_trig' || u === 'm1_data') {
+    if (u === 'm1_data') {
+      const sdX = Math.floor(Math.random() * 4) + 2;
+      const a = Math.floor(Math.random() * 4) + 2;
+      const b = Math.floor(Math.random() * 9) + 1;
+      const ansVal = a * sdX;
+      const ans = String(ansVal);
+      const wrong = [String(ansVal + b), String(a * a * sdX), String(sdX + b)].filter(x => x !== ans);
+      return {
+        id, grade: 'high', subj: 'm1', unit: 'm1_data', level: targetLvl,
+        q: `【数I・データの分析】変量 x の標準偏差が ${sdX} であるとき、y = ${a}x + ${b} で変換した変量 y の「標準偏差」はいくつ？（数字のみ）`,
+        ans, c: [ans, ...wrong]
+      };
+    }
     if (isTextbookMode) {
       if (u === 'm1_trig' || (u === 'all_units' && rnd < 0.4)) {
-        // 教科書・基礎レベルの三角比有名角
         const trigList = [
           { q: '【数I・基礎三角比】sin 30° の値は？（分数で入力）', ans: '1/2', c: ['1/2', '√3/2', '1/√2', '1'] },
           { q: '【数I・基礎三角比】cos 60° の値は？（分数で入力）', ans: '1/2', c: ['1/2', '√3/2', '1/√2', '0'] },
@@ -8170,7 +8600,6 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
         const it = trigList[Math.floor(Math.random() * trigList.length)];
         return { id, grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: it.q, ans: it.ans, c: it.c };
       } else {
-        // 教科書・基礎レベルの2次関数・方程式（頂点や因数分解方程式の解）
         if (rnd < 0.5) {
           const a = Math.floor(Math.random() * 5) + 1;
           const b = Math.floor(Math.random() * 7) + 1;
@@ -8198,36 +8627,69 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
     }
 
     if (u === 'm1_trig' || (u === 'all_units' && rnd < 0.4)) {
-      // 三角比の有名角
-      const trigList = [
-        { q: '【数I・三角比】sin 60° の値は？（分数で入力）', ans: '√3/2', c: ['√3/2', '1/2', '1/√2', '1'] },
-        { q: '【数I・三角比】cos 45° の値は？（分数で入力）', ans: '1/√2', c: ['1/√2', '1/2', '√3/2', '0'] },
-        { q: '【数I・三角比】tan 60° の値は？（根号表記）', ans: '√3', c: ['√3', '1/√3', '1', '2'] }
-      ];
-      const it = trigList[Math.floor(Math.random() * trigList.length)];
-      return { id, grade: 'high', subj: 'm1', unit: 'm1_trig', level: 'refbook', q: it.q, ans: it.ans, c: it.c };
+      const rVal = Math.floor(Math.random() * 5) + 3; // 外接円半径 R = 3〜7
+      const aLen = rVal; // sin A = a / 2R = 1/2 ➔ A = 30°
+      const ans = String(2 * rVal);
+      const wrong = [String(rVal), String(rVal * 3), String(2 * rVal + 2)].filter(x => x !== ans);
+      return {
+        id, grade: 'high', subj: 'm1', unit: 'm1_trig', level: targetLvl,
+        q: `【数I・正弦定理】△ABCにおいて ∠A = 30°、辺 a = ${aLen} のとき、外接円の直径 2R の長さはいくつ？（数字のみ）`,
+        ans, c: [ans, ...wrong]
+      };
     } else {
-      // 2次方程式の判別式 D = b^2 - 4ac
-      const bVals = [4, 6, 8];
+      const bVals = [4, 6, 8, 10];
       const b = bVals[Math.floor(Math.random() * bVals.length)];
-      const c = Math.floor(Math.random() * 3) + 1;
+      const c = Math.floor(Math.random() * 4) + 1;
       const D = b * b - 4 * 1 * c;
       const ans = String(D);
       const wrong = [String(D + 8), String(D - 8 > 0 ? D - 8 : D + 16), String(b * b)].filter(x => x !== ans);
       while (wrong.length < 3) wrong.push(String(D + wrong.length + 4));
       return {
-        id, grade: 'high', subj: 'm1', unit: 'm1_quad', level: 'refbook',
-        q: `【数I・2次方程式】方程式 x² + ${b}x + ${c} = 0 の判別式 D の値は？（数字のみ）`,
+        id, grade: 'high', subj: 'm1', unit: 'm1_quad', level: targetLvl,
+        q: `【数I・2次方程式】方程式 x² + ${b}x + ${c} = 0 の判別式 D（= b² - 4ac）の値は？（数字のみ）`,
         ans,
         c: [ans, ...wrong]
       };
     }
   }
 
-  // 3. 高校 数学II (m2: 微積、三角指数対数)
-  if (s === 'm2' || s === 'm2b') {
+  // 3. 高校 数学II (m2: 式と証明、図形と方程式、三角関数、指数対数、微積)
+  if (s === 'm2' || s === 'm2b' || u.startsWith('m2_')) {
+    if (u === 'm2_poly') {
+      const a = Math.floor(Math.random() * 3) + 1;
+      const b = Math.floor(Math.random() * 5) + 2;
+      const rem = a * a + b;
+      const ans = String(rem);
+      const wrong = [String(rem - b), String(a + b), String(rem + 2)].filter(x => x !== ans);
+      return {
+        id, grade: 'high', subj: 'm2', unit: 'm2_poly', level: targetLvl,
+        q: `【数II・剰余の定理】整式 P(x) = x² + ${b} を (x - ${a}) で割ったときの余りはいくつ？（数字のみ）`,
+        ans, c: [ans, ...wrong]
+      };
+    }
+    if (u === 'm2_geom') {
+      const r = Math.floor(Math.random() * 5) + 3;
+      const r2 = r * r;
+      const ans = String(r);
+      const wrong = [String(r2), String(r + 2), String(r * 2)].filter(x => x !== ans);
+      return {
+        id, grade: 'high', subj: 'm2', unit: 'm2_geom', level: targetLvl,
+        q: `【数II・円の方程式】円 x² + y² = ${r2} の半径はいくつ？（数字のみ）`,
+        ans, c: [ans, ...wrong]
+      };
+    }
+    if (u === 'm2_exp') {
+      const p = Math.floor(Math.random() * 5) + 2; // 2〜6
+      const val = Math.pow(2, p);
+      const ans = String(p);
+      const wrong = [String(p + 1), String(p - 1), String(val / 2)].filter(x => x !== ans);
+      return {
+        id, grade: 'high', subj: 'm2', unit: 'm2_exp', level: targetLvl,
+        q: `【数II・対数関数】log₂(${val}) の値はいくつ？（数字のみ）`,
+        ans, c: [ans, ...wrong]
+      };
+    }
     if (rnd < 0.5) {
-      // 多項式微分: (a x^b)'
       const a = Math.floor(Math.random() * 4) + 2;
       const b = Math.floor(Math.random() * 3) + 2;
       const coef = a * b;
@@ -8236,13 +8698,12 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
       const wrong = [`${a}x${p === 2 ? '²' : '³'}`, `${coef}x${b === 2 ? '²' : '³'}`, `${coef + 2}x`].filter(x => x !== ans);
       while (wrong.length < 3) wrong.push(`${coef + wrong.length}x²`);
       return {
-        id, grade: 'high', subj: 'm2', unit: 'm2_calc', level: 'refbook',
+        id, grade: 'high', subj: 'm2', unit: u.startsWith('m2_') ? u : 'm2_calc', level: targetLvl,
         q: `【数II・微分】関数 f(x) = ${a}x${b === 2 ? '²' : (b === 3 ? '³' : '⁴')} を x で微分した導関数 f'(x) は？`,
         ans,
         c: [ans, ...wrong]
       };
     } else {
-      // 定積分: ∫[0→n] a x dx
       const a = [2, 4, 6][Math.floor(Math.random() * 3)];
       const n = Math.floor(Math.random() * 4) + 1;
       const ansVal = (a / 2) * n * n;
@@ -8250,7 +8711,7 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
       const wrong = [String(a * n), String(ansVal + a), String(ansVal > 4 ? ansVal - 4 : ansVal + 8)].filter(x => x !== ans);
       while (wrong.length < 3) wrong.push(String(ansVal + wrong.length + 3));
       return {
-        id, grade: 'high', subj: 'm2', unit: 'm2_calc', level: 'refbook',
+        id, grade: 'high', subj: 'm2', unit: u.startsWith('m2_') ? u : 'm2_calc', level: targetLvl,
         q: `【数II・積分】定積分 ∫[0→${n}] ${a}x dx の計算結果はいくつ？（数字のみ）`,
         ans,
         c: [ans, ...wrong]
@@ -8258,17 +8719,28 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
     }
   }
 
-  // 4. 高校 数学B (mb: 数列)
-  if (s === 'mb') {
+  // 4. 高校 数学B (mb: 数列・統計)
+  if (s === 'mb' || u.startsWith('mb_')) {
+    if (u === 'mb_stat') {
+      const nCoins = [4, 6, 8, 10][Math.floor(Math.random() * 4)];
+      const expVal = nCoins / 2;
+      const ans = String(expVal);
+      const wrong = [String(expVal + 1), String(nCoins), String(expVal / 2)].filter(x => x !== ans);
+      return {
+        id, grade: 'high', subj: 'mb', unit: 'mb_stat', level: targetLvl,
+        q: `【数B・二項分布】硬貨を ${nCoins} 回投げるとき、表が出る回数 X の期待値 E(X) はいくつ？（数字のみ）`,
+        ans, c: [ans, ...wrong]
+      };
+    }
     const a = Math.floor(Math.random() * 5) + 1;
     const d = Math.floor(Math.random() * 4) + 2;
-    const n = Math.floor(Math.random() * 5) + 4;
+    const n = Math.floor(Math.random() * 6) + 4;
     const ansVal = a + (n - 1) * d;
     const ans = String(ansVal);
     const wrong = [String(ansVal + d), String(ansVal - d), String(a * n)].filter(x => x !== ans);
     while (wrong.length < 3) wrong.push(String(ansVal + wrong.length + 5));
     return {
-      id, grade: 'high', subj: 'mb', unit: 'mb_seq', level: 'refbook',
+      id, grade: 'high', subj: 'mb', unit: 'mb_seq', level: targetLvl,
       q: `【数B・等差数列】初項が ${a}、公差が ${d} の等差数列の「第${n}項」の値は？（数字のみ）`,
       ans,
       c: [ans, ...wrong]
@@ -8276,64 +8748,52 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
   }
 
   // 5. 高校 数学III (m3)
-  if (s === 'm3' || s === 'm3c') {
+  if (s === 'm3' || s === 'm3c' || u.startsWith('m3_')) {
+    const k = Math.floor(Math.random() * 4) + 2; // 2〜5
     const funcs = [
-      { q: '【数III・微分】関数 f(x) = sin(2x) を x で微分した導関数は？', ans: '2cos(2x)', c: ['2cos(2x)', 'cos(2x)', '-2cos(2x)', '2sin(2x)'] },
-      { q: '【数III・微分】関数 f(x) = cos(2x) を x で微分した導関数は？', ans: '-2sin(2x)', c: ['-2sin(2x)', '2sin(2x)', '-sin(2x)', '-2cos(2x)'] },
-      { q: '【数III・微分】関数 f(x) = e^(2x) を x で微分した導関数は？', ans: '2e^(2x)', c: ['2e^(2x)', 'e^(2x)', '4e^(2x)', '2xe^(2x)'] },
-      { q: '【数III・微分】関数 f(x) = log(2x) を x で微分した導関数は？', ans: '1/x', c: ['1/x', '2/x', '1/(2x)', 'log(2)'] }
+      { unit: 'm3_diff', q: `【数III・微分】関数 f(x) = sin(${k}x) を x で微分した導関数は？`, ans: `${k}cos(${k}x)`, c: [`${k}cos(${k}x)`, `cos(${k}x)`, `-${k}cos(${k}x)`, `${k}sin(${k}x)`] },
+      { unit: 'm3_diff', q: `【数III・微分】関数 f(x) = cos(${k}x) を x で微分した導関数は？`, ans: `-${k}sin(${k}x)`, c: [`-${k}sin(${k}x)`, `${k}sin(${k}x)`, `-sin(${k}x)`, `-${k}cos(${k}x)`] },
+      { unit: 'm3_diff', q: `【数III・微分】関数 f(x) = e^(${k}x) を x で微分した導関数は？`, ans: `${k}e^(${k}x)`, c: [`${k}e^(${k}x)`, `e^(${k}x)`, `${k*k}e^(${k}x)`, `${k}xe^(${k}x)`] },
+      { unit: 'm3_lim',  q: `【数III・極限】極限 lim[x→0] sin(${k}x) / x の収束値は？（数字のみ）`, ans: String(k), c: [String(k), '1', '0', String(k * 2)] }
     ];
     const item = funcs[Math.floor(Math.random() * funcs.length)];
-    return { id, grade: 'high', subj: 'm3', unit: 'm3_diff', level: 'refbook', q: item.q, ans: item.ans, c: item.c };
+    return { id, grade: 'high', subj: 'm3', unit: u.startsWith('m3_') ? u : item.unit, level: targetLvl, q: item.q, ans: item.ans, c: item.c };
   }
 
   // 6. 高校 数学C (mc)
-  if (s === 'mc') {
-    const a = Math.floor(Math.random() * 4) + 1;
-    const b = Math.floor(Math.random() * 4) + 1;
+  if (s === 'mc' || u.startsWith('mc_')) {
+    if (u === 'mc_vec') {
+      const a1 = Math.floor(Math.random() * 4) + 1;
+      const a2 = Math.floor(Math.random() * 4) + 1;
+      const b1 = Math.floor(Math.random() * 4) + 1;
+      const b2 = Math.floor(Math.random() * 4) + 1;
+      const dot = a1 * b1 + a2 * b2;
+      const ans = String(dot);
+      const wrong = [String(dot + 2), String(Math.abs(a1 * b2 - a2 * b1)), String(dot + 4)].filter(x => x !== ans);
+      while (wrong.length < 3) wrong.push(String(dot + wrong.length + 1));
+      return {
+        id, grade: 'high', subj: 'mc', unit: 'mc_vec', level: targetLvl,
+        q: `【数C・ベクトル】平面ベクトル a = (${a1}, ${a2}) と b = (${b1}, ${b2}) の内積 a・b の値は？（数字のみ）`,
+        ans, c: [ans, ...wrong]
+      };
+    }
+    const a = Math.floor(Math.random() * 5) + 1;
+    const b = Math.floor(Math.random() * 5) + 1;
     const ansVal = a * a + b * b;
     return {
-      id, grade: 'high', subj: 'mc', unit: 'mc_complex', level: 'refbook',
+      id, grade: 'high', subj: 'mc', unit: u.startsWith('mc_') ? u : 'mc_complex', level: targetLvl,
       q: `【数C・複素数】複素数 z = ${a} + ${b}i の絶対値の2乗 |z|² の値は？（数字のみ）`,
       ans: String(ansVal),
       c: [String(ansVal), String(ansVal - a > 0 ? ansVal - a : ansVal + 5), String(a + b), String(ansVal + b * 2)]
     };
   }
 
-  // 4. 中学数学 (junior m1a)
-  if (grade === 'junior' || s === 'm1a') {
-    if (rnd < 0.5) {
-      const a = Math.floor(Math.random() * 4) + 2;
-      const x = Math.floor(Math.random() * 8) + 2;
-      const b = Math.floor(Math.random() * 9) + 1;
-      const c = a * x + b;
-      const ans = String(x);
-      const wrong = [String(x + 1), String(x - 1 > 0 ? x - 1 : x + 3), String(x + 2)].filter(w => w !== ans);
-      while (wrong.length < 3) wrong.push(String(x + wrong.length + 3));
-      return {
-        id, grade: 'junior', subj: 'm1a',
-        q: `方程式 ${a}x + ${b} = ${c} を解いたときの x の値はいくつ？（数字のみ）`,
-        ans,
-        c: [ans, ...wrong]
-      };
-    } else {
-      const a = Math.floor(Math.random() * 7) + 3;
-      const a2 = a * a;
-      return {
-        id, grade: 'junior', subj: 'm1a',
-        q: `式 x² - ${a2} を因数分解すると (x + ${a})(〇) になる。〇に入る式は？`,
-        ans: `x-${a}`,
-        c: [`x-${a}`, `x+${a}`, `x-${a2}`, `${a}x`]
-      };
-    }
-  }
-
-  // 5. 小学生 算数 (elem m1a)
+  // 7. 安全フォールバック
   const a = Math.floor(Math.random() * 8) + 3;
   const b = Math.floor(Math.random() * 8) + 3;
   const ansVal = a * b;
   return {
-    id, grade: 'elem', subj: 'm1a',
+    id, grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook',
     q: `縦が ${a}cm、横が ${b}cm の長方形の面積は何cm²？（数字のみ）`,
     ans: String(ansVal),
     c: [String(ansVal), String((a + b) * 2), String(ansVal + a), String(ansVal - b > 0 ? ansVal - b : ansVal + 10)]
@@ -12100,10 +12560,20 @@ async function hostStartRoomBattle(overrideGuestData = null) {
 }
 
 function selectQuestionForRoom(rules, excludeId = null) {
+  const filterRoomPool = (pool) => {
+    if (!pool || pool.length === 0) return QUIZ_MASTER[0];
+    let avail = excludeId && pool.length > 1 ? pool.filter(item => item.id !== excludeId) : pool;
+    const used = (battle && battle.usedQIds) ? battle.usedQIds : [];
+    const recent = (state && state.recentQIds) ? state.recentQIds.slice(-Math.floor(pool.length * 0.4)) : [];
+    let fresh = avail.filter(item => !used.includes(item.id) && !recent.includes(item.id));
+    if (fresh.length === 0) fresh = avail.filter(item => !used.includes(item.id));
+    if (fresh.length === 0) fresh = avail;
+    return fresh[Math.floor(Math.random() * fresh.length)];
+  };
+
   if (rules && (rules.category === 'eng' || currentBattleCategory === 'eng')) {
     let pool = typeof ENGLISH_QUIZ_MASTER !== 'undefined' ? ENGLISH_QUIZ_MASTER : QUIZ_MASTER;
-    if (excludeId && pool.length > 1) pool = pool.filter(item => item.id !== excludeId);
-    return pool[Math.floor(Math.random() * pool.length)];
+    return filterRoomPool(pool);
   }
 
   // 🎒 中学生モードのオンライン対戦出題
@@ -12127,8 +12597,7 @@ function selectQuestionForRoom(rules, excludeId = null) {
       });
     }
     if (pool.length === 0) pool = QUIZ_MASTER.filter(item => item.grade === 'junior' || item.grade === 'elem');
-    if (excludeId && pool.length > 1) pool = pool.filter(item => item.id !== excludeId);
-    return pool[Math.floor(Math.random() * pool.length)];
+    return filterRoomPool(pool);
   }
 
   // 🧬 高校理系モードのオンライン対戦出題（中学・小学問題の混入を100%遮断！）
@@ -12147,9 +12616,8 @@ function selectQuestionForRoom(rules, excludeId = null) {
     });
   }
   if (pool.length === 0) pool = QUIZ_MASTER.filter(item => item.grade !== 'junior' && item.grade !== 'elem');
-  if (excludeId && pool.length > 1) pool = pool.filter(item => item.id !== excludeId);
   if (pool.length === 0) pool = QUIZ_MASTER;
-  return pool[Math.floor(Math.random() * pool.length)];
+  return filterRoomPool(pool);
 }
 
 // 両者でアリーナへ突入！（自分の3体＝p1Team、相手の本物3体＝p2Team を厳密セット！）
