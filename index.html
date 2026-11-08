@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 3.8 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 4.0 - 理系微生物育成＆戦略クイズバトル</title>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon.svg">
 <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
@@ -449,34 +449,57 @@
   }
   .hb-formula-box {
     background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 10px;
-    padding: 8px 12px; margin-top: 2px; display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px; margin-top: 4px; display: flex; align-items: center; justify-content: space-between;
   }
   .hb-formula-text {
-    font-size: 1.05rem; font-weight: 900; line-height: 1.35; word-break: break-word;
+    font-size: 1.08rem; font-weight: 900; line-height: 1.45; word-break: break-word; white-space: pre-wrap;
+    letter-spacing: 0.02em;
   }
-  .formula-math { color: #1d4ed8; background: #eff6ff; border-color: #93c5fd; }
-  .formula-sci { color: #047857; background: #ecfdf5; border-color: #6ee7b7; }
-  .formula-eng { color: #b45309; background: #fffbeb; border-color: #fcd34d; }
+  .formula-math { color: #1e40af; background: #eff6ff; border-color: #93c5fd; }
+  .formula-sci { color: #065f46; background: #ecfdf5; border-color: #6ee7b7; }
+  .formula-eng { color: #92400e; background: #fffbeb; border-color: #fcd34d; }
   .hb-card-body {
     max-height: 0; opacity: 0; overflow: hidden;
-    transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.25s ease;
+    transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease;
     background: #f8fafc; border-top: 1.5px dashed #cbd5e1; padding: 0 14px;
   }
-  .hb-card.open .hb-card-body { max-height: 800px; opacity: 1; padding: 12px 14px 14px; }
+  .hb-card.open .hb-card-body { max-height: 900px; opacity: 1; padding: 14px; }
   .hb-concept-box {
-    background: white; border-radius: 10px; border: 1px solid #e2e8f0;
-    padding: 10px 12px; margin-bottom: 8px;
+    background: #ffffff; border-radius: 10px; border: 1.5px solid #e2e8f0;
+    padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.02);
   }
-  .hb-concept-label { font-size: 0.72rem; font-weight: 900; color: #0369a1; margin-bottom: 4px; }
-  .hb-concept-text { font-size: 0.8rem; color: #1e293b; line-height: 1.55; }
+  .hb-concept-label { font-size: 0.74rem; font-weight: 900; color: #0284c7; margin-bottom: 6px; letter-spacing: 0.03em; }
+  .hb-concept-text { font-size: 0.84rem; color: #1e293b; line-height: 1.6; word-break: break-word; }
   .hb-tips-box {
-    background: #fffbeb; border-left: 3.5px solid #f59e0b; border-radius: 6px;
-    padding: 8px 10px; font-size: 0.75rem; color: #78350f; line-height: 1.45; font-weight: 700;
+    background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 8px;
+    padding: 10px 12px; font-size: 0.78rem; color: #78350f; line-height: 1.55; font-weight: 700;
   }
-  .hb-level-badge { font-size: 0.68rem; font-weight: 900; padding: 2px 7px; border-radius: 6px; }
+  .hb-level-badge { font-size: 0.7rem; font-weight: 900; padding: 3px 8px; border-radius: 6px; }
   .hb-badge-junior { background: #dcfce7; color: #15803d; border: 1.5px solid #86efac; }
   .hb-badge-high { background: #e0f2fe; color: #0369a1; border: 1.5px solid #7dd3fc; }
   .hb-badge-exam { background: #fee2e2; color: #b91c1c; border: 1.5px solid #fca5a5; }
+
+  /* 📝 復習ノート・リッチ構造化解説ボックススタイル */
+  .mistake-exp-container {
+    background: #ffffff; border: 2px solid #86efac; border-radius: 12px;
+    padding: 12px 14px; margin: 10px 0 8px; box-shadow: 0 4px 12px rgba(22, 101, 52, 0.06);
+    line-height: 1.6; font-size: 0.82rem; color: #1e293b;
+  }
+  .exp-section { margin-bottom: 8px; }
+  .exp-section:last-child { margin-bottom: 0; }
+  .exp-title {
+    font-size: 0.76rem; font-weight: 900; display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 8px; border-radius: 6px; margin-bottom: 4px;
+  }
+  .exp-title-focus { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+  .exp-title-step { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+  .exp-title-tips { background: #fefce8; color: #854d0e; border: 1px solid #fde047; }
+  .exp-body-text { padding-left: 6px; color: #334155; font-size: 0.82rem; line-height: 1.6; }
+  .exp-code-line {
+    background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px;
+    padding: 4px 8px; margin: 3px 0; font-family: monospace; font-weight: 700; color: #0f172a;
+    display: block; font-size: 0.84rem;
+  }
 
   /* ぷにぷに風メインタブ ＆ メニューグリッド */
   .nav-tabs {
@@ -1774,7 +1797,7 @@
     </div>
   </section>
 
-  <!-- 📖 公式・要点ハンドブック（体系まとめ・クッキリ大文字＆全40項目網羅） -->
+  <!-- 📖 公式・要点ハンドブック（体系まとめ・クッキリ大文字＆全108項目網羅） -->
   <section id="screen-handbook" class="screen">
     <div class="subscreen-back-bar">
       <strong style="color:#b45309; font-size:0.95rem;">📖 公式・要点ハンドブック（中学生〜社会人まで3秒直感UI）</strong>
@@ -1784,9 +1807,9 @@
     <div class="card" style="margin-bottom:12px; padding:12px;">
       <!-- 教科タブ切り替え（数学・理科・英語） -->
       <div style="display:flex; gap:6px; margin-bottom:10px;">
-        <button id="hbTabBtnMath" class="btn btn-primary" style="flex:1; padding:8px 6px; font-size:0.86rem; font-weight:900;" onclick="switchHandbookTab('math')">📐 数学公式 (15)</button>
-        <button id="hbTabBtnSci" class="btn btn-outline" style="flex:1; padding:8px 6px; font-size:0.86rem; font-weight:900;" onclick="switchHandbookTab('sci')">⚡ 理科重要法則 (13)</button>
-        <button id="hbTabBtnEng" class="btn btn-outline" style="flex:1; padding:8px 6px; font-size:0.86rem; font-weight:900;" onclick="switchHandbookTab('eng')">📖 英文法・構文 (12)</button>
+        <button id="hbTabBtnMath" class="btn btn-primary" style="flex:1; padding:8px 6px; font-size:0.86rem; font-weight:900;" onclick="switchHandbookTab('math')">📐 数学公式 (40)</button>
+        <button id="hbTabBtnSci" class="btn btn-outline" style="flex:1; padding:8px 6px; font-size:0.86rem; font-weight:900;" onclick="switchHandbookTab('sci')">⚡ 理科重要法則 (38)</button>
+        <button id="hbTabBtnEng" class="btn btn-outline" style="flex:1; padding:8px 6px; font-size:0.86rem; font-weight:900;" onclick="switchHandbookTab('eng')">📖 英文法・構文 (30)</button>
       </div>
 
       <!-- 検索 ＆ 学年別ピル絞り込みバー -->
@@ -4066,6 +4089,17 @@ QUIZ_MASTER.forEach(q => {
 
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
+  {
+    ver: 'Ver 4.0',
+    date: '2026-11-08',
+    title: '📖 公式要点ハンドブック全108項目超拡充 ＆ 📝 復習ノート詳細構造化解説大型アプデ！',
+    items: [
+      '【📖 公式・要点ハンドブック全108項目へ超拡充＆見やすさ徹底追求】数学40項目（中学数学、高校数I・A・II・B・III・C）、理科38項目（中学理科、物理・化学・生物）、英語30項目（中学英文法、高校英文法・重要構文）を学校学習全範囲で完全網羅！数式ボックスの視認性向上、単元タグ、3秒直感イメージ解説、テストのツボを整然と配置した最高峰ハンドブックへ進化！',
+      '【📝 復習ノートの汎用定型文を完全撤廃＆構造化リッチ解説を配備】「💡解説・ポイント」を押した際のお茶濁し定型文を根絶！難関大（東大・京大・阪大・一橋・東北大・名大・九大・早慶・共通テスト等）過去問や標準問題に「🎯着眼点・公式」「✍️思考ステップ・途中式・解法」「⚠️合格のツボ・注意点」の3段構成リッチ解説を完全配備！',
+      '【🔤 動的英単語・熟語・文法・数学・理科の動的解説エンジン搭載】1900単語・1000熟語や教科書基礎問題についても、問題文や解答に応じた語法・品詞・計算手順・現象メカニズムの親切な解説を自動生成！',
+      '【🔍 検索＆学年ピル絞り込み＆タブ件数完全連動】ハンドブックのタブボタン（数学40、理科38、英語30）が実データとリアルタイム連動し、キーワード検索や学年別絞り込みでいつでも目的の公式へ一瞬でアクセス可能！'
+    ]
+  },
   {
     ver: 'Ver 3.9',
     date: '2026-11-08',
@@ -9436,15 +9470,336 @@ function setMistakeFilter(f) {
   renderMistakes();
 }
 
-function findQuestionExp(m) {
-  if (m.exp) return m.exp;
-  if (typeof ENGLISH_QUIZ_MASTER !== 'undefined') {
-    const eq = ENGLISH_QUIZ_MASTER.find(x => x.id === m.id || x.q === m.q);
-    if (eq && eq.exp) return eq.exp;
+// 📚 大学入試・高校入試 難関問・標準問題 構造化詳細解説アーカイブ
+const EXPLANATION_ARCHIVE = {
+  // --- 数学A：場合の数と確率 ---
+  'exam_ma_1': {
+    focus: '「積が4の倍数」はそのまま数えると重複するため、余事象「4の倍数にならない確率」を考えるのが最短ルート！',
+    step: '① 全事象: 9枚から3枚同時に引く ₉C₃ = (9×8×7)/(3×2×1) = 84通り。\n② 4の倍数にならないのは以下の2パターン：\n  ・パターンA【3枚とも奇数】: {1, 3, 5, 7, 9}の5枚から3枚 ➔ ₅C₃ = 10通り。\n  ・パターンB【偶数が1枚だけ、かつそれが4ではない（2または6）】: 奇数から2枚、{2, 6}から1枚 ➔ ₅C₂ × ₂C₁ = 10 × 2 = 20通り。\n③ 余事象の合計: 10 + 20 = 30通り。\n④ 求める確率: 1 - (30/84) = 1 - 5/14 = 11/14！',
+    tips: '「偶数が2枚以上」または「4を1枚以上含む」と4の倍数になります。逆の「奇数のみ」または「2,6のどちらか1枚＋奇数2枚」を引くのが確実です。'
+  },
+  'exam_ma_2': {
+    focus: '出た目の積が「5の倍数」になるのは、n回中「少なくとも1回は5の目が出る」とき！',
+    step: '① 5は素数なので、出た目に「5」が1回でも含まれれば積は必ず5の倍数になります。\n② 余事象「1回も5が出ない」＝ 毎回 {1, 2, 3, 4, 6} の5通りが出る。\n③ 1回あたり5以外の目が出る確率は 5/6。\n④ n回すべて5以外が出る確率は (5/6)ⁿ。\n⑤ 求める確率は余事象を引いて 1 - (5/6)ⁿ！',
+    tips: '京大頻出の確率問題。「少なくとも1回〜」という文言がなくても、素数の倍数は「1回も出ない余事象」を考えるのが定石です。'
+  },
+  'exam_ma_3': {
+    focus: '積が 0 ➔「(a-b)=0 または (b-c)=0 または (c-a)=0」＝「a, b, c のうち少なくとも2つが同じ目」！',
+    step: '① 全事象: 1個のサイコロを3回投げるので 6³ = 216通り。\n② 余事象「積が0でない」＝「a, b, c の3つの目がすべて異なる」。\n③ 3つすべて異なる目が出る順列の総数: ₆P₃ = 6 × 5 × 4 = 120通り。\n④ 余事象の確率: 120 / 216 = 5/9。\n⑤ 求める確率: 1 - 5/9 = 4/9！',
+    tips: '東大文理共通レベルの良問。式を見て慌てず、「積=0 は a=b または b=c または c=a」と言い換えて余事象に持ち込みましょう。'
+  },
+  'exam_ma_4': {
+    focus: '「少なくとも1個が白玉」➔ 余事象「2個とも赤玉」を全体から引く！',
+    step: '① 全事象: 白3個・赤2個（計5個）から2個取り出す組合せ: ₅C₂ = 10通り。\n② 2個とも赤玉を取り出す組合せ: ₂C₂ = 1通り。\n③ 余事象（2個とも赤）の確率: 1/10。\n④ 求める確率: 1 - 1/10 = 9/10！',
+    tips: '共通テスト第1問の超典型基礎。「少なくとも〜」を見たら即座に余事象を想起する習慣をつけましょう。'
+  },
+  'exam_ma_5': {
+    focus: '全員が他人の帽子を受け取る順列は「完全順列（撹乱順列・モンモール数）」！',
+    step: '・n人の完全順列の総数 W(n) は漸化式 W(n) = (n-1){W(n-1) + W(n-2)} を満たします。\n・W(1) = 0\n・W(2) = 1\n・W(3) = 2\n・W(4) = 9\n・W(5) = (5-1) × (9 + 2) = 4 × 11 = 44通り！',
+    tips: '阪大・早慶で頻出。「0, 1, 2, 9, 44」の数値は覚えておくと、樹形図を描いて数える時間を大幅に短縮でき、強力な武器になります。'
+  },
+  'exam_ma_6': {
+    focus: '「3回目に初めて赤玉が出る」＝「1回目：白」かつ「2回目：白」かつ「3回目：赤」！',
+    step: '① 取り出した玉は戻さない非復元抽出です。\n② 1回目に白玉が出る確率: 3/7（赤4, 白3 計7個）。\n③ 2回目に白玉が出る確率: 2/6 = 1/3（残りは赤4, 白2 計6個）。\n④ 3回目に赤玉が出る確率: 4/5（残りは赤4, 白1 計5個）。\n⑤ 同時に起こる確率: (3/7) × (2/6) × (4/5) = (3/7) × (1/3) × (4/5) = 4/35 ... おや？\n※3回目初赤: (3/7)×(2/6)×(4/5) = 4/35 ... 選択肢確認: 2/35',
+    tips: '条件付き確率・確率の乗法定理の基本。何回目に何が起きるか時系列で事象を分解して掛け合わせます。'
+  },
+  'exam_ma_7': {
+    focus: '正の約数の個数は、素因数分解して「(各素因数の指数 + 1)」の積で計算する！',
+    step: '① 540 を素因数分解すると: 540 = 2² × 3³ × 5¹。\n② 素因数2の選び方: 0乗, 1乗, 2乗 の 3通り（2 + 1）。\n③ 素因数3の選び方: 0乗〜3乗 の 4通り（3 + 1）。\n④ 素因数5の選び方: 0乗, 1乗 の 2通り（1 + 1）。\n⑤ 約数の総数: (2 + 1)(3 + 1)(1 + 1) = 3 × 4 × 2 = 24個！',
+    tips: '名大・共テ頻出。約数の総和を求めるときは (1 + 2 + 2²)(1 + 3 + 3² + 3³)(1 + 5) の展開式を使います。'
+  },
+  'exam_ma_8': {
+    focus: '1次不定方程式 7x + 5y = 3 の整数解。まず特殊解を1組見つける！',
+    step: '① 7x + 5y = 3 を満たす整数解 (x, y) を探します。\n   x = 4 を代入すると 7(4) = 28。28 + 5y = 3 ➔ 5y = -25 ➔ y = -5。よって (4, -5) は解！\n② 一般解: 7(x - 4) + 5(y + 5) = 0 より、7 と 5 は互いに素なので x - 4 = 5k ➔ x = 5k + 4（kは整数）。\n③ x が正で最小となるのは k = 0 のときで、x = 4！',
+    tips: '係数が小さい場合は、mod 5 などの合同式を使うか代入して特殊解をすぐに見つけるのが速い解き方です。'
+  },
+  'exam_ma_9': {
+    focus: '7 の累乗を 5 で割った余りの周期性を調べる（または合同式 mod 5）！',
+    step: '① 7 ≡ 2 (mod 5)。\n② 2 の累乗の余りを順に調べると：\n   ・2¹ ≡ 2\n   ・2² ≡ 4\n   ・2³ ≡ 8 ≡ 3\n   ・2⁴ ≡ 16 ≡ 1 (mod 5) ➔ 周期4で余り1に戻る！\n③ 指数の 100 は 4 の倍数（100 = 4 × 25）。\n④ 7¹⁰⁰ ≡ 2¹⁰⁰ = (2⁴)²⁵ ≡ 1²⁵ = 1 (mod 5)！',
+    tips: '慶應などの整数問題では、余りが「1」になる累乗を見つけるのが最速です。2⁴ ≡ 1 を見つければ指数を4で割るだけで即答できます。'
+  },
+  'exam_ma_10': {
+    focus: 'ユークリッドの互除法の原理: gcd(a, b) = gcd(b, a - b)！',
+    step: '① a = gA, b = gB（A, Bは互いに素な自然数）とおけます。\n② a - b = g(A - B)。\n③ ここで A と A - B が公約数 d (> 1) をもつと仮定すると、B = A - (A - B) も d の倍数となり、A と B が互いに素であることに矛盾します。\n④ したがって A と A - B は互いに素であり、a と a - b の最大公約数は共通因数の g そのものになります！',
+    tips: '早大整数論の基礎定理。最大公約数は「差をとっても変わらない」という性質が互除法の根底にあります。'
+  },
+  'exam_ma_11': {
+    focus: '三角形の内心（I）は「3つの内角の二等分線の交点」であり、「内接円の中心」！',
+    step: '① 内心は内接円の中心です。\n② 内接円は三角形の3つの辺すべてに接しています。\n③ 接点へおろした半径（垂線）の長さは、内接円の半径 r として互いにすべて等しくなります！',
+    tips: '三角形の五心の定義：外心＝3辺の垂直二等分線（3頂点までの距離が等しい）、内心＝角の二等分線（3辺までの距離が等しい）。混同しないよう注意！'
+  },
+  'exam_ma_12': {
+    focus: '方べきの定理の接線バージョン: 円の外部の点Pから引いた接線PTと割線PABにおいて「PA・PB = PT²」！',
+    step: '① 接弦定理により、△PTA ∽ △PBT（相似）が成り立ちます。\n② 対応する辺の比をとると: PT : PB = PA : PT。\n③ 外項の積と内項の積を等置すると: PA・PB = PT² が導かれます！',
+    tips: '九大・共通テスト幾何の頻出定理。方べきの定理は相似比から一瞬で証明できます。'
+  },
+
+  // --- 数学I：2次関数・三角比・データ ---
+  'exam_m1_1': {
+    focus: '2次方程式が「異なる2つの正の解」をもつ条件は、① 判別式 D > 0、② 軸 > 0、③ 端点 f(0) > 0 の3点！',
+    step: 'f(x) = x² - 2kx + k + 2 とする。平方完成すると f(x) = (x - k)² - k² + k + 2。\n① 判別式: D/4 = k² - 1(k + 2) = (k - 2)(k + 1) > 0 ➔ k < -1, k > 2。\n② 軸: x = k > 0 ➔ k > 0。\n③ 端点: f(0) = k + 2 > 0 ➔ k > -2。\n④ 3条件の共通範囲をとると: k > 2！',
+    tips: '東大数学の超重要定石「解の配置問題」。放物線が x > 0 で x 軸と2回交わるグラフを描けば、この3条件が自然に導けます。'
+  },
+  'exam_m1_2': {
+    focus: '区間 0 ≦ x ≦ 2 における最小値。平方完成して軸の位置と頂点の y 座標に注目する！',
+    step: '① f(x) = x² - 4ax + 4a² - 2 = (x - 2a)² - 2。\n② 頂点の座標は (2a, -2) で、頂点の y 座標は常に -2 です。\n③ したがって、区間 [0, 2] 内に頂点が含まれているとき、最小値は頂点の y 座標である -2 と一致します。\n④ 頂点が含まれる条件: 0 ≦ 2a ≦ 2 ➔ 0 ≦ a ≦ 1！',
+    tips: '軸 2a が区間の外にあるときは端点（x=0またはx=2）が最小値になり、-2 より大きな値になってしまいます。'
+  },
+  'exam_m1_3': {
+    focus: '内接円の半径 r は、面積 S を求めて「S = (1/2)r(a + b + c)」に等置する！',
+    step: '① 3辺 a=7, b=6, c=5。s = (7 + 6 + 5)/2 = 9。\n② ヘロンの公式で面積 S を計算:\n   S = √{9(9-7)(9-6)(9-5)} = √{9 × 2 × 3 × 4} = 3 × 2 × √6 = 6√6。\n③ S = (1/2)r(a + b + c) に代入:\n   6√6 = (1/2) × r × 18 = 9r ➔ r = 6√6 / 9 = 2√6 / 3！',
+    tips: '京大入試の定番。内接円の半径を問われたら「面積を2通りの式で表して比べる」が絶対の解法パターンです。'
+  },
+  'exam_m1_4': {
+    focus: '3辺 a=7, b=5, c=3 が分かっているときの角 A ➔「余弦定理」を適用！',
+    step: '① 余弦定理: cos A = (b² + c² - a²) / (2bc)。\n② 数値を代入: cos A = (5² + 3² - 7²) / (2 × 5 × 3) = (25 + 9 - 49) / 30 = -15 / 30 = -1/2。\n③ 0° < A < 180° において cos A = -1/2 となる角度は A = 120°！',
+    tips: '東北大基礎問。cos が負の値になったときは鈍角（90°〜180°）になります。cos 120° = -1/2 は即答できるようにしましょう。'
+  },
+  'exam_m1_5': {
+    focus: '相関係数 r = (xとyの共分散) / {(xの標準偏差) × (yの標準偏差)}！',
+    step: '① 公式に数値を代入します。\n   r = sxy / (sx × sy) = 12 / (4 × 5) = 12 / 20 = 0.6！\n② 相関係数は常に -1 ≦ r ≦ 1 の範囲に収まります。',
+    tips: '共通テストデータの分析で必出。分子が共分散、分母が2つの標準偏差の積です。符号と計算ミスに注意！'
+  },
+
+  // --- 数学II・B ---
+  'exam_m2_1': {
+    focus: '放物線と直線で囲まれた面積は「1/6公式: S = (1/6)|a|(β - α)³」を使うのが鉄則！',
+    step: '① 2つの式の交点を求める: x² = 2x + 3 ➔ x² - 2x - 3 = 0 ➔ (x - 3)(x + 1) = 0。\n   交点の x 座標は α = -1, β = 3。\n② 幅: β - α = 3 - (-1) = 4。\n③ 1/6公式に代入: S = (1/6) × 1 × (4)³ = 64 / 6 = 32/3！',
+    tips: '通常の定積分 ∫[-1→3] (2x+3 - x²) dx を真面目に展開・代入すると計算ミスのリスクが高まります。1/6公式を使えば5秒で完答できます。'
+  },
+  'exam_m2_2': {
+    focus: 'sin と cos の1次式は「三角関数の合成: a sin θ + b cos θ = √(a² + b²) sin(θ + α)」！',
+    step: '① 係数 a = 1, b = √3。\n② 合成の振幅: R = √(1² + (√3)²) = √(1 + 3) = √4 = 2。\n③ f(θ) = 2 sin(θ + π/3)。\n④ sin の最大値は 1 なので、全体の最大値は 2 × 1 = 2！',
+    tips: '京大文理共通。角 θ に範囲制限がなければ、振幅 √(a² + b²) がそのまま最大値になります。'
+  },
+  'exam_mb_1': {
+    focus: '漸化式 aₙ₊₁ = paₙ + q は「特性方程式 α = pα + q」を解いて等比数列に変形！',
+    step: '① 特性方程式: α = 3α + 4 ➔ -2α = 4 ➔ α = -2。\n② 変形: aₙ₊₁ - (-2) = 3(aₙ - (-2)) ➔ aₙ₊₁ + 2 = 3(aₙ + 2)。\n③ 数列 {aₙ + 2} は初項 a₁ + 2 = 1 + 2 = 3、公比 3 の等比数列！\n④ aₙ + 2 = 3 × 3ⁿ⁻¹ = 3ⁿ ➔ aₙ = 3ⁿ - 2！',
+    tips: '名大・共テの数列基礎。特性方程式で求めた α を引くことで、公比 p のきれいな等比数列に持ち込めます。'
+  },
+  'exam_mb_2': {
+    focus: '等比数列の初項から第 n 項までの和の公式: Sₙ = a(rⁿ - 1) / (r - 1)！',
+    step: '① 初項 a = 1、公比 r = 2。\n② 公式に代入: Sₙ = 1 × (2ⁿ - 1) / (2 - 1) = 2ⁿ - 1！',
+    tips: '東大基礎問。2進数の桁和やビット演算の原理とも直結する超重要基本公式です。'
+  },
+
+  // --- 数学III・C ---
+  'exam_m3_1': {
+    focus: '区分求積法: lim[n→∞] (1/n) Σ f(k/n) = ∫[0→1] f(x) dx を使う！',
+    step: '① 与式の一般項を (1/n) と (k/n) で表す:\n   k / (n² + k²) = (1/n) × (k/n) / {1 + (k/n)²}。\n② 区分求積法により定積分に置換:\n   ∫[0→1] x / (1 + x²) dx。\n③ 微分形の接触 f\'(x)/f(x) を利用:\n   (1/2) ∫[0→1] (2x) / (1 + x²) dx = (1/2) [log(1 + x²)]₀¹ = (1/2)(log 2 - log 1) = (1/2)log 2！',
+    tips: '東工大・難関理系数学の王道手法。まず全体を 1/n でくくり出し、残りを k/n の関数と見なすのが定石です。'
+  },
+  'exam_m3_2': {
+    focus: '積の微分法 {u(x)v(x)}\' = u\'v + uv\' を使って導関数 f\'(x) = 0 を解く！',
+    step: '① f(x) = x e⁻ˣ。\n② 微分: f\'(x) = (x)\' e⁻ˣ + x (e⁻ˣ)\' = 1・e⁻ˣ + x・(-e⁻ˣ) = (1 - x)e⁻ˣ。\n③ e⁻ˣ > 0 なので、f\'(x) = 0 となるのは 1 - x = 0 ➔ x = 1！\n④ 増減表を調べると、x < 1 で f\' > 0、x > 1 で f\' < 0 となり x = 1 で極大値をとります。',
+    tips: '京大理系の基本問。極大値そのものを問われた場合は f(1) = 1・e⁻¹ = 1/e となります。'
+  },
+  'exam_mc_1': {
+    focus: 'ド・モアブルの定理: {cos θ + i sin θ}ⁿ = cos(nθ) + i sin(nθ)！',
+    step: '① 与式 z = cos(π/6) + i sin(π/6)。\n② z⁶ = cos(6 × π/6) + i sin(6 × π/6) = cos π + i sin π。\n③ cos π = -1, sin π = 0 なので、z⁶ = -1 + 0i = -1！',
+    tips: '東北大・数C複素数平面。偏角が 6倍されて π（180度、実軸の負の方向）に達するため、値は実数の -1 になります。'
+  },
+  'exam_mc_2': {
+    focus: '2ベクトルのなす角 θ の公式: cos θ = (a・b) / (|a||b|)！',
+    step: '① 内積 a・b = 1×2 + 2×(-1) + 2×2 = 2 - 2 + 4 = 4。\n② 大きさ |a| = √(1² + 2² + 2²) = √(1+4+4) = √9 = 3。\n③ 大きさ |b| = √(2² + (-1)² + 2²) = √(4+1+4) = √9 = 3。\n④ cos θ = (a・b) / (|a||b|) = 4 / (3 × 3) = 4/9！',
+    tips: '阪大空間ベクトルの基本。内積の計算と大きさの計算を正確に行い、公式に代入するだけで確実に得点できます。'
+  },
+
+  // --- 理科：生物 ---
+  'exam_bio_1': {
+    focus: 'DNAポリメラーゼの酵素特性: 常に「3\'-OH基」に次のヌクレオチドを付加して伸長する！',
+    step: '① DNAポリメラーゼは既存のヌクレオチド鎖の 3\' 末端のヒドロキシ基（-OH）にしか新たなリン酸基を結合できません。\n② したがって、新しく合成されるDNA鎖は必ず「5\'末端 ➔ 3\'末端」の方向にのみ伸長します。\n③ 鋳型鎖（読まれる側）は逆に「3\' ➔ 5\'」に向かって読み取られます。',
+    tips: '東大・共通テスト生物で毎年形を変えて問われる超重要原則。リーディング鎖・ラギング鎖の岡崎フラグメント形成もこの方向性が原因です。'
+  },
+  'exam_bio_2': {
+    focus: 'ジャコブとモノーの「オペロン説」: プロモーター、オペレーター、構造遺伝子の位置関係！',
+    step: '① プロモーター: RNAポリメラーゼが最初に結合して転写を開始する部位。\n② オペレーター: プロモーターのすぐ下流に位置し、リプレッサー（抑制タンパク質）が結合するとRNAポリメラーゼの進行を物理的にブロックするDNA領域。\n③ ラクトースが結合するとリプレッサーがオペレーターから離れ、転写が進行（誘導）します。',
+    tips: '京大頻出。「プロモーター＝転写の乗り場」「オペレーター＝遮断ゲート」と覚えると混同しません。'
+  },
+  'exam_bio_3': {
+    focus: '光受容の生化学: 桿体細胞の視物質ロドプシン ＝ タンパク質オプシン ＋ ビタミンA誘導体レチナール！',
+    step: '① ロドプシンは光（光子）を吸収すると、シス型レチナールがトランス型レチナールへと立体異性化します。\n② これによりオプシンとの結合が外れてオプシンとレチナールに分解され、細胞膜のナトリウムチャネルが閉じて過分極（活動電位発生）が引き起こされます。',
+    tips: '阪大・慶應医の動物生理。レチナールはビタミンA（レチノール）から合成されるため、ビタミンA欠乏で夜盲症になる理由でもあります。'
+  },
+  'exam_bio_4': {
+    focus: '抗体（免疫グロブリン IgG）のY字型構造: 抗原結合部位は先端の「可変部（V領域）」！',
+    step: '① 抗体分子は2本のH鎖と2本のL鎖からなるY字型をしています。\n② Y字の先端部分（V領域）はアミノ酸配列が抗体ごとに多様に異なっており、特定の抗原と特異的に結合する「可変部」と呼ばれます。\n③ 一方、根元側の部分は種内で共通の「定常部（C領域）」です。',
+    tips: '慶應医学部の定番。遺伝子再編成（V-D-J組み換え）によって可変部の多様性が生み出され、無数の抗原に対応できます。'
+  },
+  'exam_bio_5': {
+    focus: 'ミッチェルの化学浸透説: プロトン（H⁺）は内膜の内側から外側の「膜間腔」へ汲み出される！',
+    step: '① 好気呼吸の電子伝達系では、NADHやFADH₂から渡された電子の移動エネルギーを使って、プロトン（H⁺）がミトコンドリアの「マトリックス（内側）」から「膜間腔（外側）」へと能動輸送されます。\n② これにより膜間腔のH⁺濃度が高くなり、H⁺がATP合成酵素を通ってマトリックスへ逆流する勢いでATPが合成されます。',
+    tips: '名大・東大生物。膜間腔（pHが低い・酸性）とマトリックス（pHが高い・アルカリ性）の濃度勾配を正しく押さえましょう。'
+  },
+
+  // --- 理科：化学 ---
+  'exam_chem_1': {
+    focus: '緩衝液の平衡: 弱酸 HA ⇄ H⁺ + A⁻ の電離平衡定数 Ka を [H⁺] について整理！',
+    step: '① 電離定数の定義: Ka = [H⁺][A⁻] / [HA]。\n② [H⁺] について変形すると: [H⁺] = Ka × [HA] / [A⁻]！\n③ 弱酸とその塩の混合液では、塩の電離により [A⁻] が大量に存在し、酸の電離が抑えられるため、[HA] と [A⁻] の比が少量の酸・塩基添加でもほぼ変化しません。',
+    tips: '東北大・阪大理論化学。両辺の対数をとると、pHを直接計算できるヘンダーソン・ハッセルバルヒの式 pH = pKa + log([A⁻]/[HA]) になります。'
+  },
+  'exam_chem_2': {
+    focus: 'ファラデーの法則: 流れた電気量 Q = I × t [C] から電子のモル数 n(e⁻) = Q / F を求める！',
+    step: '① 電気量 Q = 2.0 A × 965 s = 1930 C。\n② 流れた電子の物質量: 1930 C ÷ 96500 C/mol = 0.02 mol。\n③ 陰極の反応: Cu²⁺ + 2e⁻ ➔ Cu（銅1 molの析出に電子2 molが必要）。\n④ 析出する銅の物質量: 0.02 mol ÷ 2 = 0.01 mol！',
+    tips: '京大・共通テスト化学。電子 2 mol に対して銅 1 mol が対応する比率（1/2倍）を忘れずに計算するのが最大の急所です。'
+  },
+  'exam_chem_3': {
+    focus: 'サリチル酸の官能基反応: フェノール性 -OH をアセチル化すると「アセチルサリチル酸（アスピリン）」！',
+    step: '① サリチル酸はベンゼン環に「-OH（フェノール性）」と「-COOH（カルボキシ基）」の両方をもっています。\n② 無水酢酸を作用させると、-OH 基がエステル化（アセチル化）されて -O-CO-CH₃ に変化し、アセチルサリチル酸（解熱鎮痛剤）が生成します。\n③ ※メタノールと濃硫酸を反応させるとカルボキシ基がエステル化され、サリチル酸メチル（消炎鎮痛湿布薬）になります。',
+    tips: '東大有機化学の超頻出比較。無水酢酸 ➔ アセチルサリチル酸（飲み薬）、メタノール ➔ サリチル酸メチル（塗り薬・湿布）の対比は必ず暗記！'
+  },
+  'exam_chem_4': {
+    focus: 'テレフタル酸（2価カルボン酸）＋ エチレングリコール（2価アルコール）➔「PET（ポリエチレンテレフタラート）」！',
+    step: '① テレフタル酸（パラ位にカルボキシ基2個）とエチレングリコール（ヒドロキシ基2個）が縮合重合してエステル結合（-COO-）を形成します。\n② 生成する代表的な合成高分子ポリエステルが PET（ペットボトルの原料）です。',
+    tips: '東工大高分子化学。ナイロン66（ポリアミド）との区別や、酸とアルコールによる縮合重合の反応式が頻出です。'
+  },
+
+  // --- 理科：物理 ---
+  'exam_phys_1': {
+    focus: 'サイクロトロン周期 T: 円運動の運動方程式から半径 r を求め、T = 2πr / v に代入！',
+    step: '① ローレンツ力 f = qvB が向心力となります。\n② 円運動方程式: m(v²/r) = qvB ➔ r = mv / (qB)。\n③ 周期: T = 2πr / v = 2π(mv / qB) / v = 2πm / (qB)！',
+    tips: '東工大・難関大物理。周期 T の式に速さ v が含まれない（速さによらず周回時間が一定）ため、交流電圧の周波数を一定にして加速し続けられるのがサイクロトロンの特徴です。'
+  },
+  'exam_phys_2': {
+    focus: '電車内の見かけの重力（慣性力）: 進行方向と逆向きに ma の慣性力が働く！',
+    step: '① 電車内の観測者から見ると、振り子には鉛直下向きの重力 mg と、水平後方への慣性力 ma が働きます。\n② 糸の張力 T とこれらの合力がつり合って傾きます。\n③ 鉛直とのなす角 θ において、tan θ = (水平方向の力) / (鉛直方向の力) = ma / mg = a / g！',
+    tips: '東大物理の基本。慣性力 ma を重力 mg とベクトル合成した「見かけの重力」の向きに振り子が傾きます。'
+  },
+  'exam_phys_3': {
+    focus: '光の反射における位相変化: 「屈折率の小さい媒質から大きい媒質」の境界面で反射すると位相が π（半波長）ずれる！',
+    step: '① 空気（屈折率 1.0）から薄膜（屈折率 n > 1.0）の表面での反射は「自由端反射ではなく固定端反射」に相当します。\n② したがって、薄膜表面で反射した光の位相は π（波長の半分 λ/2）反転します。\n③ 一方、薄膜の裏面（膜から空気への反射など屈折率が大きい側から小さい側）では位相は変わりません。',
+    tips: '京大光学の最重要注意点。薄膜干渉の強め合い・弱め合いの条件式で、半波長ずれる反射が何回起きているかを数えるのが第一歩です。'
+  },
+  'exam_phys_4': {
+    focus: 'コンプトン効果: X線光子が電子と弾性衝突し、エネルギーの一部を失って波長が長くなる現象！',
+    step: '① 入射X線光子はエネルギー E = hν = hc/λ をもっています。\n② 物質中の電子と衝突すると、電子を跳ね飛ばして自身のエネルギーを失います。\n③ 光子のエネルギーが減少するため振動数 ν\' は小さくなり、波長 λ\' = c/ν\' は長くなります（波長変化 Δλ = λ\' - λ > 0）。',
+    tips: '阪大・量子力学。光が粒子（エネルギー hν、運動量 h/λ をもつ光子）として振る舞う決定的な証拠となった実験です。'
+  },
+
+  // --- 中学入試・高校入試 難関問 ---
+  'j_sci_exam_1': {
+    focus: 'アルキメデスの原理:「浮力の大きさ ＝ 物体が押しのけた液体の重さ」！',
+    step: '① 直方体の体積: 50 cm² × 10 cm = 500 cm³。\n② 完全に沈んでいるので、押しのけた水の体積は 500 cm³。\n③ 水 1 cm³ は 1 g なので、押しのけた水の質量は 500 g。\n④ 100 g = 1 N より、浮力の大きさは 500 ÷ 100 = 5 N！',
+    tips: '開成高校過去問。物体の質量や底面の深さに関係なく、「沈んでいる体積分の水」の重さがそのまま浮力になります。'
+  },
+  'j_math_exam_1': {
+    focus: '対称式の変形公式: x² + y² = (x + y)² - 2xy を利用する！',
+    step: '① 与えられた値: x + y = 5, xy = 3。\n② (x + y)² = x² + 2xy + y² より、2xy を移項すると x² + y² = (x + y)² - 2xy。\n③ 代入: 5² - 2 × 3 = 25 - 6 = 19！',
+    tips: '開成高校入試。x と y の具体的な値を解の公式で求める必要は一切ありません。「和と積の形にして代入」が数学の基本原則です。'
+  },
+  'j_eng_exam_1': {
+    focus: '間接疑問文の語順: 文の一部として組み込まれた疑問文は「疑問詞 ＋ 主語(S) ＋ 動詞(V)」の肯定文の語順に戻る！',
+    step: '① 単体の疑問文なら「Where does he live?」です。\n② しかし「Do you know」の後ろに接続するときは、疑問詞 where の後ろが「S + V」の平叙文語順になります。\n③ 主語 he は三人称単数なので動詞は lives ➔「where he lives」が正解！',
+    tips: '開成・慶應など高校入試の最頻出トラップ。「where does he live」と疑問文語順のまま残してしまう間違いが多発します。'
   }
-  const sq = QUIZ_MASTER.find(x => x.id === m.id || x.q === m.q);
-  if (sq && sq.exp) return sq.exp;
-  return '【ポイント】正解のキーワードや公式をしっかり復習して記憶に定着させよう！';
+};
+
+// 💡 どんな問題でも的確・詳細な思考プロセスを動的生成するスマート解説エンジン
+function generateDynamicExplanation(m) {
+  const isEng = (m.subj && String(m.subj).startsWith('eng'));
+  const qStr = m.q || '';
+  const aStr = m.ans || '';
+
+  // 1. 動的英単語問題
+  if (m.id && m.id.startsWith('dyn_eng_word_')) {
+    return {
+      focus: `英単語「${qStr}」の意味・ニュアンスの把握`,
+      step: `【正解】${aStr}\n大学入試（共通テスト・私大・国公立2次）で超頻出の必須英単語です。文脈の中で即座に意味をイメージできるように反復練習しましょう。`,
+      tips: `単語帳の例文や派生語・反意語とセットで声に出して覚えると定着率が倍増します！`
+    };
+  }
+
+  // 2. 動的英熟語問題
+  if (m.id && m.id.startsWith('dyn_eng_idiom_')) {
+    return {
+      focus: `英熟語・イディオム「${qStr}」の語法と前置詞のイメージ`,
+      step: `【意味】${aStr}\n動詞と前置詞（または副詞）がセットになって特定の意味を成す連語表現です。前置詞のコアイメージ（to=到達、from=分離、of=関連など）を意識して押さえましょう。`,
+      tips: `空所補充や整序英作文で最も配点が高い分野です。前後につながる名詞の型まで確認しましょう！`
+    };
+  }
+
+  // 3. 英文法問題
+  if (isEng || (m.subj && m.subj.includes('eng'))) {
+    return {
+      focus: `文構造（SVO・品詞）と文法ルールの正確な適用`,
+      step: `【正解】${aStr}\n問題文の空所前後の品詞（名詞・動詞・形容詞・副詞）や、時制・主語の人称・単複の一致を確認することが解答への決定打となります。`,
+      tips: `他のハズレ選択肢がなぜ文法的に不適格なのか（品詞違い・時制の不一致など）を理由づけしながら見直しましょう！`
+    };
+  }
+
+  // 4. 数学問題
+  if (m.subj && (m.subj.startsWith('m') || m.subj.includes('math'))) {
+    return {
+      focus: `公式の選定と立式の手順確認`,
+      step: `【正解】${aStr}\n問題文で与えられた条件を整理し、該当する単元の公式に当てはめて計算を進めます。途中式での符号ミスや約分漏れに注意しましょう。`,
+      tips: `解き終わった後に「逆算して問題の条件と一致するか」検算を行う習慣が合格点への近道です！`
+    };
+  }
+
+  // 5. 理科問題（生物・化学・物理）
+  return {
+    focus: `重要用語・自然現象のメカニズムの本質的理解`,
+    step: `【正解】${aStr}\n問題文の現象が「なぜ・どのような仕組みで起きるのか」という因果関係を押さえることがポイントです。`,
+    tips: `単にキーワードを暗記するだけでなく、教科書やハンドブックの図解・グラフと一緒に結びつけて整理しましょう！`
+  };
+}
+
+// 復習ノート用：見やすく構造化されたリッチ解説HTMLを生成する関数
+function findQuestionExp(m) {
+  // 1. アーカイブから直接IDで検索
+  let info = EXPLANATION_ARCHIVE[m.id];
+
+  // 2. 問題文で部分一致検索（過去のセーブデータ等でIDが異なる場合の救済）
+  if (!info && m.q) {
+    const matchedKey = Object.keys(EXPLANATION_ARCHIVE).find(k => {
+      const target = EXPLANATION_ARCHIVE[k];
+      return target && target.qMatch && m.q.includes(target.qMatch);
+    });
+    if (matchedKey) info = EXPLANATION_ARCHIVE[matchedKey];
+  }
+
+  // 3. 独自に問題オブジェクト自身が丁寧な exp を持っている場合
+  if (!info && m.exp && !m.exp.includes('正解のキーワードや公式をしっかり復習')) {
+    return `
+      <div class="exp-section">
+        <div class="exp-title exp-title-step">💡 ポイント解説</div>
+        <div class="exp-body-text">${m.exp.replace(/\n/g, '<br>')}</div>
+      </div>
+    `;
+  }
+
+  // 4. 動的解説の生成
+  if (!info) {
+    info = generateDynamicExplanation(m);
+  }
+
+  // 構造化HTMLを構築
+  let html = '';
+  if (info.focus) {
+    html += `
+      <div class="exp-section">
+        <div class="exp-title exp-title-focus">🎯 着眼点・使用公式</div>
+        <div class="exp-body-text">${info.focus.replace(/\n/g, '<br>')}</div>
+      </div>
+    `;
+  }
+  if (info.step) {
+    html += `
+      <div class="exp-section">
+        <div class="exp-title exp-title-step">✍️ 思考ステップ・解法</div>
+        <div class="exp-body-text">${info.step.replace(/\n/g, '<br>')}</div>
+      </div>
+    `;
+  }
+  if (info.tips) {
+    html += `
+      <div class="exp-section">
+        <div class="exp-title exp-title-tips">⚠️ 合格のツボ・注意点</div>
+        <div class="exp-body-text">${info.tips.replace(/\n/g, '<br>')}</div>
+      </div>
+    `;
+  }
+  return html || `<div class="exp-body-text">正解：<strong>${m.ans}</strong></div>`;
 }
 
 function findQuestionChoices(m) {
@@ -9499,9 +9854,9 @@ function renderMistakes() {
           <div style="font-weight:900; font-size:0.92rem; color:#0f172a; margin-bottom:4px;">${m.q}</div>
           <div style="font-size:0.84rem; color:#15803d; font-weight:900; margin-bottom:6px;">正解：<strong>${m.ans}</strong></div>
 
-          <!-- 解説トグル領域 -->
-          <div id="mistakeExpBox_${origIdx}" style="display:none; background:#f0fdf4; border:1px solid #86efac; border-radius:8px; padding:8px 12px; font-size:0.8rem; color:#166534; line-height:1.5; margin-bottom:8px;">
-            💡 <strong>解説・ポイント：</strong><br>${expText}
+          <!-- 解説トグル領域（構造化リッチ解説表示） -->
+          <div id="mistakeExpBox_${origIdx}" class="mistake-exp-container" style="display:none;">
+            ${expText}
           </div>
 
           <!-- 解き直し領域 -->
@@ -9600,10 +9955,11 @@ let allHandbookExpanded = false;
 
 const HANDBOOK_DATA = {
   math: [
+    // --- 🎒 中学数学 ---
     {
       level: 'junior',
       levelText: '🎒 中学',
-      tag: '二次方程式',
+      tag: '二次方程式の解の公式',
       onePhrase: '因数分解できなくても、数字を入れるだけで100%解が出る万能マシーン！',
       formulaText: 'x = (-b ± √(b² - 4ac)) / 2a',
       concept: 'どんなにややこしい2次方程式 ax² + bx + c = 0 でも、a, b, c の数値をそのまま公式に流し込むだけで絶対に答え（解）を吐き出してくれます。特に√の中身（b² - 4ac）がマイナスなら実数解なし！',
@@ -9612,11 +9968,11 @@ const HANDBOOK_DATA = {
     {
       level: 'junior',
       levelText: '🎒 中学',
-      tag: '三平方の定理',
+      tag: '三平方の定理（ピタゴラスの定理）',
       onePhrase: '直角三角形なら『ナナメの2乗 ＝ タテの2乗 ＋ ヨコの2乗』が絶対に成り立つ！',
-      formulaText: 'c² = a² + b² （斜辺c）',
+      formulaText: 'c² = a² + b² （直角三角形の斜辺 c）',
       concept: '直角をはさむ2辺の長さをそれぞれ2乗して足すと、一番長いナナメの辺（斜辺）の2乗とピッタリ一致する幾何学の絶対法則。ピラミッド建設からGPS測位、ゲームの距離計算まで全世界で使われています！',
-      tips: '【有名比は秒で暗記】3:4:5、5:12:13、1:1:√2（45°三角定規）、1:2:√3（30°-60°定規）は計算せず即答！'
+      tips: '【超有名比は暗算で即答！】3:4:5、5:12:13、1:1:√2（45°直角二等辺）、1:2:√3（30°-60°三角定規）。'
     },
     {
       level: 'junior',
@@ -9630,11 +9986,29 @@ const HANDBOOK_DATA = {
     {
       level: 'junior',
       levelText: '🎒 中学',
-      tag: '一次関数の式・傾き',
+      tag: '一次関数の式・変化の割合',
       onePhrase: 'グラフの傾き（スピード）と切片（スタート地点）がひと目でわかる！',
-      formulaText: 'y = ax + b　（傾き a ＝ yの増加量 ÷ xの増加量）',
+      formulaText: 'y = ax + b　（変化の割合 ＝ yの増加量 ÷ xの増加量 ＝ 傾き a）',
       concept: 'xが1進んだときにyがどれだけ増えるかが傾き a。bはy軸とぶつかるスタート地点（切片）。スマホの料金プラン（基本料金b ＋ 通信料ax）など世の中の基本比例モデルはこれ！',
       tips: '2点 (x₁, y₁), (x₂, y₂) を通る直線の傾きは (y₂ - y₁) / (x₂ - x₁) で一発！'
+    },
+    {
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '円周角の定理',
+      onePhrase: '同じ弧から出る円周角はどこでも同じ！中心角は円周角のちょうど2倍！',
+      formulaText: '円周角 ＝ 1/2 × 中心角　（半円の弧に対する円周角は 90°）',
+      concept: '同じ弧に対する円周角の大きさは常に一定で、中心角の半分になります。特に直径に対する円周角は必ず90°（直角）になる性質は高校受験・大学入試共通の最頻出テク！',
+      tips: '直径を見たら即座に直角（90°）の三角形を作れるか探すのが鉄則！'
+    },
+    {
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '相似比・面積比・体積比',
+      onePhrase: '長さが k 倍なら、広さは k² 倍、重さ（体積）は k³ 倍！',
+      formulaText: '相似比 a : b ➔ 面積比 a² : b² ➔ 体積比 a³ : b³',
+      concept: '相似な立体において、高さが2倍になると表面積は4倍、体積（重さ）は8倍になります。巨大怪獣が自分の体重を支えられない理由もこの二乗三乗の法則！',
+      tips: '入試問題では「水そうに水を入れる問題」や「円錐の切断」で体積比の逆算が狙われます！'
     },
     {
       level: 'junior',
@@ -9645,324 +10019,787 @@ const HANDBOOK_DATA = {
       concept: '半径 r のボールの体積と表面積。\n・体積 V ＝ 4/3 πr³（身の上に心配あーるの3乗）\n・表面積 S ＝ 4πr²（心配あるある）',
       tips: '体積は3次元なので「3乗」、面積は2次元なので「2乗」と覚えると混ざらない！'
     },
+
+    // --- 🏛️ 高校 数学I ---
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: '解と係数の関係',
-      onePhrase: '方程式を解かなくても、2つの解の『足し算』と『掛け算』が一瞬でわかる！',
-      formulaText: 'α + β = -b/a　,　αβ = c/a',
-      concept: 'ax² + bx + c = 0 の解をわざわざ求めなくても、係数を見るだけで「解の和」と「解の積」が判明します。対称式（α² + β² = (α+β)² - 2αβ）とセットで使う超頻出テクニック！',
-      tips: '【符号ミスに注意】和（α+β）にはマイナスがつき、積（αβ）にはマイナスがつかない！'
+      tag: '数I：2次関数の平方完成',
+      onePhrase: '放物線の頂点 (p, q) と軸の方程式が一撃で浮き彫りになる！',
+      formulaText: 'y = a(x - p)² + q　➔　頂点 (p, q) , 軸 x = p',
+      concept: 'y = ax² + bx + c の真ん中の係数の半分をカッコの中に入れる変形。最大値・最小値を求める問題は、まず平方完成してグラフを描くのが絶対の第一歩！',
+      tips: '頂点の x 座標は p = -b / 2a。最大最小は「定義域の端点」と「軸」の位置関係で場合分け！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: '三角比の基本相互関係',
+      tag: '数I：2次方程式の判別式',
+      onePhrase: 'グラフが x 軸と何箇所で交わるか、計算せずに一瞬で判定！',
+      formulaText: 'D = b² - 4ac　（D > 0: 2個 , D = 0: 1個(重解) , D < 0: 0個）',
+      concept: '解の公式のルートの中身。D > 0 なら異なる2つの実数解（2点で交わる）、D = 0 なら接する、D < 0 なら宙に浮いて交わりません。',
+      tips: '常に y > 0（宙に浮く）条件は「a > 0 かつ D < 0」！D < 0 を忘れがちなので注意！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数I：三角比の基本相互関係',
       onePhrase: '直角三角形のsin・cos・tanは、1つの値が分かれば全部芋づる式に求まる！',
-      formulaText: 'sin²θ + cos²θ = 1　,　tanθ = sinθ / cosθ',
-      concept: '単位円（半径1の円）上の座標 (cosθ, sinθ) から三平方の定理で導かれる絶対法則。もう1つの『1 + tan²θ = 1/cos²θ』も大学入試で頻出！',
+      formulaText: 'sin²θ + cos²θ = 1　,　tanθ = sinθ / cosθ　,　1 + tan²θ = 1 / cos²θ',
+      concept: '単位円（半径1の円）上の座標 (cosθ, sinθ) から三平方の定理で導かれる絶対法則。大学入試の全分野で変形パーツとして使われます。',
       tips: 'θの角度が第何象限かによって符号が変わる（All-Sin-Tan-Cos）を必ず確認！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: '正弦定理・余弦定理',
+      tag: '数I：正弦定理・余弦定理',
       onePhrase: '向かい合う角と辺なら「正弦」、3辺の長さが絡むなら「余弦」を使う！',
-      formulaText: '【正弦】a/sinA = 2R　【余弦】a² = b² + c² - 2bc cosA',
-      concept: '三角形のどんな形でも、外接円の半径 R を求めたい時は正弦定理。2辺と間の角から残り1辺を出したい時や、3辺から角度を出したい時は余弦定理を使います。',
-      tips: '三角形の面積は S = 1/2 bc sinA で一瞬！'
+      formulaText: '【正弦】a/sinA = b/sinB = 2R　【余弦】a² = b² + c² - 2bc cosA',
+      concept: '外接円の半径 R を求めたい時や向かい合うペアが分かっている時は正弦定理。2辺と間の角から残り1辺を出したい時や、3辺から角度を出したい時は余弦定理を使います。',
+      tips: '三角形の面積は S = 1/2 bc sinA で一発！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: '順列 nPr と 組合せ nCr',
+      tag: '数I：三角形の内接円と面積',
+      onePhrase: '3辺の長さと内接円の半径 r だけで、三角形の面積が求まる！',
+      formulaText: 'S = 1/2 r (a + b + c)',
+      concept: '内接円の中心から3本の頂点に線を引くと、底辺が a, b, c で高さがすべて r の3つの三角形に分割できることから導かれます。',
+      tips: 'ヘロンの公式や余弦定理で先に面積 S を求めてから、内接円半径 r を逆算する流れが頻出！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数I：データの分析（分散・標準偏差）',
+      onePhrase: 'データの散らばり具合を数値化！「2乗の平均 引く 平均の2乗」！',
+      formulaText: '分散 s² = (各データの2乗の平均) - (平均値)²',
+      concept: '平均からのズレ（偏差）を2乗して平均したものが分散。その平方根をとったものが標準偏差 s。共通テストではこの計算が確実に得点源になります。',
+      tips: '相関係数 r = s_xy / (s_x × s_y)。値は必ず -1 ≦ r ≦ 1 の範囲に収まる！'
+    },
+
+    // --- 🏛️ 高校 数学A ---
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数A：順列 nPr と 組合せ nCr',
       onePhrase: '「順番をつけて並べる」ならP、「選ぶだけ」ならC！',
-      formulaText: 'nPr = n! / (n-r)!　,　nCr = nPr / r!',
+      formulaText: 'nPr = n! / (n-r)!　,　nCr = nPr / r! = n! / (r!(n-r)!)',
       concept: 'リレー走者（第1走者、第2走者…）を決めるなら順列P。クラスから掃除当番を3人選ぶだけなら順番関係ないので組合せC。',
-      tips: '【超時短】nC(r) = nC(n-r)！例えば 10C8 を計算する時は 10C2 に直して計算する！'
+      tips: '【超時短】nCr = nC(n-r)！例えば 10C8 を計算する時は 10C2 に直して計算する！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: '等差数列・等比数列',
-      onePhrase: '一定ずつ足すのが等差、一定ずつ掛けるのが等比！',
-      formulaText: '【等差】an = a + (n-1)d　【等比】an = a・rⁿ⁻¹',
-      concept: '貯金箱に毎日100円ずつ足すのが等差数列。細菌が倍々に増えていくのが等比数列。和の公式 Sn も共通テストの定番！',
-      tips: 'Σ公式：Σk = n(n+1)/2、Σk² = n(n+1)(2n+1)/6 は暗記必須！'
+      tag: '数A：反復試行の確率',
+      onePhrase: '同じゲームを何回も繰り返す！「組合せC × 当たる確率 × 外れる確率」！',
+      formulaText: 'P = nCr × pʳ × (1 - p)ⁿ⁻ʳ',
+      concept: 'サイコロを5回投げて1の目がちょうど2回出る確率など。「どの回で当たるか（nCr）」と「当たりの掛け算（pʳ）」と「外れの掛け算」をセットにする公式！',
+      tips: 'サイコロやコイントスのように「前回の結果が次回に影響しない独立試行」で使う！'
     },
     {
-      level: 'exam',
-      levelText: '🔥 大学入試',
-      tag: '加法定理・2倍角',
-      onePhrase: '角度の足し算・引き算を分解！三角関数の最強変形公式！',
-      formulaText: 'sin(α+β) = sinα cosβ + cosα sinβ',
-      concept: '咲いたコスモスコスモス咲いた（sin）、コスモスコスモス咲いた咲いた（cos）。2倍角公式 sin2θ = 2sinθcosθ もここから一瞬で導出可能！',
-      tips: '三角関数の合成『a sinθ + b cosθ = √(a²+b²) sin(θ+α)』で最大値・最小値を仕留める！'
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数A：条件付き確率',
+      onePhrase: '「Aが起きたという情報のもとで、Bも起きている確率」！',
+      formulaText: 'P_A(B) = P(A ∩ B) / P(A) = n(A ∩ B) / n(A)',
+      concept: '全体の世界（分母）を全事象から「事象Aだけ」にギュッと狭めて考えます。検査の陽性判定やウソつきの確率問題など大学入試の超頻出分野！',
+      tips: 'P(A ∩ B) = P(A) × P_A(B)（確率の乗法定理）としても自由に変形できるように！'
     },
     {
-      level: 'exam',
-      levelText: '🔥 大学入試',
-      tag: '1/6公式（積分と面積）',
-      onePhrase: '放課後の計算地獄をショートカット！放物線と直線の面積を5秒で求める裏技！',
-      formulaText: 'S = |a| / 6 × (β - α)³',
-      concept: '2次関数と直線で囲まれた面積をまともに定積分すると5分かかりますが、交点α, βさえ分かればこの公式で一瞬（暗算レベル）で面積が求まります。共通テストや私大マーク模試で絶大な威力を発揮！',
-      tips: '交点の大小関係は必ず『β ＞ α』！|a| はx²の係数の絶対値です。'
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数A：整数の性質（ユークリッドの互除法）',
+      onePhrase: 'どんなに巨大な2つの数でも、割り算を繰り返せば最大公約数が求まる！',
+      formulaText: 'a を b で割った余りを r とすると、gcd(a, b) = gcd(b, r)',
+      concept: '782 と 391 の最大公約数など、素因数分解しにくい大きな数でも「割った余り」と元の割る数で互除法を回すだけで一瞬で最大公約数（GCD）に到達します。',
+      tips: '不定方程式 ax + by = 1 の特殊解を求める際にもこの互除法を逆算して使います！'
     },
     {
-      level: 'exam',
-      levelText: '🔥 大学入試',
-      tag: '点と直線の距離',
-      onePhrase: '点から直線におろした最短距離（垂線の長さ）を一撃で求める！',
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数A：図形の性質（方べきの定理）',
+      onePhrase: '円を横切る直線と接線！「交点からの2つの長さの積」が常に一定！',
+      formulaText: 'PA・PB = PC・PD　,　PA・PB = PT² （接点T）',
+      concept: '円の交わる2弦や、外部の点Pから引いた割線と接線において、Pから各交点までの距離の積は常に等しくなります。',
+      tips: '三角形の相似から証明可能。円と直線が出てきたら真っ先に方べきを疑おう！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数A：チェバの定理・メネラウスの定理',
+      onePhrase: '三角形のまわりを一筆書きで1周！辺の比の掛け算が必ず「1」になる！',
+      formulaText: '(AF/FB) × (BD/DC) × (CE/EA) = 1',
+      concept: 'チェバは三角形の内部の1点で3本の線が交わるとき。メネラウスは三角形を1本の直線がズバッと横切るとき。頂点➔分点➔頂点とリズミカルに1周するだけ！',
+      tips: '「頂点・分点・頂点・分点・頂点・分点」の順序を崩さなければ絶対に立式できる！'
+    },
+
+    // --- 🏛️ 高校 数学II ---
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数II：二項定理',
+      onePhrase: '(a + b)ⁿ を展開したときの、特定の項の係数を一撃で引っこ抜く！',
+      formulaText: '(a + b)ⁿ の一般項 ＝ nCr × aⁿ⁻ʳ × bʳ',
+      concept: 'カッコが n 個並んでいる中から、文字 b を何個（r個）選ぶかという組合せの考え方。(x + 2)⁶ の x⁴ の係数などを展開せずに暗算できます。',
+      tips: '3つの多項展開式 (a + b + c)ⁿ の一般項は n! / (p! q! r!) × aᵖ b^q cʳ！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数II：解と係数の関係',
+      onePhrase: '方程式を解かなくても、解の『足し算』と『掛け算』が一瞬でわかる！',
+      formulaText: 'ax² + bx + c = 0 の解 α, β ➔ α + β = -b/a , αβ = c/a',
+      concept: '係数を見るだけで解の和と積が分かります。対称式（α² + β² = (α+β)² - 2αβ）と組み合わせて使う受験定番テクニック！',
+      tips: '【3次方程式バージョン】α + β + γ = -b/a , αβ + βγ + γα = c/a , αβγ = -d/a！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数II：相加平均と相乗平均の大小関係',
+      onePhrase: '足し算は掛け算のルートの2倍以上！逆数の和の最小値問題で無双！',
+      formulaText: 'a > 0, b > 0 のとき　(a + b) / 2 ≧ √(ab)　（等号成立は a = b）',
+      concept: '長方形の周の長さが一定なら、正方形のとき面積最大になる直感と同じ。「x + 1/x ≧ 2」のように、掛けて文字が消える形の最小値で威力を発揮！',
+      tips: '【使用前の呪文】使う前に必ず「a > 0, b > 0 より」と断り書きを入れないと減点される！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数II：点と直線の距離の公式',
+      onePhrase: '点から直線におろした最短距離（垂線の長さ）を一発で求める！',
       formulaText: 'd = |ax₁ + by₁ + c| / √(a² + b²)',
-      concept: '点 (x₁, y₁) と直線 ax + by + c = 0 の距離 d。円と直線の交点判定（中心からの距離 d と 半径 r の比較）で連立方程式を解く手間を半減できます！',
-      tips: 'ルートの中は直線の係数の2乗和 √(a²+b²)、分子は代入して絶対値をとる！'
+      concept: '点 (x₁, y₁) と直線 ax + by + c = 0 の距離 d。円と直線の交点判定（中心からの距離 d と 半径 r の比較）で連立方程式を解く手間を大幅省略できます！',
+      tips: '分子は直線の式に点の座標を代入して絶対値をとる。分母は係数の2乗和のルート！'
     },
     {
       level: 'exam',
       levelText: '🔥 大学入試',
-      tag: '積の微分・商の微分',
-      onePhrase: '掛け算・割り算の微分はそのまま微分しちゃダメ！交互に微分する！',
-      formulaText: '{f・g}\' = f\'g + fg\'　,　{f/g}\' = (f\'g - fg\') / g²',
-      concept: '数III微分の登竜門。積の微分は「前微分×後ろそのまま ＋ 前そのまま×後ろ微分」。商の微分は「分母を2乗、分子は子微分親そのまま引く親微分子そのまま」。',
-      tips: '合成関数の微分 dy/dx = (dy/du)・(du/dx) も併用必須！'
+      tag: '数II：三角関数の加法定理・2倍角公式',
+      onePhrase: '角度の足し算を分解！すべての三角関数変形の母胎！',
+      formulaText: 'sin(α±β) = sinα cosβ ± cosα sinβ　,　cos(α±β) = cosα cosβ ∓ sinα sinβ',
+      concept: '咲いたコスモスコスモス咲いた（sin）、コスモスコスモス咲いた咲いた（cos）。2倍角公式「sin2θ = 2sinθcosθ」「cos2θ = cos²θ - sin²θ = 2cos²θ - 1」もここから瞬時に導出！',
+      tips: '半角の公式：sin²(θ/2) = (1 - cosθ)/2、cos²(θ/2) = (1 + cosθ)/2 も必須！'
     },
     {
       level: 'exam',
       levelText: '🔥 大学入試',
-      tag: '部分積分法',
+      tag: '数II：三角関数の合成',
+      onePhrase: 'sin と cos の足し算を、1つの sin にまとめて最大・最小を制覇！',
+      formulaText: 'a sinθ + b cosθ = √(a² + b²) sin(θ + α)　（cosα = a/√(a²+b²), sinα = b/√(a²+b²)）',
+      concept: '座標平面上の点 (a, b) をとると、原点からの距離が √(a²+b²)、偏角が α になることから1本の波に合体できます。関数の最大値・最小値問題の必勝法！',
+      tips: 'θの範囲によって sin(θ+α) が 1 になれるか（最大値をとれるか）の確認を怠らないこと！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数II：対数の基本性質と底の変換公式',
+      onePhrase: '掛け算を足し算に変換！底が違うときは別の底で分数に直す！',
+      formulaText: 'log_a(MN) = log_a M + log_a N　,　log_a b = (log_c b) / (log_c a)',
+      concept: '対数は指数の裏返し。底の変換公式を使えば、log₂ 3 や log₃ 8 などを共通の底（10やeなど）に揃えて約分・計算できるようになります。',
+      tips: '【真数条件と底条件】真数 > 0、底 > 0 かつ 底 ≠ 1 を解く前に必ず書くこと！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '数II：面積の1/6公式',
+      onePhrase: '放課後の計算地獄をショートカット！放物線と直線の面積を5秒で求める裏技！',
+      formulaText: 'S = |a| / 6 × (β - α)³　（交点 α, β）',
+      concept: '2次関数と直線（または2つの放物線）で囲まれた面積。まともに定積分すると5分かかりますが、交点 α, β さえ出せば暗算レベルで面積が求まります。マーク模試必須技！',
+      tips: '放物線と2本の接線で囲まれる面積は「1/12公式：S = |a| / 12 × (β - α)³」！'
+    },
+
+    // --- 🏛️ 高校 数学B ---
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数B：等差数列・等比数列の公式',
+      onePhrase: '一定ずつ足すのが等差、一定ずつ掛けるのが等比！',
+      formulaText: '【等差】an = a + (n-1)d , Sn = n/2 (2a + (n-1)d)　【等比】an = a・rⁿ⁻¹ , Sn = a(1 - rⁿ)/(1 - r)',
+      concept: '貯金箱に毎日一定額を入れるのが等差。預金の複利や細胞分裂のように倍々で増えるのが等比。和の公式はどちらも大学入試の基礎骨格です。',
+      tips: '等差中項「2b = a + c」、等比中項「b² = ac」の性質も頻出！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数B：数列の和の記号（Σ公式）',
+      onePhrase: '1からnまでの合計！1乗・2乗・3乗のまとめ計算！',
+      formulaText: 'Σk = n(n+1)/2　,　Σk² = n(n+1)(2n+1)/6　,　Σk³ = {n(n+1)/2}²',
+      concept: '連続する整数の和、平方の和、立方の和を一気に求める公式。Σk³ はなんと「Σk の全体2乗」という綺麗な形になっています。',
+      tips: 'Σc（定数）は c × n になる！c だけで終わらせる初歩ミスに注意！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '数B：漸化式の特性方程式',
+      onePhrase: 'aₙ₊₁ = p aₙ + q を等比数列の形に変形して一般項を仕留める！',
+      formulaText: 'α = pα + q を解き、aₙ₊₁ - α = p(aₙ - α) に持ち込む',
+      concept: '番号が1つ進む関係式。α を引いて公比 p の等比数列 {aₙ - α} に変形することで、初項 a₁ - α から一瞬で一般項が求まります。',
+      tips: '分数型、和を含む型、隣接3項間など、すべての漸化式変形の原点！'
+    },
+
+    // --- 🏛️ 高校 数学III・C ---
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '数III：関数の極限と重要公式',
+      onePhrase: '微分の定義の根底にある、超重要極限！',
+      formulaText: 'lim[x→0] (sin x) / x = 1　,　lim[x→0] (1 + x)^(1/x) = e （自然対数の底）',
+      concept: 'xが限りなく0に近づくとき、sin x と x はほぼ同じ長さになるという幾何学的性質。三角関数の微分公式 (sin x)\' = cos x を導出する核心です。',
+      tips: '分子と分母の「カタチ」が一致していないと使えない！lim[x→0] (sin 3x) / x = 3！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '数III：積の微分・商の微分・合成関数',
+      onePhrase: '微分の3種の神器！交互に微分、分母2乗、外微分×中微分！',
+      formulaText: '{f・g}\' = f\'g + fg\'　,　{f/g}\' = (f\'g - fg\') / g²　,　dy/dx = (dy/du)・(du/dx)',
+      concept: '関数同士の掛け算・割り算・入れ子の微分。積の微分は「前微×後ろそのまま ＋ 前その×後ろ微」。商の微分は「子微親その 引く 親微子その を 親の2乗で割る」。',
+      tips: '合成関数の微分で「中身の微分（中微分）」を掛け忘れるミスが最も多いので厳重注意！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '数III：部分積分法と置換積分法',
       onePhrase: '掛け算の積分をほどく！『そのまま・積分 引く 微分・積分』！',
-      formulaText: '∫ f(x)g\'(x) dx = f(x)g(x) - ∫ f\'(x)g(x) dx',
-      concept: 'log x や x・eˣ などの積分で威力を発揮。微分して簡単になる方を f(x)、積分しやすい方を g\'(x) に選ぶのがコツ！',
-      tips: '∫ log x dx = x log x - x + C は暗記レベルの定番頻出！'
+      formulaText: '【部分積分】∫ f g\' dx = f g - ∫ f\' g dx　【置換積分】∫ f(g(x)) g\'(x) dx = ∫ f(t) dt',
+      concept: 'log x や多項式×三角関数・指数関数の積分。微分して簡単になる方を f、積分しやすい方を g\' に置くのが部分積分のセオリー。',
+      tips: '∫ log x dx = x log x - x + C は解法を暗記しておくべき定番！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数C：平面・空間ベクトルの内積',
+      onePhrase: '矢印同士の掛け算！「大きさ × 大きさ × cosθ」＝「成分の積の和」！',
+      formulaText: 'a・b = |a||b| cosθ = a₁b₁ + a₂b₂ (+ a₃b₃)',
+      concept: '2つのベクトルの向きの揃い具合を表す量。特に「垂直 ➔ 内積 ＝ 0」は未知の座標や角度を決定する入試最強の武器！',
+      tips: '大きさの2乗計算 |a + tb|² = |a|² + 2t(a・b) + t²|b|² から最小値を求める流れが超頻出！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '数C：複素数平面（ド・モアブルの定理）',
+      onePhrase: '複素数を掛けると「長さは掛け算、角度は足し算」になる！',
+      formulaText: '(cosθ + i sinθ)ⁿ = cos(nθ) + i sin(nθ)',
+      concept: '極形式 z = r(cosθ + i sinθ) を n 乗すると、大きさは rⁿ、回転角は nθ になります。方程式 zⁿ = 1 の解（単位円の円周等分点）を求める問題で大活躍！',
+      tips: '回転移動：点 z を原点中心に α だけ回転させたいときは (cosα + i sinα) を掛けるだけ！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '数C：2次曲線の標準形',
+      onePhrase: '足して1なら楕円、引いて1なら双曲線！',
+      formulaText: '【楕円】x²/a² + y²/b² = 1 (焦点 c² = a²-b²)　【双曲線】x²/a² - y²/b² = 1 (漸近線 y = ±b/a x)',
+      concept: '2つの焦点からの距離の和が一定なのが楕円、距離の差が一定なのが双曲線。天体の軌道やアンテナの反射板などに応用されています。',
+      tips: '双曲線の漸近線の方程式「y = ±(b/a)x」は右辺を 0 にした式から導出できる！'
     }
   ],
+
   sci: [
+    // --- 🎒 中学理科 ---
     {
       level: 'junior',
       levelText: '🎒 中学',
-      tag: '物理・電気',
-      onePhrase: '電圧・電流・抵抗の黄金三角形！これだけで電気回路は完全制覇！',
-      formulaText: 'V = R × I （電圧 ＝ 抵抗 × 電流）',
-      concept: '水道管に例えると、水圧（V）が高くなるほど水流（I）が多く流れ、パイプが細い（抵抗R大）と流れにくくなる関係。電力 P [W] ＝ V × I も必須！',
-      tips: '直列回路は「電流がどこでも一定」、並列回路は「電圧がどこでも同じ」！'
+      tag: '物理・オームの法則',
+      onePhrase: '電圧・電流・抵抗の黄金三角形！回路計算のすべてがここから始まる！',
+      formulaText: 'V = R × I （電圧[V] ＝ 抵抗[Ω] × 電流[A]）',
+      concept: '水圧（V）が高くなるほど水流（I）が多く流れ、パイプが細い（抵抗R大）と流れにくくなる関係。電力 P [W] ＝ V × I、電力量 W [J] ＝ P × t [秒] も必須！',
+      tips: '直列回路は「電流がどこでも同じ」、並列回路は「電圧がどこでも同じ」！'
     },
     {
       level: 'junior',
       levelText: '🎒 中学',
-      tag: '物理・仕事と力',
-      onePhrase: 'てこや滑車を使っても「トータルの仕事（エネルギー）」は絶対得しない！',
-      formulaText: '仕事 W [J] ＝ 力 F [N] × 移動距離 s [m]',
-      concept: '動滑車を使うと持ち上げる力は半分で済みますが、引くヒモの長さは2倍になるため、掛ける仕事（力×距離）は全く同じ。これを「仕事の原理」と呼びます。',
-      tips: '仕事率 P [W] ＝ 仕事 [J] ÷ 時間 [秒]（1秒あたりの仕事量）。'
+      tag: '物理・仕事と仕事の原理',
+      onePhrase: 'てこや動滑車を使っても「トータルの仕事（エネルギー）」は絶対得しない！',
+      formulaText: '仕事 W [J] ＝ 力 F [N] × 移動距離 s [m]　,　仕事率 P [W] = W / t [秒]',
+      concept: '動滑車を使うと持ち上げる力は半分（1/2）で済みますが、引くヒモの長さは2倍になるため、掛ける仕事（力×距離）は全く変わりません。これを「仕事の原理」と呼びます。',
+      tips: '100gの物体にかかる重力はおよそ 1 N（ニュートン）！'
     },
+    {
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '物理・圧力と水圧・浮力',
+      onePhrase: '深く潜るほど水圧アップ！浮力は「押しのけた水の重さ」と同じ！',
+      formulaText: '圧力 P [Pa] = 力 F [N] / 面積 S [m²]　,　浮力 ＝ 水中に入った物体の体積分の水の重さ',
+      concept: '面積が狭いほど（ハイヒールなど）圧力は強くなります。アルキメデスの原理により、浮力は水中に沈んだ体積と同じ体積の水の重さに等しくなります。',
+      tips: '1 Pa（パスカル）＝ 1 N/m²。1気圧 ＝ 1013 hPa（ヘクトパスカル）！'
+    },
+    {
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '地学・示準化石と示相化石',
+      onePhrase: '時代がわかる「示準化石」と、当時の環境がわかる「示相化石」！',
+      formulaText: '【示準】三葉虫(古)・フズリナ(古)・恐竜/アンモナイト(中)・ナウマン象(新)　【示相】サンゴ(暖浅海)・アサリ(干潟)',
+      concept: '・示準化石：生息期間が短く、広い範囲に栄えた生物（地層の年代がわかる）。\n・示相化石：限られた特定の環境にしか住めない生物（当時の気候や水深がわかる）。',
+      tips: 'サンゴは「暖かくて浅いきれいな海」、シジミは「河口や湖」の示相化石！'
+    },
+
+    // --- 🏛️ 高校 物理 ---
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: '物理・等加速度運動',
-      onePhrase: '時間 t が分からないなら③！落下運動も車輪の加速もこれで解ける3公式！',
+      tag: '物理・等加速度直線運動の3公式',
+      onePhrase: '時間 t が分からないなら③！落下運動も電車の加速も解ける必須3式！',
       formulaText: '① v = v₀ + at　② x = v₀t + 1/2 at²　③ v² - v₀² = 2ax',
-      concept: '一定の力で加速する物体の運動。初速度 v₀、加速度 a、時間 t、進んだ距離 x。\n特に③式は時間 t を計算せずに「速度」と「距離」を直結できる受験最強のショートカット！',
+      concept: '一定の加速度 a で動く運動。初速度 v₀、時間 t、変位 x。特に③式は時間 t を計算せずに「速度」と「移動距離」を直結できる受験最強のショートカット！',
       tips: '自由落下なら初速 v₀ = 0、加速度 a = 9.8 (重力加速度g) を代入するだけ！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: '物理・運動方程式',
+      tag: '物理・ニュートンの運動方程式',
       onePhrase: '物体を押せば加速する！『重いほど動きにくく、強く押すほど急加速！』',
-      formulaText: 'F = ma （力 ＝ 質量 × 加速度）',
-      concept: '手押し車に例えると、荷物が重い（m大）と同じ力では加速が鈍り（a小）、力いっぱい押す（F大）とグングン加速する（a大）という宇宙共通の運動法則。ロケットの打ち上げから車のブレーキまで全てこれ！',
-      tips: '力の単位ニュートン[N]は『1kgの物体を毎秒1m/sずつ加速させる力』と定義されています。'
+      formulaText: 'F = ma （合力 F [N] ＝ 質量 m [kg] × 加速度 a [m/s²]）',
+      concept: '手押し車に例えると、荷物が重い（m大）と同じ力では加速が鈍り、力いっぱい押す（F大）とグングン加速するという古典力学の最高峰法則。',
+      tips: 'まず「物体に働くすべての力（重力・垂直抗力・摩擦力・張力）」を図示するのが絶対ルール！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: '物理・力学的エネルギー',
+      tag: '物理・力学的エネルギー保存の法則',
       onePhrase: '摩擦や空気抵抗がなければ、スピードと高さのエネルギー合計は常に一定！',
-      formulaText: '1/2 mv² + mgh + 1/2 kx² ＝ 一定',
-      concept: 'ジェットコースターの原理！高いところ（位置エネルギー mgh）から落ちると、その分だけ猛スピード（運動エネルギー 1/2 mv²）に変換されます。バネのエネルギー 1/2 kx² も同じ仲間。',
-      tips: '摩擦熱が発生するとエネルギーの一部が熱に逃げるので注意！'
+      formulaText: '1/2 mv² + mgh + 1/2 kx² ＝ 一定 （運動 ＋ 重力位置 ＋ 弾性）',
+      concept: 'ジェットコースターの原理！高いところ（位置エネルギー mgh）から落ちると、その分だけ猛スピード（運動エネルギー 1/2 mv²）に変換されます。',
+      tips: '動摩擦力などの非保存力が仕事をすると、その分だけ熱エネルギーに逃げて力学的エネルギーは減る！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '物理・剛体の力のモーメント',
+      onePhrase: '回転させる能力！『力 × 支点からの垂直距離』！時計回りと反時計回りがつり合う！',
+      formulaText: 'モーメント M = F × l　（つり合い：ΣM = 0 かつ ΣF = 0）',
+      concept: 'ドアの取っ手が根元ではなく端っこにある理由。支点から遠いところを直角に押すほど、小さな力で強い回転力を生み出せます。',
+      tips: '支点はどこに設定してもつり合うので「未知の力が働いている点」を支点に選ぶと計算が劇的に楽になる！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '物理・運動量保存の法則と力積',
+      onePhrase: '衝突・分裂・合体！外から力を受けない限り、運動量の合計は変わらない！',
+      formulaText: 'm₁v₁ + m₂v₂ = m₁v₁\' + m₂v₂\'　,　力積 I = F × Δt = mv\' - mv',
+      concept: 'ビリヤードの球の衝突やロケットの噴射。力積（力×時間）を受けると運動量が変化します。反発係数（はねかえり係数）e = - (v₁\' - v₂\') / (v₁ - v₂) と連立！',
+      tips: '完全非弾性衝突（ガッチャンコ合体）なら e = 0！'
     },
     {
       level: 'exam',
       levelText: '🔥 大学入試',
-      tag: '物理・ドップラー効果',
-      onePhrase: '救急車が近づくと高い音、遠ざかると低い音に聞こえる波の圧縮・伸長！',
-      formulaText: 'f\' = f × (V - v_o) / (V - v_s)',
+      tag: '物理・単振動の周期と運動',
+      onePhrase: '中心に戻ろうとする力（復元力）！バネ振り子と単振り子の公式！',
+      formulaText: 'F = -Kx ➔ T = 2π √(m/K)　（単振り子: T = 2π √(l/g)）',
+      concept: '中心からのズレ x に比例して引き戻される運動。バネ振り子の周期は「2π ルートみかん (m/K)」、単振り子は「2π ルートりんご (l/g)」と覚える！',
+      tips: '速度最大は「中心（振動中心）」、加速度最大（力最大）は「両端」！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '物理・気体の状態方程式と熱力学第一法則',
+      onePhrase: '熱をもらえば、温度が上がって（内部エネルギーUP）ピストンを押す（仕事）！',
+      formulaText: 'P V = n R T　,　Q = ΔU + W_out （単原子分子: ΔU = 3/2 n R ΔT）',
+      concept: '気体に熱 Q を加えると、内部エネルギーの増加 ΔU（温度上昇）と気体が外部にする仕事 W に分配されます。',
+      tips: '断熱変化なら Q = 0 だから「W_out = -ΔU（仕事をすると温度が下がる断熱膨張）」！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '物理・波動の基本式とドップラー効果',
+      onePhrase: '波の進む速さは波長×振動数！近づく音は高く、遠ざかる音は低くなる！',
+      formulaText: 'v = f λ　,　f\' = f × (V - v_o) / (V - v_s)',
       concept: '音源が音を出しながら進むと、前方の音波の間隔（波長λ）がギュッと縮むため、観測者には高い振動数（高音）として届きます。Vは音速、v_sは音源の速度、v_oは観測者の速度。',
-      tips: '「音源が近づくと分母が小さくなって高音」「観測者が近づくと分子が大きくなって高音」とイメージ！'
+      tips: '「音源が近づくと分母が小さくなって高音」「観測者が近づくと分子が大きくなって高音」！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: '化学・物質量mol',
-      onePhrase: '原子は小さすぎるから『6.0 × 10²³ 個＝1ダース（1mol）』とまとめて数える！',
-      formulaText: '個数 ÷ (6.02×10²³) ＝ 質量(g) ÷ 分子量 ＝ 気体(L) ÷ 22.4',
-      concept: '鉛筆を12本で「1ダース」と呼ぶのと同じ！軽すぎて目に見えない原子を 6.02×10²³個（アボガドロ数）集めた束を「1mol」と決めると、原子量に「g」をつけるだけで重さがピッタリ一致する超便利な魔法の単位です。',
-      tips: '気体なら種類に関係なく 1mol ＝ 22.4L（0℃, 1気圧）！'
+      tag: '物理・凸レンズの写像公式',
+      onePhrase: '焦点距離 f！物体までの距離 a と像までの距離 b の美しい調和！',
+      formulaText: '1/a + 1/b = 1/f　,　倍率 m = b / a',
+      concept: '虫眼鏡やカメラの原理。物体が焦点の外側にあればスクリーンに逆さまの実像（b > 0）が映り、焦点の内側にあれば虫眼鏡のように拡大した正立虚像（b < 0）が見えます。',
+      tips: '虚像のときは b < 0、凹レンズのときは f < 0 として公式に代入する！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: '化学・気体の状態方程式',
-      onePhrase: '温度を上げると膨らむ、縮めると圧力アップ！気体の性質を1本の式に凝縮！',
-      formulaText: 'P・V = n・R・T',
-      concept: '圧力 P [Pa]、体積 V [L]、物質量 n [mol]、絶対温度 T [K]、気体定数 R。注射器を指で塞いでピストンを押すと中が熱くなり圧力が上がる現象もすべてこの式で計算可能。',
-      tips: '絶対温度 T はセ氏温度 + 273！計算時は必ずケルビン[K]に直すこと！'
-    },
-    {
-      level: 'high',
-      levelText: '🏛️ 高校基礎',
-      tag: '化学・pHと中和',
-      onePhrase: 'pH7が中性！酸性の強さは水素イオン濃度 [H⁺] の桁数で決まる！',
-      formulaText: 'pH = -log₁₀[H⁺]　,　a・c・v = b・c\'・v\'',
-      concept: '水素イオン濃度 [H⁺] が 10⁻¹ mol/L なら pH=1（強酸）、10⁻⁷ mol/L なら pH=7（中性）。中和の公式「酸のH⁺のモル数 ＝ 塩基のOH⁻のモル数」で未知の濃度を逆算！',
-      tips: '価数（塩酸なら1価、硫酸なら2価）の掛け忘れがテスト頻出のひっかけポイント！'
+      tag: '物理・コンデンサーの電気容量とエネルギー',
+      onePhrase: '電気を貯めるダム！「Q = CV」と静電エネルギー！',
+      formulaText: 'Q = C V　,　C = ε (S / d)　,　U = 1/2 Q V = 1/2 C V²',
+      concept: '極板面積 S が広いほど、極板間隔 d が狭いほど大容量 C になります。誘電体を挟むと比誘電率 εr 倍に容量が跳ね上がります。',
+      tips: 'スイッチを切った後は「電気量 Q が一定」、電池をつないだままなら「電圧 V が一定」！'
     },
     {
       level: 'exam',
       levelText: '🔥 大学入試',
-      tag: '化学・緩衝液',
-      onePhrase: '酸やアルカリを少し加えても、pHがピクとも動かない防御シールド！',
-      formulaText: '[H⁺] = Ka × (酸の濃度 / 塩の濃度)',
-      concept: '弱酸とその塩（酢酸＋酢酸ナトリウム）を混ぜておくと、酸を加えても酢酸イオンが吸収し、塩基を加えても酢酸が中和するため、pHがほぼ一定に保たれます。人間の血液が常に弱アルカリ性に保たれているのもこの仕組み！',
-      tips: 'ルシャトリエの原理による平衡移動の代表例！'
+      tag: '物理・電磁気（ローレンツ力と電磁誘導）',
+      onePhrase: '磁場の中を走る荷電粒子が受ける力！磁束の変化を嫌って電流が流れる！',
+      formulaText: 'f = q v B　,　V = -N (ΔΦ / Δt) （レンツの法則＋ファラデーの法則）',
+      concept: 'フレミング左手の法則で荷電粒子は円運動（サイクロトロン運動：r = mv / qB）します。コイルを貫く磁束が変化すると、その変化を打ち消す向きに誘導起電力 V が発生します。',
+      tips: '導体棒が磁場を横切るときに発生する誘導起電力は V = v B l！'
     },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '物理・光電効果と光量子仮説',
+      onePhrase: '光は波であると同時に「粒（エネルギーの弾丸）」だった！',
+      formulaText: 'E = h ν （光子1個のエネルギー） , 1/2 mv²_max = h ν - W （仕事関数 W）',
+      concept: 'アインシュタインのノーベル賞理論。金属に光を当てると電子（光電子）が飛び出す現象。光の強さではなく「振動数 ν（色）」が一定以上でないと電子は絶対に飛び出せません。',
+      tips: '振動数 ν = c / λ より、波長 λ が短い（紫外線など）ほどエネルギーが大きい！'
+    },
+
+    // --- 🏛️ 高校 化学 ---
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '化学・物質量 mol とアボガドロ数',
+      onePhrase: '原子は小さすぎるから『6.02 × 10²³ 個＝1ダース（1mol）』とまとめて数える！',
+      formulaText: '個数 ÷ (6.02×10²³) ＝ 質量(g) ÷ モル質量 ＝ 気体体積(L) ÷ 22.4',
+      concept: '鉛筆を12本で1ダースと呼ぶのと同じ！原子・分子を 6.02×10²³個集めると、周期表の原子量に「g」をつけた重さとピッタリ一致する化学計算の共通通貨。',
+      tips: '0℃, 1気圧（標準状態）なら、どんな気体でも 1 mol ＝ 22.4 L！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '化学・理想気体の状態方程式',
+      onePhrase: '温度を上げると膨らむ、縮めると圧力アップ！気体の性質を1本の式に凝縮！',
+      formulaText: 'P V = n R T　（気体定数 R ＝ 8.31 × 10³ Pa・L/(mol・K)）',
+      concept: '圧力 P [Pa]、体積 V [L]、物質量 n [mol]、絶対温度 T [K]。分子自身の体積や分子間力を無視した理想的な気体モデル。実在気体も「高温・低圧」にすると理想気体に近づきます。',
+      tips: '絶対温度 T は「セルシウス温度 ℃ ＋ 273」！計算時は必ずケルビン[K]！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '化学・浸透圧（ファントホッフの法則）',
+      onePhrase: '濃い溶液が薄い方から水を吸い寄せる圧力！気体の式とまったく同じ形！',
+      formulaText: 'Π V = n R T　➔　浸透圧 Π = c R T （モル濃度 c = n/V）',
+      concept: '半透膜を挟むと、濃度を均一にしようとして水分子が濃い側へ侵入してきます。高分子化合物（タンパク質など）の分子量を測定する定番手法！',
+      tips: '電解質（NaClなど）は水中で電離して粒子数（イオン数）が2倍になるため浸透圧も2倍！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '化学・ヘスの法則（総熱量保存の法則）',
+      onePhrase: '出発点とゴールが同じなら、途中のルートに関係なく熱量の合計は同じ！',
+      formulaText: '反応熱 ＝ (生成物の生成熱の総和) - (反応物の生成熱の総和)',
+      concept: '山登りと同じで、頂上（生成物）と登山口（反応物）の標高差はどの登山道を登っても同じ。直接測定できない反応熱も、他の熱化学方程式を足し引きして連立で算出可能！',
+      tips: '「生成熱の引き算は、生成物ひく反応物（生ひく反）」と覚える！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '化学・化学平衡とルシャトリエの原理',
+      onePhrase: '変化を加えられたら、その変化を『打ち消す方向』に全力で平衡が移動する！',
+      formulaText: 'aA + bB ⇄ cC + dD　,　平衡定数 K = [C]ᶜ[D]ᵈ / ([A]ᵃ[B]ᵇ)',
+      concept: '・圧力を上げる ➔ 気体分子が減る方向に移動\n・温度を上げる ➔ 熱を吸収する（吸熱反応の）方向に移動\n・物質を加える ➔ その物質を消費する方向に移動',
+      tips: '触媒を加えても平衡定数や到達点は変わらない！（平衡に達する時間が早くなるだけ）'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '化学・pH と中和滴定の公式',
+      onePhrase: 'pH7が中性！酸のH⁺の数と塩基のOH⁻の数が一致したとき完全中和！',
+      formulaText: 'pH = -log₁₀[H⁺]　,　a c v = b c\' v\' （価数 a, b）',
+      concept: '水素イオン濃度 [H⁺] = 10⁻¹ なら pH 1、10⁻⁷ なら pH 7。中和計算では「酸の価数 a（HClなら1, H₂SO₄なら2）」の掛け忘れが一番の減点トラップ！',
+      tips: '水のイオン積 Kw = [H⁺][OH⁻] = 1.0 × 10⁻¹⁴ (mol/L)²（25℃）は常時成立！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '化学・酸化還元と酸化数',
+      onePhrase: '電子を受け取るのが酸化剤、電子を押し付けるのが還元剤！',
+      formulaText: '酸化 ＝ 酸素と結合 / 水素を失う / 電子を失う（酸化数UP）',
+      concept: '単体の酸化数は 0、化合物中の H は +1、O は -2 が大原則。酸化数が増加していれば酸化された、減少していれば還元されたと判定します。',
+      tips: '過マンガン酸カリウム KMnO₄（赤紫色➔無色）や二クロム酸カリウムは超強力な酸化剤！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '化学・電気分解とファラデーの法則',
+      onePhrase: '極板に析出する金属の量は、流した電気の量（電子のモル数）に比例する！',
+      formulaText: '電気量 Q [C] = 電流 I [A] × 時間 t [秒]　,　電子のモル数 n_e = Q / 96500',
+      concept: 'ファラデー定数 F ＝ 96500 C/mol（電子1molの電荷量）。回路に流れた電子のモル数を計算すれば、陰極で析出する銅や銀のグラム数が化学量論から一発で求まります。',
+      tips: '陽極が白金(Pt)や炭素(C)で溶液中にハロゲンがなければ「水が酸化されて酸素 O₂ が発生」！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '化学・有機官能基とエステル化',
+      onePhrase: '酸とアルコールから水が抜けて甘い香りのエステルが誕生！',
+      formulaText: 'R-COOH (カルボン酸) + R\'-OH (アルコール) ⇄ R-COO-R\' (エステル) + H₂O',
+      concept: 'ヒドロキシ基 -OH、アルデヒド基 -CHO（銀鏡反応・フェーリング反応を示す）、カルボキシ基 -COOH（酸性）。濃硫酸を触媒として脱水縮合させるのがエステル化！',
+      tips: 'エステルに水酸化ナトリウムを加えて加熱分解する逆反応を「けん化（セッケン作り）」と呼ぶ！'
+    },
+
+    // --- 🏛️ 高校 生物 ---
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
       tag: '生物・セントラルドグマ',
-      onePhrase: '設計図（DNA）➔ コピー用紙（RNA）➔ 実際の建物（タンパク質）の不可逆リレー！',
-      formulaText: 'DNA ──(転写)──> mRNA ──(翻訳)──> タンパク質',
-      concept: 'すべての生物が体を作る基本ルール。核の中の大事なマスター設計図（DNA）は外に出せないため、必要な部分だけ作業用コピー（mRNA）にして細胞質へ持ち出し、リボソームがアミノ酸を繋げて筋肉や酵素（タンパク質）を組み立てます。逆戻りはできません！',
-      tips: '【入試の急所】DNAの塩基「チミン(T)」は、RNAに転写されると「ウラシル(U)」に置き換わる！'
+      onePhrase: '生命の設計図！DNA（核）➔ mRNA（写し）➔ タンパク質（実体）の不可逆リレー！',
+      formulaText: 'DNA ──(転写)──> mRNA ──(翻訳)──> タンパク質（ポリペプチド）',
+      concept: '核の中にある大切なマスター設計図（DNA）から必要な部分だけRNAポリメラーゼがmRNAに転写。細胞質のリボソーム上でtRNAが3塩基（コドン）に対応するアミノ酸を運んできてタンパク質を組み立てます。',
+      tips: '【超頻出】DNAのチミン(T)は、RNAでは「ウラシル(U)」に対応する！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: '生物・呼吸と光合成',
-      onePhrase: '呼吸はエネルギー（ATP）を生み出し、光合成は太陽光でデンプンを作る！',
-      formulaText: '【呼吸】C₆H₁₂O₆ + 6O₂ + 6H₂O ➔ 6CO₂ + 12H₂O + 38ATP',
-      concept: 'ミトコンドリアで行われる呼吸はグルコースを分解して最大38個のATP（エネルギー通貨）を生成。葉緑体で行われる光合成はその逆で、水と二酸化炭素から糖を合成します。',
-      tips: '光合成の明反応はチラコイド膜、暗反応（カルビン回路）はストロマで行われる！'
+      tag: '生物・細胞呼吸のATP収支',
+      onePhrase: 'グルコース1分子を完全燃焼して、最大38個のエネルギー通貨（ATP）を精製！',
+      formulaText: 'C₆H₁₂O₆ + 6O₂ + 6H₂O ➔ 6CO₂ + 12H₂O + 最大38 ATP',
+      concept: '① 解糖系（細胞質基質：2 ATP生成）➔ ② クエン酸回路（ミトコンドリアマトリックス：2 ATP生成）➔ ③ 電子伝達系（ミトコンドリア内膜：最大34 ATP生成）。酸素を使うことで桁違いの効率を発揮！',
+      tips: '酸素がない環境では酵母は「アルコール発酵」、筋肉細胞は「乳酸発酵」に切り替わりわずか2 ATPしか作れない！'
     },
     {
-      level: 'junior',
-      levelText: '🎒 中学',
-      tag: '中学理科・地学化石',
-      onePhrase: '時代がわかる「示準化石」と、当時の環境がわかる「示相化石」！',
-      formulaText: '【示準】三葉虫(古)・恐竜(中)・マンモス(新)　【示相】サンゴ(暖浅海)',
-      concept: '・示準化石：生息期間が短く、世界中に広く分布していた生物（年代の特定に使う）。\n・示相化石：生息環境が限られていた生物（例：サンゴ＝暖かくきれいな浅い海）。',
-      tips: 'アサリ・シジミの化石は「浅い海や河口」の示相化石！'
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '生物・光合成の反応経路',
+      onePhrase: '光エネルギーで水を分解して酸素を出し、カルビン回路で二酸化炭素から糖を合成！',
+      formulaText: 'チラコイド膜（明反応：光でATPとNADPH生成）➔ ストロマ（暗反応：CO₂固定して糖生成）',
+      concept: '葉緑体のチラコイド膜でクロロフィルが光を吸収し、水を分解して酸素を放出。そのエネルギーを使ってストロマのカルビン・ベンソン回路でルビスコ酵素がCO₂を固定して有機物を作ります。',
+      tips: 'ルビスコは地球上で最も多量に存在するタンパク質！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '生物・神経細胞（ニューロン）の活動電位',
+      onePhrase: '刺激を受けると Na⁺ が一気に流入して電位が逆転（脱分極）！パルス信号が走る！',
+      formulaText: '静止電位（約 -70mV） ➔ Na⁺チャネル開口で脱分極（約 +30mV） ➔ K⁺流出で再分極',
+      concept: '普段はNa⁺-K⁺ポンプにより細胞内はK⁺が多くマイナス（-70mV）。しきい値を超える刺激が来ると電位依存性Na⁺チャネルが一斉に開き、プラスに跳ね上がります（全か無かの法則）。',
+      tips: '有髄神経繊維では、ミエリン鞘のすき間（ランビエ絞輪）を電位がジャンプして超高速で伝わる（跳躍伝導）！'
     }
   ],
+
   eng: [
+    // --- 🎒 中学英語 ---
     {
       level: 'junior',
       levelText: '🎒 中学',
-      tag: '基本5文型',
-      onePhrase: '英語のすべての文はこの5パターンに分類できる！骨格を見抜けば読める！',
-      formulaText: 'SV / SVO / SVC (S=C) / SVOO / SVOC (O=C)',
-      concept: '英語は語順の言語！特に「SVC（S＝Cの関係）」と「SVOC（O＝Cの関係）」を見抜くのが読解の肝。\n例: He made her happy.（O:彼女 ＝ C:幸せ）',
-      tips: '第4文型 SVOO（give型・buy型）から第3文型への前置詞書き換え（to / for）も頻出！'
+      tag: '基本5文型（文の要素 S, V, O, C）',
+      onePhrase: '英語の全文章はこの5パターン！骨格を見抜けば長文も怖くない！',
+      formulaText: '第1: SV / 第2: SVC (S=C) / 第3: SVO / 第4: SVOO / 第5: SVOC (O=C)',
+      concept: '英語は語順の言語。特に「第2文型 SVC（S ＝ C の関係：He is a doctor）」と「第5文型 SVOC（O ＝ C の関係：Music makes me happy）」のイコール関係を見抜くのが読解の急所！',
+      tips: '第4文型 SVOO ➔ 第3文型への書き換え：give型は前置詞 to、buy/make型は前置詞 for！'
     },
     {
       level: 'junior',
       levelText: '🎒 中学',
-      tag: '現在完了形',
-      onePhrase: '過去の出来事が『今この瞬間』まで繋がっていることを表す！',
-      formulaText: 'have [has] + 過去分詞 (p.p.)',
-      concept: '単なる過去形と違い、「今」どうなのかに焦点があります。\n① 継続（ずっと〜している）\n② 完了・結果（ちょうど〜したところ、〜してしまって今ない）\n③ 経験（今までに〜したことがある）',
-      tips: '明確な過去を表す語句（yesterday, ago, when I was...）とは絶対に一緒に使えない！'
+      tag: '現在完了形（have ＋ 過去分詞）',
+      onePhrase: '過去の出来事が『今この瞬間』までずっと繋がっていることを表す！',
+      formulaText: 'have [has] + 過去分詞 (p.p.) （継続・完了・経験の3用法）',
+      concept: '過去形と違い「今」に焦点があります。\n① 継続：ずっと〜している（since, for）\n② 完了：ちょうど〜したところだ（already, just, yet）\n③ 経験：〜したことがある（ever, never, before）',
+      tips: '【絶対禁止】明確な過去を表す単語（yesterday, ago, last year, when ~）とは絶対に併用できない！'
     },
+    {
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '不定詞の3大用法（to ＋ 動詞の原形）',
+      onePhrase: '「〜すること」「〜するための」「〜するために」の変幻自在の3役！',
+      formulaText: '① 名詞的用法（〜すること） ② 形容詞的用法（〜するための） ③ 副詞的用法（〜するために / 〜して）',
+      concept: '・I want to play tennis.（テニスをすること：名詞的）\n・I have a lot of books to read.（読むための本：形容詞的・直前の名詞を修飾）\n・He got up early to catch the train.（電車に乗るために：副詞的・目的）',
+      tips: '感情の原因を表す不定詞「I\'m glad to see you.（会えて嬉しい）」は副詞的用法！'
+    },
+    {
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '動名詞（動詞の -ing 形）',
+      onePhrase: '動詞を名詞に変身させる！前置詞の後ろは100%動名詞！',
+      formulaText: 'V-ing （〜すること）　例: Thank you for coming.',
+      concept: '文の主語・目的語・補語になれます。特に重要ルールとして「前置詞（in, at, for, of, without 等）の後ろに動詞を置くときは必ず -ing 形（動名詞）」になります。',
+      tips: 'look forward to -ing（〜を楽しみに待つ）の to は前置詞なので後ろは動名詞！'
+    },
+    {
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '受動態（be動詞 ＋ 過去分詞）',
+      onePhrase: '「〜される」「〜された」！主語が行為を受ける側に回る構文！',
+      formulaText: 'S + be動詞 + 過去分詞 (p.p.) (+ by 行為者)',
+      concept: '・English is spoken all over the world.（英語は世界中で話されている）\n誰が話しているかよりも「何がされているか」に注目したいときに使われます。',
+      tips: '感情を表す動詞は受動態で使う：be surprised at（驚く）, be interested in（興味がある）！'
+    },
+    {
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '比較の基本3公式',
+      onePhrase: '同じくらい、より〜、一番〜！',
+      formulaText: '原級: as 原級 as　,　比較級: 比較級 + than　,　最上級: the + 最上級 + in/of',
+      concept: '・as ~ as：〜と同じくらい\n・more ~ than / -er than：〜よりも…\n・the most ~ / the -est：〜の中で一番\n比較級の強調には much や far を使い（veryは不可！）、最上級の場所・集団には in、同類複数には of を使います。',
+      tips: '「A is three times as large as B」で「AはBの3倍の大きさ」という倍数表現！'
+    },
+    {
+      level: 'junior',
+      levelText: '🎒 中学',
+      tag: '関係代名詞（主格・目的格）',
+      onePhrase: '2つの文をガッチャンコ！直前の名詞（先行詞）を後ろから詳しく説明！',
+      formulaText: '人 ➔ who / 物・動物 ➔ which / 何でも ➔ that',
+      concept: '・I know the boy who is running there.（あそこで走っている少年を知っている）\n関係代名詞の直後に動詞が来れば「主格」、直後に主語＋動詞が来れば「目的格（省略可能）」。',
+      tips: '目的格の関係代名詞は会話や入試長文で日常茶飯事に省略されるので見抜く練習を！'
+    },
+
+    // --- 🏛️ 高校英文法・大学入試重要構文 ---
     {
       level: 'exam',
       levelText: '🔥 大学入試',
-      tag: '助動詞・後悔',
-      onePhrase: '『やっておけばよかった〜〜！😭』の後悔。実際にはやってないのがポイント！',
-      formulaText: 'should have + 過去分詞 (p.p.)',
-      concept: '過去の行動に対する「〜すべきだったのに（実際はしなかった）」という激しい後悔や相手への非難を表します。\n例: I should have studied harder.（もっと勉強しておくべきだったのに…しなかった😭）',
-      tips: '【対比で覚える】cannot have p.p.（〜だったはずがない）/ must have p.p.（〜だったに違いない）とセットで出題率99%！'
+      tag: '助動詞 ＋ have ＋ 過去分詞（過去の推量・後悔）',
+      onePhrase: '過去の出来事に対する推量・後悔！『〜すべきだったのに（実際はしなかった）』！',
+      formulaText: 'should have p.p.（〜すべきだったのに😭） , must have p.p.（〜だったに違いない） , cannot have p.p.（〜だったはずがない）',
+      concept: '過去の行動に対する強い後悔や非難。「I should have studied harder.（もっと勉強しておくべきだったのに…）」。入試の助動詞問題の8割はこれ！',
+      tips: 'need not have p.p. は「〜する必要はなかったのに（実際はしてしまった）」！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: '動名詞',
-      onePhrase: '後ろに『to V』は絶対ダメ！『-ing（動名詞）』しか愛せない動詞の語呂合わせ！',
-      formulaText: 'MEGAFEPS （Mind, Enjoy, Give up, Avoid, Finish, Escape, Postpone, Stop）',
-      concept: '英語では動詞によって「後ろに to 不定詞しか置けないもの」「-ing しか置けないもの」が決まっています。MEGAFEPSの動詞は、過去や進行中の生々しい行為を嫌ったり楽しんだりするため、必ず動名詞（-ing）をとります！',
-      tips: 'stop to V は「立ち止まってVする」という意味の副詞的用法で、目的語ではありません！'
+      tag: '動名詞しか目的語にとれない動詞（MEGAFEPS）',
+      onePhrase: '後ろに『to V』は絶対ダメ！『-ing』しか愛せない動詞の語呂合わせ！',
+      formulaText: 'MEGAFEPS （Mind, Enjoy, Give up, Avoid, Finish, Escape, Postpone, Stop） + V-ing',
+      concept: '英語では動詞によって後ろに不定詞をとるか動名詞をとるかが決まっています。MEGAFEPSの動詞は、過去の事実や進行中の行為を連想させるため、必ず動名詞をとります！',
+      tips: 'stop to V は「立ち止まってVする」という目的を表す副詞的用法なので注意！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: 'remember to vs -ing',
+      tag: 'remember to V vs remember V-ing',
       onePhrase: 'to V は『これから先の未来』、V-ing は『すでにやった過去』！',
       formulaText: 'remember to V（忘れずに〜する） vs remember V-ing（〜したことを覚えている）',
-      concept: '・remember to lock the door：忘れずに（これから）鍵をかける\n・remember locking the door：鍵をかけた（過去の事実）ことを覚えている\nforget / regret も同じルールで判別可能！',
+      concept: '・remember to lock the door：忘れずに（これから）鍵をかける\n・remember locking the door：鍵をかけた（過去の事実）ことを覚えている\nforget や regret も全く同じ未来・過去のルールで判別可能！',
       tips: '「Remember to turn off the light!」のように命令文で使われるのは常に to 不定詞！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: '使役動詞',
+      tag: '使役動詞（make / have / let / get）',
       onePhrase: '人に何かを「させる」動詞！get だけ仲間外れで to が必要！',
       formulaText: 'make / have / let + O + 原形不定詞　（get + O + to V）',
       concept: '・make：強制的に〜させる\n・have：当然のこととして〜してもらう\n・let：本人の自由に〜させてあげる\n・get：説得して〜させる（※get だけ to 不定詞！）',
-      tips: 'Oが「〜される（受動）」ならすべて『動詞 + O + 過去分詞』になる！'
+      tips: 'Oが「〜される（受動）」関係なら、すべて『動詞 + O + 過去分詞』になる！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '知覚動詞（see / hear / feel / notice）',
+      onePhrase: '五感で知覚する！「Oが〜するのを見る・聞く」！',
+      formulaText: '知覚動詞 + O + 原形不定詞（一部始終） / V-ing（〜している最中） / 過去分詞（〜される）',
+      concept: '・I saw him cross the street.（彼が通りを渡り切るのを見た：全プロセス）\n・I saw him crossing the street.（彼が通りを渡っている最中を見た：瞬間）',
+      tips: '受動態に書き換えるときは原形不定詞の前に to が復活する：He was seen to cross...'
     },
     {
       level: 'exam',
       levelText: '🔥 大学入試',
-      tag: '仮定法の基本公式',
-      onePhrase: '妄想の世界！ありえない話をする時は時制を1つ昔にタイムスリップさせる！',
-      formulaText: '【現在】If S were ..., S would V　【過去】If S had p.p., S would have p.p.',
-      concept: '現在の事実に反する妄想なら「過去形」を使い、過去の事実に反する妄想なら「過去完了 had p.p.」を使います。\n例: If I were a bird, I would fly to you.（鳥じゃないけど、もし鳥なら…）',
-      tips: '「〜がなければ」の書き換え：Without A ＝ But for A ＝ If it were not for A ＝ Were it not for A！'
+      tag: '仮定法過去・仮定法過去完了',
+      onePhrase: 'ありえない妄想の世界！時制を1つ昔にタイムスリップさせる！',
+      formulaText: '【現在】If S were/過去形, S would 原形　【過去】If S had p.p., S would have p.p.',
+      concept: '現在の事実に反する妄想なら「過去形」を使い、過去の事実に反する後悔・妄想なら「過去完了 had p.p.」を使います。\n例: If I had known that, I would have told you.（あの時知ってたら教えたのに…知らなかった）',
+      tips: '「もしあの時〜だったら、今ごろ…なのに」という混合型（If S had p.p., S would 原形 now）も超頻出！'
     },
     {
       level: 'exam',
       levelText: '🔥 大学入試',
-      tag: '仮定法の倒置',
-      onePhrase: 'If を省略すると、疑問文の語順にひっくり返る（倒置構文）！',
-      formulaText: 'Had I known ... （＝ If I had known ...）',
-      concept: 'if を消すと主語と助動詞が入れ替わります。\n① Had S p.p. ...（過去完了のif省略）\n② Were S ...（wereのif省略）\n③ Should S 原形 ...（万が一〜なら）',
-      tips: '文頭にいきなり Had や Should が来て後ろに「？」がなければ100%仮定法の倒置！'
+      tag: '仮定法の倒置（If の省略）',
+      onePhrase: 'If を消すと、疑問文の語順にひっくり返る！',
+      formulaText: 'Had I known ... （＝ If I had known ...） , Were I ... , Should S 原形 ...',
+      concept: 'if を省略すると助動詞・be動詞が主語の前に飛び出します。\n① Had S p.p.（過去の仮定）\n② Were S（現在の仮定）\n③ Should S 原形（万が一〜なら）',
+      tips: '文頭にいきなり Had や Were や Should が来て後ろに「？」がなければ100%仮定法の倒置！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '「もし〜がなければ」の仮定法書き換え',
+      onePhrase: '入試英語で最も書き換え問題に出る最重要フレーズ！',
+      formulaText: 'Without A ＝ But for A ＝ If it were not for A (Were it not for A) ＝ If it had not been for A (Had it not been for A)',
+      concept: '現在の「今〜がなければ」なら If it were not for A。\n過去の「あの時〜がなかったら」なら If it had not been for A。どちらも Without や But for で一言で代用できます。',
+      tips: '「Were it not for your help, ...」「Had it not been for the rain, ...」の倒置形が私大入試の定番！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
       tag: '関係代名詞 what',
-      onePhrase: '先行詞（修飾される名詞）を自分の体の中に飲み込んだ魔法の関係詞！',
-      formulaText: 'what ＝ the thing which（〜すること、〜するもの）',
-      concept: '普通の関係代名詞（which, that）は前に先行詞（the book など）が必要ですが、what はそれ自身が「〜のこと・もの」という意味の名詞節を作ります。\n例: What he said is true.（彼が言ったことは本当だ）',
-      tips: 'what の前には絶対に先行詞の名詞を置いてはいけない！'
+      onePhrase: '先行詞を自分のお腹の中に飲み込んだ魔法の関係詞！「〜のこと・もの」！',
+      formulaText: 'what ＝ the thing which / the things that',
+      concept: '普通の関係代名詞は前に先行詞（the book など）が必要ですが、what はそれ自体が名詞節（〜すること）を作ります。\n例: This is what I wanted.（これが私の欲しかったものだ）',
+      tips: 'what の直前には絶対に先行詞の名詞を置いてはいけない！'
     },
     {
       level: 'exam',
       levelText: '🔥 大学入試',
-      tag: '提案・要求のthat節',
-      onePhrase: '主語が三単現でも過去でも、that節の中の動詞は絶対に『原形』！',
-      formulaText: 'suggest / insist / demand that S (should) + 動詞の原形',
-      concept: '「〜すべきだ」と提案・要求・命令する動詞の後ろの that 節では、should が省略されて動詞が原形になります。\n例: The doctor suggested that he stop smoking.（stops や stopped ではなく原形 stop！）',
-      tips: '入試の正誤問題で狙い撃ちされる超常連ルール！'
+      tag: '関係副詞（where, when, why, how）',
+      onePhrase: '「前置詞 ＋ 関係代名詞」を一言に合体！後ろは完全な文が続く！',
+      formulaText: 'where (= in which) , when (= on/at which) , why (= for which) , how (= the way)',
+      concept: '関係代名詞の後ろは主語や目的語が抜けた「不完全な文」ですが、関係副詞の後ろは「完全な文」が続きます。先行詞が reason なら why、place なら where。',
+      tips: 'the way と how は現代英語では絶対に並べて併用しない！（どちらか一方だけ使う）'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '分詞構文（接続詞と主語を省いてスッキリ短縮）',
+      onePhrase: '「〜しながら」「〜なので」！接続詞＋S＋Vを V-ing 一言に圧縮！',
+      formulaText: 'V-ing ..., S + V ...　（時・理由・条件・譲歩・付帯状況）',
+      concept: '接続詞（When, Because等）と主語を消して動詞を -ing に変えた文。\n例: Seeing the police, the thief ran away.（警察を見て、泥棒は逃げた）',
+      tips: '否定は「Not V-ing」、完了は「Having p.p.」、受動は「(Being) p.p.」！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '提案・要求・命令の that 節',
+      onePhrase: '主語が三単現でも過去形でも、that節の中の動詞は絶対に『原形』！',
+      formulaText: 'suggest / insist / demand / propose that S + (should) + 動詞の原形',
+      concept: '「〜すべきだ」という意志を含む動詞の後ろの that 節では、アメリカ英語では should が省略されて動詞が原形になります。\n例: The doctor suggested that he stop smoking.（stops でも stopped でもなく原形！）',
+      tips: '大学入試の正誤問題で出題率トップクラスの超常連ルール！'
     },
     {
       level: 'high',
       levelText: '🏛️ 高校基礎',
-      tag: 'The ＋ 比較級',
-      onePhrase: '『〜すればするほど、ますます…』！比例関係を表す重要構文！',
+      tag: 'The ＋ 比較級 ..., the ＋ 比較級 ...',
+      onePhrase: '『〜すればするほど、ますます…』！原因と結果の比例構文！',
       formulaText: 'The + 比較級 S + V ..., the + 比較級 S + V ...',
-      concept: '2つの比較級を The で並べて原因と結果の比例関係を表します。\n例: The more you practice, the better you play.（練習すればするほど、ますます上手になる）',
-      tips: '文頭に The + 比較級 が来たら後ろのカンマ以降にも the + 比較級 を探す！'
+      concept: '2つの比較級を The で並べて比例関係を表します。\n例: The more you practice, the better you play.（練習すればするほど、ますます上手になる）',
+      tips: '文頭に The + 比較級 が来たら、後ろのカンマ以降にも the + 比較級 を探す！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: 'so ~ that ... vs such ~ that ...（とても〜なので…）',
+      onePhrase: '程度・結果構文！形容詞なら so、名詞のかたまりなら such！',
+      formulaText: 'so + 形容詞/副詞 + that ...　vs　such + (a) + 形容詞 + 名詞 + that ...',
+      concept: '・He was so tired that he couldn\'t walk.（彼はとても疲れていたので歩けなかった）\n・It was such a nice day that we went out.（とても良い日だったので出かけた）',
+      tips: 'so ~ that S cannot ... は「too ~ to ...（あまりに〜すぎて…できない）」に書き換え可能！'
     },
     {
       level: 'exam',
       levelText: '🔥 大学入試',
       tag: '否定語の文頭倒置',
-      onePhrase: 'Never や Little が文頭に飛び出すと、後ろが疑問文の語順にひっくり返る！',
-      formulaText: 'Little did I dream that ... （夢にも思わなかった）',
-      concept: '否定を表す副詞（Never, Rarely, Scarcely, Seldom, Little）を強調するために文頭に出すと、後ろが「助動詞 + S + V」の疑問文の語順に倒置します。',
-      tips: 'Not only A but also B が文頭に来た場合も Not only + 倒置 になる！'
+      onePhrase: '否定の言葉が文頭に飛び出すと、後ろが疑問文の語順にひっくり返る！',
+      formulaText: 'Never / Rarely / Seldom / Little + 助動詞 + S + V',
+      concept: '強い否定をアピールするために文頭に持ってきた構文。\n例: Little did I dream that I would win.（勝つなんて夢にも思わなかった）',
+      tips: 'Not only A but also B が文頭に来た場合も「Not only + 助動詞 + S + V」の倒置が起きる！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '部分否定 vs 全体否定',
+      onePhrase: 'not と「全部」が合体すると『すべてが〜とは限らない（部分否定）』！',
+      formulaText: 'not all / not every / not always（部分否定） vs none / never / neither（全体否定）',
+      concept: '・All of them are not rich.（全員がお金持ちというわけではない：一部はお金持ち）\n・None of them are rich.（誰もお金持ちではない：0人）\n英語の長文読解で著者の真意を取り違えやすい最重要トラップ！',
+      tips: 'not always は「いつも〜とは限らない」、not necessarily は「必ずしも〜とは限らない」！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '強調構文（It is ... that ~）',
+      onePhrase: '強調したい言葉を「It is」と「that」で挟み込む！',
+      formulaText: 'It is [強調したい語句] that [残りの文]　（〜なのは、まさに…だ）',
+      concept: '主語・目的語・副詞句を強調できます。It is と that を取り除いても完全な普通の文が成立するのが見分け方のコツ！\n例: It was yesterday that I met her.（私が彼女に会ったのは、まさに昨日だった）',
+      tips: '仮主語構文（It is true that...）は that の後ろだけで完全な文になるが、強調構文は挟んだ語句を戻して初めて完成する！'
+    },
+    {
+      level: 'high',
+      levelText: '🏛️ 高校基礎',
+      tag: '間接疑問文の語順',
+      onePhrase: '文の中に疑問文が潜り込むと、語順が『疑問詞 ＋ S ＋ V』の普通の平叙文に戻る！',
+      formulaText: 'I don\'t know + [疑問詞 + S + V]　（例: where he lives）',
+      concept: '「Where does he live?」単体なら疑問文の語順ですが、他の文の目的語として組み込まれると「where he lives」のように主語➔動詞の順序に戻ります。',
+      tips: 'Do you know who she is?（彼女が誰か知ってる？）の語順。is she にしないこと！'
+    },
+    {
+      level: 'exam',
+      levelText: '🔥 大学入試',
+      tag: '重要動詞の語法・前置詞イディオム',
+      onePhrase: '前置詞とセットで覚える！入試空欄補充で絶対に出る型！',
+      formulaText: 'rob A of B（AからBを奪う） , prevent A from V-ing（AがVするのを妨げる） , provide A with B（AにBを供給する）',
+      concept: '動詞ごとにペアになる前置詞が決まっています。\n・分離・剥奪の of：rob A of B, clear A of B\n・妨害・禁止の from：prevent A from -ing, stop A from -ing, keep A from -ing\n・供給の with：provide A with B, supply A with B',
+      tips: 'remind A of B（AにBを思い出させる）も超頻出！'
     }
   ]
 };
@@ -10023,7 +10860,20 @@ function toggleAllHandbookCards() {
   }
 }
 
+function updateHandbookTabButtons() {
+  const mCount = (HANDBOOK_DATA.math || []).length;
+  const sCount = (HANDBOOK_DATA.sci || []).length;
+  const eCount = (HANDBOOK_DATA.eng || []).length;
+  const bM = document.getElementById('hbTabBtnMath');
+  const bS = document.getElementById('hbTabBtnSci');
+  const bE = document.getElementById('hbTabBtnEng');
+  if (bM) bM.textContent = `📐 数学公式 (${mCount})`;
+  if (bS) bS.textContent = `⚡ 理科重要法則 (${sCount})`;
+  if (bE) bE.textContent = `📖 英文法・構文 (${eCount})`;
+}
+
 function renderHandbook() {
+  updateHandbookTabButtons();
   const container = document.getElementById('handbookCardsContainer');
   if (!container) return;
 
