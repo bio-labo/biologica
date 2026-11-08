@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 4.8.3 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 4.8.4 - 理系微生物育成＆戦略クイズバトル</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -1732,7 +1732,7 @@
         <div id="friendSyncStatusBanner" style="background:#f0fdf4; border:2px solid #86efac; border-radius:10px; padding:8px 12px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
           <div style="font-size:0.8rem; font-weight:900; color:#15803d; display:flex; align-items:center; gap:6px;">
             <span id="friendStatusDot">🟢</span>
-            <span id="friendStatusText">📡 フレンド通信: リアルタイム同期中 (Ver 4.8.3)</span>
+            <span id="friendStatusText">📡 フレンド通信: リアルタイム同期中 (Ver 4.8.4)</span>
           </div>
           <div style="font-size:0.75rem; color:#166534; font-weight:800; display:flex; gap:10px; align-items:center;">
             <span id="friendMyCodeStatus">あなた: ---</span>
@@ -1753,7 +1753,7 @@
         <!-- フレンド申請送信フォーム -->
         <div style="display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;">
           <input type="text" id="friendSearchCodeInput" class="btn-outline" style="flex:1; min-width:180px; padding:10px 14px; border-radius:10px; font-weight:900;" placeholder="友達のコードを入力 (例: BIO-1234)">
-          <button class="btn btn-primary" style="padding:10px 18px;" onclick="sendFriendRequestCloud()">📩 フレンド申請を送る</button>
+          <button id="sendFriendReqBtn" class="btn btn-primary" style="padding:10px 18px;" onclick="sendFriendRequestCloud()">📩 フレンド申請を送る</button>
         </div>
 
         <!-- 📬 届いているフレンド申請一覧（承認・拒否） -->
@@ -4414,6 +4414,17 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 4.8.4',
+    date: '2026-11-09',
+    title: '🤝 フレンド申請統合マネージャー（画面クリア競合根絶）＆ 常時即時バナー同期アプデ！',
+    items: [
+      '【🤝 統合申請マネージャー（activeIncomingRequestsMap）配備】MATCH_LOBBYと個別ドキュメントの二重監視において、空配列による上書きクリアやチラつきで「申請が消える」競合を根本根絶！受信した全申請を一元保持し、承認・拒否されるまで画面に100%確実に維持！',
+      '【📊 フレンド通信診断バナーの常時即時同期】フレンド画面を開いた瞬間に「あなた: BIO-XXXX」および「届いた申請: N件」が即時反映されるよう初期化を徹底！「あなた: ---」のまま放置される表示バグを完全解消！',
+      '【⚡ 承認・拒否のゼロ秒即時ローカル反映】「✅ 承認する」「❌ 拒否」を押した瞬間に画面から即座にカードが消え、バックグラウンドでクラウド（MATCH_LOBBYおよび個別ドキュメント）へ確実同期！',
+      '【📩 送信ボタン二重押し防止＆送信状態可視化】申請送信中にボタンを「⏳ 送信中...」として一時ロックし、連打による重複書き込みやエラーを完全防止！'
+    ]
+  },
+  {
     ver: 'Ver 4.8.3',
     date: '2026-11-09',
     title: '🤝 フレンド申請・承認 MATCH_LOBBY 通信統合 ＆ 100%リアルタイム確実到達アプデ！',
@@ -5324,6 +5335,7 @@ function loadData() {
   if (fcFull) fcFull.textContent = state.friendCode;
   const fScr = document.getElementById('myFriendCodeFriendScreen');
   if (fScr) fScr.textContent = state.friendCode;
+  if (typeof updateFriendSyncStatusBanner === 'function') updateFriendSyncStatusBanner();
   const pNameInp = document.getElementById('playerNameInput');
   if (pNameInp) pNameInp.value = state.playerName;
 
@@ -5768,6 +5780,7 @@ function switchFriendsOrRankingMode(mode) {
     if (panelF) panelF.style.display = 'block';
     if (panelR) panelR.style.display = 'none';
     renderFriendList();
+    if (typeof updateFriendSyncStatusBanner === 'function') updateFriendSyncStatusBanner();
     checkIncomingFriendRequests();
     listenToIncomingFriendRequests();
   }
@@ -12281,26 +12294,58 @@ try {
   };
 } catch (e) {}
 
-// 受信したフレンド申請リストを画面に描画する共通ヘルパー
+// ============================================================================
+// 📡 フレンド通信診断ステータスバナー常時更新ヘルパー
+// ============================================================================
+function updateFriendSyncStatusBanner(statusText, isOnline) {
+  const dot = document.getElementById('friendStatusDot');
+  const text = document.getElementById('friendStatusText');
+  const myCodeStatus = document.getElementById('friendMyCodeStatus');
+  const countStatus = document.getElementById('friendPendingCountStatus');
+  const myFriendCodeFriendScreen = document.getElementById('myFriendCodeFriendScreen');
+
+  const myCode = (state && state.friendCode) ? normalizeFriendCode(state.friendCode) : '---';
+  if (myCodeStatus) myCodeStatus.textContent = `あなた: ${myCode}`;
+  if (myFriendCodeFriendScreen && myCode !== '---') myFriendCodeFriendScreen.textContent = myCode;
+  if (countStatus) countStatus.textContent = `届いた申請: ${activeIncomingRequestsMap.size}件`;
+  if (dot) dot.textContent = isOnline === false ? '🔴' : (isOnline === 'warn' ? '🟡' : '🟢');
+  if (text && statusText) text.textContent = statusText;
+}
+
+// 統合受信申請キャッシュ（MATCH_LOBBY / players/{myCode} / friend_requests の全経路をマージして保持・消失防止）
+let activeIncomingRequestsMap = new Map();
 let lastKnownFriendReqSenders = new Set();
-function renderIncomingFriendRequestsUI(pendingReqs) {
+
+// 受信したフレンド申請リストを画面に描画する統合ヘルパー
+function renderIncomingFriendRequestsUI(overrideList) {
   const sec = document.getElementById('incomingRequestsSection');
   const container = document.getElementById('incomingRequestsContainer');
   const badge = document.getElementById('friendReqBadge');
-  const countStatus = document.getElementById('friendPendingCountStatus');
-  const myCodeStatus = document.getElementById('friendMyCodeStatus');
 
-  const list = Array.isArray(pendingReqs) ? pendingReqs : [];
+  if (Array.isArray(overrideList)) {
+    overrideList.forEach(r => {
+      if (!r || !r.fromCode) return;
+      const fc = normalizeFriendCode(r.fromCode);
+      const reqId = r.id || r.reqId || `${fc}_${normalizeFriendCode(state.friendCode)}`;
+      activeIncomingRequestsMap.set(reqId, { ...r, id: reqId, fromCode: fc });
+    });
+  }
+
+  // 既存フレンドになっている相手からの申請は自動除外
+  const currentFriends = (state.friendsList || []).map(f => normalizeFriendCode(f.code));
+  for (const [key, req] of activeIncomingRequestsMap.entries()) {
+    if (currentFriends.includes(normalizeFriendCode(req.fromCode))) {
+      activeIncomingRequestsMap.delete(key);
+    }
+  }
+
+  const list = Array.from(activeIncomingRequestsMap.values());
+
+  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.4)`, true);
 
   if (badge) {
     badge.style.display = list.length > 0 ? 'inline-block' : 'none';
     badge.textContent = list.length;
-  }
-  if (countStatus) {
-    countStatus.textContent = `届いた申請: ${list.length}件`;
-  }
-  if (myCodeStatus && state.friendCode) {
-    myCodeStatus.textContent = `あなた: ${normalizeFriendCode(state.friendCode)}`;
   }
 
   // 新着申請があればトースト通知
@@ -12346,10 +12391,15 @@ function renderIncomingFriendRequestsUI(pendingReqs) {
 function processMyPlayerDocData(myDocData) {
   if (!myDocData) return;
 
-  // 1. 届いているフレンド申請 (incomingReqs)
-  if (Array.isArray(myDocData.incomingReqs)) {
+  // 1. 届いているフレンド申請 (incomingReqs) をキャッシュに安全マージ（空配列で全破棄しない！）
+  if (Array.isArray(myDocData.incomingReqs) && myDocData.incomingReqs.length > 0) {
     const validReqs = myDocData.incomingReqs.filter(r => r && r.fromCode && (!r.status || r.status === 'pending'));
-    renderIncomingFriendRequestsUI(validReqs);
+    validReqs.forEach(r => {
+      const fc = normalizeFriendCode(r.fromCode);
+      const reqId = r.id || r.reqId || `${fc}_${normalizeFriendCode(state.friendCode)}`;
+      activeIncomingRequestsMap.set(reqId, { ...r, id: reqId, fromCode: fc });
+    });
+    renderIncomingFriendRequestsUI();
   }
 
   // 2. 相手が承認してくれたフレンド (approvedFriends)
@@ -12421,6 +12471,7 @@ function listenToIncomingFriendRequests() {
   if (!db || !state.friendCode) return;
 
   const myCode = normalizeFriendCode(state.friendCode);
+  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.4)`, true);
 
   // 1. 自身の players/{myCode} をリアルタイム監視
   friendReqUnsubscribe = db.collection('players').doc(myCode).onSnapshot(docSnap => {
@@ -12437,6 +12488,7 @@ function listenToIncomingFriendRequests() {
     processMyPlayerDocData(d);
   }, err => {
     console.warn('listenToIncomingFriendRequests player doc note:', err);
+    updateFriendSyncStatusBanner(`📡 通信注意: 個別同期再接続中...`, 'warn');
   });
 
   // 2. ★ 全員が読み書き可能な共通ハブ players/MATCH_LOBBY を常時リアルタイム監視！
@@ -12445,12 +12497,19 @@ function listenToIncomingFriendRequests() {
     if (!lobbySnap.exists) return;
     const lData = lobbySnap.data() || {};
 
-    // A. 自分宛てのフレンド申請をキャッチ
+    // A. 自分宛てのフレンド申請をキャッチして統合キャッシュにマージ
     if (Array.isArray(lData.friendRequests)) {
-      const myReqs = lData.friendRequests.filter(r => r && normalizeFriendCode(r.targetCode) === myCode && (!r.status || r.status === 'pending'));
-      if (myReqs.length > 0) {
-        renderIncomingFriendRequestsUI(myReqs);
-      }
+      lData.friendRequests.forEach(r => {
+        if (!r || !r.fromCode || !r.targetCode) return;
+        const normTarget = normalizeFriendCode(r.targetCode);
+        if (normTarget === myCode && (!r.status || r.status === 'pending')) {
+          if ((state.friendsList || []).some(f => normalizeFriendCode(f.code) === normalizeFriendCode(r.fromCode))) return;
+          const fc = normalizeFriendCode(r.fromCode);
+          const reqId = r.id || r.reqId || `${fc}_${myCode}`;
+          activeIncomingRequestsMap.set(reqId, { ...r, id: reqId, fromCode: fc, targetCode: myCode });
+        }
+      });
+      renderIncomingFriendRequestsUI();
     }
 
     // B. 自分宛てのフレンド承認通知をキャッチ
@@ -12480,12 +12539,14 @@ function listenToIncomingFriendRequests() {
     }
   }, err => {
     console.warn('listenToIncomingFriendRequests MATCH_LOBBY note:', err);
+    updateFriendSyncStatusBanner(`📡 通信注意: MATCH_LOBBY再接続中...`, 'warn');
   });
 }
 
 // 友達にフレンド申請を送信（MATCH_LOBBY ＋ players/{targetCode} への多重送信・100%確実到達！）
 async function sendFriendRequestCloud() {
   const codeInp = document.getElementById('friendSearchCodeInput');
+  const btn = document.getElementById('sendFriendReqBtn');
   const raw = (codeInp ? codeInp.value : '').trim();
   if (!raw) {
     showToast('⚠️ 友達のフレンドコードを入力してください！（例: 4363 または BIO-4363）');
@@ -12509,7 +12570,12 @@ async function sendFriendRequestCloud() {
     return;
   }
 
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = '⏳ 送信中...';
+  }
   showToast(`🔍『${code}』宛てにフレンド申請を送信中...`);
+
   try {
     let targetName = '研究員';
     let existingReqs = [];
@@ -12541,16 +12607,17 @@ async function sendFriendRequestCloud() {
 
     // ★ 1. 【最重要メイン経路】全員が100%読み書きできる実績ドキュメント players/MATCH_LOBBY に申請を保存！
     //    Firestoreの他者書き込み権限制限を100%回避し、相手画面に0.1秒で即出現！
+    let lobbySuccess = false;
     try {
       const lobbyRef = db.collection('players').doc('MATCH_LOBBY');
       const lobbySnap = await lobbyRef.get();
       let currentLobbyReqs = [];
       if (lobbySnap.exists && lobbySnap.data() && Array.isArray(lobbySnap.data().friendRequests)) {
-        // 同一相手宛ての古い未承認申請は除外して最新に更新
         currentLobbyReqs = lobbySnap.data().friendRequests.filter(r => r && !(normalizeFriendCode(r.fromCode) === myCode && normalizeFriendCode(r.targetCode) === code));
       }
       currentLobbyReqs.push(payload);
       await lobbyRef.set({ isSystemDoc: true, friendRequests: currentLobbyReqs, updatedAt: Date.now() }, { merge: true });
+      lobbySuccess = true;
     } catch (e) {
       console.warn('sendFriendRequest MATCH_LOBBY note:', e);
     }
@@ -12581,9 +12648,15 @@ async function sendFriendRequestCloud() {
 
     if (codeInp) codeInp.value = '';
     showToast(`📨『${targetName}』(${code}) さんにフレンド申請を送信しました！相手が承認するとフレンドになります！`);
+    updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.4)`, true);
   } catch (err) {
     console.error('sendFriendRequestCloud error:', err);
     showToast('⚠️ フレンド申請送信中にエラーが発生しました: ' + (err.message || '通信エラー'));
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = '📩 フレンド申請を送る';
+    }
   }
 }
 
@@ -12593,10 +12666,7 @@ async function checkIncomingFriendRequests() {
   const myCode = normalizeFriendCode(state.friendCode);
 
   try {
-    let mergedReqs = [];
-    const seenSenders = new Set();
-
-    // 1. 【最重要ハブ】players/MATCH_LOBBY から取得
+    // 1. 【最重要ハブ】players/MATCH_LOBBY から取得して統合マップに格納
     try {
       const lobbySnap = await db.collection('players').doc('MATCH_LOBBY').get();
       if (lobbySnap.exists && lobbySnap.data()) {
@@ -12605,9 +12675,9 @@ async function checkIncomingFriendRequests() {
           ld.friendRequests.forEach(r => {
             if (r && normalizeFriendCode(r.targetCode) === myCode && (!r.status || r.status === 'pending')) {
               const fc = normalizeFriendCode(r.fromCode);
-              if (fc && !seenSenders.has(fc)) {
-                seenSenders.add(fc);
-                mergedReqs.push(r);
+              const reqId = r.id || r.reqId || `${fc}_${myCode}`;
+              if (!(state.friendsList || []).some(f => normalizeFriendCode(f.code) === fc)) {
+                activeIncomingRequestsMap.set(reqId, { ...r, id: reqId, fromCode: fc, targetCode: myCode });
               }
             }
           });
@@ -12642,19 +12712,18 @@ async function checkIncomingFriendRequests() {
       console.warn('checkIncoming MATCH_LOBBY note:', e);
     }
 
-    // 2. players/{myCode} から直接取得
+    // 2. players/{myCode} から直接取得して統合マップにマージ
     try {
       const myDoc = await db.collection('players').doc(myCode).get();
       if (myDoc.exists && myDoc.data()) {
         const d = myDoc.data();
-        processMyPlayerDocData(d);
         if (Array.isArray(d.incomingReqs)) {
           d.incomingReqs.forEach(r => {
             if (r && r.fromCode && (!r.status || r.status === 'pending')) {
               const fc = normalizeFriendCode(r.fromCode);
-              if (fc && !seenSenders.has(fc)) {
-                seenSenders.add(fc);
-                mergedReqs.push(r);
+              const reqId = r.id || r.reqId || `${fc}_${myCode}`;
+              if (!(state.friendsList || []).some(f => normalizeFriendCode(f.code) === fc)) {
+                activeIncomingRequestsMap.set(reqId, { ...r, id: reqId, fromCode: fc, targetCode: myCode });
               }
             }
           });
@@ -12669,25 +12738,34 @@ async function checkIncomingFriendRequests() {
         const rd = doc.data();
         if (rd && rd.status === 'pending' && rd.fromCode) {
           const fc = normalizeFriendCode(rd.fromCode);
-          if (fc && !seenSenders.has(fc)) {
-            seenSenders.add(fc);
-            mergedReqs.push({ id: doc.id, ...rd });
+          const reqId = doc.id || `${fc}_${myCode}`;
+          if (!(state.friendsList || []).some(f => normalizeFriendCode(f.code) === fc)) {
+            activeIncomingRequestsMap.set(reqId, { id: reqId, ...rd, fromCode: fc });
           }
         }
       });
     } catch (e) {}
 
-    renderIncomingFriendRequestsUI(mergedReqs);
+    renderIncomingFriendRequestsUI();
   } catch (err) {
     console.warn('checkIncomingFriendRequests error:', err);
   }
 }
 
-// フレンド申請の承認（MATCH_LOBBY 承認ハブ ＋ 双方の players ドキュメントを更新して即座に双方向フレンド成立！）
+// フレンド申請の承認（即時ローカル反映 ＆ MATCH_LOBBY 承認ハブ ＋ 双方の players ドキュメントを更新）
 async function approveFriendRequest(reqId, senderCode) {
   if (!db) return;
   const normSender = normalizeFriendCode(senderCode);
   const myCode = normalizeFriendCode(state.friendCode);
+
+  // ★ ゼロ秒ローカル即時反映：統合マップから即座に削除して画面から消す！
+  if (reqId) activeIncomingRequestsMap.delete(reqId);
+  for (const [key, req] of activeIncomingRequestsMap.entries()) {
+    if (normalizeFriendCode(req.fromCode) === normSender) {
+      activeIncomingRequestsMap.delete(key);
+    }
+  }
+  renderIncomingFriendRequestsUI();
   showToast('🤝 承認処理中...');
 
   try {
@@ -12748,17 +12826,14 @@ async function approveFriendRequest(reqId, senderCode) {
     };
 
     // ★ 3. 【最重要ハブ】players/MATCH_LOBBY に承認データを保存 ＆ 申請を除去！
-    //    相手はどこにいても即座にフレンド成立を検知できる！
     try {
       const lobbyRef = db.collection('players').doc('MATCH_LOBBY');
       const lobbySnap = await lobbyRef.get();
       if (lobbySnap.exists && lobbySnap.data()) {
         const ld = lobbySnap.data();
-        // 該当申請を除去
         const newReqs = Array.isArray(ld.friendRequests)
           ? ld.friendRequests.filter(r => r && !(normalizeFriendCode(r.fromCode) === normSender && normalizeFriendCode(r.targetCode) === myCode))
           : [];
-        // 相手宛ての承認通知を追加
         let newApprovals = Array.isArray(ld.friendApprovals)
           ? ld.friendApprovals.filter(a => a && !(normalizeFriendCode(a.targetCode) === normSender && normalizeFriendCode(a.fromCode) === myCode))
           : [];
@@ -12780,7 +12855,6 @@ async function approveFriendRequest(reqId, senderCode) {
       if (myDoc.exists && myDoc.data() && Array.isArray(myDoc.data().incomingReqs)) {
         const remainReqs = myDoc.data().incomingReqs.filter(r => r && normalizeFriendCode(r.fromCode) !== normSender);
         await db.collection('players').doc(myCode).set({ incomingReqs: remainReqs }, { merge: true });
-        renderIncomingFriendRequestsUI(remainReqs);
       }
     } catch (e) {}
 
@@ -12801,7 +12875,6 @@ async function approveFriendRequest(reqId, senderCode) {
     syncMyProfileToCloud();
     saveData();
     renderFriendList();
-    checkIncomingFriendRequests();
 
     if (globalAppChannel) {
       globalAppChannel.postMessage({
@@ -12818,11 +12891,22 @@ async function approveFriendRequest(reqId, senderCode) {
   }
 }
 
-// フレンド申請の拒否（MATCH_LOBBY ＋ players/{myCode} の両方から除外）
+// フレンド申請の拒否（即時ローカル反映 ＆ MATCH_LOBBY ＋ players/{myCode} の両方から除外）
 async function rejectFriendRequest(reqId, senderCode) {
   if (!db) return;
   const myCode = normalizeFriendCode(state.friendCode);
   const normSender = senderCode ? normalizeFriendCode(senderCode) : '';
+
+  // ★ ゼロ秒ローカル即時反映：統合マップから即座に削除して画面から消す！
+  if (reqId) activeIncomingRequestsMap.delete(reqId);
+  if (normSender) {
+    for (const [key, req] of activeIncomingRequestsMap.entries()) {
+      if (normalizeFriendCode(req.fromCode) === normSender) {
+        activeIncomingRequestsMap.delete(key);
+      }
+    }
+  }
+  renderIncomingFriendRequestsUI();
 
   try {
     // 1. MATCH_LOBBY から除去
@@ -12850,7 +12934,6 @@ async function rejectFriendRequest(reqId, senderCode) {
         return true;
       });
       await db.collection('players').doc(myCode).set({ incomingReqs: remainReqs }, { merge: true });
-      renderIncomingFriendRequestsUI(remainReqs);
     }
     if (reqId) {
       db.collection('friend_requests').doc(reqId).delete().catch(() => {});
@@ -12933,6 +13016,7 @@ function renderFriendList() {
   const countText = document.getElementById('friendCountText');
   const list = state.friendsList || [];
   if (countText) countText.textContent = list.length;
+  if (typeof updateFriendSyncStatusBanner === 'function') updateFriendSyncStatusBanner();
   if (!container) return;
 
   if (list.length === 0) {
