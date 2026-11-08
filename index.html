@@ -1847,9 +1847,12 @@
       <div class="card">
         <div class="card-title">👤 研究員プロフィール</div>
         <div style="margin-bottom:10px;">
-          <label style="font-size:0.82rem; font-weight:800;">研究員ネーム</label>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <label style="font-size:0.82rem; font-weight:800;">研究員ネーム</label>
+            <span style="font-size:0.7rem; color:var(--text-sub);">※1〜10文字・特殊記号/NGワード不可</span>
+          </div>
           <div style="display:flex; gap:6px; margin-top:4px;">
-            <input type="text" id="playerNameInput" class="btn-outline" style="flex:1; padding:8px; border-radius:8px;" value="研究員001">
+            <input type="text" id="playerNameInput" class="btn-outline" style="flex:1; padding:8px; border-radius:8px;" value="研究員001" maxlength="10">
             <button class="btn btn-primary" onclick="updatePlayerName()">変更</button>
           </div>
         </div>
@@ -2347,8 +2350,12 @@
           登録後、<strong>初回限定「Lv.30（最終第5形態・SR）ランダム1体確定ルーレット」</strong>が回せます！
         </p>
         <div style="background:#f8fafc; border:2px solid #0284c7; border-radius:12px; padding:12px; margin-bottom:14px;">
-          <label style="font-size:0.8rem; font-weight:900; color:#0369a1; display:block; margin-bottom:6px;">👤 あなたの研究員ネームを入力</label>
-          <input type="text" id="ceremonyNameInput" class="btn-outline" style="width:100%; padding:10px; font-size:1.05rem; font-weight:900; border-radius:10px; text-align:center; border-color:#0284c7;" placeholder="例：らむね">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <label style="font-size:0.8rem; font-weight:900; color:#0369a1;">👤 あなたの研究員ネームを入力</label>
+            <span style="font-size:0.7rem; color:#64748b; font-weight:800;">10文字以内</span>
+          </div>
+          <input type="text" id="ceremonyNameInput" class="btn-outline" style="width:100%; padding:10px; font-size:1.05rem; font-weight:900; border-radius:10px; text-align:center; border-color:#0284c7;" placeholder="例：らむね" maxlength="10">
+          <div style="font-size:0.68rem; color:#64748b; margin-top:4px;">※公序良俗に反する名前・誹謗中傷・運営詐称ネーム等は登録できません</div>
         </div>
         <button class="btn btn-purple" style="width:100%; padding:13px; font-size:1rem; box-shadow:0 4px 15px rgba(219,39,119,0.4);" onclick="goToCeremonyStep2()">
           🎰 名前を決定して「Lv.30確定ガチャ」へ進む！ 👉
@@ -4380,6 +4387,16 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 4.3',
+    date: '2026-11-08',
+    title: '🛡️ 安心安全プレイ機能（研究員ネーム不適切ワード検知フィルター＆10文字制限）完全実装！',
+    items: [
+      '【🛡️ 研究員ネームの不適切ワード検知フィルター導入】初回セレモニーでの名前登録およびプロフィール画面での名前変更時において、誹謗中傷・公序良俗に反する言葉・運営詐称などの不適切な単語を自動検知してブロックする安心安全ガードを実装！',
+      '【📏 プレイヤー名1〜10文字制限＆記号サニタイズ】対戦画面や全国ランキングでのUI表示崩れ・はみ出しを防止するため、研究員ネームを1文字以上10文字以内に制限！さらにHTMLタグ記号等の不正入力を安全に防止！',
+      '【🔍 重複チェック連動＆確実な保存保護】不適切ワードチェックをクラウド重複確認の手前で瞬時に判定し、無駄な通信を防ぎつつ安全で快適な名前決定体験を提供！'
+    ]
+  },
+  {
     ver: 'Ver 4.2',
     date: '2026-11-08',
     title: '🎒 中学生向け全教科・全単元・全難易度250問超メガ拡充 ＆ 出題ループ完全根絶アプデ！',
@@ -5260,6 +5277,51 @@ function openWelcomeCeremonyModal() {
   modal.classList.add('active');
 }
 
+// 🛡️ 研究員ネームの不適切・NGワード検知＆文字数バリデーション
+function validatePlayerName(rawName) {
+  const name = (rawName || '').trim();
+  if (!name) {
+    return { valid: false, reason: '⚠️ 研究員ネームを入力してください！' };
+  }
+  if (name === '研究員001') {
+    return { valid: false, reason: '⚠️『研究員001』以外のオリジナルな名前を入力してください！' };
+  }
+  if (name.length > 10) {
+    return { valid: false, reason: `⚠️ 研究員ネームは10文字以内で入力してください！（現在: ${name.length}文字）` };
+  }
+  // 禁止記号（HTMLタグ・特殊制御文字・改行）
+  if (/[<>&"'`\\/\n\r\t]/.test(name)) {
+    return { valid: false, reason: '⚠️ 使用できない記号（< > & " \' / \\ など）が含まれています。' };
+  }
+
+  // 正規化（全角英数・カナの正規化、小文字化、スペース除去）
+  const normalized = name
+    .toLowerCase()
+    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
+    .replace(/[\s\u3000]+/g, '');
+
+  // NGワードリスト（運営詐称・誹謗中傷・死・暴力・差別・卑猥語）
+  const NG_WORDS = [
+    // 運営・公式詐称系
+    'admin', 'administrator', '運営', '公式', '開発者', 'システム', 'system', 'モデレーター', 'moderator',
+    // 誹謗中傷・死・暴力系
+    '死ね', 'しね', 'シネ', 'shine', '殺す', 'ころす', 'コロス', 'korosu', '消えろ', 'きえろ', 'キエロ',
+    'カス', 'かす', 'ゴミ', 'ごみ', 'バカ', 'ばか', '馬鹿', 'アホ', 'あほ', 'ガイジ', '障害者', 'キモい', 'きもい',
+    'fuck', 'shit', 'bitch', 'kill', 'die', 'bastard', 'nigger', 'cunt',
+    // 卑猥・性関連・下ネタ系
+    'ちんこ', 'チンコ', 'まんこ', 'マンコ', 'ちんぽ', 'チンポ', 'おっぱい', 'オッパイ', 'セックス', 'せっくす',
+    'sex', 'penis', 'vagina', 'dick', 'pussy'
+  ];
+
+  for (const ng of NG_WORDS) {
+    if (normalized.includes(ng)) {
+      return { valid: false, reason: '⚠️ その名前には不適切な単語または使用できない表現が含まれています。別の名前にしてください。' };
+    }
+  }
+
+  return { valid: true, cleanName: name };
+}
+
 // 🔒 同じ名前の研究員がすでに存在しないかクラウドでチェックする関数
 // ★ 他人のアカウントデータは絶対に削除せず、自分がリセットした直前の旧コードのみ整理する安全設計！
 async function checkNameTakenInCloud(candidateName) {
@@ -5292,12 +5354,16 @@ async function checkNameTakenInCloud(candidateName) {
 
 async function goToCeremonyStep2() {
   const nameIn = document.getElementById('ceremonyNameInput');
-  const nm = (nameIn.value || '').trim();
-  if (!nm || nm === '研究員001') {
-    showToast('⚠️ あなたの研究員ネームを入力してください！');
+  const rawNm = (nameIn.value || '').trim();
+
+  // 🛡️ 不適切ネーム・文字数・記号バリデーション
+  const valRes = validatePlayerName(rawNm);
+  if (!valRes.valid) {
+    showToast(valRes.reason);
     nameIn.focus();
     return;
   }
+  const nm = valRes.cleanName;
 
   const taken = await checkNameTakenInCloud(nm);
   if (taken) {
@@ -11396,11 +11462,17 @@ function updateStatsDisplay() {
 
 async function updatePlayerName() {
   const inp = document.getElementById('playerNameInput');
-  const name = (inp.value || '').trim();
-  if (!name || name === '研究員001') {
-    showToast('⚠️『研究員001』以外の名前を入力してください！');
+  const rawName = (inp.value || '').trim();
+
+  // 🛡️ 不適切ネーム・文字数・記号バリデーション
+  const valRes = validatePlayerName(rawName);
+  if (!valRes.valid) {
+    showToast(valRes.reason);
+    inp.focus();
     return;
   }
+  const name = valRes.cleanName;
+
   if (name === state.playerName) {
     showToast('ℹ️ 現在と同じ名前です。');
     return;
