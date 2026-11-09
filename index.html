@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 4.8.5 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 4.8.6 - 理系微生物育成＆戦略クイズバトル</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -1535,6 +1535,18 @@
         </button>
       </div>
 
+      <!-- 対戦ルールバナー（ホスト・ゲスト双方に選択カテゴリ・科目を明記） -->
+      <div id="lobbyRoomRulesBanner" style="background:#fdf4ff; border:2px solid #e879f9; border-radius:12px; padding:8px 14px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:1.1rem;">🎯</span>
+          <span style="font-size:0.82rem; font-weight:900; color:#86198f;">対戦ルール：</span>
+          <span id="lobbyRoomRulesText" style="font-size:0.85rem; font-weight:900; color:#581c87; background:#fff; padding:3px 10px; border-radius:8px; border:1px solid #f0abfc;">
+            読み込み中...
+          </span>
+        </div>
+        <div id="lobbyRoomRulesSubText" style="font-size:0.75rem; color:#701a75; font-weight:800;"></div>
+      </div>
+
       <!-- プレイヤー2人の入室状況カード（VS表示） -->
       <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:12px; align-items:center; margin-bottom:14px;">
         <div id="lobbyHostCard" style="background:#eff6ff; border:2.5px solid #3b82f6; border-radius:14px; padding:14px; text-align:center; box-shadow:0 3px 10px rgba(59,130,246,0.1);">
@@ -2865,6 +2877,7 @@ const TITLES_MASTER = [
   { id: 't_mutant', name: '🌟 突然変異ハンター', condText: '突然変異種を仲間にする', check: s => s.box.some(m => m.isMutant) },
   { id: 't_god', name: '🌌 神個体(LR)の覚醒者', condText: 'LR（変異種×感覚100）を仲間にする', check: s => s.box.some(m => m.rarity === 'LR') },
   { id: 't_collector', name: '📘 バイオ図鑑コンプリーター', condText: '手持ちボックスを15体以上にする', check: s => s.box.length >= 15 },
+  { id: 't_first_chip', name: '🧬 遺伝子カスタムの第一歩', condText: 'いずれかのキャラに遺伝子チップを1枚以上装備させる', check: s => s.box.some(m => Array.isArray(m.chips) && m.chips.filter(Boolean).length >= 1) },
   { id: 't_dual_genome', name: '🧬 デュアルゲノムの開拓者', condText: 'いずれかのキャラに遺伝子チップを2枠とも装備させる', check: s => s.box.some(m => Array.isArray(m.chips) && m.chips.filter(Boolean).length >= 2) }
 ];
 
@@ -3412,6 +3425,28 @@ const QUIZ_MASTER = [
   { id: 'j_math_exam_5', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'exam', q: '【筑波大附属高 過去問・図形】1辺が 6cm の正四面体の高さは何√6 cm？', ans: '2', c: ['2', '3', '4', '1'] },
   { id: 'j_math_exam_6', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'exam', q: '【洛南高 過去問・確率】赤玉3個、白玉2個が入った袋から同時に2個取り出すとき、2個とも同じ色である確率は？', ans: '2/5', c: ['2/5', '1/2', '3/10', '1/5'] },
   { id: 'j_math_exam_7', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'exam', q: '【ラ・サール高 過去問・整数】n を2桁の自然数とするとき、√(300n) が自然数となるような最小の n の値は？', ans: '12', c: ['12', '15', '27', '48'] },
+
+  // --- 中学数学：公立高校入試・定期テスト超頻出アーカイブ（大幅拡充） ---
+  { id: 'j_math_add_1', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '【中学数学・計算】(-3) × (-4) + (-5) の計算結果はいくつ？（数字のみ）', ans: '7', c: ['7', '-17', '17', '-7'] },
+  { id: 'j_math_add_2', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'textbook', q: '【中学数学・式の展開】(x + 5)(x - 2) を展開したときの x の係数はいくつ？（数字のみ）', ans: '3', c: ['3', '-10', '7', '-3'] },
+  { id: 'j_math_add_3', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・平方根】分母を有理化： 6 / √3 を簡単にすると「〇√3」になる。〇は？', ans: '2', c: ['2', '3', '6', '1'] },
+  { id: 'j_math_add_4', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・方程式】2次方程式 2x² - 4x + 1 = 0 の解を求める公式の分母に入る数字は？（2a）', ans: '4', c: ['4', '2', '1', '-4'] },
+  { id: 'j_math_add_5', grade: 'junior', subj: 'j_math', unit: 'j_math_num', level: 'refbook', q: '【公立高校入試・等式変形】等式 2x + 3y = 6 を y について解くと「y = -2/3x + 〇」。〇は？', ans: '2', c: ['2', '3', '6', '-2'] },
+  { id: 'j_math_add_6', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'textbook', q: '【中学数学・反比例】y が x に反比例し、x = 3 のとき y = 4 である。比例定数 a の値は？', ans: '12', c: ['12', '7', '4/3', '1'] },
+  { id: 'j_math_add_7', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'refbook', q: '【公立高校入試・2次関数】関数 y = x² について、x の変域が -2 ≦ x ≦ 3 のとき、y の最小値は？', ans: '0', c: ['0', '4', '9', '-2'] },
+  { id: 'j_math_add_8', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'refbook', q: '【公立高校入試・2次関数】関数 y = x² について、x の変域が -2 ≦ x ≦ 3 のとき、y の最大値は？', ans: '9', c: ['9', '4', '0', '6'] },
+  { id: 'j_math_add_9', grade: 'junior', subj: 'j_math', unit: 'j_math_func', level: 'exam', q: '【難関高校入試・関数】放物線 y = (1/2)x² と直線 y = x + 4 の2つの交点のうち、x 座標が正の点の x 座標は？', ans: '4', c: ['4', '2', '-2', '8'] },
+  { id: 'j_math_add_10', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'textbook', q: '【中学数学・円周角】円の直径に対する円周角の大きさは常に何度？（数字のみ）', ans: '90', c: ['90', '180', '60', '45'] },
+  { id: 'j_math_add_11', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'refbook', q: '【公立高校入試・相似】相似な2つの立体の相似比が 2 : 3 であるとき、その「体積比」は何対何？', ans: '8:27', c: ['8:27', '4:9', '2:3', '6:9'] },
+  { id: 'j_math_add_12', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'refbook', q: '【公立高校入試・相似】相似な2つの図形の相似比が 3 : 5 であるとき、その「面積比」は何対何？', ans: '9:25', c: ['9:25', '3:5', '27:125', '6:10'] },
+  { id: 'j_math_add_13', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'refbook', q: '【公立高校入試・三平方】直角二等辺三角形の3辺の比「1 : 1 : 〇」。〇に入る平方根は？', ans: '√2', c: ['√2', '√3', '2', '1.5'] },
+  { id: 'j_math_add_14', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'refbook', q: '【公立高校入試・三平方】30°・60°・90° の直角三角形の3辺の比「1 : 2 : 〇」。〇に入る平方根は？', ans: '√3', c: ['√3', '√2', '3', '√5'] },
+  { id: 'j_math_add_15', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'refbook', q: '【公立高校入試・空間図形】底面の半径 3cm、高さ 4cm の円すいの体積は何π cm³？（公式: 1/3Sh）', ans: '12', c: ['12', '36', '16', '24'] },
+  { id: 'j_math_add_16', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'textbook', q: '【中学数学・確率】1枚の硬貨を2回投げるとき、2回とも「表」が出る確率は？', ans: '1/4', c: ['1/4', '1/2', '1/3', '3/4'] },
+  { id: 'j_math_add_17', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'refbook', q: '【公立高校入試・確率】ジョーカーを除く52枚のトランプから1枚引くとき、「エース（1）」が出る確率は？', ans: '1/13', c: ['1/13', '1/4', '1/52', '4/13'] },
+  { id: 'j_math_add_18', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'textbook', q: '【中学数学・資料】データを小さい順に並べたとき、ちょうど中央にくる値を何という？', ans: '中央値', c: ['中央値', '平均値', '最頻値', '四分位数'] },
+  { id: 'j_math_add_19', grade: 'junior', subj: 'j_math', unit: 'j_math_prob', level: 'textbook', q: '【中学数学・資料】データの中で最も多く現れる値を何という？', ans: '最頻値', c: ['最頻値', '中央値', '平均値', '範囲'] },
+  { id: 'j_math_add_20', grade: 'junior', subj: 'j_math', unit: 'j_math_geom', level: 'exam', q: '【難関高校入試・中点連結】△ABCで辺AB, ACの中点をM, Nとするとき、線分MNの長さは辺BCの何倍？', ans: '1/2倍', c: ['1/2倍', '1/3倍', '2倍', '1/4倍'] },
 
   // --- 中学英語：公立高校入試・標準 (refbook) ---
   { id: 'j_eng_ref_1', grade: 'junior', subj: 'j_eng', unit: 'j_eng_gram', level: 'refbook', q: '【公立高校入試・受動態】This classic room is ( 〇 ) by Ken every morning.', ans: 'cleaned', c: ['cleaned', 'cleaning', 'cleans', 'clean'] },
@@ -4417,6 +4452,19 @@ QUIZ_MASTER.forEach(q => {
 
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
+  {
+    ver: 'Ver 4.8.6',
+    date: '2026-11-10',
+    title: '🧬 チップ効果完全可視化 ＆ 🎒 中学生オンライン対戦大学問題混入の完全根絶アプデ！',
+    items: [
+      '【🧬 チップ効果の完全可視化＆戦闘ログ明記】筋原線維（攻撃+15）・繊毛モーター（すばやさ+15）・二重生体膜（防御+15）などの基礎ステータス上昇チップの効果が戦闘ログに「🔴筋原線維(攻+15)」等として明確に表示されるよう改修！さらにバトル画面HUDに装備中チップアイコンを表示！',
+      '【🎖️ 新称号『🧬 遺伝子カスタムの第一歩』新設】いずれかのキャラに遺伝子チップを1枚でも装備させると即座に獲得できる親切な初心者向け称号を新設！「チップをつけたのに未達成判定になる」違和感を完全解消！',
+      '【🎒 中学生オンライン対戦の大学入試問題混入を完全根絶】友達とのリアルタイム対戦（selectQuestionForRoom）において、高校数学（m1a）や大学入試過去問が混入していた出題判定バグを根本修正！中学生モード時は中学生問題以外絶対に1問も出題されない鉄壁のガードを配備！',
+      '【⚡ オンライン対戦でも中学生数学「動的計算問題生成」を配備】一人用CPU戦で好評の一次方程式・因数分解・平方根・一次関数の傾き・三平方の定理などの動的無限生成ロジックをオンライン対戦にも連動！問題枯渇によるループを完全防止！',
+      '【📚 中学数学の静的問題プール大幅拡充】公立高校入試・定期テスト頻出の良問を大量追加し、静的プール単体でも50問以上の大ボリュームへ大幅増強！',
+      '【🏟️ 対戦ロビー画面での選択ルール明記】対戦部屋ロビーにおいて、現在ホストが設定しているカテゴリ（中学生/理系/英語）と教科・難易度バッジを大きく明記！双方の認識ズレをゼロに！'
+    ]
+  },
   {
     ver: 'Ver 4.8.5',
     date: '2026-11-09',
@@ -8478,7 +8526,17 @@ function updateBattleHud() {
   const f2 = battle.p2Team[battle.p2Idx];
   if (!f1 || !f2) return;
 
-  document.getElementById('p1NameText').textContent = `${f1.nickname} Lv.${f1.level}`;
+  const p1ChipsHtml = (f1.chips || []).map(cId => {
+    const c = getChip(cId);
+    return c ? `<span title="${c.name} (${c.desc})" style="font-size:0.75rem; margin-left:3px; background:#f1f5f9; padding:1px 4px; border-radius:4px; border:1px solid #cbd5e1; vertical-align:middle;">${c.icon}</span>` : '';
+  }).filter(Boolean).join('');
+
+  const p2ChipsHtml = (f2.chips || []).map(cId => {
+    const c = getChip(cId);
+    return c ? `<span title="${c.name} (${c.desc})" style="font-size:0.75rem; margin-left:3px; background:#f1f5f9; padding:1px 4px; border-radius:4px; border:1px solid #cbd5e1; vertical-align:middle;">${c.icon}</span>` : '';
+  }).filter(Boolean).join('');
+
+  document.getElementById('p1NameText').innerHTML = `<span>${f1.nickname} Lv.${f1.level}</span>${p1ChipsHtml}`;
   document.getElementById('p1SpdText').textContent = f1.stats.speed;
   document.getElementById('p1DefText').textContent = f1.stats.defense;
   document.getElementById('p1SenseText').textContent = `${f1.stats.sense}(会心${getCritRatePct(f1)}%)`;
@@ -8490,7 +8548,7 @@ function updateBattleHud() {
 
   const oppLabel = battle.oppName || battle.ghostName || '';
   const p2Prefix = oppLabel ? `[${oppLabel}] ` : '';
-  document.getElementById('p2NameText').textContent = `${p2Prefix}${f2.nickname} Lv.${f2.level}`;
+  document.getElementById('p2NameText').innerHTML = `<span>${p2Prefix}${f2.nickname} Lv.${f2.level}</span>${p2ChipsHtml}`;
   document.getElementById('p2SpdText').textContent = f2.stats.speed;
   document.getElementById('p2DefText').textContent = f2.stats.defense;
   document.getElementById('p2SenseText').textContent = `${f2.stats.sense}(会心${getCritRatePct(f2)}%)`;
@@ -9396,6 +9454,9 @@ function executeAttack(who, isTypingBonus, speedMult) {
     f1.nextAtkMult = 1.0;
     let notes = [`⚡速度×${(speedMult || 1.0).toFixed(2)}`];
     if (hasKillerT) notes.push('🎯パーフォリン防御貫通！');
+    if (p1Chips.includes('chip_size')) notes.push('🔴筋原線維(攻+15)');
+    if (p1Chips.includes('chip_spd')) notes.push('⚡繊毛モーター(速+15)');
+    if (p1Chips.includes('chip_def')) notes.push('🟣二重生体膜(防+15)');
 
     // ファージ専用チップ：インジェクション針管（初撃1.5倍）
     if (p1Chips.includes('chip_sp_phage') && f1.phageFirstHitBonus) {
@@ -9588,6 +9649,9 @@ function executeAttack(who, isTypingBonus, speedMult) {
     if (p1Chips.includes('chip_sp_diatom')) {
       dmg = Math.max(1, Math.round(dmg * 0.85));
       notes.push('🛡️シリカ結晶-15%軽減');
+    }
+    if (p1Chips.includes('chip_def')) {
+      notes.push('🟣二重生体膜(防+15軽減)');
     }
 
     if (f1.skillId === 'shield' && !f1.shieldUsed) {
@@ -14303,6 +14367,7 @@ async function joinFriendBattleRoom(targetRoomId) {
     const hTitle = document.getElementById('lobbyHostTitleText');
     if (hTitle) hTitle.textContent = `${rData.hostTitle || '研究員'} (${rData.hostCode || ''})`;
     if (rData.hostTeam) renderLobbyTeamIcons('lobbyHostTeamPreview', rData.hostTeam);
+    if (rData.rules) updateLobbyRulesDisplay(rData.rules);
   }
   setupRoomBroadcastChannel(roomId);
 
@@ -14347,6 +14412,8 @@ function openRoomLobbyUI(roomId, isHost, myTeam) {
   if (codeDisp) codeDisp.textContent = roomId;
   const hintDisp = document.getElementById('lobbyGuestRoomCodeHint');
   if (hintDisp) hintDisp.textContent = roomId;
+
+  updateLobbyRulesDisplay(getCurrentBattleRules());
 
   document.getElementById('roomHostHpMult').disabled = !isHost;
   document.getElementById('roomHostAtkMult').disabled = !isHost;
@@ -14399,6 +14466,35 @@ function openRoomLobbyUI(roomId, isHost, myTeam) {
   }
 
   renderLobbyFriendInviteButtons();
+}
+
+// 🎯 対戦ロビー画面のルールバナー表示更新
+function updateLobbyRulesDisplay(rules) {
+  const mainEl = document.getElementById('lobbyRoomRulesText');
+  const subEl = document.getElementById('lobbyRoomRulesSubText');
+  if (!mainEl) return;
+  const r = rules || (typeof getCurrentBattleRules === 'function' ? getCurrentBattleRules() : null) || {};
+  const cat = r.category || 'sci';
+  if (cat === 'junior') {
+    const subjMap = {
+      j_all: '🌈 3科目オールミックス',
+      j_sci: '🧪 中学理科',
+      j_math: '📐 中学数学',
+      j_eng: '🔤 中学英語'
+    };
+    const sName = subjMap[r.subj] || '🎒 中学生';
+    const gName = r.grade === 'all' ? '全学年・高校受験' : (r.grade === 'elem' ? '小中基礎' : '標準');
+    mainEl.innerHTML = `<span style="color:#d97706; font-weight:900;">🎒 中学生・高校受験</span> ｜ <strong style="color:#2563eb;">${sName}</strong>`;
+    if (subEl) subEl.textContent = `難易度: ${gName} ／ 形式: ${r.qType === 'typing' ? '記述入力' : '4択'}`;
+  } else if (cat === 'eng') {
+    mainEl.innerHTML = `<span style="color:#2563eb; font-weight:900;">🔤 英語マスター</span> ｜ <strong style="color:#7c3aed;">英単語・文法特訓</strong>`;
+    if (subEl) subEl.textContent = `形式: ${r.qType === 'typing' ? 'タイピング入力' : '4択'}`;
+  } else {
+    const subjMap = { bio: '🧬 生物', math: '📐 数学', m1a: '📐 数学I・A', chem: '⚗️ 化学', phys: '⚡ 物理' };
+    const sName = subjMap[r.subj] || '理系科目';
+    mainEl.innerHTML = `<span style="color:#059669; font-weight:900;">🔬 高校理系</span> ｜ <strong style="color:#4f46e5;">${sName}</strong>`;
+    if (subEl) subEl.textContent = `単元: ${r.unit === 'all_units' ? '全単元' : r.unit} ／ 形式: ${r.qType === 'typing' ? '記述入力' : '4択'}`;
+  }
 }
 
 // ロビー内のミニモンスターアイコン3体描画
@@ -15225,11 +15321,14 @@ function handleRoomSnapshotData(r) {
       onGuestJoinedLobby(r);
     }
 
-    if (!isRoomHost && r.rules) {
-      document.getElementById('roomHostHpMult').value = r.rules.hostHpMult || 1.0;
-      document.getElementById('roomHostAtkMult').value = r.rules.hostAtkMult || 1.0;
-      document.getElementById('roomGuestHpMult').value = r.rules.guestHpMult || 1.0;
-      document.getElementById('roomGuestAtkMult').value = r.rules.guestAtkMult || 1.0;
+    if (r.rules) {
+      updateLobbyRulesDisplay(r.rules);
+      if (!isRoomHost) {
+        document.getElementById('roomHostHpMult').value = r.rules.hostHpMult || 1.0;
+        document.getElementById('roomHostAtkMult').value = r.rules.hostAtkMult || 1.0;
+        document.getElementById('roomGuestHpMult').value = r.rules.guestHpMult || 1.0;
+        document.getElementById('roomGuestAtkMult').value = r.rules.guestAtkMult || 1.0;
+      }
     }
   }
 
@@ -15376,32 +15475,73 @@ function selectQuestionForRoom(rules, excludeId = null) {
     return fresh[Math.floor(Math.random() * fresh.length)];
   };
 
-  if (rules && (rules.category === 'eng' || currentBattleCategory === 'eng')) {
-    let pool = typeof ENGLISH_QUIZ_MASTER !== 'undefined' ? ENGLISH_QUIZ_MASTER : QUIZ_MASTER;
-    return filterRoomPool(pool);
-  }
+  // 🎒 中学生・高校受験モードのオンライン対戦出題（大学入試問題の混入を100%完全遮断！）
+  const isJuniorMode = rules && (rules.category === 'junior' || String(rules.subj || '').startsWith('j_') || currentBattleCategory === 'junior');
+  if (isJuniorMode) {
+    const jSubj = (rules && rules.subj) || 'j_all';
+    const jUnit = (rules && rules.unit) || 'all_units';
+    const jGrade = (rules && rules.grade) || 'all';
 
-  // 🎒 中学生モードのオンライン対戦出題
-  if (rules && rules.category === 'junior') {
+    // 1. 中学数学の場合、動的計算問題ジェネレーターも連動！（オンライン対戦でも数値ランダム問題を出題しループ防止！）
+    if (jSubj === 'j_math' && Math.random() < 0.40) {
+      try {
+        const dynQ = generateDynamicMathQuestion('junior', 'j_math', jUnit);
+        if (dynQ) {
+          dynQ.grade = 'junior';
+          dynQ.subj = 'j_math';
+          return dynQ;
+        }
+      } catch (e) {}
+    }
+
+    // 2. 静的問題プール（中学・小学レベルのみを厳格抽出！）
     let pool = QUIZ_MASTER.filter(item => {
+      // ★ 高校・大学入試問題（grade === 'high' 等）は100%絶対に除外！
       if (item.grade !== 'junior' && item.grade !== 'elem') return false;
-      if (rules.grade && rules.grade !== 'all' && (item.level || 'textbook') !== rules.grade) return false;
-      if (rules.subj && rules.subj !== 'j_all') {
-        if (rules.subj === 'j_sci' && item.subj !== 'j_sci' && item.subj !== 'bio' && item.subj !== 'chem' && item.subj !== 'phys') return false;
-        if (rules.subj === 'j_math' && item.subj !== 'j_math' && item.subj !== 'm1a' && item.subj !== 'math') return false;
-        if (rules.subj === 'j_eng' && item.subj !== 'j_eng') return false;
+
+      // 難易度厳格判定
+      if (jGrade !== 'all' && (item.level || 'textbook') !== jGrade) return false;
+
+      // 教科一致判定（中学専用コードのみを対象にし、高校数学m1a等は絶対に混入させない！）
+      if (jSubj !== 'j_all') {
+        if (item.subj !== jSubj) return false;
       }
-      if (rules.unit && rules.unit !== 'all_units' && item.unit && item.unit !== rules.unit) return false;
+
+      // 単元一致判定
+      if (jUnit !== 'all_units' && item.unit && item.unit !== jUnit) return false;
       return true;
     });
+
+    // 単元・難易度指定で候補が少ない場合の安全フォールバック（難易度を維持し単元を広げる）
     if (pool.length === 0) {
       pool = QUIZ_MASTER.filter(item => {
         if (item.grade !== 'junior' && item.grade !== 'elem') return false;
-        if (rules.grade && rules.grade !== 'all' && (item.level || 'textbook') !== rules.grade) return false;
+        if (jGrade !== 'all' && (item.level || 'textbook') !== jGrade) return false;
+        if (jSubj !== 'j_all' && item.subj !== jSubj) return false;
         return true;
       });
     }
-    if (pool.length === 0) pool = QUIZ_MASTER.filter(item => item.grade === 'junior' || item.grade === 'elem');
+
+    // さらに不足する場合でも、中学・小学レベルの該当教科に限定！
+    if (pool.length === 0) {
+      pool = QUIZ_MASTER.filter(item => {
+        if (item.grade !== 'junior' && item.grade !== 'elem') return false;
+        if (jSubj !== 'j_all' && item.subj !== jSubj) return false;
+        return true;
+      });
+    }
+
+    // 最後の安全網（絶対に中学・小学問題の範囲内のみ！）
+    if (pool.length === 0) {
+      pool = QUIZ_MASTER.filter(item => item.grade === 'junior' || item.grade === 'elem');
+    }
+    return filterRoomPool(pool);
+  }
+
+  // 📖 英語モードのオンライン対戦出題
+  const isEngMode = rules && (rules.category === 'eng' || currentBattleCategory === 'eng' || String(rules.subj || '').startsWith('eng'));
+  if (isEngMode) {
+    let pool = typeof ENGLISH_QUIZ_MASTER !== 'undefined' ? ENGLISH_QUIZ_MASTER : QUIZ_MASTER;
     return filterRoomPool(pool);
   }
 
