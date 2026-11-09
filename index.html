@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 4.8.6 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 4.8.7 - 理系微生物育成＆戦略クイズバトル</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -5120,11 +5120,6 @@ function displayDiagnosticModal(res) {
       <div style="display:flex; gap:8px;">
         <button class="btn btn-primary" style="flex:1; padding:10px; font-size:0.85rem;" onclick="runCloudDiagnostics(true)">🔄 再テスト</button>
         <button class="btn btn-outline" style="flex:1; padding:10px; font-size:0.85rem;" onclick="document.getElementById('cloudDiagnosticModal').classList.remove('active')">閉じる</button>
-      </div>
-    </div>
-  `;
-  modal.classList.add('active');
-}
       </div>
     </div>
   `;
@@ -14375,16 +14370,6 @@ async function joinFriendBattleRoom(targetRoomId) {
 
       if (attempt < 4) {
         await new Promise(r => setTimeout(r, 300));
-      }
-    }
-        }
-      } catch (err) {
-        console.warn(`joinFriendBattleRoom attempt ${attempt} warning:`, err);
-      }
-
-      if (attempt < 6) {
-        // 0.45秒待機して再試行
-        await new Promise(r => setTimeout(r, 450));
       }
     }
 
