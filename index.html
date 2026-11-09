@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 4.8.4 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 4.8.5 - 理系微生物育成＆戦略クイズバトル</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -1436,14 +1436,17 @@
             部屋を作って友達を招待したり、招待された部屋・4桁の部屋番号でリアルタイム対戦！
           </p>
 
-          <!-- 📩 招待された部屋に入る専用ボックス（常時表示・ワンタップ入室！Ver 4.8） -->
+          <!-- 📩 招待された部屋に入る専用ボックス（常時表示・ワンタップ入室！Ver 4.8.5） -->
           <div id="invitedRoomsDedicatedBox" style="background:linear-gradient(135deg, #fff1f2 0%, #fdf2f8 100%); border:2.5px solid #f472b6; border-radius:12px; padding:10px 12px; box-shadow:0 3px 10px rgba(236,72,153,0.12);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; gap:6px; flex-wrap:wrap;">
               <div style="display:flex; align-items:center; gap:6px;">
                 <span style="font-size:0.84rem; font-weight:900; color:#be185d;">📩 招待された部屋に入る</span>
-                <span id="battleSyncVerBadge" style="background:#fce7f3; color:#9d174d; border:1px solid #f472b6; font-size:0.68rem; font-weight:900; padding:1px 6px; border-radius:999px;">Ver 4.8.2</span>
+                <span id="battleSyncVerBadge" style="background:#fce7f3; color:#9d174d; border:1px solid #f472b6; font-size:0.68rem; font-weight:900; padding:1px 6px; border-radius:999px;">Ver 4.8.5</span>
               </div>
-              <button type="button" class="btn btn-outline" style="padding:3px 8px; font-size:0.7rem; border-color:#f472b6; color:#be185d; background:white; font-weight:900;" onclick="checkPendingBattleInvites(true)">🔄 招待を確認</button>
+              <div style="display:flex; gap:4px;">
+                <button type="button" class="btn btn-outline" style="padding:3px 8px; font-size:0.7rem; border-color:#f472b6; color:#be185d; background:white; font-weight:900;" onclick="checkPendingBattleInvites(true)">🔄 招待を確認</button>
+                <button type="button" class="btn btn-outline" style="padding:3px 8px; font-size:0.7rem; border-color:#a855f7; color:#7e22ce; background:white; font-weight:900;" onclick="runCloudDiagnostics(true)">🧪 通信テスト</button>
+              </div>
             </div>
             <div id="battleSyncStatusLine" style="font-size:0.68rem; color:#831843; font-weight:800; margin-bottom:6px; background:rgba(255,255,255,0.7); padding:3px 8px; border-radius:6px; border:1px dashed #f9a8d4;">
               📡 クラウド待機部屋スキャナー：待機中
@@ -1732,11 +1735,12 @@
         <div id="friendSyncStatusBanner" style="background:#f0fdf4; border:2px solid #86efac; border-radius:10px; padding:8px 12px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
           <div style="font-size:0.8rem; font-weight:900; color:#15803d; display:flex; align-items:center; gap:6px;">
             <span id="friendStatusDot">🟢</span>
-            <span id="friendStatusText">📡 フレンド通信: リアルタイム同期中 (Ver 4.8.4)</span>
+            <span id="friendStatusText">📡 フレンド通信: リアルタイム同期中 (Ver 4.8.5)</span>
           </div>
-          <div style="font-size:0.75rem; color:#166534; font-weight:800; display:flex; gap:10px; align-items:center;">
+          <div style="font-size:0.75rem; color:#166534; font-weight:800; display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
             <span id="friendMyCodeStatus">あなた: ---</span>
             <span id="friendPendingCountStatus">届いた申請: 0件</span>
+            <button type="button" class="btn btn-outline" style="padding:2px 8px; font-size:0.72rem; border-color:#86efac; color:#15803d; background:white; font-weight:900;" onclick="runCloudDiagnostics(true)">🧪 通信テスト</button>
           </div>
         </div>
 
@@ -4414,6 +4418,17 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 4.8.5',
+    date: '2026-11-09',
+    title: '🧪 クラウド通信診断ツール配備 ＆ P2P・近接直通通信・エラー完全可視化アプデ！',
+    items: [
+      '【🧪 クラウド通信診断ツールの配備】フレンド画面および対戦画面にワンタップで実行できる「🧪 通信テスト」を新設！Firebase認証・Firestoreの読み取り・書き込み権限を即座に自動テストし、万一の権限エラーや制限内容を1秒で完全可視化！',
+      '【📡 送信エラーの完全可視化＆嘘の成功通知根絶】フレンド申請や対戦招待の送信時、Firestoreへの書き込みが失敗した際にエラーを握り潰さず、具体的なエラーコードを画面に赤字で明示！',
+      '【⚡ PeerJS P2P ＆ BroadcastChannel 直通三重通信網】Firestoreの通信状態やクラウド制限に左右されず、PeerJSによる端末間P2P通信および同一端末間直通通信を配備！申請や対戦招待が0秒で相手の画面に確実に到達！',
+      '【🔄 全画面通信ステータス＆バージョン表記の完全同期】対戦待機部屋スキャナーやフレンド通信バナーのバージョン表記を Ver 4.8.5 へ統一し、通信異常時のリアルタイム警告表示を徹底強化！'
+    ]
+  },
+  {
     ver: 'Ver 4.8.4',
     date: '2026-11-09',
     title: '🤝 フレンド申請統合マネージャー（画面クリア競合根絶）＆ 常時即時バナー同期アプデ！',
@@ -4874,6 +4889,13 @@ const firebaseConfig = {
 
 let db = null;
 let firebaseAuth = null;
+let cloudAuthState = {
+  status: 'pending',
+  uid: null,
+  error: null
+};
+let lastCloudDiagnosticResult = null;
+
 try {
   if (firebase.apps.length === 0) {
     firebase.initializeApp(firebaseConfig);
@@ -4881,12 +4903,137 @@ try {
   db = firebase.firestore();
   if (firebase.auth) {
     firebaseAuth = firebase.auth();
-    firebaseAuth.signInAnonymously().catch(err => {
+    firebaseAuth.onAuthStateChanged(user => {
+      if (user) {
+        cloudAuthState.status = 'ok';
+        cloudAuthState.uid = user.uid;
+        cloudAuthState.error = null;
+      }
+    });
+    firebaseAuth.signInAnonymously().then(cred => {
+      cloudAuthState.status = 'ok';
+      cloudAuthState.uid = cred && cred.user ? cred.user.uid : null;
+      cloudAuthState.error = null;
+    }).catch(err => {
+      cloudAuthState.status = 'error';
+      cloudAuthState.error = (err && (err.code || err.message)) || '認証エラー';
       console.warn('Anonymous auth note (can still operate if rules allow public):', err);
     });
   }
 } catch (e) {
   console.warn('Firebase init error:', e);
+}
+
+// 🧪 クラウド通信・診断テスト（Firestoreの読み取り・書き込み・認証を1秒で即座にテスト＆可視化！）
+async function runCloudDiagnostics(showModal = true) {
+  const result = {
+    auth: '未確認',
+    firestoreInit: db ? '🟢 初期化OK' : '🔴 未接続',
+    readMatchLobby: '未テスト',
+    writeMatchLobby: '未テスト',
+    readMyDoc: '未テスト',
+    writeMyDoc: '未テスト',
+    overall: 'testing'
+  };
+
+  showToast('🧪 クラウド通信を診断中...');
+
+  if (!firebaseAuth) {
+    result.auth = '🟡 Auth機能なし（パブリックモード）';
+  } else if (cloudAuthState.status === 'ok') {
+    result.auth = `🟢 ログイン成功 (UID: ${cloudAuthState.uid ? cloudAuthState.uid.slice(0, 6) + '...' : 'OK'})`;
+  } else if (cloudAuthState.status === 'error') {
+    result.auth = `🔴 ログイン失敗 (${cloudAuthState.error})`;
+  } else {
+    result.auth = '🟡 認証処理中';
+  }
+
+  if (!db) {
+    result.overall = 'failed';
+    displayDiagnosticModal(result);
+    return result;
+  }
+
+  const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode || 'BIO-0000') : (state.friendCode || 'BIO-0000');
+
+  // 1. 読み取りテスト (MATCH_LOBBY)
+  try {
+    const snap = await db.collection('players').doc('MATCH_LOBBY').get();
+    result.readMatchLobby = `🟢 読み取り成功 (ドキュメント存在: ${snap.exists ? 'あり' : '新規'})`;
+  } catch (err) {
+    result.readMatchLobby = `🔴 読み取り拒否 (${err.code || err.message})`;
+  }
+
+  // 2. 自ドキュメント書き込みテスト (players/{myCode})
+  try {
+    await db.collection('players').doc(myCode).set({
+      lastDiagnosticAt: Date.now(),
+      diagPing: 'pong'
+    }, { merge: true });
+    result.writeMyDoc = '🟢 自ドキュメント書き込み成功';
+  } catch (err) {
+    result.writeMyDoc = `🔴 自ドキュメント書き込み拒否 (${err.code || err.message})`;
+  }
+
+  // 3. MATCH_LOBBY 書き込みテスト
+  try {
+    await db.collection('players').doc('MATCH_LOBBY').set({
+      lastDiagPing: Date.now()
+    }, { merge: true });
+    result.writeMatchLobby = '🟢 MATCH_LOBBY書き込み成功';
+  } catch (err) {
+    result.writeMatchLobby = `🔴 MATCH_LOBBY書き込み拒否 (${err.code || err.message})`;
+  }
+
+  lastCloudDiagnosticResult = result;
+  if (showModal) {
+    displayDiagnosticModal(result);
+  }
+  return result;
+}
+
+// 診断結果モーダル表示
+function displayDiagnosticModal(res) {
+  let modal = document.getElementById('cloudDiagnosticModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'cloudDiagnosticModal';
+    modal.className = 'modal-backdrop';
+    document.body.appendChild(modal);
+  }
+
+  const isAllGreen = !res.writeMatchLobby.startsWith('🔴') && !res.writeMyDoc.startsWith('🔴') && !res.readMatchLobby.startsWith('🔴');
+
+  modal.innerHTML = `
+    <div class="modal-card" style="max-width:480px; text-align:left; animation:scaleUp 0.25s ease-out;">
+      <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <span>🧪 クラウド通信・診断レポート</span>
+        <button class="btn btn-outline" style="padding:2px 8px; font-size:0.8rem;" onclick="document.getElementById('cloudDiagnosticModal').classList.remove('active')">✕</button>
+      </div>
+
+      <div style="background:${isAllGreen ? '#f0fdf4' : '#fff1f2'}; border:2px solid ${isAllGreen ? '#86efac' : '#fda4af'}; border-radius:10px; padding:12px; margin-bottom:12px;">
+        <div style="font-weight:900; font-size:0.95rem; color:${isAllGreen ? '#15803d' : '#be123c'}; margin-bottom:4px;">
+          ${isAllGreen ? '🟢 クラウド通信は完全に正常です！' : '🔴 クラウド通信にエラーが検出されました！'}
+        </div>
+        <div style="font-size:0.78rem; line-height:1.5; color:${isAllGreen ? '#166534' : '#881337'};">
+          ${isAllGreen ? 'Firestoreへの読み取り・書き込み権限が正常に通っています。' : 'Firebase/Firestoreのセキュリティルールまたはクォータ制限により、書き込み・読み取りが拒否されている可能性があります。以下をご確認ください。'}
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:8px; font-size:0.8rem; font-weight:800; background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #cbd5e1; margin-bottom:12px;">
+        <div>🔑 <strong>Firebase認証:</strong> ${res.auth}</div>
+        <div>📖 <strong>MATCH_LOBBY 読み取り:</strong> ${res.readMatchLobby}</div>
+        <div>✍️ <strong>MATCH_LOBBY 書き込み:</strong> ${res.writeMatchLobby}</div>
+        <div>✍️ <strong>自ドキュメント書き込み:</strong> ${res.writeMyDoc}</div>
+      </div>
+
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-primary" style="flex:1; padding:10px; font-size:0.85rem;" onclick="runCloudDiagnostics(true)">🔄 再テスト</button>
+        <button class="btn btn-outline" style="flex:1; padding:10px; font-size:0.85rem;" onclick="document.getElementById('cloudDiagnosticModal').classList.remove('active')">閉じる</button>
+      </div>
+    </div>
+  `;
+  modal.classList.add('active');
 }
 
 // 現在選択されている自分の3体パーティ（バトル用ファイター配列）を取得する共通関数
@@ -5354,6 +5501,7 @@ function loadData() {
     syncMyProfileToCloud();
     renderFriendList();
     listenToIncomingBattleInvites();
+    if (typeof initPeerConnection === 'function') initPeerConnection();
   } catch (err) {
     console.warn('loadData sub-render error:', err);
   }
@@ -12256,8 +12404,62 @@ function normalizeFriendCode(raw) {
   return s;
 }
 
-// グローバル通信チャンネル（同一端末・別ウィンドウ・近接通信用）
+// グローバル通信チャンネル（同一端末・別ウィンドウ・近接通信用 ＆ P2P直通通信）
 let globalAppChannel = null;
+let peerInstance = null;
+
+// P2P (PeerJS) 直通通信の初期化（Firestoreの権限やクォータに一切依存せずブラウザ同士が直接P2P通信！）
+function initPeerConnection() {
+  if (typeof Peer === 'undefined' || peerInstance) return;
+  try {
+    const raw = normalizeFriendCode(state.friendCode || '');
+    const cleanCode = raw.replace(/[^A-Za-z0-9]/g, '');
+    if (!cleanCode) return;
+    peerInstance = new Peer('biologica_' + cleanCode);
+    peerInstance.on('connection', conn => {
+      conn.on('data', data => {
+        handlePeerDirectMessage(data);
+      });
+    });
+    peerInstance.on('error', err => {
+      console.warn('PeerJS note:', err);
+    });
+  } catch (e) {
+    console.warn('PeerJS init note:', e);
+  }
+}
+
+function handlePeerDirectMessage(data) {
+  if (!data) return;
+  if (data.type === 'peer_friend_request' && data.request) {
+    const req = data.request;
+    const fc = normalizeFriendCode(req.fromCode);
+    const myCode = normalizeFriendCode(state.friendCode);
+    const reqId = req.id || req.reqId || `${fc}_${myCode}`;
+    activeIncomingRequestsMap.set(reqId, { ...req, id: reqId, fromCode: fc, targetCode: myCode });
+    renderIncomingFriendRequestsUI();
+    showToast(`📬【直通受信】『${req.fromName || '研究員'}』(${fc}) さんからフレンド申請が届きました！`);
+  }
+  if (data.type === 'peer_battle_invite' && data.invite) {
+    renderReceivedBattleInvites([data.invite]);
+    showToast(`⚔️【直通受信】『${data.invite.fromName || '友達'}』さんから対戦ルーム【${data.invite.roomId}】の招待が届きました！`);
+  }
+}
+
+function sendPeerDirectMessage(targetCode, data) {
+  if (!peerInstance) {
+    initPeerConnection();
+  }
+  if (!peerInstance) return;
+  try {
+    const cleanTarget = normalizeFriendCode(targetCode).replace(/[^A-Za-z0-9]/g, '');
+    const conn = peerInstance.connect('biologica_' + cleanTarget);
+    conn.on('open', () => {
+      conn.send(data);
+    });
+  } catch (e) {}
+}
+
 try {
   globalAppChannel = new BroadcastChannel('biologica_global_app_channel');
   globalAppChannel.onmessage = (event) => {
@@ -12266,6 +12468,12 @@ try {
     const myCode = normalizeFriendCode(state.friendCode);
     if (data.type === 'friend_request_sent' && normalizeFriendCode(data.targetCode) === myCode) {
       showToast(`📬『${data.fromName}』さんからフレンド申請が届きました！`);
+      if (data.request) {
+        const fc = normalizeFriendCode(data.request.fromCode);
+        const reqId = data.request.id || data.request.reqId || `${fc}_${myCode}`;
+        activeIncomingRequestsMap.set(reqId, { ...data.request, id: reqId, fromCode: fc, targetCode: myCode });
+        renderIncomingFriendRequestsUI();
+      }
       checkIncomingFriendRequests();
     }
     if (data.type === 'friend_request_approved' && normalizeFriendCode(data.targetCode) === myCode) {
@@ -12274,7 +12482,9 @@ try {
     }
     if (data.type === 'battle_invite_sent' && normalizeFriendCode(data.targetCode) === myCode) {
       showToast(`⚔️『${data.fromName}』さんから対戦ルーム【${data.roomId}】の招待が届きました！`);
-      if (typeof renderReceivedBattleInvites === 'function') {
+      if (data.invite) {
+        renderReceivedBattleInvites([data.invite]);
+      } else if (typeof renderReceivedBattleInvites === 'function') {
         renderReceivedBattleInvites([{
           id: `${data.roomId}_${myCode}`,
           roomId: data.roomId,
@@ -12341,7 +12551,7 @@ function renderIncomingFriendRequestsUI(overrideList) {
 
   const list = Array.from(activeIncomingRequestsMap.values());
 
-  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.4)`, true);
+  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.5)`, true);
 
   if (badge) {
     badge.style.display = list.length > 0 ? 'inline-block' : 'none';
@@ -12471,7 +12681,8 @@ function listenToIncomingFriendRequests() {
   if (!db || !state.friendCode) return;
 
   const myCode = normalizeFriendCode(state.friendCode);
-  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.4)`, true);
+  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.5)`, true);
+  if (typeof initPeerConnection === 'function') initPeerConnection();
 
   // 1. 自身の players/{myCode} をリアルタイム監視
   friendReqUnsubscribe = db.collection('players').doc(myCode).onSnapshot(docSnap => {
@@ -12488,7 +12699,7 @@ function listenToIncomingFriendRequests() {
     processMyPlayerDocData(d);
   }, err => {
     console.warn('listenToIncomingFriendRequests player doc note:', err);
-    updateFriendSyncStatusBanner(`📡 通信注意: 個別同期再接続中...`, 'warn');
+    updateFriendSyncStatusBanner(`📡 通信注意: players同期再接続中 (${err.code || '未接続'})`, 'warn');
   });
 
   // 2. ★ 全員が読み書き可能な共通ハブ players/MATCH_LOBBY を常時リアルタイム監視！
@@ -12539,11 +12750,11 @@ function listenToIncomingFriendRequests() {
     }
   }, err => {
     console.warn('listenToIncomingFriendRequests MATCH_LOBBY note:', err);
-    updateFriendSyncStatusBanner(`📡 通信注意: MATCH_LOBBY再接続中...`, 'warn');
+    updateFriendSyncStatusBanner(`📡 クラウド通信エラー: ${err.code || 'MATCH_LOBBY切断'} (上部の🧪通信テストを押してね)`, false);
   });
 }
 
-// 友達にフレンド申請を送信（MATCH_LOBBY ＋ players/{targetCode} への多重送信・100%確実到達！）
+// 友達にフレンド申請を送信（MATCH_LOBBY ＋ players/{targetCode} ＋ P2P ＋ BroadcastChannel の4重送信！）
 async function sendFriendRequestCloud() {
   const codeInp = document.getElementById('friendSearchCodeInput');
   const btn = document.getElementById('sendFriendReqBtn');
@@ -12605,9 +12816,9 @@ async function sendFriendRequestCloud() {
       createdAt: Date.now()
     };
 
-    // ★ 1. 【最重要メイン経路】全員が100%読み書きできる実績ドキュメント players/MATCH_LOBBY に申請を保存！
-    //    Firestoreの他者書き込み権限制限を100%回避し、相手画面に0.1秒で即出現！
+    // ★ 1. 【最重要メイン経路】players/MATCH_LOBBY に申請を保存！
     let lobbySuccess = false;
+    let lobbyError = null;
     try {
       const lobbyRef = db.collection('players').doc('MATCH_LOBBY');
       const lobbySnap = await lobbyRef.get();
@@ -12620,35 +12831,57 @@ async function sendFriendRequestCloud() {
       lobbySuccess = true;
     } catch (e) {
       console.warn('sendFriendRequest MATCH_LOBBY note:', e);
+      lobbyError = e;
     }
 
     // ★ 2. 相手の players/{code} ドキュメント内への直接書き込みも並行試行
+    let directSuccess = false;
+    let directError = null;
     try {
       const updatedReqs = [
         ...existingReqs.filter(r => r && normalizeFriendCode(r.fromCode) !== myCode),
         payload
       ];
       await targetRef.set({ incomingReqs: updatedReqs }, { merge: true });
+      directSuccess = true;
     } catch (e) {
-      console.warn('sendFriendRequest direct player set note (ignored, MATCH_LOBBY will deliver):', e);
+      console.warn('sendFriendRequest direct player set note:', e);
+      directError = e;
     }
 
     // ★ 3. 後方互換用として friend_requests コレクションにも非同期送信
     db.collection('friend_requests').doc(reqId).set(payload).catch(() => {});
 
-    // ★ 4. BroadcastChannel にも通知（同一端末・別ウィンドウ・近接通信用）
+    // ★ 4. BroadcastChannel に申請データ本体を含めて送信（同一端末・別ウィンドウ・近接通信用）
     if (globalAppChannel) {
       globalAppChannel.postMessage({
         type: 'friend_request_sent',
+        request: payload,
         fromCode: myCode,
         fromName: state.playerName || '研究員',
         targetCode: code
       });
     }
 
+    // ★ 5. PeerJS (P2P直通) でも相手端末にダイレクト送信試行
+    if (typeof sendPeerDirectMessage === 'function') {
+      sendPeerDirectMessage(code, {
+        type: 'peer_friend_request',
+        request: payload
+      });
+    }
+
     if (codeInp) codeInp.value = '';
-    showToast(`📨『${targetName}』(${code}) さんにフレンド申請を送信しました！相手が承認するとフレンドになります！`);
-    updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.4)`, true);
+
+    // クラウド書き込みの成否判定（エラーを絶対に隠蔽しない！）
+    if (!lobbySuccess && !directSuccess) {
+      const errCode = (lobbyError && lobbyError.code) || (directError && directError.code) || '通信拒否';
+      showToast(`⚠️ 送信注意: クラウド書き込み拒否 (${errCode})\n※P2P直通で送信を試みました。上部の【🧪通信テスト】で権限をご確認ください。`);
+      updateFriendSyncStatusBanner(`📡 クラウド書き込み失敗: ${errCode}`, false);
+    } else {
+      showToast(`📨『${targetName}』(${code}) さんにフレンド申請を送信しました！相手が承認するとフレンドになります！`);
+      updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.5)`, true);
+    }
   } catch (err) {
     console.error('sendFriendRequestCloud error:', err);
     showToast('⚠️ フレンド申請送信中にエラーが発生しました: ' + (err.message || '通信エラー'));
@@ -14453,17 +14686,26 @@ async function sendBattleInviteToFriend(targetCode, targetName) {
     createdAt: Date.now()
   };
 
-  // 1. 同一端末・近接BroadcastChannelへ通知
+  // 1. 同一端末・近接BroadcastChannelへ通知（データ本体を含めて0秒即時反映！）
   if (globalAppChannel) {
     try {
       globalAppChannel.postMessage({
         type: 'battle_invite_sent',
+        invite: inviteObj,
         roomId: currentRoomId,
         fromCode: myCode,
         fromName: state.playerName || '研究員',
         targetCode: normTarget
       });
     } catch (e) {}
+  }
+
+  // 1.5. PeerJS (P2P直通) でも相手端末にダイレクト送信試行
+  if (typeof sendPeerDirectMessage === 'function') {
+    sendPeerDirectMessage(normTarget, {
+      type: 'peer_battle_invite',
+      invite: inviteObj
+    });
   }
 
   if (db) {
@@ -14523,7 +14765,7 @@ async function sendBattleInviteToFriend(targetCode, targetName) {
               }, { merge: true });
             }
           }
-        })().catch(() => {}));
+        })().catch(e => Promise.reject(e)));
       } catch (e) {}
 
       // 3.5. 待機部屋ハブ OPEN_ROOMS の該当部屋に invitedTargets を確実に記録（最重要！）
@@ -14546,7 +14788,7 @@ async function sendBattleInviteToFriend(targetCode, targetName) {
               await openRef.set({ rooms, updatedAt: Date.now() }, { merge: true });
             }
           }
-        })().catch(() => {}));
+        })().catch(e => Promise.reject(e)));
       } catch (e) {}
 
       // 4. players/ROOM_<currentRoomId> に招待先を追加（逆引き合流用）
@@ -14555,7 +14797,7 @@ async function sendBattleInviteToFriend(targetCode, targetName) {
           invitedTargets: (firebase && firebase.firestore && firebase.firestore.FieldValue)
             ? firebase.firestore.FieldValue.arrayUnion(normTarget)
             : [normTarget]
-        }, { merge: true }).catch(() => {}));
+        }, { merge: true }));
       } catch (e) {}
 
       // 5. ホスト自身の activeHostRoom にも招待先リストを記録
@@ -14563,12 +14805,19 @@ async function sendBattleInviteToFriend(targetCode, targetName) {
         promises.push(db.collection('players').doc(myCode).set({
           'activeHostRoom.lastInvitedTarget': normTarget,
           'activeHostRoom.lastInvitedAt': Date.now()
-        }, { merge: true }).catch(() => {}));
+        }, { merge: true }));
       } catch (e) {}
 
-      await Promise.allSettled(promises);
+      const results = await Promise.allSettled(promises);
+      const anySuccess = results.some(r => r.status === 'fulfilled');
 
-      showToast(`📩『${targetName}』(${normTarget}) さんに対戦招待を送りました！相手の画面に「🚀この部屋に入る！」が即時出現します！`);
+      if (!anySuccess) {
+        const firstErr = results.find(r => r.status === 'rejected')?.reason;
+        const errCode = (firstErr && (firstErr.code || firstErr.message)) || '通信拒否';
+        showToast(`⚠️ 招待注意: クラウド保存拒否 (${errCode})\n※P2P直通送信を試みました。相手に部屋番号【${currentRoomId}】を伝えて合流できます！`);
+      } else {
+        showToast(`📩『${targetName}』(${normTarget}) さんに対戦招待を送りました！相手の画面に「🚀この部屋に入る！」が即時出現します！`);
+      }
     } catch (err) {
       console.warn('sendBattleInvite warning:', err);
       showToast(`📩 招待を発行しました！友達に番号【${currentRoomId}】を伝えても参加できます！`);
@@ -14643,9 +14892,9 @@ function renderReceivedBattleInvites(invites) {
     const scanErr = (typeof lastInviteScanError === 'string') ? lastInviteScanError : '';
     if (scanErr) {
       const quotaHint = /resource-exhausted|quota/i.test(scanErr) ? '（Firebaseの1日の無料通信量を使い切った可能性）' : '';
-      statusLine.innerHTML = `📡 待機部屋スキャン: <strong style="color:#dc2626;">🔴 通信エラー (Ver 4.8.2)</strong> ｜ ${scanErr}${quotaHint}`;
+      statusLine.innerHTML = `📡 待機部屋スキャン: <strong style="color:#dc2626;">🔴 通信エラー (Ver 4.8.5)</strong> ｜ ${scanErr}${quotaHint} <button type="button" class="btn btn-outline" style="padding:1px 6px; font-size:0.65rem; margin-left:6px;" onclick="runCloudDiagnostics(true)">🧪 診断</button>`;
     } else {
-      statusLine.innerHTML = `📡 待機部屋スキャン: <strong style="color:#059669;">🟢 正常 (Ver 4.8.2)</strong> ｜ あなた: <strong>${myCode}</strong> ｜ 待機部屋: <strong style="color:#db2777;">${validList.length}件</strong>`;
+      statusLine.innerHTML = `📡 待機部屋スキャン: <strong style="color:#059669;">🟢 正常 (Ver 4.8.5)</strong> ｜ あなた: <strong>${myCode}</strong> ｜ 待機部屋: <strong style="color:#db2777;">${validList.length}件</strong> <button type="button" class="btn btn-outline" style="padding:1px 6px; font-size:0.65rem; margin-left:6px;" onclick="runCloudDiagnostics(true)">🧪 診断</button>`;
     }
   }
 
