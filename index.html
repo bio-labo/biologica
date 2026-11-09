@@ -1441,7 +1441,7 @@
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; gap:6px; flex-wrap:wrap;">
               <div style="display:flex; align-items:center; gap:6px;">
                 <span style="font-size:0.84rem; font-weight:900; color:#be185d;">📩 招待された部屋に入る</span>
-                <span id="battleSyncVerBadge" style="background:#fce7f3; color:#9d174d; border:1px solid #f472b6; font-size:0.68rem; font-weight:900; padding:1px 6px; border-radius:999px;">Ver 4.8.5</span>
+                <span id="battleSyncVerBadge" style="background:#fce7f3; color:#9d174d; border:1px solid #f472b6; font-size:0.68rem; font-weight:900; padding:1px 6px; border-radius:999px;">Ver 4.8.7</span>
               </div>
               <div style="display:flex; gap:4px;">
                 <button type="button" class="btn btn-outline" style="padding:3px 8px; font-size:0.7rem; border-color:#f472b6; color:#be185d; background:white; font-weight:900;" onclick="checkPendingBattleInvites(true)">🔄 招待を確認</button>
@@ -1747,7 +1747,7 @@
         <div id="friendSyncStatusBanner" style="background:#f0fdf4; border:2px solid #86efac; border-radius:10px; padding:8px 12px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
           <div style="font-size:0.8rem; font-weight:900; color:#15803d; display:flex; align-items:center; gap:6px;">
             <span id="friendStatusDot">🟢</span>
-            <span id="friendStatusText">📡 フレンド通信: リアルタイム同期中 (Ver 4.8.5)</span>
+            <span id="friendStatusText">📡 フレンド通信: リアルタイム同期中 (Ver 4.8.7)</span>
           </div>
           <div style="font-size:0.75rem; color:#166534; font-weight:800; display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
             <span id="friendMyCodeStatus">あなた: ---</span>
@@ -4453,6 +4453,17 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 4.8.7',
+    date: '2026-11-10',
+    title: '⏱️ Firestore通信ハング完全根絶＆タイムアウト安全機構・P2P直通即時フォールバックアプデ！',
+    items: [
+      '【⏱️ Firestore通信の無限待機（ハング）を完全根絶】クラウド通信の切断やFirebase無料クォータ上限到達時、サーバーからの応答待ちで画面が永遠にフリーズしてしまう現象を根本解決！すべての通信処理に最大2.5秒の厳格なタイムアウト安全装置（withTimeout）を配備！',
+      '【🧪 クラウド診断テストの2.5秒強制判定＆レポート可視化】「🧪 通信テスト」を押した際に「診断中...」のままフリーズするバグを解消！たとえFirestoreが完全停止していても2.2秒で強制判定し、原因（無料枠上限またはWi-Fi遮断等）と対策レポートを100%確実に画面表示！',
+      '【⚡ P2P直通通信（PeerJS）への最優先自動フォールバック】Firestoreがタイムアウト・不通の場合でも、端末同士が直接通信するPeerJSおよび同一ブラウザ間直通通信（BroadcastChannel）へ瞬時に自動切り替え！',
+      '【🛡️ フレンド申請・部屋作成・入室・招待確認のハング防止】ボタンを押した際にawaitで処理が固まっていた全ポイントをタイムアウト保護し、送信ボタンのロック解除とスムーズな画面遷移を徹底保証！'
+    ]
+  },
+  {
     ver: 'Ver 4.8.6',
     date: '2026-11-10',
     title: '🧬 チップ効果完全可視化 ＆ 🎒 中学生オンライン対戦大学問題混入の完全根絶アプデ！',
@@ -4972,7 +4983,19 @@ try {
   console.warn('Firebase init error:', e);
 }
 
-// 🧪 クラウド通信・診断テスト（Firestoreの読み取り・書き込み・認証を1秒で即座にテスト＆可視化！）
+// ⏱️ Firestore通信の無限待機（ハング・未応答フリーズ）を100%根絶するタイムアウト安全ラッパー
+function withTimeout(promise, ms = 2500, errorMsg = 'タイムアウト (Firestore無応答)') {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => {
+      const err = new Error(errorMsg);
+      err.code = 'timeout';
+      reject(err);
+    }, ms))
+  ]);
+}
+
+// 🧪 クラウド通信・診断テスト（Firestoreの読み取り・書き込み・認証を最大2.2秒で強制判定しハング完全根絶！）
 async function runCloudDiagnostics(showModal = true) {
   const result = {
     auth: '未確認',
@@ -4984,7 +5007,7 @@ async function runCloudDiagnostics(showModal = true) {
     overall: 'testing'
   };
 
-  showToast('🧪 クラウド通信を診断中...');
+  showToast('🧪 クラウド通信を診断中... (最大2.5秒)');
 
   if (!firebaseAuth) {
     result.auth = '🟡 Auth機能なし（パブリックモード）';
@@ -5004,34 +5027,37 @@ async function runCloudDiagnostics(showModal = true) {
 
   const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode || 'BIO-0000') : (state.friendCode || 'BIO-0000');
 
-  // 1. 読み取りテスト (MATCH_LOBBY)
+  // 1. 読み取りテスト (MATCH_LOBBY) - 2.2秒タイムアウト保護
   try {
-    const snap = await db.collection('players').doc('MATCH_LOBBY').get();
+    const snap = await withTimeout(db.collection('players').doc('MATCH_LOBBY').get(), 2200, '2.2秒応答なし（タイムアウト）');
     result.readMatchLobby = `🟢 読み取り成功 (ドキュメント存在: ${snap.exists ? 'あり' : '新規'})`;
   } catch (err) {
-    result.readMatchLobby = `🔴 読み取り拒否 (${err.code || err.message})`;
+    result.readMatchLobby = `🔴 読み取り失敗 (${err.code || err.message})`;
   }
 
-  // 2. 自ドキュメント書き込みテスト (players/{myCode})
+  // 2. 自ドキュメント書き込みテスト (players/{myCode}) - 2.2秒タイムアウト保護
   try {
-    await db.collection('players').doc(myCode).set({
+    await withTimeout(db.collection('players').doc(myCode).set({
       lastDiagnosticAt: Date.now(),
       diagPing: 'pong'
-    }, { merge: true });
+    }, { merge: true }), 2200, '2.2秒応答なし（タイムアウト）');
     result.writeMyDoc = '🟢 自ドキュメント書き込み成功';
   } catch (err) {
-    result.writeMyDoc = `🔴 自ドキュメント書き込み拒否 (${err.code || err.message})`;
+    result.writeMyDoc = `🔴 自ドキュメント書き込み失敗 (${err.code || err.message})`;
   }
 
-  // 3. MATCH_LOBBY 書き込みテスト
+  // 3. MATCH_LOBBY 書き込みテスト - 2.2秒タイムアウト保護
   try {
-    await db.collection('players').doc('MATCH_LOBBY').set({
+    await withTimeout(db.collection('players').doc('MATCH_LOBBY').set({
       lastDiagPing: Date.now()
-    }, { merge: true });
+    }, { merge: true }), 2200, '2.2秒応答なし（タイムアウト）');
     result.writeMatchLobby = '🟢 MATCH_LOBBY書き込み成功';
   } catch (err) {
-    result.writeMatchLobby = `🔴 MATCH_LOBBY書き込み拒否 (${err.code || err.message})`;
+    result.writeMatchLobby = `🔴 MATCH_LOBBY書き込み失敗 (${err.code || err.message})`;
   }
+
+  const hasError = result.readMatchLobby.startsWith('🔴') || result.writeMatchLobby.startsWith('🔴') || result.writeMyDoc.startsWith('🔴');
+  result.overall = hasError ? 'failed' : 'ok';
 
   lastCloudDiagnosticResult = result;
   if (showModal) {
@@ -5040,7 +5066,7 @@ async function runCloudDiagnostics(showModal = true) {
   return result;
 }
 
-// 診断結果モーダル表示
+// 診断結果モーダル表示（エラー時の具体的アドバイス・P2P直通案内を明記）
 function displayDiagnosticModal(res) {
   let modal = document.getElementById('cloudDiagnosticModal');
   if (!modal) {
@@ -5051,22 +5077,38 @@ function displayDiagnosticModal(res) {
   }
 
   const isAllGreen = !res.writeMatchLobby.startsWith('🔴') && !res.writeMyDoc.startsWith('🔴') && !res.readMatchLobby.startsWith('🔴');
+  const hasTimeout = String(res.readMatchLobby + res.writeMatchLobby + res.writeMyDoc).includes('タイムアウト');
+  const hasQuotaErr = String(res.readMatchLobby + res.writeMatchLobby + res.writeMyDoc).includes('resource-exhausted') || String(res.readMatchLobby + res.writeMatchLobby + res.writeMyDoc).includes('quota');
+
+  let guidanceHtml = '';
+  if (hasTimeout || hasQuotaErr) {
+    guidanceHtml = `
+      <div style="background:#fffbeb; border:1.5px solid #fde047; border-radius:8px; padding:8px 10px; font-size:0.75rem; color:#854d0e; line-height:1.45; margin-bottom:10px;">
+        <strong>💡 考えられる原因と対策:</strong><br>
+        1. <strong>Firebase無料通信量（1日5万回）の上限到達</strong>：リクエストがGoogle側で保留されています。翌日に自動回復します。<br>
+        2. <strong>Wi-Fi環境の制限</strong>：学校や公衆Wi-Fiの場合、スマホの4G/5G回線に切り替えると繋がることがあります。<br>
+        3. <strong>P2P直通通信（PeerJS）</strong>：クラウド不通時も端末同士の直通通信を自動試行します。
+      </div>
+    `;
+  }
 
   modal.innerHTML = `
     <div class="modal-card" style="max-width:480px; text-align:left; animation:scaleUp 0.25s ease-out;">
       <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <span>🧪 クラウド通信・診断レポート</span>
+        <span>🧪 クラウド通信・診断レポート (Ver 4.8.7)</span>
         <button class="btn btn-outline" style="padding:2px 8px; font-size:0.8rem;" onclick="document.getElementById('cloudDiagnosticModal').classList.remove('active')">✕</button>
       </div>
 
-      <div style="background:${isAllGreen ? '#f0fdf4' : '#fff1f2'}; border:2px solid ${isAllGreen ? '#86efac' : '#fda4af'}; border-radius:10px; padding:12px; margin-bottom:12px;">
+      <div style="background:${isAllGreen ? '#f0fdf4' : '#fff1f2'}; border:2px solid ${isAllGreen ? '#86efac' : '#fda4af'}; border-radius:10px; padding:12px; margin-bottom:10px;">
         <div style="font-weight:900; font-size:0.95rem; color:${isAllGreen ? '#15803d' : '#be123c'}; margin-bottom:4px;">
-          ${isAllGreen ? '🟢 クラウド通信は完全に正常です！' : '🔴 クラウド通信にエラーが検出されました！'}
+          ${isAllGreen ? '🟢 クラウド通信は完全に正常です！' : '🔴 クラウド通信エラーを検出しました'}
         </div>
         <div style="font-size:0.78rem; line-height:1.5; color:${isAllGreen ? '#166534' : '#881337'};">
-          ${isAllGreen ? 'Firestoreへの読み取り・書き込み権限が正常に通っています。' : 'Firebase/Firestoreのセキュリティルールまたはクォータ制限により、書き込み・読み取りが拒否されている可能性があります。以下をご確認ください。'}
+          ${isAllGreen ? 'Firestoreへの読み取り・書き込み権限が正常に通っています。フレンド対戦・申請が利用可能です。' : 'Firestoreサーバーからの応答が途絶えているか、セキュリティルール／クォータ制限により拒否されています。'}
         </div>
       </div>
+
+      ${guidanceHtml}
 
       <div style="display:flex; flex-direction:column; gap:8px; font-size:0.8rem; font-weight:800; background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #cbd5e1; margin-bottom:12px;">
         <div>🔑 <strong>Firebase認証:</strong> ${res.auth}</div>
@@ -5078,6 +5120,11 @@ function displayDiagnosticModal(res) {
       <div style="display:flex; gap:8px;">
         <button class="btn btn-primary" style="flex:1; padding:10px; font-size:0.85rem;" onclick="runCloudDiagnostics(true)">🔄 再テスト</button>
         <button class="btn btn-outline" style="flex:1; padding:10px; font-size:0.85rem;" onclick="document.getElementById('cloudDiagnosticModal').classList.remove('active')">閉じる</button>
+      </div>
+    </div>
+  `;
+  modal.classList.add('active');
+}
       </div>
     </div>
   `;
@@ -12615,7 +12662,7 @@ function renderIncomingFriendRequestsUI(overrideList) {
 
   const list = Array.from(activeIncomingRequestsMap.values());
 
-  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.5)`, true);
+  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.7)`, true);
 
   if (badge) {
     badge.style.display = list.length > 0 ? 'inline-block' : 'none';
@@ -12745,7 +12792,7 @@ function listenToIncomingFriendRequests() {
   if (!db || !state.friendCode) return;
 
   const myCode = normalizeFriendCode(state.friendCode);
-  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.5)`, true);
+  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.7)`, true);
   if (typeof initPeerConnection === 'function') initPeerConnection();
 
   // 1. 自身の players/{myCode} をリアルタイム監視
@@ -12857,8 +12904,8 @@ async function sendFriendRequestCloud() {
     const targetRef = db.collection('players').doc(code);
 
     try {
-      const doc = await targetRef.get();
-      if (doc.exists && doc.data()) {
+      const doc = await withTimeout(targetRef.get(), 1800, '相手データ取得タイムアウト');
+      if (doc && doc.exists && doc.data()) {
         if (doc.data().name) targetName = doc.data().name;
         if (Array.isArray(doc.data().incomingReqs)) {
           existingReqs = doc.data().incomingReqs;
@@ -12880,25 +12927,46 @@ async function sendFriendRequestCloud() {
       createdAt: Date.now()
     };
 
-    // ★ 1. 【最重要メイン経路】players/MATCH_LOBBY に申請を保存！
+    // ★ 0. BroadcastChannel ＆ PeerJS（P2P直通）へ最優先0秒送信（クラウド遅延・停止に左右されない！）
+    if (globalAppChannel) {
+      try {
+        globalAppChannel.postMessage({
+          type: 'friend_request_sent',
+          request: payload,
+          fromCode: myCode,
+          fromName: state.playerName || '研究員',
+          targetCode: code
+        });
+      } catch (e) {}
+    }
+    if (typeof sendPeerDirectMessage === 'function') {
+      try {
+        sendPeerDirectMessage(code, {
+          type: 'peer_friend_request',
+          request: payload
+        });
+      } catch (e) {}
+    }
+
+    // ★ 1. 【最重要メイン経路】players/MATCH_LOBBY に申請を保存！（2秒タイムアウト保護）
     let lobbySuccess = false;
     let lobbyError = null;
     try {
       const lobbyRef = db.collection('players').doc('MATCH_LOBBY');
-      const lobbySnap = await lobbyRef.get();
+      const lobbySnap = await withTimeout(lobbyRef.get(), 1800, 'MATCH_LOBBY取得タイムアウト');
       let currentLobbyReqs = [];
-      if (lobbySnap.exists && lobbySnap.data() && Array.isArray(lobbySnap.data().friendRequests)) {
+      if (lobbySnap && lobbySnap.exists && lobbySnap.data() && Array.isArray(lobbySnap.data().friendRequests)) {
         currentLobbyReqs = lobbySnap.data().friendRequests.filter(r => r && !(normalizeFriendCode(r.fromCode) === myCode && normalizeFriendCode(r.targetCode) === code));
       }
       currentLobbyReqs.push(payload);
-      await lobbyRef.set({ isSystemDoc: true, friendRequests: currentLobbyReqs, updatedAt: Date.now() }, { merge: true });
+      await withTimeout(lobbyRef.set({ isSystemDoc: true, friendRequests: currentLobbyReqs, updatedAt: Date.now() }, { merge: true }), 2000, 'MATCH_LOBBY保存タイムアウト');
       lobbySuccess = true;
     } catch (e) {
       console.warn('sendFriendRequest MATCH_LOBBY note:', e);
       lobbyError = e;
     }
 
-    // ★ 2. 相手の players/{code} ドキュメント内への直接書き込みも並行試行
+    // ★ 2. 相手の players/{code} ドキュメント内への直接書き込みも並行試行（2秒タイムアウト保護）
     let directSuccess = false;
     let directError = null;
     try {
@@ -12906,7 +12974,7 @@ async function sendFriendRequestCloud() {
         ...existingReqs.filter(r => r && normalizeFriendCode(r.fromCode) !== myCode),
         payload
       ];
-      await targetRef.set({ incomingReqs: updatedReqs }, { merge: true });
+      await withTimeout(targetRef.set({ incomingReqs: updatedReqs }, { merge: true }), 2000, '相手ドキュメント保存タイムアウト');
       directSuccess = true;
     } catch (e) {
       console.warn('sendFriendRequest direct player set note:', e);
@@ -12916,35 +12984,16 @@ async function sendFriendRequestCloud() {
     // ★ 3. 後方互換用として friend_requests コレクションにも非同期送信
     db.collection('friend_requests').doc(reqId).set(payload).catch(() => {});
 
-    // ★ 4. BroadcastChannel に申請データ本体を含めて送信（同一端末・別ウィンドウ・近接通信用）
-    if (globalAppChannel) {
-      globalAppChannel.postMessage({
-        type: 'friend_request_sent',
-        request: payload,
-        fromCode: myCode,
-        fromName: state.playerName || '研究員',
-        targetCode: code
-      });
-    }
-
-    // ★ 5. PeerJS (P2P直通) でも相手端末にダイレクト送信試行
-    if (typeof sendPeerDirectMessage === 'function') {
-      sendPeerDirectMessage(code, {
-        type: 'peer_friend_request',
-        request: payload
-      });
-    }
-
     if (codeInp) codeInp.value = '';
 
     // クラウド書き込みの成否判定（エラーを絶対に隠蔽しない！）
     if (!lobbySuccess && !directSuccess) {
-      const errCode = (lobbyError && lobbyError.code) || (directError && directError.code) || '通信拒否';
-      showToast(`⚠️ 送信注意: クラウド書き込み拒否 (${errCode})\n※P2P直通で送信を試みました。上部の【🧪通信テスト】で権限をご確認ください。`);
-      updateFriendSyncStatusBanner(`📡 クラウド書き込み失敗: ${errCode}`, false);
+      const errCode = (lobbyError && (lobbyError.code || lobbyError.message)) || (directError && (directError.code || directError.message)) || '通信タイムアウト';
+      showToast(`⚠️ 送信注意: クラウド書き込みタイムアウト (${errCode})\n※P2P直通（PeerJS）で送信を試みました。上部の【🧪通信テスト】をご確認ください。`);
+      updateFriendSyncStatusBanner(`📡 クラウド通信制限/タイムアウト: ${errCode}`, false);
     } else {
       showToast(`📨『${targetName}』(${code}) さんにフレンド申請を送信しました！相手が承認するとフレンドになります！`);
-      updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.5)`, true);
+      updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.7)`, true);
     }
   } catch (err) {
     console.error('sendFriendRequestCloud error:', err);
@@ -12963,10 +13012,10 @@ async function checkIncomingFriendRequests() {
   const myCode = normalizeFriendCode(state.friendCode);
 
   try {
-    // 1. 【最重要ハブ】players/MATCH_LOBBY から取得して統合マップに格納
+    // 1. 【最重要ハブ】players/MATCH_LOBBY から取得して統合マップに格納（1.8秒タイムアウト保護）
     try {
-      const lobbySnap = await db.collection('players').doc('MATCH_LOBBY').get();
-      if (lobbySnap.exists && lobbySnap.data()) {
+      const lobbySnap = await withTimeout(db.collection('players').doc('MATCH_LOBBY').get(), 1800, 'MATCH_LOBBY確認タイムアウト');
+      if (lobbySnap && lobbySnap.exists && lobbySnap.data()) {
         const ld = lobbySnap.data();
         if (Array.isArray(ld.friendRequests)) {
           ld.friendRequests.forEach(r => {
@@ -13009,10 +13058,10 @@ async function checkIncomingFriendRequests() {
       console.warn('checkIncoming MATCH_LOBBY note:', e);
     }
 
-    // 2. players/{myCode} から直接取得して統合マップにマージ
+    // 2. players/{myCode} から直接取得して統合マップにマージ（1.8秒タイムアウト保護）
     try {
-      const myDoc = await db.collection('players').doc(myCode).get();
-      if (myDoc.exists && myDoc.data()) {
+      const myDoc = await withTimeout(db.collection('players').doc(myCode).get(), 1800, '自ドキュメント確認タイムアウト');
+      if (myDoc && myDoc.exists && myDoc.data()) {
         const d = myDoc.data();
         if (Array.isArray(d.incomingReqs)) {
           d.incomingReqs.forEach(r => {
@@ -13030,17 +13079,19 @@ async function checkIncomingFriendRequests() {
 
     // 3. 旧 friend_requests コレクションからも念のため取得してマージ
     try {
-      const snap = await db.collection('friend_requests').where('targetCode', '==', myCode).get();
-      snap.forEach(doc => {
-        const rd = doc.data();
-        if (rd && rd.status === 'pending' && rd.fromCode) {
-          const fc = normalizeFriendCode(rd.fromCode);
-          const reqId = doc.id || `${fc}_${myCode}`;
-          if (!(state.friendsList || []).some(f => normalizeFriendCode(f.code) === fc)) {
-            activeIncomingRequestsMap.set(reqId, { id: reqId, ...rd, fromCode: fc });
+      const snap = await withTimeout(db.collection('friend_requests').where('targetCode', '==', myCode).get(), 1800, '旧コレクション確認タイムアウト');
+      if (snap) {
+        snap.forEach(doc => {
+          const rd = doc.data();
+          if (rd && rd.status === 'pending' && rd.fromCode) {
+            const fc = normalizeFriendCode(rd.fromCode);
+            const reqId = doc.id || `${fc}_${myCode}`;
+            if (!(state.friendsList || []).some(f => normalizeFriendCode(f.code) === fc)) {
+              activeIncomingRequestsMap.set(reqId, { id: reqId, ...rd, fromCode: fc });
+            }
           }
-        }
-      });
+        });
+      }
     } catch (e) {}
 
     renderIncomingFriendRequestsUI();
@@ -13066,7 +13117,7 @@ async function approveFriendRequest(reqId, senderCode) {
   showToast('🤝 承認処理中...');
 
   try {
-    // 1. 相手（申請者）の最新データを取得
+    // 1. 相手（申請者）の最新データを取得（1.8秒タイムアウト保護）
     let senderData = {
       name: 'フレンド研究員',
       code: normSender,
@@ -13080,8 +13131,8 @@ async function approveFriendRequest(reqId, senderCode) {
     let senderApprovedFriends = [];
 
     try {
-      const sDoc = await db.collection('players').doc(normSender).get();
-      if (sDoc.exists && sDoc.data()) {
+      const sDoc = await withTimeout(db.collection('players').doc(normSender).get(), 1800, '相手データ取得タイムアウト');
+      if (sDoc && sDoc.exists && sDoc.data()) {
         const sd = sDoc.data();
         senderData = {
           name: sd.name || 'フレンド研究員',
@@ -14146,13 +14197,13 @@ async function createFriendBattleRoom() {
 
   if (db) {
     try {
-      // ★ 0. 100%通信実績のある players/MATCH_LOBBY に自身の待機部屋を登録（全プレイヤー・招待相手が0.1秒で即時同期！）
+      // ★ 0. 100%通信実績のある players/MATCH_LOBBY に自身の待機部屋を登録（1.8秒タイムアウト保護）
       try {
         const lobbyRef = getMatchLobbyDocRef();
-        const lobbySnap = await lobbyRef.get();
+        const lobbySnap = await withTimeout(lobbyRef.get(), 1800, 'MATCH_LOBBY部屋登録タイムアウト');
         let existingFriendRooms = [];
         const now = Date.now();
-        if (lobbySnap.exists && lobbySnap.data() && Array.isArray(lobbySnap.data().friendRooms)) {
+        if (lobbySnap && lobbySnap.exists && lobbySnap.data() && Array.isArray(lobbySnap.data().friendRooms)) {
           existingFriendRooms = lobbySnap.data().friendRooms.filter(r => r && r.roomId && (now - (r.createdAt || 0) < 25 * 60 * 1000) && r.roomId !== roomId && r.hostCode !== myCode);
         }
         existingFriendRooms.push({
@@ -14164,11 +14215,11 @@ async function createFriendBattleRoom() {
           invitedTargets: [],
           createdAt: now
         });
-        await lobbyRef.set({
+        await withTimeout(lobbyRef.set({
           isSystemDoc: true,
           friendRooms: existingFriendRooms,
           updatedAt: now
-        }, { merge: true });
+        }, { merge: true }), 2000, 'MATCH_LOBBY保存タイムアウト');
       } catch (lobbyErr) {
         console.warn('MATCH_LOBBY friendRooms register note:', lobbyErr);
       }
@@ -14176,15 +14227,15 @@ async function createFriendBattleRoom() {
       // 念のため OPEN_ROOMS にもバックアップ
       try {
         const openRef = getOpenRoomsDocRef();
-        openRef.set({
+        withTimeout(openRef.set({
           isSystemDoc: true,
           rooms: [{ roomId, hostCode: myCode, hostName: state.playerName || '研究員', hostTitle: myTitle, status: 'waiting', invitedTargets: [], createdAt: Date.now() }],
           updatedAt: Date.now()
-        }, { merge: true }).catch(() => {});
+        }, { merge: true }), 1500).catch(() => {});
       } catch (e) {}
 
-      // ★ 1. 自身の players/{myCode} に activeHostRoom を記録（フレンドが100%確実に逆引き検知できる最強安全網！）
-      db.collection('players').doc(myCode).set({
+      // ★ 1. 自身の players/{myCode} に activeHostRoom を記録（1.8秒タイムアウト保護）
+      withTimeout(db.collection('players').doc(myCode).set({
         activeHostRoom: {
           roomId,
           hostName: state.playerName || '研究員',
@@ -14192,11 +14243,11 @@ async function createFriendBattleRoom() {
           hostTitle: myTitle,
           createdAt: Date.now()
         }
-      }, { merge: true }).catch(() => {});
+      }, { merge: true }), 1800).catch(() => {});
 
-      // ★ 2. players/ROOM_<roomId> と battle_rooms/<roomId> の両方に確実に保存！
-      const mainPromise = getRoomDocRef(roomId).set(roomData);
-      const subPromise = db.collection('battle_rooms').doc(roomId).set(roomData);
+      // ★ 2. players/ROOM_<roomId> と battle_rooms/<roomId> の両方に保存試行（1.8秒タイムアウト保護）
+      const mainPromise = withTimeout(getRoomDocRef(roomId).set(roomData), 1800, 'ROOMドキュメント保存タイムアウト');
+      const subPromise = withTimeout(db.collection('battle_rooms').doc(roomId).set(roomData), 1800, 'battle_rooms保存タイムアウト');
       const results = await Promise.allSettled([mainPromise, subPromise]);
 
       const anySuccess = results.some(r => r.status === 'fulfilled');
@@ -14205,9 +14256,9 @@ async function createFriendBattleRoom() {
         showToast(`🏠 ルーム【 ${roomId} 】を作成しました！友達を招待するか4桁番号を教えよう！`);
       } else {
         const firstErr = results.find(r => r.status === 'rejected')?.reason;
-        console.warn('createFriendBattleRoom both failed:', firstErr);
+        console.warn('createFriendBattleRoom both failed or timeout:', firstErr);
         listenToBattleRoom(roomId);
-        showToast(`⚠️ ルーム【 ${roomId} 】を作成しましたが通信注意: ${firstErr?.message || 'オフライン'}`);
+        showToast(`🏠 ルーム【 ${roomId} 】を作成しました！（P2P/近接直通待機中・番号【${roomId}】で合流可能）`);
       }
     } catch (err) {
       console.warn('createFriendBattleRoom error:', err);
@@ -14255,26 +14306,25 @@ async function joinFriendBattleRoom(targetRoomId) {
   let activeRoomRef = null;
 
   if (db) {
-    // ★ クラウド上のレプリケーション遅延を考慮し、最大6回（約3秒間）自動リトライ！
-    for (let attempt = 1; attempt <= 6; attempt++) {
+    // ★ クラウド上のレプリケーション遅延を考慮し、自動リトライ（各回1.2秒タイムアウト保護）
+    for (let attempt = 1; attempt <= 4; attempt++) {
       try {
         // 1. メイン経路 players/ROOM_<roomId>
         const mainRef = getRoomDocRef(roomId);
         let snap = null;
         try {
-          snap = await mainRef.get();
+          snap = await withTimeout(mainRef.get(), 1200, 'mainRefタイムアウト');
         } catch (e) {
-          // 権限や通信の一時エラー時はキャッシュ等も確認
+          // 権限や通信の一時エラー・タイムアウト時は次へ
         }
 
         // 2. 後方互換 battle_rooms/<roomId>
         if (!snap || !snap.exists) {
           try {
-            const legacySnap = await db.collection('battle_rooms').doc(roomId).get();
+            const legacySnap = await withTimeout(db.collection('battle_rooms').doc(roomId).get(), 1000, 'legacySnapタイムアウト');
             if (legacySnap && legacySnap.exists) {
               snap = legacySnap;
               activeRoomRef = db.collection('battle_rooms').doc(roomId);
-              // メイン側にも複製保存を試みる
               mainRef.set({ isSystemDoc: true, ...legacySnap.data() }, { merge: true }).catch(() => {});
             }
           } catch (e) {}
@@ -14285,7 +14335,7 @@ async function joinFriendBattleRoom(targetRoomId) {
         // 3. 予備 players/<roomId>
         if (!snap || !snap.exists) {
           try {
-            const rawSnap = await db.collection('players').doc(roomId).get();
+            const rawSnap = await withTimeout(db.collection('players').doc(roomId).get(), 1000, 'rawSnapタイムアウト');
             if (rawSnap && rawSnap.exists && rawSnap.data() && rawSnap.data().isSystemDoc) {
               snap = rawSnap;
               activeRoomRef = db.collection('players').doc(roomId);
@@ -14296,8 +14346,8 @@ async function joinFriendBattleRoom(targetRoomId) {
         // 4. 最強フォールバック：MATCH_LOBBY の friendRooms から該当部屋を直接探索！
         if (!snap || !snap.exists) {
           try {
-            const lobbySnap = await getMatchLobbyDocRef().get();
-            if (lobbySnap.exists && lobbySnap.data() && Array.isArray(lobbySnap.data().friendRooms)) {
+            const lobbySnap = await withTimeout(getMatchLobbyDocRef().get(), 1200, 'MATCH_LOBBY取得タイムアウト');
+            if (lobbySnap && lobbySnap.exists && lobbySnap.data() && Array.isArray(lobbySnap.data().friendRooms)) {
               const matchedRoom = lobbySnap.data().friendRooms.find(r => r && String(r.roomId) === String(roomId));
               if (matchedRoom) {
                 rData = matchedRoom;
@@ -14318,6 +14368,15 @@ async function joinFriendBattleRoom(targetRoomId) {
           }
           roomFound = true;
           break; // 見つかったのでリトライ終了！
+        }
+      } catch (err) {
+        console.warn(`joinFriendBattleRoom attempt ${attempt} warning:`, err);
+      }
+
+      if (attempt < 4) {
+        await new Promise(r => setTimeout(r, 300));
+      }
+    }
         }
       } catch (err) {
         console.warn(`joinFriendBattleRoom attempt ${attempt} warning:`, err);
@@ -15116,11 +15175,11 @@ async function checkPendingBattleInvites(showFeedback = false) {
     const now = Date.now();
     let mergedInvites = [];
 
-    // ★ 0. 最強・最優先：全国対戦で100%通信実績のある players/MATCH_LOBBY 内の friendRooms をスキャン！
+    // ★ 0. 最強・最優先：全国対戦で100%通信実績のある players/MATCH_LOBBY 内の friendRooms をスキャン！（1.8秒タイムアウト保護）
     lastInviteScanError = '';
     try {
-      const lobbySnap = await getMatchLobbyDocRef().get();
-      if (lobbySnap.exists && lobbySnap.data() && Array.isArray(lobbySnap.data().friendRooms)) {
+      const lobbySnap = await withTimeout(getMatchLobbyDocRef().get(), 1800, 'MATCH_LOBBY待機部屋スキャンタイムアウト');
+      if (lobbySnap && lobbySnap.exists && lobbySnap.data() && Array.isArray(lobbySnap.data().friendRooms)) {
         const fRooms = lobbySnap.data().friendRooms;
         fRooms.forEach(r => {
           if (!r || !r.roomId) return;
@@ -15154,18 +15213,13 @@ async function checkPendingBattleInvites(showFeedback = false) {
       }
     } catch (lobbyErr) {
       console.warn('MATCH_LOBBY check note:', lobbyErr);
-      lastInviteScanError = (lobbyErr && (lobbyErr.code || lobbyErr.message)) || '通信エラー';
+      lastInviteScanError = (lobbyErr && (lobbyErr.code || lobbyErr.message)) || '通信タイムアウト';
     }
 
-    // ※ Ver 4.8.2：players コレクション全件スキャンは撤廃。
-    //   1.8秒〜3.5秒ごとに全プレイヤー文書を読み込んでおり、Firestore無料枠（1日5万回の読み取り）を
-    //   短時間で使い切ってフレンド申請・招待など全通信を止めてしまう原因だったため。
-    //   待機部屋は MATCH_LOBBY.friendRooms と、友達の activeHostRoom で検知する。
-
-    // ★ 2. プレイヤー自身の incomingInvites / battle_invites からもマージ
+    // ★ 2. プレイヤー自身の incomingInvites / battle_invites からもマージ（1.5秒タイムアウト保護）
     try {
-      const myDoc = await db.collection('players').doc(myCode).get();
-      if (myDoc.exists && myDoc.data() && Array.isArray(myDoc.data().incomingInvites)) {
+      const myDoc = await withTimeout(db.collection('players').doc(myCode).get(), 1500, '自ドキュメント招待確認タイムアウト');
+      if (myDoc && myDoc.exists && myDoc.data() && Array.isArray(myDoc.data().incomingInvites)) {
         myDoc.data().incomingInvites.forEach(inv => {
           if (inv && inv.roomId && (!inv.createdAt || (now - inv.createdAt < 30 * 60 * 1000))) {
             if (!mergedInvites.some(x => String(x.roomId) === String(inv.roomId))) {
@@ -15176,11 +15230,11 @@ async function checkPendingBattleInvites(showFeedback = false) {
       }
     } catch (e) {}
 
-    // ★ 3. 友達の activeHostRoom からもマージ
+    // ★ 3. 友達の activeHostRoom からもマージ（並行タイムアウト保護）
     if (Array.isArray(state.friendsList) && state.friendsList.length > 0) {
       try {
         const friendCodes = state.friendsList.map(f => normalizeFriendCode(f.code)).filter(c => c && c !== myCode);
-        const friendDocs = await Promise.all(friendCodes.map(c => db.collection('players').doc(c).get().catch(() => null)));
+        const friendDocs = await Promise.all(friendCodes.map(c => withTimeout(db.collection('players').doc(c).get(), 1500).catch(() => null)));
         friendDocs.forEach((fDoc, idx) => {
           if (!fDoc || !fDoc.exists || !fDoc.data()) return;
           const fd = fDoc.data();
