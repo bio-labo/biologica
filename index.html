@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 4.8.7 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 4.9.0 - 理系微生物育成＆戦略クイズバトル</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -504,7 +504,7 @@
     display: block; font-size: 0.84rem;
   }
 
-  /* ぷにぷに風メインタブ ＆ メニューグリッド */
+  /* ぷにぷに風メインタブ ＆ メニューグリッド（均等美レイアウト） */
   .nav-tabs {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -517,25 +517,53 @@
   }
   .nav-btn {
     justify-content: center;
-    padding: 10px 6px;
-    font-size: 0.86rem;
-    border-radius: 12px;
+    padding: 9px 4px;
+    font-size: 0.85rem;
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  @media (max-width: 480px) {
+    .nav-btn {
+      font-size: 0.74rem;
+      padding: 7px 2px;
+      gap: 2px;
+    }
   }
   .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
+  }
+  @media (max-width: 860px) {
+    .menu-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 620px) {
+    .menu-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 380px) {
+    .menu-grid {
+      grid-template-columns: 1fr;
+    }
   }
   .menu-app-card {
     background: white;
     border: 2px solid #cbd5e1;
     border-radius: 16px;
-    padding: 16px 14px;
+    padding: 16px 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
-    gap: 6px;
+    gap: 8px;
+    min-height: 154px;
+    height: 100%;
+    box-sizing: border-box;
     cursor: pointer;
     transition: all 0.15s;
     box-shadow: 0 3px 10px rgba(0,0,0,0.04);
@@ -586,7 +614,7 @@
     <div class="logo-area">
       <div class="logo-icon">🧬</div>
       <div>
-        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 4.8.2</span></div>
+        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 4.9.2</span></div>
         <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
       </div>
     </div>
@@ -608,11 +636,11 @@
     </div>
   </header>
 
-  <!-- ぷにぷに風 4大メインナビゲーション -->
+  <!-- ぷにぷに風 4大メインナビゲーション（タワーはメニュー内へ集約） -->
   <nav class="nav-tabs">
-    <button id="mainTabPetri" class="nav-btn active" onclick="switchScreen('petri', this)">🔬 育成・配分</button>
-    <button id="mainTabBattle" class="nav-btn" onclick="switchScreen('battle', this)">⚔️ クイズ対戦 <span id="battleInviteBadge" class="notif-badge" style="display:none; background:#ec4899; color:white;">招待!</span></button>
-    <button id="mainTabFriends" class="nav-btn" onclick="switchScreen('friends', this)">🤝 フレンド・順位 <span id="friendReqBadge" class="notif-badge" style="display:none;">0</span></button>
+    <button id="mainTabPetri" class="nav-btn active" onclick="switchScreen('petri', this)">🔬 育成</button>
+    <button id="mainTabBattle" class="nav-btn" onclick="switchScreen('battle', this)">⚔️ 対戦 <span id="battleInviteBadge" class="notif-badge" style="display:none; background:#ec4899; color:white;">招待!</span></button>
+    <button id="mainTabFriends" class="nav-btn" onclick="switchScreen('friends', this)">🤝 順位 <span id="friendReqBadge" class="notif-badge" style="display:none;">0</span></button>
     <button id="mainTabMenu" class="nav-btn" onclick="switchScreen('menu', this)">📱 メニュー</button>
   </nav>
 
@@ -624,9 +652,19 @@
     <div class="card">
       <div class="card-title">📱 研究所メインメニュー</div>
       <div class="help-box">
-        💡 ボックス編成・<strong>「💊 ガチャ（キャラ＆チップ）」</strong>・<strong>「🏪 交換所（キャラ＆チップ）」</strong>・<strong>「🎒 もちもの（アイテム＆チップ）」</strong>・ショップ・図鑑・復習ノート・設定（アカウント削除・データリセット）にここからアクセスできます！
+        💡 <strong>「🗼 ゲノムタワー」</strong>・<strong>「📊 実戦模試」</strong>・ボックス編成・ガチャ・交換所・もちもの・図鑑・設定にここからアクセスできます！
       </div>
       <div class="menu-grid">
+        <div class="menu-app-card" style="border-color:#7c3aed; background:linear-gradient(180deg,#ffffff,#faf5ff);" onclick="switchScreen('tower')">
+          <div class="menu-app-icon" style="background:#ede9fe;">🗼</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#6d28d9;">無限のゲノムタワー</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">少年の塔(中学生)＆覇者の塔(高校生)・階層踏破</div>
+        </div>
+        <div class="menu-app-card" style="border-color:#0284c7; background:linear-gradient(180deg,#ffffff,#f0f9ff);" onclick="switchScreen('mock')">
+          <div class="menu-app-icon" style="background:#e0f2fe;">📊</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#0369a1;">実戦模試モード</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">志望ターゲット別スコアアタック＆合否判定</div>
+        </div>
         <div class="menu-app-card" onclick="switchScreen('box')">
           <div class="menu-app-icon" style="background:#e0f2fe;">📦</div>
           <div style="font-weight:900; font-size:0.95rem; color:#0369a1;">ボックス・編成</div>
@@ -922,6 +960,218 @@
             ・<strong>🧬 DNAメダル：</strong>ガチャを引いた時のおまけ（10連で100枚）や、ショップの「DNAメダル変換パック（1000 ATP ➔ 25メダル）」、プレゼント受取で獲得できます！
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🗼 無限のゲノムタワー（少年の塔 / 覇者の塔 2大ルート＆タワー専用ランキング） -->
+  <section id="screen-tower" class="screen">
+    <div class="subscreen-back-bar">
+      <strong style="color:#7c3aed; font-size:0.9rem;">🗼 無限のゲノムタワー（エンドレス階層踏破）</strong>
+      <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
+    </div>
+
+    <!-- 自己最高記録バナー -->
+    <div class="card" style="background:linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color:white; border:2px solid #818cf8; box-shadow:0 4px 15px rgba(99,102,241,0.25);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <div>
+          <div style="font-size:0.78rem; color:#a5b4fc; font-weight:800;">🏆 あなたのタワー最高到達記録</div>
+          <div style="display:flex; gap:16px; margin-top:4px; flex-wrap:wrap;">
+            <div>🎒 少年の塔: <span id="towerBestJuniorText" style="font-size:1.3rem; font-weight:900; color:#38bdf8;">0</span> 階</div>
+            <div>🏛️ 覇者の塔: <span id="towerBestSeniorText" style="font-size:1.3rem; font-weight:900; color:#f472b6;">0</span> 階</div>
+          </div>
+        </div>
+        <div style="font-size:0.74rem; color:#c7d2fe; line-height:1.4; text-align:right;">
+          ⚡ <strong style="color:#fde047;">1問でもミスしたら即終了！</strong> どこまで登れるか限界に挑戦！<br>
+          節目（10F/50F/100F…）突破で限定称号アンロック！
+        </div>
+      </div>
+    </div>
+
+    <!-- 2つの塔・出撃カード（中学生 vs 高校生 完全分離） -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px;">
+      <!-- 🎒 少年の塔（中学生向け） -->
+      <div class="card" style="border:3px solid #38bdf8; background:linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%); display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3 style="color:#0369a1; margin:0; display:flex; align-items:center; gap:6px;">
+            <span>🎒 少年の塔</span>
+            <span style="background:#0284c7; color:white; font-size:0.68rem; font-weight:900; padding:2px 8px; border-radius:999px;">中学生・高校受験</span>
+          </h3>
+          <span style="font-size:0.8rem; font-weight:900; color:#0369a1;">最高: <span id="towerCardBestJunior">0</span>F</span>
+        </div>
+        <div class="help-box" style="margin-bottom:0; background:rgba(255,255,255,0.85); border-color:#0284c7; font-size:0.76rem; color:#0f172a;">
+          <strong>出題：中学理科・中学数学・中学英語のみ！</strong><br>
+          高校・大学問題は一切混入しません。<span style="color:#dc2626; font-weight:900;">⚠️ 1問でもミスすると即座に挑戦終了！</span>
+        </div>
+        <button class="btn btn-primary" style="width:100%; padding:13px; font-size:1rem; font-weight:900; margin-top:auto; box-shadow:0 4px 12px rgba(2,132,199,0.35);" onclick="startTowerBattle('junior')">
+          🚀 1階から挑戦する！（少年の塔）
+        </button>
+      </div>
+
+      <!-- 🏛️ 覇者の塔（高校生・受験向け） -->
+      <div class="card" style="border:3px solid #a855f7; background:linear-gradient(180deg, #faf5ff 0%, #f3e8ff 100%); display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3 style="color:#6b21a8; margin:0; display:flex; align-items:center; gap:6px;">
+            <span>🏛️ 覇者の塔</span>
+            <span style="background:#9333ea; color:white; font-size:0.68rem; font-weight:900; padding:2px 8px; border-radius:999px;">高校生・大学受験</span>
+          </h3>
+          <span style="font-size:0.8rem; font-weight:900; color:#6b21a8;">最高: <span id="towerCardBestSenior">0</span>F</span>
+        </div>
+        <div class="help-box" style="margin-bottom:0; background:rgba(255,255,255,0.85); border-color:#9333ea; font-size:0.76rem; color:#0f172a;">
+          <strong>出題：高校生物・化学・数I・A・II・英語！</strong><br>
+          実戦知力と戦略で無限の頂を目指せ！<span style="color:#dc2626; font-weight:900;">⚠️ 1問でもミスすると即座に挑戦終了！</span>
+        </div>
+        <button class="btn btn-purple" style="width:100%; padding:13px; font-size:1rem; font-weight:900; margin-top:auto; box-shadow:0 4px 12px rgba(147,51,234,0.35);" onclick="startTowerBattle('senior')">
+          🚀 1階から挑戦する！（覇者の塔）
+        </button>
+      </div>
+    </div>
+
+    <!-- 🗼 タワー専用ランキングエリア -->
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+        <div class="card-title" style="margin-bottom:0;">🗼 ゲノムタワー専用ランキング</div>
+        <!-- 部門切り替えタブ -->
+        <div style="display:flex; gap:4px;">
+          <button id="towerRankTabJunior" class="btn btn-primary" style="padding:4px 10px; font-size:0.76rem;" onclick="switchTowerRankTab('junior')">🎒 少年の塔（中学生）</button>
+          <button id="towerRankTabSenior" class="btn btn-outline" style="padding:4px 10px; font-size:0.76rem;" onclick="switchTowerRankTab('senior')">🏛️ 覇者の塔（高校生）</button>
+        </div>
+      </div>
+      <div class="help-box" style="font-size:0.76rem;">
+        💡 <strong>ダミーAIは一切なし！</strong> 実際にタワーに挑戦したプレイヤーの最高到達階数がリアルタイムで並びます（通常の対戦レートとは独立）。
+      </div>
+      <div id="towerRankingBoard" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="text-align:center; padding:15px; color:var(--text-sub); font-size:0.82rem;">ランキングを読み込み中...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📊 実戦模試モード（スコアアタック＆合否判定） -->
+  <section id="screen-mock" class="screen">
+    <div class="subscreen-back-bar">
+      <strong style="color:#0369a1; font-size:0.9rem;">📊 実戦模試モード（志望ターゲット別スコアアタック）</strong>
+      <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
+    </div>
+
+    <!-- 設定＆開始パネル -->
+    <div id="mockSetupPanel" class="card">
+      <div class="card-title">🎯 1. 志望ターゲット＆出題設定を選択</div>
+      <div class="help-box">
+        💡 志望校レベルに応じた目標得点率をもとに、10問の実戦テストを実施！<br>
+        終了後に<strong>「予想偏差値」「合否判定（A〜D）」「教科別レーダーグラフ」「弱点分析レポート」</strong>を瞬時に出力します！
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:10px; margin-bottom:14px;">
+        <div>
+          <label style="font-size:0.78rem; font-weight:900; color:#0369a1; display:block; margin-bottom:4px;">🎯 志望ターゲット（一般的な難易度区分）</label>
+          <select id="mockTargetSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800; border-color:#0284c7;" onchange="updateMockTargetInfo()">
+            <optgroup label="🏛️ 大学受験区分">
+              <option value="univ_basic">共通テスト・基礎レベル（目標得点率 55% / 偏差値48）</option>
+              <option value="univ_mid" selected>中堅私大レベル（目標得点率 65% / 偏差値53）</option>
+              <option value="univ_high">難関私大・国公立標準レベル（目標得点率 75% / 偏差値60）</option>
+              <option value="univ_top">最難関大レベル（目標得点率 85% / 偏差値67）</option>
+            </optgroup>
+            <optgroup label="🎒 高校受験区分">
+              <option value="high_basic">公立高校・基礎レベル（目標得点率 55% / 偏差値48）</option>
+              <option value="high_std">公立高校・標準レベル（目標得点率 65% / 偏差値53）</option>
+              <option value="high_top">公立上位・難関私立高レベル（目標得点率 80% / 偏差値63）</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div>
+          <label style="font-size:0.78rem; font-weight:900; color:#059669; display:block; margin-bottom:4px;">📚 模試の出題科目（全9科目選択）</label>
+          <select id="mockSubjectSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800; border-color:#059669;">
+            <option value="all">🌈 全科目総合ミックス（実戦力測定に最適！）</option>
+            <optgroup label="📐 数学区分">
+              <option value="math_1a" selected>📐 数学 I・A</option>
+              <option value="math_2b">📊 数学 II・B</option>
+              <option value="math_3c">♾️ 数学 III・C</option>
+            </optgroup>
+            <optgroup label="🧬 生物区分">
+              <option value="bio_basic">🌿 生物基礎</option>
+              <option value="bio">🧬 生物</option>
+            </optgroup>
+            <optgroup label="🧪 化学区分">
+              <option value="chem_basic">💧 化学基礎</option>
+              <option value="chem">🧪 化学</option>
+            </optgroup>
+            <optgroup label="⚡ 物理区分">
+              <option value="phys_basic">🧲 物理基礎</option>
+              <option value="phys">⚡ 物理</option>
+            </optgroup>
+            <optgroup label="📖 英語・中学区分">
+              <option value="eng">📖 高校英語（単語・語法・文法）</option>
+              <option value="junior_math">🎒 中学数学</option>
+              <option value="junior_sci">🎒 中学理科</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+
+      <div id="mockTargetInfoBox" style="background:#f0f9ff; border:2px solid #bae6fd; border-radius:12px; padding:12px; margin-bottom:14px; font-size:0.8rem; line-height:1.5;"></div>
+
+      <button class="btn btn-primary" style="width:100%; padding:14px; font-size:1.05rem; font-weight:900; box-shadow:0 4px 15px rgba(2,132,199,0.35);" onclick="startMockExam()">
+        🚀 10問実戦模試をスタート！
+      </button>
+    </div>
+
+    <!-- 模試試験中パネル -->
+    <div id="mockExamPlayingPanel" class="card" style="display:none;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid #e2e8f0; padding-bottom:8px;">
+        <span id="mockQuestionNumberBadge" style="background:#0284c7; color:white; font-size:0.8rem; font-weight:900; padding:3px 10px; border-radius:999px;">第 1 問 / 全 10 問</span>
+        <span id="mockTimerText" style="font-size:0.86rem; font-weight:900; color:#dc2626;">⏱️ 残り 15.0 秒</span>
+      </div>
+      <div class="time-gauge" style="margin-bottom:12px;">
+        <div id="mockTimeGauge" class="time-gauge-inner" style="width:100%;"></div>
+      </div>
+      <div id="mockQuizSubjectBadge" class="subject-tag subj-bio" style="margin-bottom:8px; width:fit-content;">🧬 生物</div>
+      <div id="mockQuestionText" style="font-size:1rem; font-weight:900; color:#0f172a; line-height:1.55; margin-bottom:14px; min-height:55px;"></div>
+      <div id="mockChoicesArea" style="display:grid; grid-template-columns:1fr; gap:8px;"></div>
+    </div>
+
+    <!-- 模試リザルト・合否判定レポートパネル -->
+    <div id="mockExamResultPanel" class="card" style="display:none;">
+      <div style="text-align:center; margin-bottom:14px;">
+        <div style="font-size:0.82rem; font-weight:800; color:var(--text-sub);" id="mockResultTargetName">中堅私大レベル 実戦模試結果</div>
+        <div id="mockResultGradeBadge" style="display:inline-block; font-size:1.8rem; font-weight:900; padding:8px 24px; border-radius:16px; margin:8px 0; box-shadow:0 4px 15px rgba(0,0,0,0.1);">
+          👑 A判定
+        </div>
+        <div id="mockResultGradeSub" style="font-size:0.86rem; font-weight:800; color:#059669;">合格安全圏！ボーダーを余裕で突破しています！</div>
+      </div>
+
+      <!-- スコア指標カード -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:8px; margin-bottom:14px;">
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:10px; text-align:center;">
+          <div style="font-size:0.72rem; color:var(--text-sub); font-weight:800;">得点 / 正答率</div>
+          <div id="mockScoreVal" style="font-size:1.25rem; font-weight:900; color:#0284c7;">8 / 10問 (80%)</div>
+        </div>
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:10px; text-align:center;">
+          <div style="font-size:0.72rem; color:var(--text-sub); font-weight:800;">予想偏差値</div>
+          <div id="mockDevVal" style="font-size:1.25rem; font-weight:900; color:#7c3aed;">偏差値 58.4</div>
+        </div>
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:10px; text-align:center;">
+          <div style="font-size:0.72rem; color:var(--text-sub); font-weight:800;">平均解答速度</div>
+          <div id="mockSpeedVal" style="font-size:1.25rem; font-weight:900; color:#d97706;">4.2 秒</div>
+        </div>
+      </div>
+
+      <!-- 教科別・分野別得点グラフ -->
+      <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:12px; margin-bottom:14px;">
+        <div style="font-weight:900; font-size:0.86rem; color:#0f172a; margin-bottom:8px;">📊 教科別・得点分析グラフ</div>
+        <div id="mockSubjectBarsArea" style="display:flex; flex-direction:column; gap:8px;"></div>
+      </div>
+
+      <!-- 診断コメント・弱点アドバイス -->
+      <div style="background:#fffbeb; border:2px solid #fde047; border-radius:12px; padding:12px; margin-bottom:16px;">
+        <div style="font-weight:900; font-size:0.86rem; color:#854d0e; margin-bottom:4px;">💡 弱点診断＆学習アドバイス</div>
+        <div id="mockAdviceText" style="font-size:0.8rem; color:#713f12; line-height:1.5;"></div>
+      </div>
+
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn btn-primary" style="flex:1; padding:11px;" onclick="retryMockExam()">🔄 もう一度挑戦する</button>
+        <button class="btn btn-secondary" style="flex:1; padding:11px;" onclick="switchScreen('mistakes')">📝 復習ノートを開く</button>
+        <button class="btn btn-outline" style="padding:11px 16px;" onclick="switchScreen('menu')">⬅️ メニュー</button>
       </div>
     </div>
   </section>
@@ -1507,6 +1757,21 @@
           </div>
 
           <button class="btn btn-primary" style="width:100%; padding:11px;" onclick="startCpuBattle()">⚔️ AI特訓バトル開始！</button>
+        </div>
+
+        <!-- 4. 【NEW!!】📊 実戦模試モード（スコアアタック＆合否判定） -->
+        <div class="card" style="border:3px solid #0284c7; background:linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%); display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3 style="color:#0369a1; margin:0;">📊 実戦模試モード</h3>
+            <span style="background:#0284c7; color:white; font-size:0.7rem; font-weight:900; padding:2px 8px; border-radius:999px;">スコアアタック</span>
+          </div>
+          <p style="font-size:0.76rem; color:#0c4a6e; line-height:1.45; margin:0;">
+            志望ターゲットを選んで10問の実戦テスト！<br>
+            <strong>「予想偏差値」「合否判定（A〜D）」「弱点分析レーダーレポート」</strong>を瞬時に判定！本番前の力試しに！
+          </p>
+          <button class="btn btn-primary" style="width:100%; padding:12px; font-size:0.95rem; font-weight:900; margin-top:auto; box-shadow:0 3px 10px rgba(2,132,199,0.3);" onclick="switchScreen('mock')">
+            🚀 実戦模試に挑戦する！
+          </button>
         </div>
       </div>
     </div>
@@ -2878,7 +3143,15 @@ const TITLES_MASTER = [
   { id: 't_god', name: '🌌 神個体(LR)の覚醒者', condText: 'LR（変異種×感覚100）を仲間にする', check: s => s.box.some(m => m.rarity === 'LR') },
   { id: 't_collector', name: '📘 バイオ図鑑コンプリーター', condText: '手持ちボックスを15体以上にする', check: s => s.box.length >= 15 },
   { id: 't_first_chip', name: '🧬 遺伝子カスタムの第一歩', condText: 'いずれかのキャラに遺伝子チップを1枚以上装備させる', check: s => s.box.some(m => Array.isArray(m.chips) && m.chips.filter(Boolean).length >= 1) },
-  { id: 't_dual_genome', name: '🧬 デュアルゲノムの開拓者', condText: 'いずれかのキャラに遺伝子チップを2枠とも装備させる', check: s => s.box.some(m => Array.isArray(m.chips) && m.chips.filter(Boolean).length >= 2) }
+  { id: 't_dual_genome', name: '🧬 デュアルゲノムの開拓者', condText: 'いずれかのキャラに遺伝子チップを2枠とも装備させる', check: s => s.box.some(m => Array.isArray(m.chips) && m.chips.filter(Boolean).length >= 2) },
+
+  // --- 🗼 ゲノムタワー踏破称号 ---
+  { id: 't_tower_10', name: '🗼 タワー登攀者', condText: 'ゲノムタワーで10階を突破する', check: s => (s.towerBestJunior >= 10 || s.towerBestSenior >= 10) },
+  { id: 't_tower_30', name: '⚔️ 階層の覇士', condText: 'ゲノムタワーで30階を突破する', check: s => (s.towerBestJunior >= 30 || s.towerBestSenior >= 30) },
+  { id: 't_tower_50', name: '🏅 ゲノムタワーの挑戦者', condText: 'ゲノムタワーで50階を突破する', check: s => (s.towerBestJunior >= 50 || s.towerBestSenior >= 50) },
+  { id: 't_tower_100', name: '👑 百層を踏破せし者', condText: 'ゲノムタワーで100階を突破する', check: s => (s.towerBestJunior >= 100 || s.towerBestSenior >= 100) },
+  { id: 't_tower_200', name: '🌌 遺伝子の支配者', condText: 'ゲノムタワーで200階を突破する', check: s => (s.towerBestJunior >= 200 || s.towerBestSenior >= 200) },
+  { id: 't_tower_500', name: '♾️ 無限の深淵を識る者', condText: 'ゲノムタワーで500階を突破する（神話の領域）', check: s => (s.towerBestJunior >= 500 || s.towerBestSenior >= 500) }
 ];
 
 const EXCHANGE_SHOP_ITEMS = [
@@ -4453,6 +4726,39 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 4.9.2',
+    date: '2026-11-10',
+    title: '📐 メニュー等高均等美 ＆ 🗼 タワー1問ミス即終了・一発勝負化 ＆ 📊 実戦模試高校9科目細分化アプデ！',
+    items: [
+      '【📱 メニュー＆ナビゲーション均等美レイアウト】上部メインナビゲーション（4タブ）を完全等幅4分割に最適化！さらに研究所メインメニューの全カードを等高・中央揃え（min-height統一）に全面刷新し、どの端末でも美しくピシッと揃うグリッドレイアウトを実現！',
+      '【🗼 ゲノムタワー 1問ミス即終了ルール導入】エンドレス階層踏破モードが真の一発勝負へ進化！不正解または時間切れとなった瞬間に即座に挑戦終了となり、到達階数・報酬確定とともに開始前画面（タワーロビー）へ戻る極限の緊張感あふれるルールに改修！',
+      '【📊 実戦模試モード 高校理数9科目個別選択対応】模試の出題科目を「数1A」「数2B」「数3C」「生物基礎」「生物」「化学基礎」「化学」「物理基礎」「物理」に細分化！自分の志望校や直前の強化科目にピンポイントで合わせた実戦力測定・合否判定が可能になりました！'
+    ]
+  },
+  {
+    ver: 'Ver 4.9.1',
+    date: '2026-11-10',
+    title: '🗼 タワーバトル画面表示修復 ＆ 📊 実戦模試選択肢表示 ＆ メインナビゲーション整理アプデ！',
+    items: [
+      '【🗼 タワーバトル画面の表示修復】タワー挑戦開始時に画面が真っ白になっていた表示不具合を修正！アリーナ画面、HPゲージ、問題文、選択肢ボタンが正常に表示されスムーズにバトルを開始できるようになりました！',
+      '【🧭 メインナビゲーション整理（4タブ復元）】ナビゲーションバーの「🗼 タワー」タブをメニュー画面内へ集約し、元の4タブ構成（🔬 育成 / ⚔️ 対戦 / 🤝 順位 / 📱 メニュー）に復元！メニューからいつでもタワー・模試へアクセス可能です！',
+      '【📊 実戦模試の選択肢ボタン表示修復】実戦模試開始時に選択肢が表示されず解答できなかった不具合を根本解決！HTMLエスケープ処理を安全化し、選択肢が確実に4択表示されてスムーズにスコアアタック・合否診断を行えるようになりました！',
+      '【🛡️ 解答ボタンの連打防止＆安全インデックス化】タワー・模試ともに解答ボタンを安全な番号参照方式に強化し、記号や数式を含む問題でも誤作動を起こさず正確に判定されるよう改善しました！'
+    ]
+  },
+  {
+    ver: 'Ver 4.9.0',
+    date: '2026-11-10',
+    title: '🗼 無限のゲノムタワー（中高完全分離・タワー専用ランキング）＆ 📊 実戦模試モード（志望ターゲット別スコアアタック）大型アプデ！',
+    items: [
+      '【🗼 無限のゲノムタワー新設】上限なしのエンドレス階層踏破モード！1階からスタートし、どこまで登れるか限界に挑戦！中学生向け「🎒 少年の塔」と高校生向け「🏛️ 覇者の塔」に完全分離し、中学生用では高校生・大学問題が一切混入しません！',
+      '【🏆 タワー専用ランキング】通常のレートランキングとは独立した、タワー到達階数専用の全国ランキングを新設！少年の塔部門と覇者の塔部門でそれぞれ全国のライバルと競い合えます！',
+      '【⚡ 多彩な階層ギミック＆節目ボス】タイムアタック階（制限時間6.5秒）、毒素充満階（スリップダメージ）、超重装甲階、キリ番守護ボスなどが出現！節目（10F/50F/100F…）突破で限定称号アンロック！',
+      '【📊 実戦模試モード新設】志望ターゲット（共通テスト基礎／中堅私大／難関私大・国公立標準／最難関大 ／ 公立高校基礎／公立高校標準／公立上位・難関私立高）を選んで10問の実戦テスト！',
+      '【📈 リアル合否判定＆分析レポート】目標得点率との差から「A〜D判定」と「予想偏差値」を瞬時判定！教科別バーグラフや弱点診断アドバイスで直前期の自己分析に直結！'
+    ]
+  },
+  {
     ver: 'Ver 4.8.7',
     date: '2026-11-10',
     title: '⏱️ Firestore通信ハング完全根絶＆タイムアウト安全機構・P2P直通即時フォールバックアプデ！',
@@ -5193,6 +5499,8 @@ function syncMyProfileToCloud() {
     rp: myData.rp || 0,
     leader: leaderInfo,
     partyTeam: partyTeam,
+    towerJunior: state.towerBestJunior || 0,
+    towerSenior: state.towerBestSenior || 0,
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
   }, { merge: true }).catch(err => console.warn('Cloud sync error:', err));
 }
@@ -5229,6 +5537,9 @@ function getFreshInitialState() {
     pediaUnlocked: {},
     mistakes: [],
     recentQIds: [],
+    towerBestJunior: 0,
+    towerBestSenior: 0,
+    mockExamHistory: [],
     stats: {
       wins: 0,
       losses: 0,
@@ -6049,12 +6360,14 @@ function switchScreen(screenId, btnEl) {
     if (screenId === 'petri') document.getElementById('mainTabPetri')?.classList.add('active');
     else if (screenId === 'battle') document.getElementById('mainTabBattle')?.classList.add('active');
     else if (screenId === 'friends') document.getElementById('mainTabFriends')?.classList.add('active');
-    else if (['menu', 'box', 'shop', 'gacha', 'exchange', 'genome', 'pedia', 'mistakes', 'profile', 'settings', 'help', 'handbook'].includes(screenId)) {
+    else if (['menu', 'tower', 'mock', 'box', 'shop', 'gacha', 'exchange', 'genome', 'pedia', 'mistakes', 'profile', 'settings', 'help', 'handbook'].includes(screenId)) {
       document.getElementById('mainTabMenu')?.classList.add('active');
     }
   }
 
   if (screenId === 'petri') renderPetriStatusCard();
+  if (screenId === 'tower') renderTowerLobby();
+  if (screenId === 'mock') renderMockSetup();
   if (screenId === 'box') renderBoxAndParty();
   if (screenId === 'shop') renderAtpShop();
   if (screenId === 'gacha') {
@@ -9192,6 +9505,17 @@ function nextBattleQuestion() {
       });
       recordMistake(battle.currentQ);
       showToast(`⏰ 時間切れ！ 正解は『${battle.currentQ.ans}』でした！`);
+
+      // 🗼 タワーモード時は時間切れミスで即ゲームオーバー＆タワーロビー（始める前）に戻る！
+      if (battle.mode === 'tower') {
+        const logEl = document.getElementById('battleLog');
+        if (logEl) logEl.innerHTML = `⏰ <strong>時間切れ！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${battle.currentQ.ans}</strong>』でした。`;
+        setTimeout(() => {
+          finishTowerRun(battle.towerFloor, false, false);
+        }, 1100);
+        return;
+      }
+
       executeAttack('p2', false, 1.0);
     }
   }, 100);
@@ -9309,6 +9633,16 @@ function submitChoice(text, btn) {
       recordMistake(q);
       showToast(`❌ 不正解！ 正解は『${q.ans}』でした！`);
       const logEl = document.getElementById('battleLog');
+
+      // 🗼 タワーモード時は1問ミスで即ゲームオーバー＆タワーロビー（始める前）に戻る！
+      if (battle.mode === 'tower') {
+        if (logEl) logEl.innerHTML = `❌ <strong>不正解！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${q.ans}</strong>』でした。`;
+        setTimeout(() => {
+          finishTowerRun(battle.towerFloor, false, false);
+        }, 1100);
+        return;
+      }
+
       if (logEl) logEl.innerHTML = `❌ 不正解！ 正解は『<strong>${q.ans}</strong>』でした！相手の攻撃を受けます！`;
       setTimeout(() => {
         if (battle) executeAttack('p2', false, 1.0);
@@ -9413,6 +9747,16 @@ function submitAnagram() {
       recordMistake(q);
       showToast(`❌ 不正解！ 正解は『${q.ans}』でした！`);
       const logEl = document.getElementById('battleLog');
+
+      // 🗼 タワーモード時は1問ミスで即ゲームオーバー＆タワーロビー（始める前）に戻る！
+      if (battle.mode === 'tower') {
+        if (logEl) logEl.innerHTML = `❌ <strong>不正解！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${q.ans}</strong>』でした。`;
+        setTimeout(() => {
+          finishTowerRun(battle.towerFloor, false, false);
+        }, 1100);
+        return;
+      }
+
       if (logEl) logEl.innerHTML = `❌ 不正解！ 正解は『<strong>${q.ans}</strong>』でした！相手の攻撃を受けます！`;
       setTimeout(() => {
         if (battle) executeAttack('p2', false, 1.0);
@@ -9451,6 +9795,16 @@ function submitTyping() {
       recordMistake(q);
       showToast(`❌ 不正解！ 正解は『${q.ans || q.rawWord}』でした！`);
       const logEl = document.getElementById('battleLog');
+
+      // 🗼 タワーモード時は1問ミスで即ゲームオーバー＆タワーロビー（始める前）に戻る！
+      if (battle.mode === 'tower') {
+        if (logEl) logEl.innerHTML = `❌ <strong>不正解！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${q.ans || q.rawWord}</strong>』でした。`;
+        setTimeout(() => {
+          finishTowerRun(battle.towerFloor, false, false);
+        }, 1100);
+        return;
+      }
+
       if (logEl) logEl.innerHTML = `❌ 不正解！ 正解は『<strong>${q.ans || q.rawWord}</strong>』でした！相手の攻撃を受けます！`;
       setTimeout(() => {
         if (battle) executeAttack('p2', false, 1.0);
@@ -9756,6 +10110,10 @@ function executeAttack(who, isTypingBonus, speedMult) {
   setTimeout(() => {
     if (!battle) return;
     if (f2.hp <= 0) {
+      if (battle.mode === 'tower') {
+        advanceTowerFloor();
+        return;
+      }
       battle.p2Idx++;
       if (battle.p2Idx >= battle.p2Team.length) { endBattle(true, false); return; }
       showToast(`🔥 相手のキャラを倒した！次の相手が登場！`);
@@ -10219,6 +10577,10 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
 
 function endBattle(isWin, isRetire) {
   clearInterval(battleGaugeInterval);
+  if (battle && battle.mode === 'tower') {
+    finishTowerRun(battle.towerFloor, isWin, isRetire);
+    return;
+  }
   if (!isRetire) {
     if (isWin) {
       state.stats.wins++;
@@ -10242,6 +10604,911 @@ function endBattle(isWin, isRetire) {
   document.getElementById('battleArena').classList.remove('active');
   document.getElementById('battleSetupPanel').style.display = 'block';
   updateStatsDisplay();
+}
+
+// 🛡️ XSS防止＆HTML特殊文字エスケープ共通関数
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/* ============================================================================
+   6.5 🗼 無限のゲノムタワー ＆ 📊 実戦模試モード（Ver 4.9.0 新機能）
+============================================================================ */
+let currentTowerRankTab = 'junior';
+let currentTowerRoute = 'junior';
+
+function renderTowerLobby() {
+  const bJ = document.getElementById('towerBestJuniorText');
+  const bS = document.getElementById('towerBestSeniorText');
+  const cJ = document.getElementById('towerCardBestJunior');
+  const cS = document.getElementById('towerCardBestSenior');
+  if (bJ) bJ.textContent = state.towerBestJunior || 0;
+  if (bS) bS.textContent = state.towerBestSenior || 0;
+  if (cJ) cJ.textContent = state.towerBestJunior || 0;
+  if (cS) cS.textContent = state.towerBestSenior || 0;
+  renderTowerRankingBoard(currentTowerRankTab || 'junior');
+}
+
+function switchTowerRankTab(route) {
+  currentTowerRankTab = route;
+  const btnJ = document.getElementById('towerRankTabJunior');
+  const btnS = document.getElementById('towerRankTabSenior');
+  if (route === 'junior') {
+    if (btnJ) { btnJ.classList.remove('btn-outline'); btnJ.classList.add('btn-primary'); }
+    if (btnS) { btnS.classList.remove('btn-primary'); btnS.classList.add('btn-outline'); }
+  } else {
+    if (btnJ) { btnJ.classList.remove('btn-primary'); btnJ.classList.add('btn-outline'); }
+    if (btnS) { btnS.classList.remove('btn-outline'); btnS.classList.add('btn-primary'); }
+  }
+  renderTowerRankingBoard(route);
+}
+
+// 🗼 タワー専用ランキング描画（Firestore同期 ＋ フォールバック）
+async function renderTowerRankingBoard(route) {
+  const board = document.getElementById('towerRankingBoard');
+  if (!board) return;
+  board.innerHTML = '<div style="text-align:center; padding:15px; color:var(--text-sub); font-size:0.82rem;">🗼 タワーランキング読み込み中...</div>';
+
+  const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : (state.friendCode || 'BIO-0000');
+  const fieldKey = route === 'junior' ? 'towerJunior' : 'towerSenior';
+  const myBest = route === 'junior' ? (state.towerBestJunior || 0) : (state.towerBestSenior || 0);
+
+  let list = [];
+  try {
+    if (db) {
+      const snap = await withTimeout(
+        db.collection('players')
+          .where(fieldKey, '>', 0)
+          .orderBy(fieldKey, 'desc')
+          .limit(20)
+          .get(),
+        2500,
+        'タワーランキングタイムアウト'
+      );
+      if (snap && !snap.empty) {
+        snap.forEach(doc => {
+          const d = doc.data() || {};
+          list.push({
+            name: d.name || '研究員',
+            code: d.code || doc.id,
+            title: d.title || '🌱 新米研究助手',
+            floor: d[fieldKey] || 0
+          });
+        });
+      }
+    }
+  } catch (e) {
+    console.warn('Tower ranking fetch error:', e);
+  }
+
+  const hasMe = list.some(x => normalizeFriendCode(x.code) === myCode);
+  if (!hasMe && myBest > 0) {
+    list.push({
+      name: state.playerName || 'あなた',
+      code: myCode,
+      title: state.equippedTitleId ? (TITLES_MASTER.find(t => t.id === state.equippedTitleId)?.name || '研究員') : '🌱 新米研究助手',
+      floor: myBest
+    });
+    list.sort((a, b) => b.floor - a.floor);
+  }
+
+  // ダミーNPCは完全排除（実プレイヤー＆自分の記録のみ表示）
+  const routeLabel = route === 'junior' ? '🎒 少年の塔（中学生）' : '🏛️ 覇者の塔（高校生）';
+  let myRankNum = '-';
+  const myIdx = list.findIndex(x => normalizeFriendCode(x.code) === myCode);
+  if (myIdx >= 0) myRankNum = myIdx + 1;
+
+  let html = `
+    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:8px 12px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; font-weight:800;">
+      <span>部門: <strong>${routeLabel}</strong></span>
+      <span style="color:#7c3aed;">あなたの順位: <strong>${myBest > 0 && myRankNum !== '-' ? '第 ' + myRankNum + ' 位' : '圏外（未到達）'}</strong>（最高 ${myBest} 階）</span>
+    </div>
+  `;
+
+  if (list.length === 0) {
+    html += `
+      <div style="text-align:center; padding:30px 14px; background:#f8fafc; border:2px dashed #cbd5e1; border-radius:12px; color:var(--text-sub);">
+        <div style="font-size:2.2rem; margin-bottom:6px;">🗼✨</div>
+        <div style="font-weight:900; font-size:0.95rem; color:#475569; margin-bottom:4px;">まだ到達記録がありません</div>
+        <div style="font-size:0.76rem; color:#64748b;">上の「🚀 1階から挑戦する！」を押して、第1号のランキング登録を目指そう！</div>
+      </div>
+    `;
+    board.innerHTML = html;
+    return;
+  }
+
+  list.slice(0, 20).forEach((item, idx) => {
+    const rank = idx + 1;
+    const isMe = normalizeFriendCode(item.code) === myCode;
+    let medal = `第 ${rank} 位`;
+    if (rank === 1) medal = '🥇 1位';
+    else if (rank === 2) medal = '🥈 2位';
+    else if (rank === 3) medal = '🥉 3位';
+
+    html += `
+      <div style="display:flex; justify-content:space-between; align-items:center; background:${isMe ? '#fef3c7' : '#ffffff'}; border:2px solid ${isMe ? '#f59e0b' : '#e2e8f0'}; border-radius:10px; padding:8px 12px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:0.85rem; font-weight:900; color:${rank <= 3 ? '#b45309' : '#64748b'}; min-width:48px;">${medal}</span>
+          <div>
+            <div style="font-weight:900; font-size:0.86rem; color:#0f172a;">${escapeHtml(item.name)}${isMe ? ' <span style="font-size:0.7rem; color:#d97706;">(あなた)</span>' : ''}</div>
+            <div style="font-size:0.68rem; color:var(--text-sub);">${escapeHtml(item.title || '')}</div>
+          </div>
+        </div>
+        <div style="font-weight:900; font-size:1.05rem; color:#7c3aed;">
+          第 ${item.floor} 階
+        </div>
+      </div>
+    `;
+  });
+
+  board.innerHTML = html;
+}
+
+// 🗼 タワーバトル開始（中断セーブなし・1階からスタート）
+function startTowerBattle(route) {
+  currentTowerRoute = route;
+  const p1Team = getMyBattlePartyTeam(1.0);
+  const floor = 1;
+  const p2Fighter = generateTowerEnemy(route, floor);
+
+  battle = {
+    mode: 'tower',
+    towerRoute: route,
+    towerFloor: floor,
+    p1Team: p1Team,
+    p2Team: [p2Fighter],
+    p1Idx: 0,
+    p2Idx: 0,
+    currentQ: null,
+    usedQIds: [],
+    maxTimeSec: 10,
+    remainTimeSec: 10,
+    answered: false
+  };
+
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-battle').classList.add('active');
+  document.getElementById('battleArena').classList.add('active');
+  document.getElementById('battleSetupPanel').style.display = 'none';
+  document.getElementById('friendRoomLobbyPanel').style.display = 'none';
+
+  const routeName = route === 'junior' ? '🎒 少年の塔（中学生）' : '🏛️ 覇者の塔（高校生）';
+  const logEl = document.getElementById('battleLog');
+  if (logEl) {
+    logEl.innerHTML = `🗼 <strong>${routeName} への挑戦を開始した！</strong><br>第 1 階の敵が現れた！どこまで登れるか限界に挑め！`;
+  }
+
+  updateBattleHud();
+  nextTowerQuestion();
+}
+
+// 階層エネミー数式プロシージャル生成
+function generateTowerEnemy(route, floor) {
+  const isJunior = route === 'junior';
+  const isMilestone = (floor === 50 || floor === 100 || floor === 200 || floor === 500);
+  const isBoss = (floor % 10 === 0) || isMilestone;
+
+  const sp = SPECIES_MASTER[Math.floor(Math.random() * SPECIES_MASTER.length)];
+  const bossMult = isMilestone ? 1.8 : (isBoss ? 1.4 : 1.0);
+
+  // 数式スケーリング
+  const hpBase = (180 + floor * 22) * bossMult;
+  const atkBase = (55 + floor * 2.6) * bossMult;
+  const defBase = (45 + floor * 2.0) * bossMult;
+  const spdBase = (55 + Math.min(85, floor * 1.4)) * bossMult;
+
+  let nickname = '';
+  if (isMilestone) {
+    nickname = `👑【第${floor}階 伝説神】` + sp.evoNames[4];
+  } else if (isBoss) {
+    nickname = `⚔️【第${floor}階 守護ボス】` + sp.evoNames[Math.min(4, Math.floor(floor / 8))];
+  } else {
+    nickname = `第${floor}階の` + sp.evoNames[Math.min(4, Math.floor(floor / 12))];
+  }
+
+  let chips = [null, null];
+  if (floor >= 50) chips = ['chip_hsp', 'chip_telomerase'];
+  else if (floor >= 25) chips = ['chip_size', 'chip_spd'];
+  else if (floor >= 10) chips = ['chip_spd', null];
+
+  const em = {
+    uid: 'tower_e_' + floor + '_' + Date.now(),
+    speciesId: sp.id,
+    isMutant: (floor >= 30 && Math.random() < 0.4) || isBoss,
+    nickname: nickname,
+    level: Math.min(30, Math.floor(floor / 3) + 1),
+    evoStage: Math.min(4, Math.floor(floor / 10)),
+    stats: {
+      speed: Math.round(spdBase),
+      size: Math.round(atkBase),
+      defense: Math.round(defBase),
+      fuel: 80,
+      sense: isBoss ? 50 : (floor >= 30 ? 25 : 0)
+    },
+    chips: chips,
+    subjId: isJunior ? 'j_all' : 'all',
+    skillId: isBoss ? 'shield' : 'catalyst'
+  };
+
+  const fighter = createFighter(em, 1.0);
+  fighter.maxHp = Math.round(hpBase);
+  fighter.hp = fighter.maxHp;
+  return fighter;
+}
+
+// タワー専用出題（中高完全分離）
+function getTowerQuestion(route, floor) {
+  const isJunior = route === 'junior';
+  const lastDigit = floor % 10;
+
+  // 25%の確率で動的数学問題を差し込み、問題枯渇を完全永久防止！
+  if (Math.random() < 0.25) {
+    return generateDynamicMathQuestion(isJunior ? 'junior' : 'all', isJunior ? 'j_math' : 'm1a', 'all_units');
+  }
+
+  let pool = [];
+  if (isJunior) {
+    // 中学生限定（高校数学・大学入試過去問を100%完全遮断！）
+    pool = QUIZ_MASTER.filter(item => item.grade === 'junior' || item.grade === 'elem');
+  } else {
+    // 高校生・受験限定（中学・小学内容を100%完全遮断！）
+    pool = QUIZ_MASTER.filter(item => item.grade !== 'junior' && item.grade !== 'elem');
+  }
+
+  if (pool.length === 0) pool = QUIZ_MASTER;
+
+  // 出題済み重複を極力回避
+  const used = (battle && battle.usedQIds) || [];
+  const fresh = pool.filter(q => !used.includes(q.id));
+  const cand = (fresh.length > 0 ? fresh : pool);
+  const q = cand[Math.floor(Math.random() * cand.length)];
+  if (battle) battle.usedQIds.push(q.id);
+  return q;
+}
+
+// タワー次問出題＆階層ギミック適用
+function nextTowerQuestion() {
+  if (!battle || battle.mode !== 'tower') return;
+  clearInterval(battleGaugeInterval);
+  battle.answered = false;
+
+  const floor = battle.towerFloor;
+  const route = battle.towerRoute;
+  const lastDigit = floor % 10;
+  const isMilestone = (floor === 50 || floor === 100 || floor === 200 || floor === 500);
+  const isBoss = (floor % 10 === 0) || isMilestone;
+
+  // 階層ギミック告知＆環境スリップ
+  let gimmickDesc = '通常階層';
+  if (isMilestone) {
+    gimmickDesc = '👑【超伝説神フロア】敵ステータス超絶強化！';
+  } else if (isBoss) {
+    gimmickDesc = '⚔️【守護ボス階】巨大ボスが出現！';
+  } else if (lastDigit === 3) {
+    gimmickDesc = '⚡【タイムアタック階】制限時間 6.5秒！';
+  } else if (lastDigit === 7) {
+    gimmickDesc = '🧪【毒素充満階】毎問お互いに最大HPの5%スリップダメージ！';
+    const f1 = battle.p1Team[battle.p1Idx];
+    const f2 = battle.p2Team[battle.p2Idx];
+    if (f1) f1.hp = Math.max(1, f1.hp - Math.round(f1.maxHp * 0.05));
+    if (f2) f2.hp = Math.max(1, f2.hp - Math.round(f2.maxHp * 0.05));
+    updateBattleHud();
+  } else if (lastDigit === 9) {
+    gimmickDesc = '🛡️【超重装甲階】相手の防御力が大幅UP！';
+  }
+
+  const q = getTowerQuestion(route, floor);
+  battle.currentQ = q;
+
+  const f1 = battle.p1Team[battle.p1Idx];
+  const qSubj = getSubject(q.subj);
+
+  document.getElementById('quizCatBadge').className = `subject-tag ${qSubj.cls}`;
+  document.getElementById('quizCatBadge').textContent = `${qSubj.icon} ${qSubj.name}`;
+  document.getElementById('quizGradeBadge').textContent = `🗼 第 ${floor} 階 (${gimmickDesc})`;
+  document.getElementById('quizBonusHint').textContent = (f1 && (f1.isMutant || f1.subjId === 'all')) ? '🌟 全科目万能(1.35倍)' : (f1 && f1.subjId === q.subj ? '🔥 得意科目！(1.5倍)' : '');
+  document.getElementById('quizQuestionText').textContent = q.q;
+
+  const choiceArea = document.getElementById('quizChoicesArea');
+  const anagramArea = document.getElementById('anagramArea');
+  const typingArea = document.getElementById('typingArea');
+
+  choiceArea.style.display = 'grid';
+  anagramArea.style.display = 'none';
+  typingArea.style.display = 'none';
+
+  const choices = Array.isArray(q.c) ? [...q.c] : [q.ans];
+  // 選択肢シャッフル
+  for (let i = choices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [choices[i], choices[j]] = [choices[j], choices[i]];
+  }
+  battle.currentChoices = choices;
+
+  choiceArea.innerHTML = choices.map((text, idx) => `
+    <button class="choice-btn" data-ans="${escapeHtml(text)}" onclick="submitTowerChoiceByIdx(${idx}, this)">${escapeHtml(text)}</button>
+  `).join('');
+
+  // 制限時間設定
+  let sec = 10.0;
+  if (lastDigit === 3) sec = 6.5; // タイムアタック階
+  battle.maxTimeSec = sec;
+  battle.remainTimeSec = sec;
+
+  const gauge = document.getElementById('battleTimeGauge');
+  gauge.style.width = '100%';
+
+  battleGaugeInterval = setInterval(() => {
+    if (!battle || battle.answered) return;
+    battle.remainTimeSec -= 0.1;
+    const pct = Math.max(0, (battle.remainTimeSec / battle.maxTimeSec) * 100);
+    gauge.style.width = pct + '%';
+
+    const speedBonusMult = (1.0 + (pct / 100) * (0.25 + (f1 ? f1.stats.speed : 100) * 0.002)).toFixed(2);
+    document.getElementById('speedStatusText').textContent =
+      `⏱️ 残り ${Math.max(0, battle.remainTimeSec).toFixed(1)}秒（⚡早押し速度倍率 ×${speedBonusMult}）`;
+
+    if (battle.remainTimeSec <= 0) {
+      clearInterval(battleGaugeInterval);
+      battle.answered = true;
+      if (f1) f1.combo = 0;
+      document.querySelectorAll('.choice-btn').forEach(b => {
+        b.disabled = true;
+        if (b.dataset.ans === battle.currentQ.ans || b.textContent.trim().startsWith(battle.currentQ.ans)) {
+          b.classList.add('correct');
+        }
+      });
+      recordMistake(battle.currentQ);
+      showToast(`⏰ 時間切れ！ 正解は『${battle.currentQ.ans}』でした！`);
+
+      // 🗼 タワーモード時は時間切れミスで即ゲームオーバー＆タワーロビー（始める前）に戻る！
+      if (battle.mode === 'tower') {
+        const logEl = document.getElementById('battleLog');
+        if (logEl) logEl.innerHTML = `⏰ <strong>時間切れ！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${battle.currentQ.ans}</strong>』でした。`;
+        setTimeout(() => {
+          finishTowerRun(battle.towerFloor, false, false);
+        }, 1100);
+        return;
+      }
+
+      executeAttack('p2', false, 1.0);
+    }
+  }, 100);
+}
+
+// 選択肢インデックス経由でのタワー解答（アポストロフィ・特殊記号対応）
+function submitTowerChoiceByIdx(idx, btnEl) {
+  if (!battle || battle.answered || !Array.isArray(battle.currentChoices)) return;
+  submitChoice(battle.currentChoices[idx], btnEl);
+}
+
+// 階層突破（勝利時）
+function advanceTowerFloor() {
+  if (!battle || battle.mode !== 'tower') return;
+  const clearedFloor = battle.towerFloor;
+  showToast(`🎉 第 ${clearedFloor} 階 突破！ 次の階層へ進出！`);
+
+  // パーティ全員HP20%回復ボーナス
+  battle.p1Team.forEach(tm => {
+    if (tm.hp > 0) tm.hp = Math.min(tm.maxHp, tm.hp + Math.round(tm.maxHp * 0.20));
+  });
+
+  battle.towerFloor++;
+  const nextFloor = battle.towerFloor;
+  const newEnemy = generateTowerEnemy(battle.towerRoute, nextFloor);
+
+  battle.p2Team = [newEnemy];
+  battle.p2Idx = 0;
+
+  const logEl = document.getElementById('battleLog');
+  if (logEl) {
+    const isBoss = nextFloor % 10 === 0;
+    logEl.innerHTML = isBoss ?
+      `🚨 <strong>【警告！第 ${nextFloor} 階 ボスフロア突入！】</strong> 巨大守護体が現れた！チームHPが20%回復した！` :
+      `🗼 <strong>第 ${nextFloor} 階へ進出！</strong> チームHPが20%回復した！`;
+  }
+
+  updateBattleHud();
+  setTimeout(() => {
+    if (!battle) return;
+    nextTowerQuestion();
+  }, 1200);
+}
+
+// タワー終了（敗北・リタイア）
+function finishTowerRun(reachedFloor, isWin, isRetire) {
+  clearInterval(battleGaugeInterval);
+  const route = battle ? battle.towerRoute : currentTowerRoute;
+  const floor = reachedFloor || (battle ? battle.towerFloor : 1);
+  battle = null;
+
+  document.getElementById('battleArena').classList.remove('active');
+  switchScreen('tower');
+
+  const isJunior = route === 'junior';
+  const prevBest = isJunior ? (state.towerBestJunior || 0) : (state.towerBestSenior || 0);
+  const isNewRecord = floor > prevBest;
+
+  if (isJunior) {
+    state.towerBestJunior = Math.max(state.towerBestJunior || 0, floor);
+  } else {
+    state.towerBestSenior = Math.max(state.towerBestSenior || 0, floor);
+  }
+
+  const earnedAtp = floor * 150;
+  const earnedMedals = Math.floor(floor / 5) * 5;
+  state.atp += earnedAtp;
+  state.medals += earnedMedals;
+  saveData();
+  syncMyProfileToCloud();
+
+  // 称号チェック
+  if (typeof checkUnlockedTitles === 'function') checkUnlockedTitles();
+
+  const routeName = isJunior ? '少年の塔（中学生）' : '覇者の塔（高校生）';
+  const recMsg = isNewRecord ? `\n\n🎊 NEW RECORD！ 最高到達記録を更新しました！` : `\n（自己最高: 第 ${prevBest} 階）`;
+
+  alert(
+    `🗼 【ゲノムタワー挑戦結果】\n` +
+    `ルート: ${routeName}\n` +
+    `到達階層: 第 ${floor} 階\n` +
+    `獲得報酬: ⚡ ${earnedAtp} ATP ＆ 🧬 ${earnedMedals} DNAメダル${recMsg}`
+  );
+
+  renderTowerLobby();
+}
+
+/* ============================================================================
+   6.6 📊 実戦模試モード（スコアアタック＆合否判定）ロジック
+============================================================================ */
+const MOCK_TARGETS = {
+  univ_basic: {
+    name: '共通テスト・基礎レベル',
+    group: 'univ',
+    targetPct: 55,
+    baseDev: 48,
+    desc: '大学入学共通テストの基礎〜標準レベル。各大問の基礎点を取り切る実戦力を判定します。',
+    adviceA: '共通テスト基礎レベルを大きく上回る好成績です！この調子で中堅私大や難関大レベルへのステップアップを目指しましょう！',
+    adviceB: '基礎事項はしっかり定着しています。解くのに時間がかかった問題や苦手分野を復習ノートで補強しましょう！',
+    adviceC: '合格ラインの当落線上です！基本用語の取りこぼしや計算ミスがないか、見直しを徹底しましょう。',
+    adviceD: '教科書の基礎事項にまだ弱点があります。復習ノートの解説を読んで基本定義・公式を完璧に固めましょう！'
+  },
+  univ_mid: {
+    name: '中堅私大レベル',
+    group: 'univ',
+    targetPct: 65,
+    baseDev: 53,
+    desc: '追手門学院大をはじめ、産近甲龍・日東駒専・公募推薦入試などの中堅私大標準レベル。合格ボーダーは約65%〜70%です。',
+    adviceA: '公募推薦・中堅私大の合格安全圏（ボーダー大幅突破）に到達しています！本番でも自信を持って挑めます！',
+    adviceB: '合格圏内の実力があります！ケアレスミスをゼロに抑える確実な解法を意識して仕上げていきましょう。',
+    adviceC: 'ボーダーライン付近の接戦です！あと2〜3問の正解が合否を分けます。頻出パターンの問題を徹底反復しましょう！',
+    adviceD: '標準問題の解法パターンがまだ身についていません。まずは典型問題の解法を復習ノートで徹底確認しましょう！'
+  },
+  univ_high: {
+    name: '難関私大・国公立標準レベル',
+    group: 'univ',
+    targetPct: 75,
+    baseDev: 60,
+    desc: '関関同立・MARCH・地方国公立大学などの上位レベル。応用力と正確な記述・論理的思考力が求められます。',
+    adviceA: '難関大レベルの壁を突破しています！高い思考力と知識が備わっています。この調子で過去問演習を重ねましょう！',
+    adviceB: '十分合格が狙える実力です！応用問題で少し時間がかかっている部分を補強すれば盤石です。',
+    adviceC: '難関レベルのボーダー付近です。基礎〜標準問題は確実に拾い、差がつく応用問題の正答率を高めましょう！',
+    adviceD: '難関大特有のひねった問題に苦戦しています。まずは基本パターンの定着を確認し、徐々に応用へステップアップしましょう！'
+  },
+  univ_top: {
+    name: '最難関大レベル',
+    group: 'univ',
+    targetPct: 85,
+    baseDev: 67,
+    desc: '旧帝大（東大・京大・阪大等）・早慶などの最難関レベル。深い本質的理解と高度な計算力・読解力が必要です。',
+    adviceA: '神域の学力です！最難関大の難問を的確に解き切る圧倒的な実力があります！',
+    adviceB: '最難関大合格ラインに食い込んでいます！細部の取りこぼしを防ぎ、スピードを磨きましょう！',
+    adviceC: '最難関大のボーダー付近です。捨て問の見極めと、取れる問題の確実な正解を徹底しましょう！',
+    adviceD: '最高峰の難度です。解けなかった問題の解答プロセスを1行ずつじっくり分析して思考力を養いましょう！'
+  },
+  high_basic: {
+    name: '公立高校・基礎レベル',
+    group: 'high',
+    targetPct: 55,
+    baseDev: 48,
+    desc: '教科書の基本例題・定期テストレベル。高校受験に必要な中学3年間の重要基本用語・計算を測定します。',
+    adviceA: '教科書レベルはバッチリ完璧です！次は公立標準レベルに挑戦して入試実戦力を高めましょう！',
+    adviceB: '基本はしっかり身についています。間違えた単元を復習ノートで解き直しておけば安心です！',
+    adviceC: '基礎に少し穴があります。計算ルールや英単語・重要語句をもう一度ノートで見直しましょう！',
+    adviceD: '基本用語や公式を覚え直す必要があります。復習ノートの解説を読んで1問ずつ確実に理解しましょう！'
+  },
+  high_std: {
+    name: '公立高校・標準レベル',
+    group: 'high',
+    targetPct: 65,
+    baseDev: 53,
+    desc: '一般的な公立高校入試の過去問・標準問題集レベル。合格に必要な基礎＋標準問題の定着度を測ります。',
+    adviceA: '公立高校入試の合格安全圏です！安定して得点できています。本番でも落ち着いて臨めば大丈夫！',
+    adviceB: '公立標準レベルの合格圏内です！ケアレスミスに気をつけて、確実に点を積み上げましょう！',
+    adviceC: 'ボーダーライン付近です。公立入試で差がつく関数や図形、英文法を復習ノートで重点演習しましょう！',
+    adviceD: '入試頻出問題で失点が見られます。定期テストレベルの基礎を固めてから標準問題に再挑戦しましょう！'
+  },
+  high_top: {
+    name: '公立上位・難関私立高レベル',
+    group: 'high',
+    targetPct: 80,
+    baseDev: 63,
+    desc: '地域のトップ進学公立高・開成・灘・早慶付属などの難関高校入試レベル。深い思考力と応用問題の突破力が必要です。',
+    adviceA: '地域トップ高・難関私立高の合格安全圏です！高度な応用力を存分に発揮できています！',
+    adviceB: '難関高合格ラインに到達しています！解くスピードを上げればさらに高得点が狙えます！',
+    adviceC: '難関高ボーダー付近です。1問の差が合否を左右するので、苦手分野の徹底克服を急ぎましょう！',
+    adviceD: '難関高特有の難問です。解説をよく読んで、解法の着眼点を復習ノートでインプットしましょう！'
+  }
+};
+
+let currentMockExam = null;
+let mockTimerInterval = null;
+
+function renderMockSetup() {
+  document.getElementById('mockSetupPanel').style.display = 'block';
+  document.getElementById('mockExamPlayingPanel').style.display = 'none';
+  document.getElementById('mockExamResultPanel').style.display = 'none';
+  updateMockTargetInfo();
+}
+
+function updateMockTargetInfo() {
+  const sel = document.getElementById('mockTargetSelect');
+  const info = document.getElementById('mockTargetInfoBox');
+  if (!sel || !info) return;
+  const tKey = sel.value || 'univ_mid';
+  const target = MOCK_TARGETS[tKey] || MOCK_TARGETS.univ_mid;
+
+  info.innerHTML = `
+    <div style="font-weight:900; color:#0369a1; margin-bottom:4px;">🎯 【${target.name}】の判定基準</div>
+    <div>${target.desc}</div>
+    <div style="margin-top:6px; display:flex; gap:12px; font-weight:800; color:#0f172a; flex-wrap:wrap;">
+      <span>🎯 目標合格ボーダー: <strong>得点率 ${target.targetPct}%</strong></span>
+      <span>📊 基準偏差値: <strong>約 ${target.baseDev}</strong></span>
+    </div>
+  `;
+}
+
+// 模試開始
+function startMockExam() {
+  const tKey = (document.getElementById('mockTargetSelect') || {}).value || 'univ_mid';
+  const subjOpt = (document.getElementById('mockSubjectSelect') || {}).value || 'all';
+  const target = MOCK_TARGETS[tKey] || MOCK_TARGETS.univ_mid;
+  const isHigh = target.group === 'high';
+
+  // 10問の問題プール抽出（高校9大教科細分化対応！）
+  let pool = [];
+  if (isHigh) {
+    pool = QUIZ_MASTER.filter(item => item.grade === 'junior' || item.grade === 'elem');
+  } else {
+    pool = QUIZ_MASTER.filter(item => item.grade !== 'junior' && item.grade !== 'elem');
+  }
+
+  if (subjOpt === 'math_1a') {
+    pool = pool.filter(item => ['m1', 'ma', 'm1a'].includes(item.subj) || (item.id && (item.id.startsWith('hm1a') || item.id.startsWith('exam_m1') || item.id.startsWith('exam_ma'))));
+  } else if (subjOpt === 'math_2b') {
+    pool = pool.filter(item => ['m2', 'mb', 'm2b'].includes(item.subj) || (item.id && (item.id.startsWith('hm2b') || item.id.startsWith('exam_m2') || item.id.startsWith('exam_mb'))));
+  } else if (subjOpt === 'math_3c') {
+    pool = pool.filter(item => ['m3', 'mc', 'm3c'].includes(item.subj) || (item.id && (item.id.startsWith('hm3c') || item.id.startsWith('exam_m3') || item.id.startsWith('exam_mc'))));
+  } else if (subjOpt === 'bio_basic') {
+    // 🌿 生物基礎：細胞・顕微鏡・DNA基礎・体内環境・ホルモン・免疫・代謝など基礎問題
+    pool = pool.filter(item => item.subj === 'bio' && (item.level === 'textbook' || ['bio_ch1', 'bio_ch2', 'bio_ch3', 'bio_ch5'].includes(item.unit) || /細胞|顕微鏡|ミトコンドリア|葉緑体|DNA|ATP|恒常性|ホルモン|免疫|抗体|血液|肝臓|腎臓/.test(item.q || '')));
+  } else if (subjOpt === 'bio') {
+    // 🧬 生物：生物全般（発展・入試問題含む）
+    pool = pool.filter(item => item.subj === 'bio');
+  } else if (subjOpt === 'chem_basic') {
+    // 💧 化学基礎：物質の構成・原子・イオン・結合・モル・酸塩基・酸化還元
+    pool = pool.filter(item => item.subj === 'chem' && (item.level === 'textbook' || /原子|同位体|電子|周期表|イオン結合|共有結合|金属結合|物質量|モル|酸|塩基|pH|中和|酸化|還元/.test(item.q || '')));
+  } else if (subjOpt === 'chem') {
+    // 🧪 化学：化学全般（発展・有機・無機・高分子含む）
+    pool = pool.filter(item => item.subj === 'chem');
+  } else if (subjOpt === 'phys_basic') {
+    // 🧲 物理基礎：等加速度・力・仕事・力学的エネルギー・熱量・波の基礎
+    pool = pool.filter(item => item.subj === 'phys' && (item.level === 'textbook' || /速度|加速度|力|重力|弾性力|摩擦|仕事|力学的エネルギー|熱量|比熱|波|波長|振動数|オームの法則/.test(item.q || '')));
+  } else if (subjOpt === 'phys') {
+    // ⚡ 物理：物理全般（発展・円運動・電磁気・波動・原子含む）
+    pool = pool.filter(item => item.subj === 'phys');
+  } else if (subjOpt === 'eng') {
+    pool = pool.filter(item => isHigh ? item.subj === 'j_eng' : String(item.subj || '').startsWith('eng'));
+  } else if (subjOpt === 'junior_math') {
+    pool = QUIZ_MASTER.filter(item => item.subj === 'j_math');
+  } else if (subjOpt === 'junior_sci') {
+    pool = QUIZ_MASTER.filter(item => item.subj === 'j_sci');
+  } else if (subjOpt === 'math') {
+    pool = pool.filter(item => isHigh ? item.subj === 'j_math' : ['m1', 'ma', 'm2', 'mb', 'm3', 'mc', 'm1a', 'm2b', 'm3c'].includes(item.subj));
+  } else if (subjOpt === 'sci') {
+    pool = pool.filter(item => isHigh ? item.subj === 'j_sci' : ['bio', 'chem', 'phys'].includes(item.subj));
+  }
+
+  if (pool.length === 0) pool = QUIZ_MASTER;
+
+  // シャッフルして10問選出（不足時は動的生成で補填）
+  const shuffled = [...pool];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  let questions = shuffled.slice(0, 10);
+  while (questions.length < 10) {
+    if (subjOpt === 'math_1a') {
+      questions.push(generateDynamicMathQuestion('high', 'm1', 'all_units'));
+    } else if (subjOpt === 'math_2b') {
+      questions.push(generateDynamicMathQuestion('high', 'm2', 'all_units'));
+    } else if (subjOpt === 'math_3c') {
+      questions.push(generateDynamicMathQuestion('high', 'm3', 'all_units'));
+    } else if (subjOpt === 'junior_math') {
+      questions.push(generateDynamicMathQuestion('junior', 'j_math', 'all_units'));
+    } else if (pool.length > 0) {
+      questions.push(pool[Math.floor(Math.random() * pool.length)]);
+    } else {
+      questions.push(generateDynamicMathQuestion(isHigh ? 'junior' : 'all', isHigh ? 'j_math' : 'm1a', 'all_units'));
+    }
+  }
+
+  currentMockExam = {
+    targetKey: tKey,
+    target: target,
+    subjOpt: subjOpt,
+    questions: questions,
+    currentIndex: 0,
+    answers: [],
+    startTime: Date.now(),
+    questionStartTime: Date.now(),
+    answered: false
+  };
+
+  document.getElementById('mockSetupPanel').style.display = 'none';
+  document.getElementById('mockExamPlayingPanel').style.display = 'block';
+  document.getElementById('mockExamResultPanel').style.display = 'none';
+
+  nextMockQuestion();
+}
+
+function nextMockQuestion() {
+  if (!currentMockExam) return;
+  clearInterval(mockTimerInterval);
+  currentMockExam.answered = false;
+
+  const idx = currentMockExam.currentIndex;
+  if (idx >= currentMockExam.questions.length) {
+    finishMockExam();
+    return;
+  }
+
+  const q = currentMockExam.questions[idx];
+  currentMockExam.questionStartTime = Date.now();
+
+  const numBadge = document.getElementById('mockQuestionNumberBadge');
+  if (numBadge) numBadge.textContent = `第 ${idx + 1} 問 / 全 ${currentMockExam.questions.length} 問`;
+
+  const qSubj = getSubject(q.subj);
+  const subjBadge = document.getElementById('mockQuizSubjectBadge');
+  if (subjBadge) {
+    subjBadge.className = `subject-tag ${qSubj.cls}`;
+    subjBadge.textContent = `${qSubj.icon} ${qSubj.name}`;
+  }
+
+  document.getElementById('mockQuestionText').textContent = q.q;
+
+  const choiceArea = document.getElementById('mockChoicesArea');
+  const choices = Array.isArray(q.c) ? [...q.c] : [q.ans];
+  for (let i = choices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [choices[i], choices[j]] = [choices[j], choices[i]];
+  }
+  currentMockExam.currentChoices = choices;
+
+  choiceArea.innerHTML = choices.map((text, idx) => `
+    <button class="choice-btn" data-ans="${escapeHtml(text)}" onclick="submitMockChoiceByIdx(${idx}, this)">${escapeHtml(text)}</button>
+  `).join('');
+
+  // 1問あたり15秒のタイマー
+  let maxSec = 15.0;
+  let remainSec = maxSec;
+  const gauge = document.getElementById('mockTimeGauge');
+  const timerText = document.getElementById('mockTimerText');
+  gauge.style.width = '100%';
+
+  mockTimerInterval = setInterval(() => {
+    if (!currentMockExam || currentMockExam.answered) return;
+    remainSec -= 0.1;
+    const pct = Math.max(0, (remainSec / maxSec) * 100);
+    gauge.style.width = pct + '%';
+    if (timerText) timerText.textContent = `⏱️ 残り ${Math.max(0, remainSec).toFixed(1)} 秒`;
+
+    if (remainSec <= 0) {
+      clearInterval(mockTimerInterval);
+      submitMockChoice('__TIME_UP__', null);
+    }
+  }, 100);
+}
+
+// 選択肢インデックス経由での実戦模試解答（アポストロフィ・特殊記号対応）
+function submitMockChoiceByIdx(idx, btnEl) {
+  if (!currentMockExam || currentMockExam.answered || !Array.isArray(currentMockExam.currentChoices)) return;
+  submitMockChoice(currentMockExam.currentChoices[idx], btnEl);
+}
+
+function submitMockChoice(chosenText, btnEl) {
+  if (!currentMockExam || currentMockExam.answered) return;
+  currentMockExam.answered = true;
+  clearInterval(mockTimerInterval);
+
+  // 全ボタン無効化（連打防止）
+  document.querySelectorAll('#mockChoicesArea .choice-btn').forEach(b => {
+    b.disabled = true;
+  });
+
+  const idx = currentMockExam.currentIndex;
+  const q = currentMockExam.questions[idx];
+  const isCorrect = (chosenText === q.ans);
+  const timeTaken = Math.min(15.0, (Date.now() - currentMockExam.questionStartTime) / 1000);
+
+  currentMockExam.answers.push({
+    q: q,
+    chosen: chosenText,
+    isCorrect: isCorrect,
+    timeTaken: timeTaken
+  });
+
+  if (isCorrect) {
+    if (btnEl) btnEl.classList.add('correct');
+    recordCorrect(q.subj, q);
+    showToast('⭕ 正解！');
+  } else {
+    if (btnEl) btnEl.classList.add('wrong');
+    document.querySelectorAll('#mockChoicesArea .choice-btn').forEach(b => {
+      if (b.dataset.ans === q.ans || b.textContent.trim() === q.ans) {
+        b.classList.add('correct');
+      }
+    });
+    recordMistake(q);
+    showToast(`❌ 不正解！ 正解は『${q.ans}』でした！`);
+  }
+
+  setTimeout(() => {
+    if (!currentMockExam) return;
+    currentMockExam.currentIndex++;
+    nextMockQuestion();
+  }, 900);
+}
+
+// 模試結果出力・合否判定・レポート表示
+function finishMockExam() {
+  if (!currentMockExam) return;
+  clearInterval(mockTimerInterval);
+
+  const total = currentMockExam.questions.length;
+  const corrects = currentMockExam.answers.filter(a => a.isCorrect).length;
+  const pct = Math.round((corrects / total) * 100);
+  const target = currentMockExam.target;
+  const totalTime = currentMockExam.answers.reduce((acc, a) => acc + a.timeTaken, 0);
+  const avgSpeed = (totalTime / total).toFixed(1);
+
+  // 判定算出（目標得点率との差）
+  const diffPct = pct - target.targetPct;
+  let grade = 'D';
+  let gradeText = '🔥 D判定';
+  let gradeBg = '#fee2e2';
+  let gradeColor = '#991b1b';
+  let gradeSub = '努力圏・要復習ラインです。基礎の再構築が必要です。';
+  let advice = target.adviceD;
+
+  if (diffPct >= 10) {
+    grade = 'A';
+    gradeText = '👑 A判定';
+    gradeBg = '#dcfce7';
+    gradeColor = '#15803d';
+    gradeSub = '合格安全圏！目標ボーダーを余裕で突破しています！';
+    advice = target.adviceA;
+  } else if (diffPct >= 0) {
+    grade = 'B';
+    gradeText = '🎉 B判定';
+    gradeBg = '#e0f2fe';
+    gradeColor = '#0369a1';
+    gradeSub = '合格可能圏！本番でも十分に合格が狙える実力です！';
+    advice = target.adviceB;
+  } else if (diffPct >= -10) {
+    grade = 'C';
+    gradeText = '⚠️ C判定';
+    gradeBg = '#fef3c7';
+    gradeColor = '#b45309';
+    gradeSub = 'ボーダー当落線上！あと数問の正解が合否を左右します！';
+    advice = target.adviceC;
+  }
+
+  // 予想偏差値算出
+  const dev = Math.max(35, Math.min(78, (target.baseDev + (diffPct * 0.45) + (7.0 - avgSpeed) * 0.3))).toFixed(1);
+
+  // UI描画
+  const mockSubjLabels = {
+    all: '全科目ミックス',
+    math_1a: '数学 I・A',
+    math_2b: '数学 II・B',
+    math_3c: '数学 III・C',
+    bio_basic: '生物基礎',
+    bio: '生物',
+    chem_basic: '化学基礎',
+    chem: '化学',
+    phys_basic: '物理基礎',
+    phys: '物理',
+    eng: '高校英語',
+    junior_math: '中学数学',
+    junior_sci: '中学理科'
+  };
+  const chosenSubjLabel = mockSubjLabels[currentMockExam.subjOpt] || '実戦総合';
+  document.getElementById('mockResultTargetName').textContent = `🎯 志望ターゲット：${target.name} 【${chosenSubjLabel}】（目標ボーダー: ${target.targetPct}%）`;
+  const badgeEl = document.getElementById('mockResultGradeBadge');
+  badgeEl.textContent = gradeText;
+  badgeEl.style.background = gradeBg;
+  badgeEl.style.color = gradeColor;
+  document.getElementById('mockResultGradeSub').textContent = gradeSub;
+  document.getElementById('mockResultGradeSub').style.color = gradeColor;
+
+  document.getElementById('mockScoreVal').textContent = `${corrects} / ${total}問 (${pct}%)`;
+  document.getElementById('mockDevVal').textContent = `偏差値 ${dev}`;
+  document.getElementById('mockSpeedVal').textContent = `${avgSpeed} 秒`;
+  document.getElementById('mockAdviceText').textContent = advice;
+
+  // 教科別・分野別得点グラフ描画
+  const subjMap = {};
+  currentMockExam.answers.forEach(a => {
+    let sName = getSubject(a.q.subj)?.name || 'その他';
+    if (currentMockExam.subjOpt === 'bio_basic') sName = '🌿 生物基礎';
+    else if (currentMockExam.subjOpt === 'chem_basic') sName = '💧 化学基礎';
+    else if (currentMockExam.subjOpt === 'phys_basic') sName = '🧲 物理基礎';
+    else if (currentMockExam.subjOpt === 'math_1a') sName = '📐 数学 I・A';
+    else if (currentMockExam.subjOpt === 'math_2b') sName = '📊 数学 II・B';
+    else if (currentMockExam.subjOpt === 'math_3c') sName = '♾️ 数学 III・C';
+    if (!subjMap[sName]) subjMap[sName] = { correct: 0, total: 0 };
+    subjMap[sName].total++;
+    if (a.isCorrect) subjMap[sName].correct++;
+  });
+
+  const barsArea = document.getElementById('mockSubjectBarsArea');
+  barsArea.innerHTML = Object.entries(subjMap).map(([sName, data]) => {
+    const sPct = Math.round((data.correct / data.total) * 100);
+    return `
+      <div>
+        <div style="display:flex; justify-content:space-between; font-size:0.76rem; font-weight:800; margin-bottom:2px;">
+          <span>${sName}</span>
+          <span>${data.correct} / ${data.total}問 (${sPct}%)</span>
+        </div>
+        <div style="background:#e2e8f0; border-radius:999px; height:8px; overflow:hidden;">
+          <div style="width:${sPct}%; height:100%; background:${sPct >= 70 ? '#10b981' : (sPct >= 50 ? '#0284c7' : '#ef4444')}; border-radius:999px;"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // 履歴保存
+  if (!state.mockExamHistory) state.mockExamHistory = [];
+  state.mockExamHistory.unshift({
+    date: Date.now(),
+    targetKey: currentMockExam.targetKey,
+    targetName: target.name,
+    score: corrects,
+    total: total,
+    pct: pct,
+    dev: dev,
+    grade: grade
+  });
+  if (state.mockExamHistory.length > 20) state.mockExamHistory.pop();
+  saveData();
+
+  document.getElementById('mockSetupPanel').style.display = 'none';
+  document.getElementById('mockExamPlayingPanel').style.display = 'none';
+  document.getElementById('mockExamResultPanel').style.display = 'block';
+}
+
+function retryMockExam() {
+  startMockExam();
 }
 
 /* ============================================================================
