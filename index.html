@@ -614,7 +614,7 @@
     <div class="logo-area">
       <div class="logo-icon">🧬</div>
       <div>
-        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 4.9.2</span></div>
+        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 4.9.3</span></div>
         <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
       </div>
     </div>
@@ -1114,6 +1114,18 @@
       <button class="btn btn-primary" style="width:100%; padding:14px; font-size:1.05rem; font-weight:900; box-shadow:0 4px 15px rgba(2,132,199,0.35);" onclick="startMockExam()">
         🚀 10問実戦模試をスタート！
       </button>
+
+      <!-- 📜 過去の実戦模試 履歴・成績推移（直近20回分） -->
+      <div style="margin-top:20px; border-top:2px dashed #cbd5e1; padding-top:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:6px;">
+          <div style="font-weight:900; font-size:0.95rem; color:#0369a1; display:flex; align-items:center; gap:6px;">
+            <span>📜 過去の実戦模試 履歴・成績推移</span>
+            <small style="color:var(--text-sub); font-size:0.74rem;">（直近20回分）</small>
+          </div>
+          <button class="btn btn-outline" style="padding:2px 10px; font-size:0.74rem;" onclick="renderMockHistory()">🔄 更新</button>
+        </div>
+        <div id="mockHistoryList" style="display:flex; flex-direction:column; gap:8px;"></div>
+      </div>
     </div>
 
     <!-- 模試試験中パネル -->
@@ -4725,6 +4737,15 @@ QUIZ_MASTER.forEach(q => {
 
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
+  {
+    ver: 'Ver 4.9.3',
+    date: '2026-11-10',
+    title: '📜 実戦模試 過去履歴・成績推移機能新設 ＆ 🗼 タワーランキング完全実プレイヤー化アプデ！',
+    items: [
+      '【📜 実戦模試 過去受検履歴・成績推移一覧を新設】実戦模試の開始画面下部に、直近20回分の受検履歴カードを新設！受検日時・志望ターゲット・科目・得点率・合否判定（A〜D）・予想偏差値がいつでも一目で振り返られるようになりました！',
+      '【🗼 ゲノムタワー専用ランキング完全実データ化】タワーランキングから仮配置のダミーNPCを完全撤去！実際にタワーを登ったプレイヤーおよび自分自身の到達階数のみがリアルタイムで並ぶ正真正銘の全国ランキングへ完全統一しました！'
+    ]
+  },
   {
     ver: 'Ver 4.9.2',
     date: '2026-11-10',
@@ -11155,6 +11176,61 @@ function renderMockSetup() {
   document.getElementById('mockExamPlayingPanel').style.display = 'none';
   document.getElementById('mockExamResultPanel').style.display = 'none';
   updateMockTargetInfo();
+  renderMockHistory();
+}
+
+function renderMockHistory() {
+  const container = document.getElementById('mockHistoryList');
+  if (!container) return;
+
+  const history = state.mockExamHistory || [];
+  if (history.length === 0) {
+    container.innerHTML = `
+      <div style="text-align:center; padding:18px 12px; background:#f8fafc; border:1.5px dashed #cbd5e1; border-radius:12px; color:var(--text-sub); font-size:0.8rem;">
+        まだ実戦模試の受検履歴がありません。<br>
+        上の設定を選んで「🚀 10問実戦模試をスタート！」してみよう！
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = history.slice(0, 20).map((item, idx) => {
+    const d = new Date(item.date);
+    const dateStr = !isNaN(d.getTime()) ? `${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}` : '---';
+
+    let gradeBg = '#fee2e2';
+    let gradeColor = '#991b1b';
+    let gradeLabel = '🔥 D判定';
+    if (item.grade === 'A') { gradeBg = '#dcfce7'; gradeColor = '#15803d'; gradeLabel = '👑 A判定'; }
+    else if (item.grade === 'B') { gradeBg = '#e0f2fe'; gradeColor = '#0369a1'; gradeLabel = '🎉 B判定'; }
+    else if (item.grade === 'C') { gradeBg = '#fef3c7'; gradeColor = '#b45309'; gradeLabel = '⚠️ C判定'; }
+
+    const subjLabel = item.subjLabel ? ` 【${item.subjLabel}】` : '';
+
+    return `
+      <div style="background:white; border:1.5px solid #e2e8f0; border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+        <div>
+          <div style="font-size:0.72rem; color:var(--text-sub); font-weight:800;">📅 ${dateStr}</div>
+          <div style="font-weight:900; font-size:0.88rem; color:#0f172a; margin-top:2px;">
+            ${escapeHtml(item.targetName || '実戦模試')}${escapeHtml(subjLabel)}
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="text-align:right;">
+            <div style="font-size:0.95rem; font-weight:900; color:#0284c7;">
+              ${item.score} / ${item.total || 10}問 <small style="font-size:0.72rem;">(${item.pct}%)</small>
+            </div>
+            <div style="font-size:0.72rem; font-weight:800; color:#7c3aed;">
+              偏差値 ${item.dev}
+            </div>
+          </div>
+          <span style="font-size:0.78rem; font-weight:900; padding:4px 10px; border-radius:8px; background:${gradeBg}; color:${gradeColor}; white-space:nowrap;">
+            ${gradeLabel}
+          </span>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 function updateMockTargetInfo() {
@@ -11487,12 +11563,14 @@ function finishMockExam() {
     `;
   }).join('');
 
-  // 履歴保存
+  // 履歴保存（受検科目ラベル付き）
   if (!state.mockExamHistory) state.mockExamHistory = [];
   state.mockExamHistory.unshift({
     date: Date.now(),
     targetKey: currentMockExam.targetKey,
     targetName: target.name,
+    subjOpt: currentMockExam.subjOpt,
+    subjLabel: chosenSubjLabel,
     score: corrects,
     total: total,
     pct: pct,
