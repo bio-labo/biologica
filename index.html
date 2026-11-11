@@ -614,7 +614,7 @@
     <div class="logo-area">
       <div class="logo-icon">🧬</div>
       <div>
-        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 4.9.3</span></div>
+        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 4.9.4</span></div>
         <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
       </div>
     </div>
@@ -4737,6 +4737,16 @@ QUIZ_MASTER.forEach(q => {
 
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
+  {
+    ver: 'Ver 4.9.4',
+    date: '2026-11-12',
+    title: '🗼 ゲノムタワー10階ボス戦進行バグ修復 ＆ 制限時間・選択肢表示安全機構強化アプデ！',
+    items: [
+      '【🗼 タワー10階（守護ボス階）進行フリーズ根本修正】10階ボスとの戦闘中、ボスが生き残った際の次問遷移で通常バトルの出題関数へ混線していたバグを完全解消！タワー専用出題（nextTowerQuestion）が100%確実に継続呼び出しされ、10階以降もスムーズにボスバトル・踏破を続行可能に！',
+      '【⏱️ 残り時間NaN化＆選択肢不表示の永久根絶】出題処理における制限時間ハンディキャップ（timeHandicap）の未定義フォールバックおよび解答形式（qType）の安全保証を実装！タイマーのNaN化や選択肢ボタンが消える不具合を完全に根絶！',
+      '【🛡️ 階層出題の選択肢4択安全保証】タワー出題時の選択肢配列を重複排除＆4択自動補填で徹底強化！アポストロフィや特殊記号を含む数式・化学問題でも安全に解答できるよう防御を強化！'
+    ]
+  },
   {
     ver: 'Ver 4.9.3',
     date: '2026-11-10',
@@ -9006,6 +9016,11 @@ function pickQuestionFromPool(pool) {
 
 function nextBattleQuestion() {
   if (!battle) return;
+  // 🗼 タワーモード時は100%確実にタワー専用出題へ即座にリダイレクト！
+  if (battle.mode === 'tower') {
+    nextTowerQuestion();
+    return;
+  }
   clearInterval(battleGaugeInterval);
   battle.answered = false;
 
@@ -9369,7 +9384,7 @@ function nextBattleQuestion() {
 
       const gauge = document.getElementById('battleTimeGauge');
       gauge.style.width = '100%';
-      battle.maxTimeSec = 10.0 + battle.timeHandicap;
+      battle.maxTimeSec = 10.0 + (Number.isFinite(battle.timeHandicap) ? battle.timeHandicap : 0);
       battle.remainTimeSec = battle.maxTimeSec;
 
       battleGaugeInterval = setInterval(() => {
@@ -9425,7 +9440,7 @@ function nextBattleQuestion() {
   document.getElementById('quizBonusHint').textContent = bonusText;
   document.getElementById('quizQuestionText').textContent = q.q;
 
-  let fmt = battle.qType;
+  let fmt = battle.qType || 'choice';
   // ★ 大学入試問題、または分数・累乗・根号・等号・記号・長文を含む問題は、100%確実に4択（choice）にして快適に解けるようにする！
   const isComplexAnswer = (q.c && q.c.length >= 4) && (
     q.level === 'exam' || battle.grade === 'exam' ||
@@ -9501,7 +9516,8 @@ function nextBattleQuestion() {
   const psychroBonus = p1Chips.includes('chip_psychro') ? 3.0 : 0.0;
   const spdBonusSec = Math.max(-2.0, (f1.stats.speed - f2.stats.speed) * 0.045);
 
-  battle.maxTimeSec = Math.max(6.0, baseSec + typingBonus + psychroBonus + spdBonusSec + battle.timeHandicap);
+  const timeHandicap = Number.isFinite(battle.timeHandicap) ? battle.timeHandicap : 0;
+  battle.maxTimeSec = Math.max(6.0, baseSec + typingBonus + psychroBonus + spdBonusSec + timeHandicap);
   battle.remainTimeSec = battle.maxTimeSec;
 
   battleGaugeInterval = setInterval(() => {
@@ -9858,7 +9874,11 @@ function executeAttack(who, isTypingBonus, speedMult) {
       setTimeout(() => {
         if (!battle) return;
         updateBattleHud();
-        nextBattleQuestion();
+        if (battle.mode === 'tower') {
+          nextTowerQuestion();
+        } else {
+          nextBattleQuestion();
+        }
       }, 1200);
       return;
     }
@@ -10035,7 +10055,11 @@ function executeAttack(who, isTypingBonus, speedMult) {
       setTimeout(() => {
         if (!battle) return;
         updateBattleHud();
-        nextBattleQuestion();
+        if (battle.mode === 'tower') {
+          nextTowerQuestion();
+        } else {
+          nextBattleQuestion();
+        }
       }, 1200);
       return;
     }
@@ -10140,12 +10164,20 @@ function executeAttack(who, isTypingBonus, speedMult) {
       showToast(`🔥 相手のキャラを倒した！次の相手が登場！`);
     }
     if (f1.hp <= 0) {
+      if (battle.mode === 'tower') {
+        finishTowerRun(battle.towerFloor, false, false);
+        return;
+      }
       battle.p1Idx++;
       if (battle.p1Idx >= battle.p1Team.length) { endBattle(false, false); return; }
       showToast(`💦 自キャラがダウン！次のキャラが出場！`);
     }
     updateBattleHud();
-    nextBattleQuestion();
+    if (battle.mode === 'tower') {
+      nextTowerQuestion();
+    } else {
+      nextBattleQuestion();
+    }
   }, 1300);
 }
 
@@ -10790,6 +10822,8 @@ function startTowerBattle(route) {
     usedQIds: [],
     maxTimeSec: 10,
     remainTimeSec: 10,
+    timeHandicap: 0,
+    qType: 'choice',
     answered: false
   };
 
@@ -10944,7 +10978,25 @@ function nextTowerQuestion() {
   anagramArea.style.display = 'none';
   typingArea.style.display = 'none';
 
-  const choices = Array.isArray(q.c) ? [...q.c] : [q.ans];
+  const rawChoices = Array.isArray(q.c) ? [...q.c] : [q.ans];
+  let choices = Array.from(new Set(rawChoices));
+  if (!choices.includes(q.ans)) choices.unshift(q.ans);
+
+  // 万一4択に満たない場合、QUIZ_MASTERから同科目のダミー選択肢を安全補充
+  if (choices.length < 4) {
+    const dummyCands = QUIZ_MASTER.filter(item => item.id !== q.id && (item.subj === q.subj || (route === 'junior' ? item.grade === 'junior' : true)));
+    for (const cand of dummyCands) {
+      if (choices.length >= 4) break;
+      if (cand.ans && !choices.includes(cand.ans)) choices.push(cand.ans);
+      if (cand.c) {
+        for (const ct of cand.c) {
+          if (choices.length >= 4) break;
+          if (ct && !choices.includes(ct)) choices.push(ct);
+        }
+      }
+    }
+  }
+
   // 選択肢シャッフル
   for (let i = choices.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -15430,6 +15482,8 @@ async function fallbackToGhostBattle(cat, myTeam) {
     usedQIds: [],
     maxTimeSec: 10,
     remainTimeSec: 10,
+    timeHandicap: 0,
+    qType: 'choice',
     answered: false,
     ghostName,
     oppName: ghostName,
@@ -16989,6 +17043,8 @@ function startSynchronizedRoomBattle(r) {
     lastSyncedTurn: r.turn || 1,
     maxTimeSec: 10,
     remainTimeSec: 10,
+    timeHandicap: 0,
+    qType: 'choice',
     answered: false
   };
 
