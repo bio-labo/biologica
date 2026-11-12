@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 4.9.0 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 4.9.5 - 理系微生物育成＆戦略クイズバトル</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -799,15 +799,26 @@
           <button class="btn btn-purple" onclick="toggleAutoEat()">切替</button>
         </div>
 
-        <!-- 👑 運営専用ツール（通常時は完全非表示！プレゼントBOXの合言葉、または「環境設定」5回タップで出現） -->
-        <div id="adminGiftSettingsCard" style="display:none; justify-content:space-between; align-items:center; background:#fefce8; padding:12px; border-radius:12px; border:2px solid #fde047; flex-wrap:wrap; gap:8px;">
-          <div>
-            <div style="font-weight:900; font-size:0.92rem; color:#854d0e;">🔒 運営専用：特定プレイヤーへプレゼント送付</div>
-            <div style="font-size:0.76rem; color:#713f12;">運営局管理者専用ツール（※起動には運営マスターパスコードが必要です）</div>
+        <!-- 👑 運営専用ツール（通常時は完全非表示！合言葉「ADMIN」、または「環境設定」5回タップで出現） -->
+        <div id="adminGiftSettingsCard" style="display:none; flex-direction:column; gap:10px; background:#fefce8; padding:14px; border-radius:14px; border:2.5px solid #f59e0b; box-shadow:0 4px 15px rgba(245, 158, 11, 0.15);">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; border-bottom:1.5px dashed #fcd34d; padding-bottom:8px;">
+            <div>
+              <div style="font-weight:900; font-size:0.95rem; color:#854d0e; display:flex; align-items:center; gap:6px;">
+                <span>👑 運営局・管理者コントロールパネル</span>
+                <span style="background:#f59e0b; color:white; font-size:0.68rem; font-weight:900; padding:1px 6px; border-radius:999px;">管理者専用</span>
+              </div>
+              <div style="font-size:0.75rem; color:#713f12; margin-top:2px;">運営者マスターパスコードで保護された極秘管理ツールです</div>
+            </div>
+            <button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; border-color:#d97706; color:#b45309;" onclick="closeAdminGiftSettingsCard()">✕ 隠す</button>
           </div>
-          <div style="display:flex; gap:6px;">
-            <button class="btn btn-accent" style="padding:6px 14px;" onclick="openAdminGiftModal()">🔑 送付ツール (認証)</button>
-            <button class="btn btn-outline" style="padding:6px 12px; font-size:0.75rem; border-color:#d97706; color:#b45309;" onclick="closeAdminGiftSettingsCard()">✕ 隠す</button>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:8px;">
+            <button class="btn btn-primary" style="padding:10px 12px; font-size:0.86rem; font-weight:900; background:linear-gradient(135deg, #0284c7, #059669); border-color:#0284c7; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="openAdminInquiryViewer()">
+              <span>📨 届いたお問い合わせ一覧</span>
+            </button>
+            <button class="btn btn-accent" style="padding:10px 12px; font-size:0.86rem; font-weight:900; background:linear-gradient(135deg, #d97706, #7c3aed); border-color:#b45309; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="openAdminGiftModal()">
+              <span>🎁 個別プレゼント発行ツール</span>
+            </button>
           </div>
         </div>
 
@@ -2373,6 +2384,40 @@
       <button class="btn btn-accent" style="padding:12px; font-size:1rem; font-weight:900; background:linear-gradient(135deg, #f59e0b, #7c3aed);" onclick="submitAdminGift()">
         🚀 運営プレゼントを発行・配送する！
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- 👑 運営専用：届いたお問い合わせ・不具合報告一覧モーダル -->
+<div id="adminInquiryViewerModal" class="modal-overlay" onclick="if(event.target===this) closeAdminInquiryViewer()">
+  <div class="modal-card" style="max-width:680px; max-height:88vh; display:flex; flex-direction:column; border:3px solid #0284c7;">
+    <div class="modal-header" style="background:linear-gradient(135deg, #0284c7, #059669); flex-shrink:0;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span>👑 運営専用：届いたお問い合わせ一覧</span>
+        <span id="adminInquiryTotalBadge" style="background:white; color:#0369a1; font-size:0.72rem; font-weight:900; padding:2px 8px; border-radius:999px;">0件</span>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <button class="btn btn-outline" style="padding:3px 10px; font-size:0.75rem; color:white; border-color:white; background:rgba(255,255,255,0.15);" onclick="loadAdminInquiries()">🔄 最新更新</button>
+        <button class="btn btn-outline" style="padding:3px 10px; font-size:0.78rem; color:white; border-color:white;" onclick="closeAdminInquiryViewer()">✕ 閉じる</button>
+      </div>
+    </div>
+
+    <div class="modal-body" style="padding:14px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;">
+      <!-- 種別フィルタータブ -->
+      <div style="display:flex; gap:6px; flex-wrap:wrap; background:#f8fafc; padding:8px; border-radius:10px; border:1px solid #cbd5e1;">
+        <button id="inqFilterAll" class="btn btn-primary" style="padding:4px 10px; font-size:0.75rem; font-weight:900;" onclick="filterAdminInquiries('all')">すべて (<span id="inqCountAll">0</span>)</button>
+        <button id="inqFilterBug" class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; font-weight:800;" onclick="filterAdminInquiries('bug')">🐛 バグ (<span id="inqCountBug">0</span>)</button>
+        <button id="inqFilterTypo" class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; font-weight:800;" onclick="filterAdminInquiries('quiz_typo')">📝 誤字・問題 (<span id="inqCountTypo">0</span>)</button>
+        <button id="inqFilterReq" class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; font-weight:800;" onclick="filterAdminInquiries('request')">💡 ご要望 (<span id="inqCountReq">0</span>)</button>
+        <button id="inqFilterOther" class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; font-weight:800;" onclick="filterAdminInquiries('other')">💬 その他 (<span id="inqCountOther">0</span>)</button>
+      </div>
+
+      <!-- お問い合わせ一覧リストエリア -->
+      <div id="adminInquiryListArea" style="display:flex; flex-direction:column; gap:10px;">
+        <div style="text-align:center; padding:30px 10px; color:var(--text-sub); font-size:0.85rem;">
+          データベースから最新のお問い合わせを照会中...
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -4737,6 +4782,16 @@ QUIZ_MASTER.forEach(q => {
 
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
+  {
+    ver: 'Ver 4.9.5',
+    date: '2026-11-12',
+    title: '👑 運営専用：届いたお問い合わせ・不具合報告一覧ビューア新設 ＆ 管理コントロールパネル統合！',
+    items: [
+      '【📨 運営専用：届いたお問い合わせ一覧ビューア新設】プレイヤーから送信されたお問い合わせや不具合報告を、管理者がゲーム内で新着順に全件確認できる専用ビューアを新設！種別タブ絞り込み（バグ／問題誤字／ご要望／その他）や件数バッジ、送信者名・フレンドコード・端末環境（UA）を整然とカード表示！',
+      '【🔒 管理者パスコード厳重保護】一般プレイヤーには絶対に閲覧できないよう、運営者マスターパスコード認証で鉄壁ガード！合言葉「ADMIN」または設定画面のシークレットタップで管理者のみアクセス可能！',
+      '【🎁 お問い合わせから直接「返答・お礼ギフト」発行連携】お問い合わせカードの「🎁 この人に返答・お礼ギフトを送る」を押すと、相手のフレンドコードとお礼メッセージが自動セットされたプレゼント発行画面がワンタップで起動！迅速なユーザーサポートが可能に！'
+    ]
+  },
   {
     ver: 'Ver 4.9.4',
     date: '2026-11-12',
@@ -13435,11 +13490,19 @@ function redeemSerialCode() {
   const code = (inp.value || '').trim().toUpperCase();
   if (!code) return;
 
-  // 👑 運営専用プレゼント発行ツールの合言葉起動
+  // 👑 運営専用コントロールパネルの合言葉起動
   if (code === 'ADMIN' || code === 'BIOADMIN' || code === 'BIO_ADMIN') {
     inp.value = '';
     closePresentModal();
-    openAdminGiftModal();
+    verifyAdminAccess(() => {
+      switchScreen('settings');
+      const card = document.getElementById('adminGiftSettingsCard');
+      if (card) {
+        card.style.display = 'flex';
+        card.scrollIntoView({ behavior: 'smooth' });
+      }
+      showToast('👑 運営者コントロールパネルを開きました！');
+    });
     return;
   }
 
@@ -13606,9 +13669,28 @@ async function claimDirectGift(giftDocId) {
   showToast(`🎉『${gift.fromName || 'バイオ・ロジカ運営局'}』からのギフトを受け取りました！（⚡+${gainedAtp} ATP / 🧬+${gainedMedals} メダル）`);
 }
 
-// 👑 運営専用：特定プレイヤーへの個別プレゼント送付モーダル（管理者パスコード認証保護！）
+// 👑 運営専用：特定プレイヤーへの個別プレゼント送付＆お問い合わせ一覧（管理者パスコード認証保護！）
 const ADMIN_MASTER_PASSWORD_DEFAULT = 'bio2026';
 let adminSecretTapCount = 0;
+let isAdminAuthenticatedSession = false; // セッション中の認証キャッシュ
+
+// 運営管理者パスコード認証チェック共通関数
+function verifyAdminAccess(actionCallback) {
+  if (isAdminAuthenticatedSession) {
+    if (typeof actionCallback === 'function') actionCallback();
+    return true;
+  }
+  const savedPass = localStorage.getItem('biologica_admin_pass') || ADMIN_MASTER_PASSWORD_DEFAULT;
+  const input = prompt('👑【バイオ・ロジカ運営局 管理者認証】\n運営者マスターパスコードを入力してください：');
+  if (input === null) return false;
+  if (input.trim() !== savedPass) {
+    showToast('❌ パスコードが一致しません！運営専用ツールは利用できません。');
+    return false;
+  }
+  isAdminAuthenticatedSession = true;
+  if (typeof actionCallback === 'function') actionCallback();
+  return true;
+}
 
 function triggerAdminSecretTap() {
   adminSecretTapCount++;
@@ -13631,19 +13713,14 @@ function closeAdminGiftSettingsCard() {
 }
 
 function openAdminGiftModal() {
-  const savedPass = localStorage.getItem('biologica_admin_pass') || ADMIN_MASTER_PASSWORD_DEFAULT;
-  const input = prompt('👑【バイオ・ロジカ運営局 管理者認証】\n運営者マスターパスコードを入力してください：');
-  if (input === null) return;
-  if (input.trim() !== savedPass) {
-    showToast('❌ パスコードが一致しません！運営専用ツールは利用できません。');
-    return;
-  }
-  document.getElementById('adminGiftTargetCodeInput').value = '';
-  document.getElementById('adminGiftTitleInput').value = '👑 運営局からの特別プレゼント';
-  document.getElementById('adminGiftAtpSelect').value = '3000';
-  document.getElementById('adminGiftMedalSelect').value = '100';
-  document.getElementById('adminGiftMessageInput').value = 'いつもバイオ・ロジカを遊んでいただきありがとうございます！開発・運営局からの特別応援ギフトです！';
-  document.getElementById('adminGiftModal').classList.add('active');
+  verifyAdminAccess(() => {
+    document.getElementById('adminGiftTargetCodeInput').value = '';
+    document.getElementById('adminGiftTitleInput').value = '👑 運営局からの特別プレゼント';
+    document.getElementById('adminGiftAtpSelect').value = '3000';
+    document.getElementById('adminGiftMedalSelect').value = '100';
+    document.getElementById('adminGiftMessageInput').value = 'いつもバイオ・ロジカを遊んでいただきありがとうございます！開発・運営局からの特別応援ギフトです！';
+    document.getElementById('adminGiftModal').classList.add('active');
+  });
 }
 
 function changeAdminPass() {
@@ -13660,11 +13737,230 @@ function changeAdminPass() {
     return;
   }
   localStorage.setItem('biologica_admin_pass', newPass.trim());
+  isAdminAuthenticatedSession = true;
   showToast('🔑 運営者マスターパスコードを更新しました！');
 }
 
 function closeAdminGiftModal() {
   document.getElementById('adminGiftModal').classList.remove('active');
+}
+
+/* ============================================================================
+   👑 運営専用：届いたお問い合わせ・不具合報告一覧ビューア
+============================================================================ */
+let adminInquiriesCache = [];
+let adminInquiryActiveFilter = 'all';
+
+function openAdminInquiryViewer() {
+  verifyAdminAccess(() => {
+    const modal = document.getElementById('adminInquiryViewerModal');
+    if (modal) modal.classList.add('active');
+    loadAdminInquiries();
+  });
+}
+
+function closeAdminInquiryViewer() {
+  const modal = document.getElementById('adminInquiryViewerModal');
+  if (modal) modal.classList.remove('active');
+}
+
+async function loadAdminInquiries() {
+  const listArea = document.getElementById('adminInquiryListArea');
+  if (!listArea) return;
+
+  listArea.innerHTML = `
+    <div style="text-align:center; padding:35px 10px; color:var(--text-sub); font-size:0.85rem;">
+      <div style="font-size:2rem; margin-bottom:8px; animation: pulse 1s infinite;">⏳</div>
+      データベースから最新のお問い合わせを照会中...
+    </div>
+  `;
+
+  if (!db) {
+    listArea.innerHTML = `
+      <div style="background:#fee2e2; border:2px solid #ef4444; border-radius:10px; padding:16px; text-align:center; color:#991b1b; font-weight:800;">
+        ⚠️ Firebase接続が確立されていません。インターネット通信環境をご確認ください。
+      </div>
+    `;
+    return;
+  }
+
+  try {
+    let snapshot;
+    try {
+      // 作成日時降順で取得を試みる
+      snapshot = await withTimeout(db.collection('inquiries').orderBy('createdAt', 'desc').limit(80).get(), 5000);
+    } catch (orderErr) {
+      console.warn('orderBy query failed, falling back to basic query:', orderErr);
+      snapshot = await withTimeout(db.collection('inquiries').limit(80).get(), 5000);
+    }
+
+    const items = [];
+    if (snapshot && !snapshot.empty) {
+      snapshot.forEach(doc => {
+        const data = doc.data() || {};
+        items.push({
+          id: doc.id,
+          fromCode: data.fromCode || '不明',
+          fromName: data.fromName || '名無し研究員',
+          type: data.type || 'other',
+          title: data.title || '(無題)',
+          body: data.body || '',
+          createdAt: typeof data.createdAt === 'number' ? data.createdAt : 0,
+          userAgent: data.userAgent || ''
+        });
+      });
+      items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    }
+
+    adminInquiriesCache = items;
+    updateAdminInquiryCounts();
+    renderAdminInquiryList();
+  } catch (err) {
+    console.error('Failed to load inquiries:', err);
+    listArea.innerHTML = `
+      <div style="background:#fee2e2; border:2px solid #ef4444; border-radius:10px; padding:16px; text-align:center; color:#991b1b; font-weight:800;">
+        ⚠️ お問い合わせデータの取得に失敗しました。<br>
+        <span style="font-size:0.75rem; font-weight:700; color:#7f1d1d;">(${err.message || '通信・権限エラー'})</span>
+      </div>
+    `;
+  }
+}
+
+function updateAdminInquiryCounts() {
+  const total = adminInquiriesCache.length;
+  const counts = { bug: 0, quiz_typo: 0, request: 0, other: 0 };
+  adminInquiriesCache.forEach(item => {
+    if (counts[item.type] !== undefined) {
+      counts[item.type]++;
+    } else {
+      counts.other++;
+    }
+  });
+
+  const totalEl = document.getElementById('adminInquiryTotalBadge');
+  if (totalEl) totalEl.textContent = `${total}件`;
+
+  const countAll = document.getElementById('inqCountAll');
+  if (countAll) countAll.textContent = total;
+  const countBug = document.getElementById('inqCountBug');
+  if (countBug) countBug.textContent = counts.bug;
+  const countTypo = document.getElementById('inqCountTypo');
+  if (countTypo) countTypo.textContent = counts.quiz_typo;
+  const countReq = document.getElementById('inqCountReq');
+  if (countReq) countReq.textContent = counts.request;
+  const countOther = document.getElementById('inqCountOther');
+  if (countOther) countOther.textContent = counts.other;
+}
+
+function filterAdminInquiries(type) {
+  adminInquiryActiveFilter = type;
+  const tabs = [
+    { id: 'inqFilterAll', key: 'all' },
+    { id: 'inqFilterBug', key: 'bug' },
+    { id: 'inqFilterTypo', key: 'quiz_typo' },
+    { id: 'inqFilterReq', key: 'request' },
+    { id: 'inqFilterOther', key: 'other' }
+  ];
+  tabs.forEach(t => {
+    const el = document.getElementById(t.id);
+    if (!el) return;
+    if (t.key === type) {
+      el.className = 'btn btn-primary';
+    } else {
+      el.className = 'btn btn-outline';
+    }
+  });
+  renderAdminInquiryList();
+}
+
+function renderAdminInquiryList() {
+  const listArea = document.getElementById('adminInquiryListArea');
+  if (!listArea) return;
+
+  const filtered = adminInquiryActiveFilter === 'all'
+    ? adminInquiriesCache
+    : adminInquiriesCache.filter(item => item.type === adminInquiryActiveFilter);
+
+  if (filtered.length === 0) {
+    listArea.innerHTML = `
+      <div style="background:#f8fafc; border:2px dashed #cbd5e1; border-radius:12px; padding:35px 15px; text-align:center;">
+        <div style="font-size:2.5rem; margin-bottom:8px;">📬✨</div>
+        <div style="font-weight:900; font-size:1rem; color:#334155;">該当するお問い合わせはありません</div>
+        <div style="font-size:0.78rem; color:var(--text-sub); margin-top:4px;">
+          ${adminInquiryActiveFilter === 'all' ? '現在プレイヤーからの新規報告は届いていません。' : 'このカテゴリのお問い合わせは現在ありません。'}
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  const typeMap = {
+    bug: { label: '🐛 不具合・バグ報告', bg: '#fee2e2', color: '#991b1b', border: '#fca5a5' },
+    quiz_typo: { label: '📝 問題の誤字・誤答', bg: '#fef3c7', color: '#92400e', border: '#fcd34d' },
+    request: { label: '💡 ご要望・提案', bg: '#e0f2fe', color: '#075985', border: '#7dd3fc' },
+    other: { label: '💬 その他', bg: '#f1f5f9', color: '#334155', border: '#cbd5e1' }
+  };
+
+  const html = filtered.map(item => {
+    const meta = typeMap[item.type] || typeMap.other;
+    const dateStr = item.createdAt > 0
+      ? new Date(item.createdAt).toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+      : '日時不明';
+
+    const safeTitle = typeof escapeHtml === 'function' ? escapeHtml(item.title) : item.title;
+    const safeBody = typeof escapeHtml === 'function' ? escapeHtml(item.body) : item.body;
+    const safeName = typeof escapeHtml === 'function' ? escapeHtml(item.fromName) : item.fromName;
+    const safeCode = typeof escapeHtml === 'function' ? escapeHtml(item.fromCode) : item.fromCode;
+    const safeUa = typeof escapeHtml === 'function' ? escapeHtml(item.userAgent || '不明') : (item.userAgent || '不明');
+
+    return `
+      <div style="background:#ffffff; border:2px solid ${meta.border}; border-radius:12px; padding:12px 14px; box-shadow:0 2px 8px rgba(0,0,0,0.04); display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <span style="background:${meta.bg}; color:${meta.color}; border:1px solid ${meta.border}; font-size:0.72rem; font-weight:900; padding:2px 8px; border-radius:6px;">
+              ${meta.label}
+            </span>
+            <span style="font-size:0.8rem; font-weight:900; color:#0f172a;">
+              👤 ${safeName} <span style="font-size:0.72rem; color:var(--text-sub); font-weight:700;">(${safeCode})</span>
+            </span>
+          </div>
+          <span style="font-size:0.72rem; color:#64748b; font-weight:800;">
+            🕒 ${dateStr}
+          </span>
+        </div>
+
+        <div style="font-size:0.95rem; font-weight:900; color:#0f172a; border-left:3.5px solid ${meta.color}; padding-left:8px; margin:2px 0;">
+          ${safeTitle}
+        </div>
+
+        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:10px; font-size:0.84rem; color:#1e293b; line-height:1.55; white-space:pre-wrap; word-break:break-word;">
+          ${safeBody}
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; padding-top:4px; border-top:1px dashed #e2e8f0;">
+          <div style="font-size:0.68rem; color:#94a3b8; max-width:65%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${safeUa}">
+            💻 ${safeUa}
+          </div>
+          <button class="btn btn-accent" style="padding:4px 10px; font-size:0.74rem; font-weight:900;" onclick="quickRewardFromInquiry('${safeCode}', '${safeName}')">
+            🎁 この人に返答・お礼ギフトを送る
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  listArea.innerHTML = html;
+}
+
+function quickRewardFromInquiry(targetCode, targetName) {
+  closeAdminInquiryViewer();
+  openAdminGiftModal();
+  const codeInp = document.getElementById('adminGiftTargetCodeInput');
+  const titleInp = document.getElementById('adminGiftTitleInput');
+  const msgInp = document.getElementById('adminGiftMessageInput');
+  if (codeInp) codeInp.value = targetCode;
+  if (titleInp) titleInp.value = '🎉 不具合報告・ご意見のお礼ギフト';
+  if (msgInp) msgInp.value = `${targetName}様、貴重なご報告・ご意見をいただき誠にありがとうございました！いただいた内容をもとに改善を行いました！`;
 }
 
 // 👑 運営プレゼント発行・配送実行（※全角・小文字・4桁数字のみでも自動補完して確実に届く！）
