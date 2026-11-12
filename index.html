@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 4.9.5 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 4.9.6 - 理系微生物育成＆戦略クイズバトル</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -994,7 +994,7 @@
         </div>
         <div style="font-size:0.74rem; color:#c7d2fe; line-height:1.4; text-align:right;">
           ⚡ <strong style="color:#fde047;">1問でもミスしたら即終了！</strong> どこまで登れるか限界に挑戦！<br>
-          節目（10F/50F/100F…）突破で限定称号アンロック！
+          節目（10F/30F/50F/70F/100F）突破で限定称号アンロック！（100F以降も無限踏破可能）
         </div>
       </div>
     </div>
@@ -3202,13 +3202,12 @@ const TITLES_MASTER = [
   { id: 't_first_chip', name: '🧬 遺伝子カスタムの第一歩', condText: 'いずれかのキャラに遺伝子チップを1枚以上装備させる', check: s => s.box.some(m => Array.isArray(m.chips) && m.chips.filter(Boolean).length >= 1) },
   { id: 't_dual_genome', name: '🧬 デュアルゲノムの開拓者', condText: 'いずれかのキャラに遺伝子チップを2枠とも装備させる', check: s => s.box.some(m => Array.isArray(m.chips) && m.chips.filter(Boolean).length >= 2) },
 
-  // --- 🗼 ゲノムタワー踏破称号 ---
+  // --- 🗼 ゲノムタワー踏破称号（全5種・100階が称号の最高峰！） ---
   { id: 't_tower_10', name: '🗼 タワー登攀者', condText: 'ゲノムタワーで10階を突破する', check: s => (s.towerBestJunior >= 10 || s.towerBestSenior >= 10) },
   { id: 't_tower_30', name: '⚔️ 階層の覇士', condText: 'ゲノムタワーで30階を突破する', check: s => (s.towerBestJunior >= 30 || s.towerBestSenior >= 30) },
   { id: 't_tower_50', name: '🏅 ゲノムタワーの挑戦者', condText: 'ゲノムタワーで50階を突破する', check: s => (s.towerBestJunior >= 50 || s.towerBestSenior >= 50) },
-  { id: 't_tower_100', name: '👑 百層を踏破せし者', condText: 'ゲノムタワーで100階を突破する', check: s => (s.towerBestJunior >= 100 || s.towerBestSenior >= 100) },
-  { id: 't_tower_200', name: '🌌 遺伝子の支配者', condText: 'ゲノムタワーで200階を突破する', check: s => (s.towerBestJunior >= 200 || s.towerBestSenior >= 200) },
-  { id: 't_tower_500', name: '♾️ 無限の深淵を識る者', condText: 'ゲノムタワーで500階を突破する（神話の領域）', check: s => (s.towerBestJunior >= 500 || s.towerBestSenior >= 500) }
+  { id: 't_tower_70', name: '🌌 遺伝子の支配者', condText: 'ゲノムタワーで70階を突破する', check: s => (s.towerBestJunior >= 70 || s.towerBestSenior >= 70 || s.towerBestJunior >= 200 || s.towerBestSenior >= 200) },
+  { id: 't_tower_100', name: '👑 百層を踏破せし者', condText: 'ゲノムタワーで100階を突破する（称号最高峰！）', check: s => (s.towerBestJunior >= 100 || s.towerBestSenior >= 100 || s.towerBestJunior >= 500 || s.towerBestSenior >= 500) }
 ];
 
 const EXCHANGE_SHOP_ITEMS = [
@@ -4782,6 +4781,16 @@ QUIZ_MASTER.forEach(q => {
 
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
+  {
+    ver: 'Ver 4.9.6',
+    date: '2026-11-12',
+    title: '🗼 ゲノムタワー 爽快テンポUP（通常階1撃撃破化） ＆ 節目ボス2連戦・称号最適化アプデ！',
+    items: [
+      '【🗼 通常階の1問1撃撃破化】通常フロアの敵耐久力を最適化！1問正解するごとに確実に1撃で敵を倒してポンポン登れる超爽快・爆速テンポに大改修！',
+      '【⚔️ 節目フロアの2問ボスバトル】称号が獲得できる節目階層（10F・30F・50F・70F・100F等）では、2問正解でトドメを刺す手応えあるボスバトルを配備！メリハリのある挑戦を楽しめます！',
+      '【🏆 称号バランス最適化（100階が最高峰！）】タワー称号の到達目標を現実的で熱い「100階（百層踏破）」へ最適化！100階以降は称号なしでどこまでも腕試しができる無限エンドレスモードとして続行可能！'
+    ]
+  },
   {
     ver: 'Ver 4.9.5',
     date: '2026-11-12',
@@ -10901,49 +10910,48 @@ function startTowerBattle(route) {
 // 階層エネミー数式プロシージャル生成
 function generateTowerEnemy(route, floor) {
   const isJunior = route === 'junior';
-  const isMilestone = (floor === 50 || floor === 100 || floor === 200 || floor === 500);
-  const isBoss = (floor % 10 === 0) || isMilestone;
+  // 節目フロア（10F, 30F, 50F, 70F, 100F、および100F以降の10階ごと）
+  const isMilestone = (floor === 10 || floor === 30 || floor === 50 || floor === 70 || floor === 100 || (floor > 100 && floor % 10 === 0));
+  const isBoss = isMilestone;
 
   const sp = SPECIES_MASTER[Math.floor(Math.random() * SPECIES_MASTER.length)];
-  const bossMult = isMilestone ? 1.8 : (isBoss ? 1.4 : 1.0);
 
-  // 数式スケーリング
-  const hpBase = (180 + floor * 22) * bossMult;
-  const atkBase = (55 + floor * 2.6) * bossMult;
-  const defBase = (45 + floor * 2.0) * bossMult;
-  const spdBase = (55 + Math.min(85, floor * 1.4)) * bossMult;
+  // ★ ユーザー様ご指定バランス：通常階は1問正解で確定ワンパン撃破(HP 60)！節目ボス階は2問正解で撃破(HP 340)！
+  const hpBase = isBoss ? 340 : 60;
+  const atkBase = 55 + Math.min(60, floor * 1.5);
+  const defBase = isBoss ? 45 : 15;
+  const spdBase = 50 + Math.min(40, floor * 0.8);
 
   let nickname = '';
-  if (isMilestone) {
-    nickname = `👑【第${floor}階 伝説神】` + sp.evoNames[4];
+  if (floor === 100) {
+    nickname = `👑【第100階 頂点の伝説神】` + sp.evoNames[4];
   } else if (isBoss) {
-    nickname = `⚔️【第${floor}階 守護ボス】` + sp.evoNames[Math.min(4, Math.floor(floor / 8))];
+    nickname = `⚔️【第${floor}階 節目守護ボス】` + sp.evoNames[Math.min(4, Math.floor(floor / 15))];
   } else {
-    nickname = `第${floor}階の` + sp.evoNames[Math.min(4, Math.floor(floor / 12))];
+    nickname = `第${floor}階の` + sp.evoNames[Math.min(4, Math.floor(floor / 20))];
   }
 
   let chips = [null, null];
-  if (floor >= 50) chips = ['chip_hsp', 'chip_telomerase'];
-  else if (floor >= 25) chips = ['chip_size', 'chip_spd'];
-  else if (floor >= 10) chips = ['chip_spd', null];
+  if (floor >= 50) chips = ['chip_size', 'chip_spd'];
+  else if (floor >= 20) chips = ['chip_spd', null];
 
   const em = {
     uid: 'tower_e_' + floor + '_' + Date.now(),
     speciesId: sp.id,
-    isMutant: (floor >= 30 && Math.random() < 0.4) || isBoss,
+    isMutant: (floor >= 30 && Math.random() < 0.3) || isBoss,
     nickname: nickname,
-    level: Math.min(30, Math.floor(floor / 3) + 1),
-    evoStage: Math.min(4, Math.floor(floor / 10)),
+    level: Math.min(30, Math.floor(floor / 4) + 1),
+    evoStage: Math.min(4, Math.floor(floor / 15)),
     stats: {
       speed: Math.round(spdBase),
       size: Math.round(atkBase),
       defense: Math.round(defBase),
       fuel: 80,
-      sense: isBoss ? 50 : (floor >= 30 ? 25 : 0)
+      sense: isBoss ? 20 : 0
     },
     chips: chips,
     subjId: isJunior ? 'j_all' : 'all',
-    skillId: isBoss ? 'shield' : 'catalyst'
+    skillId: isBoss ? 'catalyst' : 'enzyme' // ※初撃半減シールド(shield)を持たせず、綺麗に2問正解で撃破！
   };
 
   const fighter = createFighter(em, 1.0);
@@ -10991,15 +10999,15 @@ function nextTowerQuestion() {
   const floor = battle.towerFloor;
   const route = battle.towerRoute;
   const lastDigit = floor % 10;
-  const isMilestone = (floor === 50 || floor === 100 || floor === 200 || floor === 500);
-  const isBoss = (floor % 10 === 0) || isMilestone;
+  const isMilestone = (floor === 10 || floor === 30 || floor === 50 || floor === 70 || floor === 100 || (floor > 100 && floor % 10 === 0));
+  const isBoss = isMilestone;
 
   // 階層ギミック告知＆環境スリップ
   let gimmickDesc = '通常階層';
-  if (isMilestone) {
-    gimmickDesc = '👑【超伝説神フロア】敵ステータス超絶強化！';
+  if (floor === 100) {
+    gimmickDesc = '👑【第100階 頂点ボスフロア】2問正解で撃破！';
   } else if (isBoss) {
-    gimmickDesc = '⚔️【守護ボス階】巨大ボスが出現！';
+    gimmickDesc = '⚔️【節目ボス階】2問正解で撃破！';
   } else if (lastDigit === 3) {
     gimmickDesc = '⚡【タイムアタック階】制限時間 6.5秒！';
   } else if (lastDigit === 7) {
@@ -11010,7 +11018,7 @@ function nextTowerQuestion() {
     if (f2) f2.hp = Math.max(1, f2.hp - Math.round(f2.maxHp * 0.05));
     updateBattleHud();
   } else if (lastDigit === 9) {
-    gimmickDesc = '🛡️【超重装甲階】相手の防御力が大幅UP！';
+    gimmickDesc = '🛡️【超重装甲階】相手の防御力が少しUP！';
   }
 
   const q = getTowerQuestion(route, floor);
