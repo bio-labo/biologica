@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 4.9.6 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 4.9.7 - 理系微生物育成＆戦略クイズバトル</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -614,7 +614,7 @@
     <div class="logo-area">
       <div class="logo-icon">🧬</div>
       <div>
-        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 4.9.4</span></div>
+        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 4.9.7</span></div>
         <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
       </div>
     </div>
@@ -2035,7 +2035,7 @@
         <div id="friendSyncStatusBanner" style="background:#f0fdf4; border:2px solid #86efac; border-radius:10px; padding:8px 12px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
           <div style="font-size:0.8rem; font-weight:900; color:#15803d; display:flex; align-items:center; gap:6px;">
             <span id="friendStatusDot">🟢</span>
-            <span id="friendStatusText">📡 フレンド通信: リアルタイム同期中 (Ver 4.8.7)</span>
+            <span id="friendStatusText">📡 フレンド通信: リアルタイム同期中 (Ver 4.9.7)</span>
           </div>
           <div style="font-size:0.75rem; color:#166534; font-weight:800; display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
             <span id="friendMyCodeStatus">あなた: ---</span>
@@ -4782,6 +4782,16 @@ QUIZ_MASTER.forEach(q => {
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
   {
+    ver: 'Ver 4.9.7',
+    date: '2026-11-13',
+    title: '🏆 ランキング即時同期・反映システムの強化 ＆ タワー到達データ保護アプデ！',
+    items: [
+      '【🏆 ランキング反映・同期システムの強化】ゲノムタワーの到達階数が1階クリアごとにリアルタイムで即時同期されるよう改善！タワー挑戦中やクリア時も最新の到達順位が確実にランキングへ反映されます！',
+      '【🗼 タワー到達記録の保存安全性向上】タワー挑戦の途中でブラウザを閉じたり中断した場合でも、突破済みの最高階数が安全に保存・反映されるようデータ保護処理を強化しました！',
+      '【📡 全国ランキング取得エンジンの最適化】Firestore通信のクエリ取得処理を刷新し、全国のプレイヤーデータが確実に取得・表示されるよう安定性を向上しました！'
+    ]
+  },
+  {
     ver: 'Ver 4.9.6',
     date: '2026-11-12',
     title: '🗼 ゲノムタワー 爽快テンポUP（通常階1撃撃破化） ＆ 節目ボス2連戦・称号最適化アプデ！',
@@ -5583,7 +5593,7 @@ function syncMyProfileToCloud() {
     chips: leaderM.chips || [null, null]
   } : null;
 
-  db.collection('players').doc(myCode).set({
+  const payload = {
     name: state.playerName || '研究員',
     code: myCode,
     title: myData.title || '🌱 新米研究助手',
@@ -5595,9 +5605,19 @@ function syncMyProfileToCloud() {
     leader: leaderInfo,
     partyTeam: partyTeam,
     towerJunior: state.towerBestJunior || 0,
-    towerSenior: state.towerBestSenior || 0,
-    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-  }, { merge: true }).catch(err => console.warn('Cloud sync error:', err));
+    towerSenior: state.towerBestSenior || 0
+  };
+  try {
+    if (typeof firebase !== 'undefined' && firebase.firestore && firebase.firestore.FieldValue) {
+      payload.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+    } else {
+      payload.updatedAt = new Date().toISOString();
+    }
+  } catch (e) {
+    payload.updatedAt = new Date().toISOString();
+  }
+
+  db.collection('players').doc(myCode).set(payload, { merge: true }).catch(err => console.warn('Cloud sync error:', err));
 }
 
 /* ============================================================================
@@ -10766,46 +10786,108 @@ function switchTowerRankTab(route) {
   renderTowerRankingBoard(route);
 }
 
-// 🗼 タワー専用ランキング描画（Firestore同期 ＋ フォールバック）
+// 🗼 タワー専用ランキング描画（Firestore同期 ＋ フォールバック ＋ フレンド優先合流）
 async function renderTowerRankingBoard(route) {
   const board = document.getElementById('towerRankingBoard');
   if (!board) return;
   board.innerHTML = '<div style="text-align:center; padding:15px; color:var(--text-sub); font-size:0.82rem;">🗼 タワーランキング読み込み中...</div>';
+
+  // 自分の最新タワー記録も同時にクラウドへ即時同期！
+  syncMyProfileToCloud();
 
   const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : (state.friendCode || 'BIO-0000');
   const fieldKey = route === 'junior' ? 'towerJunior' : 'towerSenior';
   const myBest = route === 'junior' ? (state.towerBestJunior || 0) : (state.towerBestSenior || 0);
 
   let list = [];
+  const seenCodes = new Set();
+
   try {
     if (db) {
-      const snap = await withTimeout(
-        db.collection('players')
-          .where(fieldKey, '>', 0)
-          .orderBy(fieldKey, 'desc')
-          .limit(20)
-          .get(),
-        2500,
-        'タワーランキングタイムアウト'
-      );
+      let snap = null;
+      // 1. まず降順ソート取得を試行（インデックスがあれば最高速・上位50人を即時抽出）
+      try {
+        snap = await withTimeout(
+          db.collection('players').orderBy(fieldKey, 'desc').limit(50).get(),
+          3000,
+          'タワー降順クエリタイムアウト'
+        );
+      } catch (err) {
+        snap = null;
+      }
+
+      // インデックスがない場合等のフォールバック：全件プレーン取得
+      if (!snap || snap.empty) {
+        snap = await withTimeout(
+          db.collection('players').get(),
+          4500,
+          'タワー全件取得タイムアウト'
+        );
+      }
+
       if (snap && !snap.empty) {
         snap.forEach(doc => {
+          if (doc.id.startsWith('ROOM_') || doc.id.startsWith('MATCH_')) return;
           const d = doc.data() || {};
-          list.push({
-            name: d.name || '研究員',
-            code: d.code || doc.id,
-            title: d.title || '🌱 新米研究助手',
-            floor: d[fieldKey] || 0
-          });
+          if (d.isTestAccount || d.isSystemDoc) return;
+          const code = normalizeFriendCode(d.code || doc.id);
+          if (!code || seenCodes.has(code)) return;
+          const floor = Number(d[fieldKey]) || 0;
+          if (floor > 0) {
+            seenCodes.add(code);
+            list.push({
+              name: d.name || '研究員',
+              code: code,
+              title: d.title || '🌱 新米研究助手',
+              floor: floor
+            });
+          }
         });
+      }
+
+      // 2. ★ 登録済みフレンドの個別ダイレクト照合（知り合いがクラウドのどこにいても100%確実に反映！）
+      if (Array.isArray(state.friendsList) && state.friendsList.length > 0) {
+        const friendCodes = state.friendsList.map(f => normalizeFriendCode(f.code)).filter(c => c && !seenCodes.has(c));
+        if (friendCodes.length > 0) {
+          try {
+            const fDocs = await Promise.all(friendCodes.map(c => db.collection('players').doc(c).get()));
+            fDocs.forEach((fd, i) => {
+              if (fd && fd.exists && fd.data()) {
+                const fData = fd.data();
+                const floor = Number(fData[fieldKey]) || 0;
+                const fCode = friendCodes[i];
+                if (floor > 0 && !seenCodes.has(fCode)) {
+                  seenCodes.add(fCode);
+                  list.push({
+                    name: fData.name || state.friendsList[i].name || 'フレンド研究員',
+                    code: fCode,
+                    title: fData.title || state.friendsList[i].title || '🌱 新米研究助手',
+                    floor: floor
+                  });
+                }
+              }
+            });
+          } catch (fe) {
+            console.warn('Friend tower direct check note:', fe);
+          }
+        }
       }
     }
   } catch (e) {
     console.warn('Tower ranking fetch error:', e);
   }
 
-  const hasMe = list.some(x => normalizeFriendCode(x.code) === myCode);
-  if (!hasMe && myBest > 0) {
+  // クライアント側で確実に最高階数順にソート！
+  list.sort((a, b) => b.floor - a.floor);
+
+  const myIdxInList = list.findIndex(x => normalizeFriendCode(x.code) === myCode);
+  if (myIdxInList >= 0) {
+    // すでにクラウド一覧に存在する場合、ローカルの自己ベストの方が進んでいれば即座に反映！
+    if (myBest > list[myIdxInList].floor) {
+      list[myIdxInList].floor = myBest;
+      list.sort((a, b) => b.floor - a.floor);
+    }
+  } else if (myBest > 0) {
     list.push({
       name: state.playerName || 'あなた',
       code: myCode,
@@ -11129,6 +11211,26 @@ function advanceTowerFloor() {
   if (!battle || battle.mode !== 'tower') return;
   const clearedFloor = battle.towerFloor;
   showToast(`🎉 第 ${clearedFloor} 階 突破！ 次の階層へ進出！`);
+
+  // ★ 1階突破ごとに自己ベストを即時更新・ローカル保存・クラウド同期！
+  const isJunior = battle.towerRoute === 'junior';
+  let isBestUpdated = false;
+  if (isJunior) {
+    if (clearedFloor > (state.towerBestJunior || 0)) {
+      state.towerBestJunior = clearedFloor;
+      isBestUpdated = true;
+    }
+  } else {
+    if (clearedFloor > (state.towerBestSenior || 0)) {
+      state.towerBestSenior = clearedFloor;
+      isBestUpdated = true;
+    }
+  }
+  if (isBestUpdated) {
+    saveData();
+    syncMyProfileToCloud();
+    if (typeof checkUnlockedTitles === 'function') checkUnlockedTitles();
+  }
 
   // パーティ全員HP20%回復ボーナス
   battle.p1Team.forEach(tm => {
@@ -14358,7 +14460,7 @@ function renderIncomingFriendRequestsUI(overrideList) {
 
   const list = Array.from(activeIncomingRequestsMap.values());
 
-  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.7)`, true);
+  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.9.7)`, true);
 
   if (badge) {
     badge.style.display = list.length > 0 ? 'inline-block' : 'none';
@@ -14488,7 +14590,7 @@ function listenToIncomingFriendRequests() {
   if (!db || !state.friendCode) return;
 
   const myCode = normalizeFriendCode(state.friendCode);
-  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.7)`, true);
+  updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.9.7)`, true);
   if (typeof initPeerConnection === 'function') initPeerConnection();
 
   // 1. 自身の players/{myCode} をリアルタイム監視
@@ -14689,7 +14791,7 @@ async function sendFriendRequestCloud() {
       updateFriendSyncStatusBanner(`📡 クラウド通信制限/タイムアウト: ${errCode}`, false);
     } else {
       showToast(`📨『${targetName}』(${code}) さんにフレンド申請を送信しました！相手が承認するとフレンドになります！`);
-      updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.8.7)`, true);
+      updateFriendSyncStatusBanner(`📡 フレンド通信: リアルタイム同期中 (Ver 4.9.7)`, true);
     }
   } catch (err) {
     console.error('sendFriendRequestCloud error:', err);
@@ -15191,14 +15293,18 @@ function fetchAndRenderGlobalRanking() {
 
   const me = getMyPlayerRankData();
   const myCode = normalizeFriendCode(state.friendCode);
-  const isMeValidForGlobal = !state.isTestAccount && state.playerName && (state.playerName !== '研究員001' || (state.stats && state.stats.wins > 0) || me.rp > 600);
+  const isMeValidForGlobal = !state.isTestAccount;
 
   if (!db) {
     renderRankingListItems(isMeValidForGlobal ? [me] : []);
     return;
   }
 
-  db.collection('players').get().then(snapshot => {
+  withTimeout(
+    db.collection('players').limit(100).get(),
+    4500,
+    'ランキング読み込みタイムアウト'
+  ).then(snapshot => {
     let players = [];
     const seenCodes = new Set();
 
@@ -15213,8 +15319,8 @@ function fetchAndRenderGlobalRanking() {
       const cleanName = (p.name || '').trim();
       if (!cleanName) return;
 
-      // 初期ネーム「研究員001」で、かつ一度もクイズや対戦を遊んでいない完全初期放置データのみ除外（遊んでいる友達は表示！）
-      const hasPlayed = (p.wins || 0) > 0 || (p.correct || 0) > 0 || (p.rp || 0) > 600;
+      // 初期ネーム「研究員001」で、かつ一度もクイズや対戦、タワーを遊んでいない完全初期放置データのみ除外（遊んでいる友達は表示！）
+      const hasPlayed = (p.wins || 0) > 0 || (p.correct || 0) > 0 || (p.rp || 0) > 600 || (p.towerJunior || 0) > 0 || (p.towerSenior || 0) > 0 || (p.maxLv || 1) > 1;
       if (cleanName === '研究員001' && !hasPlayed) {
         return;
       }
@@ -17737,6 +17843,7 @@ try {
 
 // 起動時にフレンド申請・対戦招待・ギフトをチェック（MATCH_LOBBY ＆ players/{myCode} を常時リアルタイム監視！）
 setTimeout(() => {
+  syncMyProfileToCloud(); // ★ 起動時に自分の最新ステータス（タワー記録等）をクラウドへ強制自動同期！
   listenToIncomingFriendRequests();
   listenToIncomingBattleInvites();
   checkIncomingFriendRequests();
