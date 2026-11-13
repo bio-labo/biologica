@@ -10832,11 +10832,14 @@ async function renderTowerRankingBoard(route) {
           if (d.isTestAccount || d.isSystemDoc) return;
           const code = normalizeFriendCode(d.code || doc.id);
           if (!code || seenCodes.has(code)) return;
+          const cleanName = (d.name || '').trim();
+          // ★ 初期ネーム「研究員001」「研究員」はタワーランキングからも完全除外！
+          if (!cleanName || cleanName === '研究員001' || cleanName === '研究員') return;
           const floor = Number(d[fieldKey]) || 0;
           if (floor > 0) {
             seenCodes.add(code);
             list.push({
-              name: d.name || '研究員',
+              name: cleanName,
               code: code,
               title: d.title || '🌱 新米研究助手',
               floor: floor
@@ -10854,12 +10857,14 @@ async function renderTowerRankingBoard(route) {
             fDocs.forEach((fd, i) => {
               if (fd && fd.exists && fd.data()) {
                 const fData = fd.data();
+                const fName = (fData.name || state.friendsList[i].name || '').trim();
+                if (!fName || fName === '研究員001' || fName === '研究員') return;
                 const floor = Number(fData[fieldKey]) || 0;
                 const fCode = friendCodes[i];
                 if (floor > 0 && !seenCodes.has(fCode)) {
                   seenCodes.add(fCode);
                   list.push({
-                    name: fData.name || state.friendsList[i].name || 'フレンド研究員',
+                    name: fName,
                     code: fCode,
                     title: fData.title || state.friendsList[i].title || '🌱 新米研究助手',
                     floor: floor
@@ -15293,7 +15298,7 @@ function fetchAndRenderGlobalRanking() {
 
   const me = getMyPlayerRankData();
   const myCode = normalizeFriendCode(state.friendCode);
-  const isMeValidForGlobal = !state.isTestAccount;
+  const isMeValidForGlobal = !state.isTestAccount && state.playerName && state.playerName !== '研究員001' && state.playerName !== '研究員';
 
   if (!db) {
     renderRankingListItems(isMeValidForGlobal ? [me] : []);
@@ -15319,9 +15324,8 @@ function fetchAndRenderGlobalRanking() {
       const cleanName = (p.name || '').trim();
       if (!cleanName) return;
 
-      // 初期ネーム「研究員001」で、かつ一度もクイズや対戦、タワーを遊んでいない完全初期放置データのみ除外（遊んでいる友達は表示！）
-      const hasPlayed = (p.wins || 0) > 0 || (p.correct || 0) > 0 || (p.rp || 0) > 600 || (p.towerJunior || 0) > 0 || (p.towerSenior || 0) > 0 || (p.maxLv || 1) > 1;
-      if (cleanName === '研究員001' && !hasPlayed) {
+      // ★ 初期ネーム「研究員001」「研究員」はランキングから完全に除外！（名前を変更した本物プレイヤーのみ表示）
+      if (cleanName === '研究員001' || cleanName === '研究員') {
         return;
       }
 
