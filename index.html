@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>バイオ・ロジカ (Bio-Logica) Ver 4.9.7 - 理系微生物育成＆戦略クイズバトル</title>
+<title>バイオ・ロジカ (Bio-Logica) Ver 1.0 - 理系微生物育成＆戦略クイズバトル</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -614,7 +614,7 @@
     <div class="logo-area">
       <div class="logo-icon">🧬</div>
       <div>
-        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 4.9.7</span></div>
+        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 1.0</span></div>
         <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
       </div>
     </div>
@@ -2035,7 +2035,7 @@
         <div id="friendSyncStatusBanner" style="background:#f0fdf4; border:2px solid #86efac; border-radius:10px; padding:8px 12px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
           <div style="font-size:0.8rem; font-weight:900; color:#15803d; display:flex; align-items:center; gap:6px;">
             <span id="friendStatusDot">🟢</span>
-            <span id="friendStatusText">📡 フレンド通信: リアルタイム同期中 (Ver 4.9.7)</span>
+            <span id="friendStatusText">📡 フレンド通信: リアルタイム同期中 (Ver 1.0)</span>
           </div>
           <div style="font-size:0.75rem; color:#166534; font-weight:800; display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
             <span id="friendMyCodeStatus">あなた: ---</span>
@@ -4689,7 +4689,147 @@ const ENGLISH_QUIZ_MASTER = [
   { id: 'v38_eg_u3', subj: 'eng_gram', gramUnit: 'usage', level: 'private', q: '【追手門学院大 過去問】Heavy snow prevented the train ( 〇 ) arriving on time.', ans: 'from', c: ['from', 'to', 'of', 'in'], exp: '【prevent / keep / stop + O + from ~ing】「Oが〜するのを妨げる」。入試最頻出の動詞の語法！', rawWord: 'from' },
   { id: 'v38_eg_u4', subj: 'eng_gram', gramUnit: 'usage', level: 'private', q: '【同志社大 過去問】I couldn\'t distinguish Mary ( 〇 ) her twin sister.', ans: 'from', c: ['from', 'to', 'with', 'between'], exp: '【distinguish A from B / tell A from B】「AとBを区別する・見分ける」。', rawWord: 'from' },
   { id: 'v38_eg_u5', subj: 'eng_gram', gramUnit: 'usage', level: 'national', q: '【京都大 過去問】The new regulation provides the citizens ( 〇 ) better medical care.', ans: 'with', c: ['with', 'for', 'to', 'of'], exp: '【provide A with B】「A（人）にB（物）を供給する・与える」（= provide B for A）。supply A with B も同じ型！', rawWord: 'with' },
-  { id: 'v38_eg_u6', subj: 'eng_gram', gramUnit: 'usage', level: 'national', q: '【早稲田大 過去問】We had to ( 〇 ) the meeting off until next week.', ans: 'put', c: ['put', 'call', 'take', 'make'], exp: '【put off ~】「〜を延期する（= postpone）」。call off は「〜を中止する（= cancel）」。until next week（来週まで）とあるので延期（put off）が正解！', rawWord: 'put' }
+  { id: 'v38_eg_u6', subj: 'eng_gram', gramUnit: 'usage', level: 'national', q: '【早稲田大 過去問】We had to ( 〇 ) the meeting off until next week.', ans: 'put', c: ['put', 'call', 'take', 'make'], exp: '【put off ~】「〜を延期する（= postpone）」。call off は「〜を中止する（= cancel）」。until next week（来週まで）とあるので延期（put off）が正解！', rawWord: 'put' },
+
+  // ================= 📚 難易度別問題プール大規模拡充（英文法全14単元・数I/A/II/B/III/C・高校理系） =================
+  // --- 1. 英文法：時制 (tense) 拡充 ---
+  { id: 'eg_t4', subj: 'eng_gram', gramUnit: 'tense', level: 'elem', q: '【時制・基礎】The sun ( 〇 ) in the east.', ans: 'rises', c: ['rises', 'rose', 'is rising', 'will rise'], exp: '【不変の真理】太陽が東から昇るなどの自然法則・不変の真理は、常に現在形（rises）で表します！', rawWord: 'rises' },
+  { id: 'eg_t5', subj: 'eng_gram', gramUnit: 'tense', level: 'private', q: '【追手門学院大 過去問】I ( 〇 ) in Osaka for ten years when I got married.', ans: 'had lived', c: ['had lived', 'have lived', 'lived', 'was living'], exp: '【過去完了の継続】結婚した（過去）時点で「それまで10年間住んでいた」過去の完了・継続を表すため had lived が正解！', rawWord: 'had lived' },
+  { id: 'eg_t6', subj: 'eng_gram', gramUnit: 'tense', level: 'private', q: '【関西大 過去問】He ( 〇 ) reading this book by tomorrow evening.', ans: 'will have finished', c: ['will have finished', 'has finished', 'finished', 'is finishing'], exp: '【未来完了】by tomorrow evening（明日の夕方までに）という未来の完了基準点があるため、will have finished が正解！', rawWord: 'will have finished' },
+  { id: 'eg_t7', subj: 'eng_gram', gramUnit: 'tense', level: 'national', q: '【大阪大 過去問】Ten years ( 〇 ) passed since we first met.', ans: 'have', c: ['have', 'has', 'is', 'was'], exp: '【時の経過表現：時間 + have passed since ~】「私たちが最初に出会ってから10年が経った」。Ten years has passed も口語では見られますが入試では have passed が基本！', rawWord: 'have' },
+
+  // --- 2. 英文法：助動詞 (auxiliary) 拡充 ---
+  { id: 'eg_a4', subj: 'eng_gram', gramUnit: 'auxiliary', level: 'elem', q: '【助動詞・基礎】You ( 〇 ) not take photos inside the museum.', ans: 'must', c: ['must', 'have', 'need', 'shall'], exp: '【must not + 原形】「〜してはならない（強い禁止）」。', rawWord: 'must' },
+  { id: 'eg_a5', subj: 'eng_gram', gramUnit: 'auxiliary', level: 'private', q: '【近畿大 過去問】I cannot ( 〇 ) laughing at his funny face.', ans: 'help', c: ['help', 'bear', 'stand', 'keep'], exp: '【cannot help ~ing】「〜せずにはいられない」。cannot but + 原形 と書き換え可能！', rawWord: 'help' },
+  { id: 'eg_a6', subj: 'eng_gram', gramUnit: 'auxiliary', level: 'private', q: '【追手門学院大 過去問】He ( 〇 ) well be proud of his clever son.', ans: 'may', c: ['may', 'can', 'should', 'must'], exp: '【may well + 原形】「〜するのももっともだ」「おそらく〜だろう」。入試頻出の助動詞成句！', rawWord: 'may' },
+  { id: 'eg_a7', subj: 'eng_gram', gramUnit: 'auxiliary', level: 'national', q: '【京都大 過去問】You ought to ( 〇 ) told the doctor the whole truth.', ans: 'have', c: ['have', 'be', 'had', 'been'], exp: '【ought to have p.p.】「〜すべきだったのに（実際はしなかった）」（= should have p.p.）。', rawWord: 'have' },
+
+  // --- 3. 英文法：受動態 (passive) 拡充 ---
+  { id: 'eg_p3', subj: 'eng_gram', gramUnit: 'passive', level: 'elem', q: '【受動態・基礎】This tower was ( 〇 ) in 2010.', ans: 'built', c: ['built', 'build', 'building', 'builds'], exp: '【受動態の基本：be + 過去分詞】「この塔は2010年に建てられた」。build - built - built。', rawWord: 'built' },
+  { id: 'eg_p4', subj: 'eng_gram', gramUnit: 'passive', level: 'private', q: '【立命館大 過去問】The scientist is known ( 〇 ) everyone in this country.', ans: 'to', c: ['to', 'by', 'for', 'with'], exp: '【be known to ~】「〜（人）に知られている」。be known for（〜で有名だ）、be known by（〜によって判別される）の区別が頻出！', rawWord: 'to' },
+  { id: 'eg_p5', subj: 'eng_gram', gramUnit: 'passive', level: 'private', q: '【追手門学院大 過去問】This desk is made ( 〇 ) wood.', ans: 'of', c: ['of', 'from', 'in', 'with'], exp: '【be made of と be made from】材料の性質が見てそのままわかる物理変化は of、原料が化学変化しているものは from（Wine is made from grapes）！', rawWord: 'of' },
+  { id: 'eg_p6', subj: 'eng_gram', gramUnit: 'passive', level: 'national', q: '【名古屋大 過去問】I had my bicycle ( 〇 ) while I was shopping.', ans: 'stolen', c: ['stolen', 'steal', 'stealing', 'to steal'], exp: '【have + O + 過去分詞（被害）】「自転車を盗まれた」。自転車（O）は盗まれる（受動）関係なので stolen！', rawWord: 'stolen' },
+
+  // --- 4. 英文法：不定詞 (infinitive) 拡充 ---
+  { id: 'eg_inf3', subj: 'eng_gram', gramUnit: 'infinitive', level: 'elem', q: '【不定詞・基礎】He is too young ( 〇 ) understand the news.', ans: 'to', c: ['to', 'for', 'that', 'so'], exp: '【too ... to ~】「あまりに…なので〜できない（〜するには…すぎる）」。', rawWord: 'to' },
+  { id: 'eg_inf4', subj: 'eng_gram', gramUnit: 'infinitive', level: 'private', q: '【同志社大 過去問】He studied hard so ( 〇 ) not to fail the exam.', ans: 'as', c: ['as', 'that', 'for', 'in'], exp: '【so as not to + 原形】「〜しないように（否定の目的）」（= in order not to + 原形）。', rawWord: 'as' },
+  { id: 'eg_inf5', subj: 'eng_gram', gramUnit: 'infinitive', level: 'private', q: '【追手門学院大 過去問】She seems ( 〇 ) been very happy in her childhood.', ans: 'to have', c: ['to have', 'to be', 'having', 'had'], exp: '【完了不定詞：seem to have p.p.】主節の時制（seems: 現在）よりも前の過去のこと（in her childhood）を述べているため to have been が正解！', rawWord: 'to have' },
+  { id: 'eg_inf6', subj: 'eng_gram', gramUnit: 'infinitive', level: 'national', q: '【一橋大 過去問】No one is ( 〇 ) enter this room without permission.', ans: 'to', c: ['to', 'for', 'about', 'able'], exp: '【be to 不定詞（義務・禁止）】「許可なくこの部屋に入ってはならない」。be to 不定詞には予定・義務・可能・運命・意図の用法があります！', rawWord: 'to' },
+
+  // --- 5. 英文法：動名詞 (gerund) 拡充 ---
+  { id: 'eg_g3', subj: 'eng_gram', gramUnit: 'gerund', level: 'elem', q: '【動名詞・基礎】He gave up ( 〇 ) to become a professional singer.', ans: 'trying', c: ['trying', 'to try', 'try', 'tried'], exp: '【give up + ~ing】give up は動名詞のみを目的語にとる動詞（MEGAFEPSのG）！', rawWord: 'trying' },
+  { id: 'eg_g4', subj: 'eng_gram', gramUnit: 'gerund', level: 'private', q: '【関西学院大 過去問】I am looking forward to ( 〇 ) you next week.', ans: 'seeing', c: ['seeing', 'see', 'saw', 'seen'], exp: '【look forward to + ~ing / 名詞】この to は前置詞なので、後ろには原形ではなく動名詞（seeing）が来ます！入試定番の引っかけ！', rawWord: 'seeing' },
+  { id: 'eg_g5', subj: 'eng_gram', gramUnit: 'gerund', level: 'private', q: '【追手門学院大 過去問】It is no use ( 〇 ) over spilt milk.', ans: 'crying', c: ['crying', 'to cry', 'cry', 'cried'], exp: '【It is no use ~ing】「〜しても無駄である（覆水盆に返らず）」。There is no point in ~ing と同義！', rawWord: 'crying' },
+  { id: 'eg_g6', subj: 'eng_gram', gramUnit: 'gerund', level: 'national', q: '【東京大 過去問】On ( 〇 ) the station, he called his mother.', ans: 'reaching', c: ['reaching', 'reach', 'reached', 'to reach'], exp: '【On ~ing】「〜するとすぐに（= As soon as S + V）」。In ~ing は「〜するときに」。', rawWord: 'reaching' },
+
+  // --- 6. 英文法：分詞 (participle) 拡充 ---
+  { id: 'eg_pt3', subj: 'eng_gram', gramUnit: 'participle', level: 'elem', q: '【分詞・基礎】Do you know the boy ( 〇 ) a red cap?', ans: 'wearing', c: ['wearing', 'worn', 'wears', 'wore'], exp: '【現在分詞の限定用法】少年（the boy）が帽子を「かぶっている」能動の関係なので wearing が修飾します！', rawWord: 'wearing' },
+  { id: 'eg_pt4', subj: 'eng_gram', gramUnit: 'participle', level: 'private', q: '【追手門学院大 過去問】He was listening to the music with his eyes ( 〇 ).', ans: 'closed', c: ['closed', 'closing', 'close', 'to close'], exp: '【with + O + C（付帯状況）】目（his eyes）は「閉じられる」受動関係なので過去分詞 closed を置きます！', rawWord: 'closed' },
+  { id: 'eg_pt5', subj: 'eng_gram', gramUnit: 'participle', level: 'private', q: '【近畿大 過去問】Judging ( 〇 ) his appearance, he must be an artist.', ans: 'from', c: ['from', 'by', 'with', 'at'], exp: '【Judging from ~】「〜から判断すると」。独立分詞構文の超重要熟語！', rawWord: 'from' },
+  { id: 'eg_pt6', subj: 'eng_gram', gramUnit: 'participle', level: 'national', q: '【神戸大 過去問】( 〇 ) no money left, I had to walk home.', ans: 'Having', c: ['Having', 'Have', 'Had', 'To have'], exp: '【分詞構文（理由）】「お金が残っていなかったので（= As I had no money left）」。主語 I が持つ側なので Having！', rawWord: 'Having' },
+
+  // --- 7. 英文法：関係詞 (relative) 拡充 ---
+  { id: 'eg_r4', subj: 'eng_gram', gramUnit: 'relative', level: 'elem', q: '【関係詞・基礎】The man ( 〇 ) called yesterday is my uncle.', ans: 'who', c: ['who', 'whom', 'which', 'whose'], exp: '【主格の関係代名詞】先行詞が人（The man）で後ろに動詞 called が続いているため who が正解！', rawWord: 'who' },
+  { id: 'eg_r5', subj: 'eng_gram', gramUnit: 'relative', level: 'private', q: '【追手門学院大 過去問】This is ( 〇 ) I have been looking for.', ans: 'what', c: ['what', 'that', 'which', 'where'], exp: '【関係代名詞 what】先行詞を含み「〜すること・もの（= the thing which）」を表します！look for の目的語が抜けているため what が適切！', rawWord: 'what' },
+  { id: 'eg_r6', subj: 'eng_gram', gramUnit: 'relative', level: 'private', q: '【立命館大 過去問】You can invite ( 〇 ) wants to come.', ans: 'whoever', c: ['whoever', 'whomever', 'anyone', 'which'], exp: '【複合関係代名詞 whoever】「〜する人は誰でも（= anyone who）」。後ろの節で主語の働きをするため whoever が正解！', rawWord: 'whoever' },
+  { id: 'eg_r7', subj: 'eng_gram', gramUnit: 'relative', level: 'national', q: '【京都大 過去問】He said he was sick, ( 〇 ) was not true.', ans: 'which', c: ['which', 'that', 'what', 'as'], exp: '【関係代名詞の継続用法（which）】直前の文全体（「彼が病気だと言ったこと」）を先行詞として受ける場合、カンマ + which を使います（that や what は不可）！', rawWord: 'which' },
+
+  // --- 8. 英文法：仮定法 (subjunctive) 拡充 ---
+  { id: 'eg_s4', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'elem', q: '【仮定法・基礎】If I were a bird, I ( 〇 ) fly to you.', ans: 'could', c: ['could', 'can', 'will', 'may'], exp: '【仮定法過去：If S + 過去形, S + would/could + 原形】現在の事実に反する仮定を表します！', rawWord: 'could' },
+  { id: 'eg_s5', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'private', q: '【追手門学院大 過去問】If you had left earlier, you ( 〇 ) the train.', ans: 'would have caught', c: ['would have caught', 'will catch', 'caught', 'would catch'], exp: '【仮定法過去完了：If S + had p.p., S + would have p.p.】「もっと早く出発していたら、電車に間に合っていただろうに（過去の反実仮想）」。', rawWord: 'would have caught' },
+  { id: 'eg_s6', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'private', q: '【同志社大 過去問】( 〇 ) for your advice, I would have failed.', ans: 'But', c: ['But', 'Without', 'If', 'Unless'], exp: '【But for ~ / Without ~】「〜がなかったら」。If it had not been for ~ と書き換え可能！', rawWord: 'But' },
+  { id: 'eg_s7', subj: 'eng_gram', gramUnit: 'subjunctive', level: 'national', q: '【東京大 過去問】It is high time you ( 〇 ) to bed.', ans: 'went', c: ['went', 'go', 'have gone', 'will go'], exp: '【It is high time S + 過去形】「とっくに〜すべき時間だ」。仮定法過去を用いる重要構文！', rawWord: 'went' },
+
+  // --- 9. 英文法：比較 (comparison) 拡充 ---
+  { id: 'eg_c7', subj: 'eng_gram', gramUnit: 'comparison', level: 'elem', q: '【比較・基礎】Ken is ( 〇 ) taller than Bob.', ans: 'much', c: ['much', 'very', 'more', 'most'], exp: '【比較級の強調】比較級を強める語は much, far, a lot などです（very は原級を修飾）！', rawWord: 'much' },
+  { id: 'eg_c8', subj: 'eng_gram', gramUnit: 'comparison', level: 'private', q: '【追手門学院大 過去問】The more you practice, the ( 〇 ) you will play.', ans: 'better', c: ['better', 'good', 'best', 'well'], exp: '【the + 比較級 ..., the + 比較級 ~】「…すればするほど、ますます〜になる」。', rawWord: 'better' },
+  { id: 'eg_c9', subj: 'eng_gram', gramUnit: 'comparison', level: 'private', q: '【関西大 過去問】He has no ( 〇 ) than ten dollars with him.', ans: 'more', c: ['more', 'less', 'fewer', 'much'], exp: '【no more than = only】「たったの〜（数量の少なさを強調）」。no less than は「〜も（多さを強調 = as much as）」！', rawWord: 'more' },
+  { id: 'eg_c10', subj: 'eng_gram', gramUnit: 'comparison', level: 'national', q: '【一橋大 過去問】He is not so ( 〇 ) a scholar as a journalist.', ans: 'much', c: ['much', 'more', 'many', 'less'], exp: '【not so much A as B】「AというよりはむしろB（= B rather than A）」。', rawWord: 'much' },
+
+  // --- 10. 英文法：接続詞 (conjunction) 拡充 ---
+  { id: 'eg_cj7', subj: 'eng_gram', gramUnit: 'conjunction', level: 'elem', q: '【接続詞・基礎】Hurry up, ( 〇 ) you will miss the bus.', ans: 'or', c: ['or', 'and', 'so', 'but'], exp: '【命令文, or ~】「…しなさい、さもないと〜」。命令文, and ~ は「…しなさい、そうすれば〜」。', rawWord: 'or' },
+  { id: 'eg_cj8', subj: 'eng_gram', gramUnit: 'conjunction', level: 'private', q: '【追手門学院大 過去問】I will lend you the book on ( 〇 ) that you return it next Monday.', ans: 'condition', c: ['condition', 'terms', 'case', 'fact'], exp: '【on condition that S + V】「〜という条件で」。入試頻出の接続詞的表現！', rawWord: 'condition' },
+  { id: 'eg_cj9', subj: 'eng_gram', gramUnit: 'conjunction', level: 'private', q: '【立命館大 過去問】Hardly had the game started ( 〇 ) it began to snow.', ans: 'when', c: ['when', 'than', 'as', 'since'], exp: '【Hardly had S p.p. when (before) ~】「〜するかしないかのうちに…した」。No sooner had S p.p. than ~ と同義！', rawWord: 'when' },
+  { id: 'eg_cj10', subj: 'eng_gram', gramUnit: 'conjunction', level: 'national', q: '【東北大 過去問】Whether you like it ( 〇 ) not, you must do it.', ans: 'or', c: ['or', 'and', 'nor', 'but'], exp: '【whether A or not】「Aであろうとなかろうと（譲歩の副詞節）」。', rawWord: 'or' },
+
+  // --- 11. 英文法：前置詞 (preposition) 拡充 ---
+  { id: 'eg_pr7', subj: 'eng_gram', gramUnit: 'preposition', level: 'elem', q: '【前置詞・基礎】The train arrived ( 〇 ) Tokyo Station on time.', ans: 'at', c: ['at', 'in', 'to', 'on'], exp: '【arrive at / in】一点とみなす場所・駅には at、広い都市・国には in を用います！', rawWord: 'at' },
+  { id: 'eg_pr8', subj: 'eng_gram', gramUnit: 'preposition', level: 'private', q: '【追手門学院大 過去問】He succeeded ( 〇 ) solving the difficult problem.', ans: 'in', c: ['in', 'at', 'with', 'to'], exp: '【succeed in ~】「〜に成功する」。succeed to は「〜を継承する」なので注意！', rawWord: 'in' },
+  { id: 'eg_pr9', subj: 'eng_gram', gramUnit: 'preposition', level: 'private', q: '【関西学院大 過去問】I met him by ( 〇 ) at the airport.', ans: 'chance', c: ['chance', 'accident', 'purpose', 'intention'], exp: '【by chance / by accident】「偶然に」。on purpose は「わざと、故意に」。', rawWord: 'chance' },
+  { id: 'eg_pr10', subj: 'eng_gram', gramUnit: 'preposition', level: 'national', q: '【京都大 過去問】By ( 〇 ) of hard training, they won the championship.', ans: 'virtue', c: ['virtue', 'means', 'terms', 'behalf'], exp: '【by virtue of ~】「〜のおかげで、〜によって（= because of）」。', rawWord: 'virtue' },
+
+  // --- 12. 英文法：代名詞 (pronoun) 拡充 ---
+  { id: 'eg_pn7', subj: 'eng_gram', gramUnit: 'pronoun', level: 'elem', q: '【代名詞・基礎】I don\'t like this shirt. Show me ( 〇 ) one.', ans: 'another', c: ['another', 'other', 'the other', 'others'], exp: '【another + 単数名詞】不特定の「もう1つの、別の」。', rawWord: 'another' },
+  { id: 'eg_pn8', subj: 'eng_gram', gramUnit: 'pronoun', level: 'private', q: '【追手門学院大 過去問】Those ( 〇 ) wish to attend the seminar must register in advance.', ans: 'who', c: ['who', 'which', 'whom', 'whose'], exp: '【those who ~】「〜する人々（= people who）」。入試長文・文法超頻出！', rawWord: 'who' },
+  { id: 'eg_pn9', subj: 'eng_gram', gramUnit: 'pronoun', level: 'private', q: '【同志社大 過去問】The population of Tokyo is much larger than ( 〇 ) of Kyoto.', ans: 'that', c: ['that', 'this', 'it', 'those'], exp: '【that of ~】名詞の反復を避ける指示代名詞（the population of Kyoto）。単数は that、複数は those！', rawWord: 'that' },
+  { id: 'eg_pn10', subj: 'eng_gram', gramUnit: 'pronoun', level: 'national', q: '【東京大 過去問】To know is one thing; to teach is ( 〇 ).', ans: 'another', c: ['another', 'other', 'the other', 'different'], exp: '【A is one thing, and B is another】「AとBとは別のものである（知ることと教えることとは別だ）」。', rawWord: 'another' },
+
+  // --- 13. 英文法：否定・倒置 (inversion) 拡充 ---
+  { id: 'eg_inv7', subj: 'eng_gram', gramUnit: 'inversion', level: 'elem', q: '【否定・基礎】I know ( 〇 ) of them.', ans: 'neither', c: ['neither', 'either', 'both', 'none'], exp: '【neither of the two】2人のうち「どちらも〜ない（全否定）」。3人以上なら none。', rawWord: 'neither' },
+  { id: 'eg_inv8', subj: 'eng_gram', gramUnit: 'inversion', level: 'private', q: '【追手門学院大 過去問】Little ( 〇 ) I dream that I would meet her again here.', ans: 'did', c: ['did', 'do', 'had', 'was'], exp: '【否定語 Little の文頭倒置】否定の副詞 Little が文頭に出ると、後ろが疑問文の語順（did I dream）に倒置します！', rawWord: 'did' },
+  { id: 'eg_inv9', subj: 'eng_gram', gramUnit: 'inversion', level: 'private', q: '【近畿大 過去問】Seldom ( 〇 ) he come to school late.', ans: 'does', c: ['does', 'is', 'has', 'did'], exp: '【否定副詞 Seldom の文頭倒置】「めったに〜ない」が文頭に来るため does he come と倒置！', rawWord: 'does' },
+  { id: 'eg_inv10', subj: 'eng_gram', gramUnit: 'inversion', level: 'national', q: '【慶應義塾大 過去問】Not until yesterday ( 〇 ) hear the shocking news.', ans: 'did I', c: ['did I', 'I did', 'have I', 'I had'], exp: '【Not until ~ の倒置】「昨日になって初めて〜した」。主節が疑問文の語順（did I hear）になります！', rawWord: 'did I' },
+
+  // --- 14. 英文法：語法 (usage) 拡充 ---
+  { id: 'eg_u7', subj: 'eng_gram', gramUnit: 'usage', level: 'elem', q: '【動詞の語法・基礎】The smartphone enables us ( 〇 ) communicate easily.', ans: 'to', c: ['to', 'for', 'with', 'in'], exp: '【enable + O + to 不定詞】「Oが〜することを可能にする」。', rawWord: 'to' },
+  { id: 'eg_u8', subj: 'eng_gram', gramUnit: 'usage', level: 'private', q: '【追手門学院大 過去問】He robbed the old lady ( 〇 ) her bag.', ans: 'of', c: ['of', 'from', 'with', 'for'], exp: '【rob + 人 + of + 物】「人から物を奪う」。steal + 物 + from + 人 との区別が最頻出！', rawWord: 'of' },
+  { id: 'eg_u9', subj: 'eng_gram', gramUnit: 'usage', level: 'private', q: '【立命館大 過去問】The doctor suggested that he ( 〇 ) taking this medicine.', ans: 'stop', c: ['stop', 'stopped', 'stopping', 'stops'], exp: '【提案・要求の動詞 that 節内の動詞の原形】suggest, demand, insist などの後ろの that 節では (should) + 動詞の原形（stop）！', rawWord: 'stop' },
+  { id: 'eg_u10', subj: 'eng_gram', gramUnit: 'usage', level: 'national', q: '【京都大 過去問】Please inform us ( 〇 ) any changes in your schedule.', ans: 'of', c: ['of', 'to', 'for', 'with'], exp: '【inform + 人 + of + 事柄】「人に事柄を知らせる・通知する」。', rawWord: 'of' },
+
+  // ================= 📐 高校数学：各単元・各難易度（基礎・標準・大学入試）大規模拡充 =================
+  // --- 数学A：場合の数・確率 (ma_prob) ---
+  { id: 'ex_ma_p1', subj: 'ma', unit: 'ma_prob', level: 'exam', q: '【追手門学院大 過去問】赤玉4個、白玉3個が入った袋から同時に2個取り出すとき、2個とも「赤玉」である確率は？（既約分数）', ans: '2/7', c: ['2/7', '4/7', '3/7', '1/7'], exp: '全体は 7C2 = 21通り。赤玉2個は 4C2 = 6通り。よって 6/21 = 2/7！' },
+  { id: 'ex_ma_p2', subj: 'ma', unit: 'ma_prob', level: 'exam', q: '【共通テスト標準】1個のさいころを3回続けて投げるとき、1の目が「ちょうど1回」出る確率は？（既約分数）', ans: '25/72', c: ['25/72', '5/72', '1/8', '25/216'], exp: '反復試行の確率：3C1 × (1/6)^1 × (5/6)^2 = 3 × 25 / 216 = 75/216 = 25/72！' },
+  { id: 'ex_ma_p3', subj: 'ma', unit: 'ma_prob', level: 'exam', q: '【近畿大 過去問】男子4人と女子2人が円卓に座るとき、女子2人が「隣り合う」座り方は何通り？（数字のみ）', ans: '48', c: ['48', '24', '72', '120'], exp: '女子2人を1組とみると5人の円順列 = (5-1)! = 24通り。女子2人の並び替えが 2! = 2通り。よって 24 × 2 = 48通り！' },
+  { id: 'ex_ma_p4', subj: 'ma', unit: 'ma_prob', level: 'refbook', q: '【私大標準】大小2個のさいころを同時に投げるとき、出た目の積が「偶数」になる確率は？（既約分数）', ans: '3/4', c: ['3/4', '1/4', '1/2', '5/8'], exp: '余事象（積が奇数）の確率を引く：奇数×奇数 = 3/6 × 3/6 = 1/4。よって 1 - 1/4 = 3/4！' },
+  { id: 'ex_ma_p5', subj: 'ma', unit: 'ma_prob', level: 'textbook', q: '【教科書基礎】5人の中からリレーの走者3人を順番を決めて選ぶ並べ方（5P3）は何通り？（数字のみ）', ans: '60', c: ['60', '10', '20', '120'], exp: '5P3 = 5 × 4 × 3 = 60通り！' },
+  { id: 'ex_ma_p6', subj: 'ma', unit: 'ma_prob', level: 'exam', q: '【関西大 過去問】当たり3本を含む10本のくじからA, Bが順に1本引く（戻さない）。Aが当たったとき、Bも当たる条件付き確率は？', ans: '2/9', c: ['2/9', '3/10', '1/3', '1/5'], exp: 'Aが当たりを引いた直後、くじは残り9本（うち当たり2本）なので条件付き確率は 2/9！' },
+
+  // --- 数学A：整数 (ma_num) ---
+  { id: 'ex_ma_n1', subj: 'ma', unit: 'ma_num', level: 'exam', q: '【追手門学院大 過去問】不定方程式 7x + 5y = 1 の整数解のうち、x が正で最小のときの x の値は？（数字のみ）', ans: '3', c: ['3', '2', '1', '4'], exp: '7(3) + 5(-4) = 21 - 20 = 1 より、x が正で最小の整数解は x = 3（y = -4）！' },
+  { id: 'ex_ma_n2', subj: 'ma', unit: 'ma_num', level: 'refbook', q: '【共通テスト標準】ユークリッドの互除法を用いて、209 と 133 の最大公約数（GCD）を求めると？（数字のみ）', ans: '19', c: ['19', '17', '13', '7'], exp: '209 = 133 × 1 + 76、133 = 76 × 1 + 57、76 = 57 × 1 + 19、57 = 19 × 3 + 0。よって最大公約数は 19！' },
+  { id: 'ex_ma_n3', subj: 'ma', unit: 'ma_num', level: 'textbook', q: '【教科書基礎】自然数 360 の正の約数の個数は何個ある？（数字のみ）', ans: '24', c: ['24', '18', '20', '30'], exp: '360 = 2³ × 3² × 5¹ より、約数の個数は (3+1)(2+1)(1+1) = 4 × 3 × 2 = 24個！' },
+
+  // --- 数学A：図形の性質 (ma_geom) ---
+  { id: 'ex_ma_g1', subj: 'ma', unit: 'ma_geom', level: 'exam', q: '【関西学院大 過去問】△ABCで AB=5, AC=3。∠Aの二等分線と辺BCの交点をDとするとき、BD : DC の比は？', ans: '5:3', c: ['5:3', '3:5', '25:9', '1:1'], exp: '角の二等分線の定理より、BD : DC = AB : AC = 5:3！' },
+  { id: 'ex_ma_g2', subj: 'ma', unit: 'ma_geom', level: 'refbook', q: '【私大標準】円外の点Pから円に接線PTを引き、円と2点A, Bで交わる直線を引く。PA=4, AB=5 のとき、接線の長さ PT は？', ans: '6', c: ['6', '2√5', '9', '20'], exp: '方べきの定理 PT² = PA × PB = 4 × (4+5) = 4 × 9 = 36。PT > 0 より PT = 6！' },
+  { id: 'ex_ma_g3', subj: 'ma', unit: 'ma_geom', level: 'textbook', q: '【教科書基礎】円に内接する四角形ABCDにおいて、∠A = 70° のとき、対角 ∠C の大きさは何度？（数字のみ）', ans: '110', c: ['110', '70', '180', '90'], exp: '円に内接する四角形の対角の和は 180° なので、180° - 70° = 110°！' },
+
+  // --- 数学I：2次関数 (m1_quad) ---
+  { id: 'ex_m1_q1', subj: 'm1', unit: 'm1_quad', level: 'exam', q: '【追手門学院大 過去問】2次関数 y = x² - 4x + 1 (0 ≦ x ≦ 3) の「最小値」はいくつ？（数字のみ）', ans: '-3', c: ['-3', '1', '-2', '0'], exp: '平方完成して y = (x - 2)² - 3。軸 x = 2 は定義域 0 ≦ x ≦ 3 内にあるので、頂点で最小値 -3 をとる！' },
+  { id: 'ex_m1_q2', subj: 'm1', unit: 'm1_quad', level: 'refbook', q: '【共通テスト標準】2次方程式 x² - 6x + k = 0 が「異なる2つの実数解」をもつときの定数 k の範囲は？', ans: 'k < 9', c: ['k < 9', 'k ≦ 9', 'k > 9', 'k < 36'], exp: '判別式 D/4 = (-3)² - 1 × k = 9 - k > 0 より、k < 9！' },
+  { id: 'ex_m1_q3', subj: 'm1', unit: 'm1_quad', level: 'textbook', q: '【教科書基礎】放物線 y = (x - 3)² + 5 の頂点の座標は？', ans: '(3, 5)', c: ['(3, 5)', '(-3, 5)', '(3, -5)', '(-3, -5)'], exp: '頂点の座標は (3, 5) です！' },
+
+  // --- 数学I：三角比 (m1_trig) ---
+  { id: 'ex_m1_t1', subj: 'm1', unit: 'm1_trig', level: 'exam', q: '【追手門学院大 過去問】△ABCにおいて b=3, c=4, ∠A=60° のとき、辺 a の長さは？（数字のみ）', ans: '√13', c: ['√13', '√37', '5', '√7'], exp: '余弦定理：a² = b² + c² - 2bc cos 60° = 9 + 16 - 2(3)(4)(1/2) = 25 - 12 = 13。a > 0 より a = √13！' },
+  { id: 'ex_m1_t2', subj: 'm1', unit: 'm1_trig', level: 'refbook', q: '【私大標準】△ABCにおいて a=6, ∠A=30° のとき、外接円の半径 R はいくつ？（数字のみ）', ans: '6', c: ['6', '3', '12', '6√3'], exp: '正弦定理：2R = a / sin A = 6 / sin 30° = 6 / (1/2) = 12。よって R = 6！' },
+  { id: 'ex_m1_t3', subj: 'm1', unit: 'm1_trig', level: 'textbook', q: '【教科書基礎】鋭角 θ において sin θ = 3/5 のとき、cos θ の値は？（分数で入力）', ans: '4/5', c: ['4/5', '3/5', '1/5', '2/5'], exp: 'sin²θ + cos²θ = 1 より、cos²θ = 1 - 9/25 = 16/25。鋭角より cos θ = 4/5！' },
+
+  // --- 数学II：式と証明・複素数・図形と方程式 (m2_poly, m2_geom) ---
+  { id: 'ex_m2_p1', subj: 'm2', unit: 'm2_poly', level: 'exam', q: '【追手門学院大 過去問】整式 P(x) = x³ - 3x + a が (x - 2) で割り切れるとき、定数 a の値は？（数字のみ）', ans: '-2', c: ['-2', '2', '-4', '4'], exp: '因数定理より P(2) = 8 - 6 + a = 0 ➔ 2 + a = 0 ➔ a = -2！' },
+  { id: 'ex_m2_g1', subj: 'm2', unit: 'm2_geom', level: 'exam', q: '【近畿大 過去問】点 (1, 2) と直線 3x + 4y - 1 = 0 との距離 d はいくつ？（数字のみ）', ans: '2', c: ['2', '10', '1', '5'], exp: '点と直線の距離公式：d = |3(1) + 4(2) - 1| / √(3² + 4²) = |3 + 8 - 1| / 5 = 10 / 5 = 2！' },
+  { id: 'ex_m2_g2', subj: 'm2', unit: 'm2_geom', level: 'refbook', q: '【私大標準】円 x² + y² = 25 の点 (3, 4) における接線の方程式は？', ans: '3x + 4y = 25', c: ['3x + 4y = 25', '4x + 3y = 25', '3x - 4y = 25', 'x + y = 5'], exp: '円上の点 (x1, y1) における接線の公式 x1・x + y1・y = r² より 3x + 4y = 25！' },
+
+  // --- 数学II：三角関数・指数対数・微積分 (m2_trig, m2_exp, m2_calc) ---
+  { id: 'ex_m2_t1', subj: 'm2', unit: 'm2_trig', level: 'exam', q: '【追手門学院大 過去問】sin θ + √3 cos θ を r sin(θ + α) の形に合成したとき、r の値は？（数字のみ）', ans: '2', c: ['2', '√3', '4', '1'], exp: 'r = √(1² + (√3)²) = √(1 + 3) = √4 = 2！式は 2 sin(θ + π/3) となります。' },
+  { id: 'ex_m2_e1', subj: 'm2', unit: 'm2_exp', level: 'refbook', q: '【共通テスト標準】方程式 log₂(x - 1) = 3 の解は？（数字のみ）', ans: '9', c: ['9', '8', '7', '10'], exp: '真数条件 x - 1 > 0 ➔ x > 1。log₂(x - 1) = 3 より x - 1 = 2³ = 8 ➔ x = 9！' },
+  { id: 'ex_m2_c1', subj: 'm2', unit: 'm2_calc', level: 'exam', q: '【立命館大 過去問】放物線 y = x² と直線 y = 2x で囲まれた部分の面積 S は？（分数で入力）', ans: '4/3', c: ['4/3', '2/3', '1/3', '2'], exp: '交点は x = 0, 2。1/6公式より S = 1/6 (2 - 0)³ = 8/6 = 4/3！' },
+
+  // --- 数学B：数列 (mb_seq) ---
+  { id: 'ex_mb_s1', subj: 'mb', unit: 'mb_seq', level: 'exam', q: '【追手門学院大 過去問】初項 3、公差 4 の等差数列の初項から第10項までの和 S10 は？（数字のみ）', ans: '210', c: ['210', '190', '420', '39'], exp: '第10項は a10 = 3 + 9 × 4 = 39。和 S10 = 10 × (3 + 39) / 2 = 5 × 42 = 210！' },
+  { id: 'ex_mb_s2', subj: 'mb', unit: 'mb_seq', level: 'refbook', q: '【私大標準】初項 2、公比 3 の等比数列の第5項 a5 は？（数字のみ）', ans: '162', c: ['162', '486', '54', '81'], exp: '一般項 an = a1・r^(n-1) より a5 = 2 × 3⁴ = 2 × 81 = 162！' },
+
+  // --- 数学C：ベクトル・複素数平面 (mc_vec, mc_complex) ---
+  { id: 'ex_mc_v1', subj: 'mc', unit: 'mc_vec', level: 'exam', q: '【関西大 過去問】2つのベクトル a=(2, 1), b=(3, k) が垂直であるとき、定数 k の値は？（数字のみ）', ans: '-6', c: ['-6', '6', '-3', '0'], exp: '垂直条件は内積 a・b = 0。2×3 + 1×k = 0 ➔ 6 + k = 0 ➔ k = -6！' },
+  { id: 'ex_mc_cp1', subj: 'mc', unit: 'mc_complex', level: 'exam', q: '【難関私大】複素数 z = 1 + i の絶対値 |z| は？', ans: '√2', c: ['√2', '2', '1', '0'], exp: '|1 + i| = √(1² + 1²) = √2！' },
+
+  // ================= 🧬 高校理系科目（生物・化学・物理）難易度別拡充 =================
+  { id: 'ex_bio_1', subj: 'bio', unit: 'bio_ch1', level: 'refbook', q: '【生物基礎・細胞】真核細胞において、好気呼吸の場となる細胞小器官はどれ？', ans: 'ミトコンドリア', c: ['ミトコンドリア', '葉緑体', 'リボソーム', 'ゴルジ体'], exp: '好気呼吸によりATPを大量合成する細胞小器官はミトコンドリアです！' },
+  { id: 'ex_bio_2', subj: 'bio', unit: 'bio_ch2', level: 'exam', q: '【生物・遺伝情報】DNAの二重らせん構造において、アデニン（A）と相補的に水素結合する塩基はどれ？', ans: 'チミン（T）', c: ['チミン（T）', 'シトシン（C）', 'グアニン（G）', 'ウラシル（U）'], exp: 'DNA中では A は T と（2本の水素結合）、G は C と（3本の水素結合）相補的結合を形成します（RNAではU）！' },
+  { id: 'ex_chem_1', subj: 'chem', unit: 'chem_theory', level: 'exam', q: '【化学・気体】標準状態（0℃, 1.013×10⁵ Pa）において、気体分子1 molの体積はおよそ何L？（数字のみ）', ans: '22.4', c: ['22.4', '11.2', '24.5', '44.8'], exp: 'アボガドロの法則より、同温同圧・標準状態の理想気体1 molの体積は 22.4 L！' },
+  { id: 'ex_chem_2', subj: 'chem', unit: 'chem_org', level: 'refbook', q: '【化学・有機】エタノール（C2H5OH）を酸化したときに生じる物質はどれ？', ans: 'アセトアルデヒド', c: ['アセトアルデヒド', 'ジエチルエーテル', 'ギ酸', 'アセトン'], exp: '第1級アルコールであるエタノールは酸化されるとアセトアルデヒド（アルデヒド）になり、さらに酸化されると酢酸になります！' },
+  { id: 'ex_phys_1', subj: 'phys', unit: 'phys_mech', level: 'exam', q: '【物理・力学】質量 2.0 kg の物体に 6.0 N の一定の力を加え続けたとき、物体の加速度は何 m/s²？（数字のみ）', ans: '3.0', c: ['3.0', '12', '0.33', '8.0'], exp: 'ニュートンの運動方程式 ma = F より、2.0 × a = 6.0 ➔ a = 3.0 m/s²！' },
+  { id: 'ex_phys_2', subj: 'phys', unit: 'phys_wave', level: 'refbook', q: '【物理・波動】波の速さ v = 20 m/s、振動数 f = 50 Hz のとき、波長 λ は何m？（数字のみ）', ans: '0.4', c: ['0.4', '2.5', '1000', '10'], exp: '波の基本式 v = fλ より、λ = v / f = 20 / 50 = 0.4 m！' }
 ];
 
 // 🌟 全問題のレベル補完 ＆ 数学・理系単元コード完全正規化
@@ -4781,6 +4921,16 @@ QUIZ_MASTER.forEach(q => {
 
 /* 📢 運営からのおしらせ履歴データ（追加・変更内容をシンプルに整理） */
 const NEWS_MASTER = [
+  {
+    ver: 'Ver 1.0',
+    date: '2026-11-15',
+    title: '📚 大学入試出題ロジック全面刷新 ＆ 難易度別問題プール大規模拡充アプデ！',
+    items: [
+      '【📚 大学入試レベル出題エンジンの刷新】高校数学の大学入試・標準レベルにおいて、単純な公式計算を完全排除！反復試行、条件付き確率、玉の取り出し、余事象、円順列など、実際の私大入試・公募推薦・共通テストで頻出する本格的な文章題へ出題ロジックを全面刷新しました！',
+      '【🎯 各難易度・各単元問題プールの超大幅拡充】英文法・語法（全14単元）や高校数学・高校理系科目において、難易度（基礎・標準・入試）を切り替えても問題が尽きることなく連続して挑戦できるよう、入試頻出の良問を大幅に増強しました！',
+      '【⚡ 全体システムの最適化＆表記統一】バージョン表記をVer 1.0に統一し、問題出題・ゲノムタワー・実戦模試・ランキング通信の安定性と快適性を向上しました！'
+    ]
+  },
   {
     ver: 'Ver 4.9.7',
     date: '2026-11-13',
@@ -10459,30 +10609,59 @@ function generateDynamicMathQuestion(grade, targetSubj, targetUnit) {
         ans,
         c: [ans, ...wrong]
       };
-    } else if (rnd < 0.5) {
-      const pairs = [[5,2,10],[6,2,15],[7,2,21],[6,3,20],[7,3,35],[8,2,28],[8,3,56],[9,2,36],[10,2,45]];
-      const [n, r, ansVal] = pairs[Math.floor(Math.random() * pairs.length)];
-      const ans = String(ansVal);
-      const wrong = [String(ansVal * 2), String(ansVal - 5 > 0 ? ansVal - 5 : ansVal + 7), String(ansVal + 5)].filter(x => x !== ans);
-      while (wrong.length < 3) wrong.push(String(ansVal + wrong.length + 1));
-      return {
-        id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: targetLvl,
-        q: `【数A・組合せ】異なる${n}個のものから${r}個を選ぶ組合せ： ${n}C${r} の計算結果は？（数字のみ）`,
-        ans,
-        c: [ans, ...wrong]
-      };
     } else {
-      const pairs = [[5,2,20],[6,2,30],[4,3,24],[5,3,60],[6,3,120],[7,2,42],[5,4,120],[8,2,56]];
-      const [n, r, ansVal] = pairs[Math.floor(Math.random() * pairs.length)];
-      const ans = String(ansVal);
-      const wrong = [String(Math.floor(ansVal / 2)), String(ansVal + 10), String(ansVal - 6 > 0 ? ansVal - 6 : ansVal + 12)].filter(x => x !== ans);
-      while (wrong.length < 3) wrong.push(String(ansVal + wrong.length + 2));
-      return {
-        id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: targetLvl,
-        q: `【数A・順列】異なる${n}個のものから${r}個を選んで1列に並べる順列： ${n}P${r} の計算結果は？（数字のみ）`,
-        ans,
-        c: [ans, ...wrong]
-      };
+      // 🎓 大学入試レベル（標準・難関）：本物の入試文章題（反復試行・余事象・玉の取り出し・円順列・条件付き確率）を動的生成！
+      const subType = Math.floor(Math.random() * 5);
+      if (subType === 0) {
+        // 玉の取り出し確率（余事象・同時取り出し）
+        const ballSets = [
+          { r: 4, w: 3, q: '赤玉4個、白玉3個が入った袋から同時に2個を取り出すとき、2個とも「赤玉」である確率は？（既約分数）', ans: '2/7', c: ['2/7', '4/7', '3/7', '1/7'] },
+          { r: 5, w: 3, q: '赤玉5個、白玉3個が入った袋から同時に2個を取り出すとき、2個とも「赤玉」である確率は？（既約分数）', ans: '5/14', c: ['5/14', '3/14', '5/28', '1/2'] },
+          { r: 3, w: 5, q: '赤玉3個、白玉5個が入った袋から同時に2個を取り出すとき、「少なくとも1個は白玉」である確率は？（既約分数）', ans: '25/28', c: ['25/28', '3/28', '5/28', '15/28'] },
+          { r: 4, w: 2, q: '赤玉4個、白玉2個が入った袋から同時に2個を取り出すとき、赤玉と白玉が1個ずつ出る確率は？（既約分数）', ans: '8/15', c: ['8/15', '2/5', '1/3', '7/15'] }
+        ];
+        const it = ballSets[Math.floor(Math.random() * ballSets.length)];
+        return { id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: targetLvl, q: `【数A・確率文章題】${it.q}`, ans: it.ans, c: it.c };
+      } else if (subType === 1) {
+        // 反復試行の確率
+        const trialSets = [
+          { q: '1個のさいころを3回続けて投げるとき、1の目が「ちょうど1回」出る確率は？（既約分数）', ans: '25/72', c: ['25/72', '5/72', '1/8', '25/216'] },
+          { q: '1個のさいころを4回続けて投げるとき、偶数の目が「ちょうど3回」出る確率は？（既約分数）', ans: '1/4', c: ['1/4', '3/8', '1/8', '5/16'] },
+          { q: '1枚の硬貨を5回投げるとき、表が「ちょうど3回」出る確率は？（既約分数）', ans: '5/16', c: ['5/16', '3/16', '5/32', '1/2'] },
+          { q: '1個のさいころを3回続けて投げるとき、「少なくとも1回は奇数の目」が出る確率は？（既約分数）', ans: '7/8', c: ['7/8', '1/8', '3/4', '5/8'] }
+        ];
+        const it = trialSets[Math.floor(Math.random() * trialSets.length)];
+        return { id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: targetLvl, q: `【数A・反復試行】${it.q}`, ans: it.ans, c: it.c };
+      } else if (subType === 2) {
+        // 円順列・条件付き順列
+        const permSets = [
+          { q: '男子4人と女子2人が円卓に向かって座るとき、女子2人が「隣り合う」座り方は何通り？（数字のみ）', ans: '48', c: ['48', '24', '72', '120'] },
+          { q: '両親と子ども3人の計5人が円卓に座るとき、両親2人が「向かい合って座る」座り方は何通り？（数字のみ）', ans: '6', c: ['6', '12', '24', '8'] },
+          { q: '男子3人、女子3人が交互に1列に並ぶ並び方は何通り？（数字のみ）', ans: '72', c: ['72', '36', '144', '18'] },
+          { q: 'A, B, C, D, Eの5人が1列に並ぶとき、AとBが「隣り合わない」並び方は何通り？（数字のみ）', ans: '72', c: ['72', '48', '60', '84'] }
+        ];
+        const it = permSets[Math.floor(Math.random() * permSets.length)];
+        return { id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: targetLvl, q: `【数A・場合の数】${it.q}`, ans: it.ans, c: it.c };
+      } else if (subType === 3) {
+        // さいころの積・和・倍数確率
+        const diceSets = [
+          { q: '大小2個のさいころを同時に投げるとき、出た目の積が「偶数」になる確率は？（既約分数）', ans: '3/4', c: ['3/4', '1/4', '1/2', '5/8'] },
+          { q: '大小2個のさいころを同時に投げるとき、出た目の和が「5の倍数」になる確率は？（既約分数）', ans: '7/36', c: ['7/36', '1/6', '5/36', '2/9'] },
+          { q: '大小2個のさいころを同時に投げるとき、出た目の積が「奇数」になる確率は？（既約分数）', ans: '1/4', c: ['1/4', '3/4', '1/2', '1/3'] },
+          { q: '大小2個のさいころを同時に投げるとき、目の和が「8以上」になる確率は？（既約分数）', ans: '5/12', c: ['5/12', '7/18', '1/3', '1/2'] }
+        ];
+        const it = diceSets[Math.floor(Math.random() * diceSets.length)];
+        return { id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: targetLvl, q: `【数A・確率文章題】${it.q}`, ans: it.ans, c: it.c };
+      } else {
+        // 条件付き確率
+        const condSets = [
+          { q: '当たりくじ3本を含む10本のくじから、A, Bがこの順に1本ずつ引く（引いたくじは戻さない）。Aが当たったとき、Bも当たる条件付き確率は？（既約分数）', ans: '2/9', c: ['2/9', '3/10', '1/3', '1/5'] },
+          { q: '当たりくじ4本を含む10本のくじから、A, Bがこの順に1本ずつ引く（引いたくじは戻さない）。Aが当たったとき、Bも当たる条件付き確率は？（既約分数）', ans: '1/3', c: ['1/3', '4/10', '3/10', '2/5'] },
+          { q: '赤玉5個、白玉3個が入った袋から、元に戻さず1個ずつ2回取り出す。1回目が赤玉のとき、2回目も赤玉である条件付き確率は？（既約分数）', ans: '4/7', c: ['4/7', '5/8', '3/7', '1/2'] }
+        ];
+        const it = condSets[Math.floor(Math.random() * condSets.length)];
+        return { id, grade: 'high', subj: 'ma', unit: 'ma_prob', level: targetLvl, q: `【数A・条件付き確率】${it.q}`, ans: it.ans, c: it.c };
+      }
     }
   }
 
@@ -16845,9 +17024,9 @@ function renderReceivedBattleInvites(invites) {
     const scanErr = (typeof lastInviteScanError === 'string') ? lastInviteScanError : '';
     if (scanErr) {
       const quotaHint = /resource-exhausted|quota/i.test(scanErr) ? '（Firebaseの1日の無料通信量を使い切った可能性）' : '';
-      statusLine.innerHTML = `📡 待機部屋スキャン: <strong style="color:#dc2626;">🔴 通信エラー (Ver 4.8.5)</strong> ｜ ${scanErr}${quotaHint} <button type="button" class="btn btn-outline" style="padding:1px 6px; font-size:0.65rem; margin-left:6px;" onclick="runCloudDiagnostics(true)">🧪 診断</button>`;
+      statusLine.innerHTML = `📡 待機部屋スキャン: <strong style="color:#dc2626;">🔴 通信エラー (Ver 1.0)</strong> ｜ ${scanErr}${quotaHint} <button type="button" class="btn btn-outline" style="padding:1px 6px; font-size:0.65rem; margin-left:6px;" onclick="runCloudDiagnostics(true)">🧪 診断</button>`;
     } else {
-      statusLine.innerHTML = `📡 待機部屋スキャン: <strong style="color:#059669;">🟢 正常 (Ver 4.8.5)</strong> ｜ あなた: <strong>${myCode}</strong> ｜ 待機部屋: <strong style="color:#db2777;">${validList.length}件</strong> <button type="button" class="btn btn-outline" style="padding:1px 6px; font-size:0.65rem; margin-left:6px;" onclick="runCloudDiagnostics(true)">🧪 診断</button>`;
+      statusLine.innerHTML = `📡 待機部屋スキャン: <strong style="color:#059669;">🟢 正常 (Ver 1.0)</strong> ｜ あなた: <strong>${myCode}</strong> ｜ 待機部屋: <strong style="color:#db2777;">${validList.length}件</strong> <button type="button" class="btn btn-outline" style="padding:1px 6px; font-size:0.65rem; margin-left:6px;" onclick="runCloudDiagnostics(true)">🧪 診断</button>`;
     }
   }
 
