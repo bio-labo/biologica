@@ -204,6 +204,15 @@
   .rarity-SR { background: #d97706; }
   .rarity-UR { background: linear-gradient(135deg, #ec4899, #7c3aed); }
   .rarity-LR { background: linear-gradient(135deg, #f59e0b, #ef4444, #8b5cf6); box-shadow: 0 0 8px rgba(245,158,11,0.7); }
+  .rarity-XR { background: linear-gradient(135deg, #be123c, #7e22ce, #e11d48); box-shadow: 0 0 11px rgba(225,29,72,0.85); border: 1px solid #fda4af; }
+  .rarity-MR { background: linear-gradient(135deg, #0f172a, #7c3aed, #ec4899, #06b6d4, #eab308); background-size: 200% 200%; animation: mrPrismShift 3.5s ease infinite; box-shadow: 0 0 14px rgba(168,85,247,0.95); border: 1.5px solid #fef08a; color: #fef08a; }
+  @keyframes mrPrismShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .card-rarity-XR { border: 2.5px solid #e11d48 !important; background: linear-gradient(180deg, #fff1f2 0%, #fae8ff 100%) !important; box-shadow: 0 0 14px rgba(225, 29, 72, 0.25) !important; }
+  .card-rarity-MR { border: 2.5px solid #a855f7 !important; background: linear-gradient(135deg, #faf5ff 0%, #f0f9ff 50%, #fefce8 100%) !important; box-shadow: 0 0 18px rgba(168, 85, 247, 0.38) !important; }
 
   .mutant-badge {
     background: linear-gradient(90deg, #fef08a, #f59e0b); color: #78350f;
@@ -587,10 +596,38 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
     background: #e0f2fe;
     border: 2px solid #7dd3fc;
     padding: 8px 12px;
     border-radius: 12px;
+  }
+  .subscreen-back-bar > strong {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .subscreen-back-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+  }
+  .subscreen-back-actions .btn,
+  .subscreen-back-bar > .btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  @media (max-width: 680px) {
+    .subscreen-back-bar {
+      flex-wrap: wrap;
+    }
+    .subscreen-back-actions {
+      width: 100%;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
   }
   #globalBattleInvitePopupArea {
     position: fixed;
@@ -665,10 +702,15 @@
           <div style="font-weight:900; font-size:0.95rem; color:#0369a1;">ボックス・編成</div>
           <div style="font-size:0.74rem; color:var(--text-sub);">パーティ5枠・ソート＆能力編集</div>
         </div>
+        <div class="menu-app-card" style="border-color:#e11d48; background:linear-gradient(180deg,#ffffff,#fff1f2);" onclick="switchScreen('synthesis')">
+          <div class="menu-app-icon" style="background:#ffe4e6;">🧪</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#be123c;">ゲノム合成 (XR・MR進化)</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">LR➔XR➔MR超越進化 ＆ 素材合成</div>
+        </div>
         <div class="menu-app-card" style="border-color:#ec4899; background:linear-gradient(180deg,#ffffff,#fdf2f8);" onclick="switchScreen('gacha')">
           <div class="menu-app-icon" style="background:#fce7f3;">💊</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#be185d;">ガチャ (キャラ＆チップ)</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">生物＆免疫細胞ガチャ・遺伝子チップガチャ</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#be185d;">ガチャ (キャラ・チップ・素材)</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">キャラ・遺伝子チップ・進化素材ガチャ</div>
         </div>
         <div class="menu-app-card" style="border-color:#f59e0b; background:linear-gradient(180deg,#ffffff,#fffbeb);" onclick="switchScreen('exchange')">
           <div class="menu-app-icon" style="background:#fef3c7;">🏪</div>
@@ -738,7 +780,7 @@
   <section id="screen-genome" class="screen">
     <div class="subscreen-back-bar">
       <strong style="color:#6d28d9; font-size:0.9rem;">🎒 もちもの ＆ 遺伝子チップ管理（所持: ⚡<span id="genomeAtpText">500</span> ATP / 🧬<span id="genomeMedalText">0</span> メダル）</strong>
-      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+      <div class="subscreen-back-actions">
         <button class="btn btn-secondary" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('shop')">🛒 ATPショップへ</button>
         <button class="btn btn-purple" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('gacha'); switchGachaCategory('chip');">💊 チップガチャへ</button>
         <button class="btn btn-accent" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('exchange'); switchExchangeCategory('chip');">🏪 交換所へ</button>
@@ -774,6 +816,43 @@
 
       <!-- 装着中チップ確認・取り外しエリア（タブ切り替えで表示） -->
       <div id="inventoryEquippedArea" style="display:none; flex-direction:column; gap:10px;"></div>
+    </div>
+  </section>
+
+  <!-- 🧪 ゲノム合成（LR➔XR➔MR 超越進化 ＆ 進化素材合成ラボ） -->
+  <section id="screen-synthesis" class="screen">
+    <div class="subscreen-back-bar">
+      <strong style="color:#be123c; font-size:0.88rem;">🧪 ゲノム合成ラボ（⚡<span id="synthAtpText">500</span> ATP / 🔮ゼノ:<span id="synthXenoCoreCount">0</span> / 🌌ミシック:<span id="synthMythicCoreCount">0</span>）</strong>
+      <div class="subscreen-back-actions">
+        <button class="btn btn-purple" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('gacha'); switchGachaCategory('item');">🎁 素材ガチャへ</button>
+        <button class="btn btn-primary" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('genome')">🎒 もちもの管理</button>
+        <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
+      </div>
+    </div>
+
+    <div class="card" style="border:2.5px solid #f43f5e; background:linear-gradient(180deg, #ffffff 0%, #fff1f2 100%);">
+      <div class="card-title" style="color:#be123c;">🧪 ゲノム合成 ＆ 超越進化（LR ➔ XR ➔ MR）</div>
+      <div class="help-box" style="border-color:#fda4af; background:#fff1f2; color:#881337;">
+        💡 <strong>超越進化システム：</strong>「🎁 アイテム・素材ガチャ（排出率1%）」で手に入る<strong>『🔮 ゼノ・コア』</strong>を使って、Lv.30のLR神個体をさらなる上位ランク<strong>【XR】・【MR】</strong>へと超越進化させることができます！<br>
+        ・<strong>🔥 XR（第1進化 / Lv.30 LR ＋ 🔮ゼノ・コア1個）：</strong>全ステータス <strong>+25</strong> 底上げ ＆ <strong>バトル開始時の初期HPが1.2倍！</strong>（深紅プラズマオーラ＆紫雷エフェクト）<br>
+        ・<strong>🌌 MR（第2進化 / Lv.30 XR ＋ 🌌ミシック・コア1個 または 🔮ゼノ・コア3個）：</strong>全ステータス極限底上げ（累計 <strong>+50</strong>）＋ バトル初期HP1.2倍 ＆ <strong>達成特典『👑 MR専用究極チップ（オリジン・オメガ核）』を1個プレゼント！</strong>（宇宙黒×七色プリズム極光枠＆神の光輪エフェクト）
+      </div>
+
+      <!-- モード切替タブ -->
+      <div class="battle-category-toggle" style="margin-bottom:14px;">
+        <button id="synthTabEvoXr" class="battle-cat-btn active" onclick="switchSynthesisTab('evo_xr')">
+          🔥 第1進化：LR ➔ XR (<span id="synthCountLr">0</span>体)
+        </button>
+        <button id="synthTabEvoMr" class="battle-cat-btn cat-eng" onclick="switchSynthesisTab('evo_mr')">
+          🌌 第2進化：XR ➔ MR (<span id="synthCountXr">0</span>体)
+        </button>
+        <button id="synthTabMat" class="battle-cat-btn cat-junior" onclick="switchSynthesisTab('mat')">
+          🔮 素材合成（コア合成）
+        </button>
+      </div>
+
+      <!-- コンテンツ描画エリア -->
+      <div id="synthesisContentArea"></div>
     </div>
   </section>
 
@@ -1119,7 +1198,7 @@
         <div>
           <label style="font-size:0.75rem; font-weight:900; color:#0369a1; display:block; margin-bottom:3px;">📊 並び替え（〇〇順）</label>
           <select id="boxSortSelect" class="btn-outline" style="width:100%; padding:6px 8px; border-radius:8px; font-weight:800; font-size:0.8rem;" onchange="renderBoxAndParty()">
-            <option value="rarity">👑 レアリティ順 (LR→N)</option>
+            <option value="rarity">👑 レアリティ順 (MR→XR→LR→N)</option>
             <option value="level">🆙 レベル順 (高い順)</option>
             <option value="total">💪 総合ステータス順</option>
             <option value="speed">⚡ すばやさ順</option>
@@ -1170,7 +1249,7 @@
   <section id="screen-shop" class="screen">
     <div class="subscreen-back-bar">
       <strong style="color:#0369a1; font-size:0.9rem;">🛒 ATP バイオ研究所ショップ（所持: ⚡<span id="atpShopBalance">500</span> ATP）</strong>
-      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+      <div class="subscreen-back-actions">
         <button class="btn btn-purple" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('genome')">🎒 もちものを見る</button>
         <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
       </div>
@@ -1194,7 +1273,7 @@
   <section id="screen-gacha" class="screen">
     <div class="subscreen-back-bar">
       <strong style="color:#0369a1; font-size:0.9rem;">💊 カプセル培養＆遺伝子抽出ガチャ（所持: ⚡<span id="gachaAtpText">500</span> ATP / 🧬<span id="gachaMedalText">0</span> メダル）</strong>
-      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+      <div class="subscreen-back-actions">
         <button class="btn btn-accent" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('exchange')">🏪 交換所へ</button>
         <button class="btn btn-purple" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('genome')">🧬 ゲノム編集へ</button>
         <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
@@ -1202,13 +1281,16 @@
     </div>
 
     <div class="card">
-      <!-- 🧫 微生物＆免疫細胞ガチャ vs 🧬 遺伝子チップガチャ 2大モード切替バナー -->
+      <!-- 🧫 微生物＆免疫細胞ガチャ vs 🧬 遺伝子チップガチャ vs 🎁 アイテム・素材ガチャ 3大モード切替バナー -->
       <div class="battle-category-toggle">
         <button id="gachaToggleBio" class="battle-cat-btn active" onclick="switchGachaCategory('bio')">
           🧫 微生物＆免疫細胞ガチャ (全15種)
         </button>
         <button id="gachaToggleChip" class="battle-cat-btn cat-eng" onclick="switchGachaCategory('chip')">
           🧬 遺伝子チップガチャ (全27種)
+        </button>
+        <button id="gachaToggleItem" class="battle-cat-btn cat-junior" onclick="switchGachaCategory('item')">
+          🎁 アイテム・素材ガチャ (進化コア1%)
         </button>
       </div>
 
@@ -1321,6 +1403,67 @@
           </table>
         </div>
       </div>
+
+      <!-- ③ アイテム・進化素材ガチャパネル -->
+      <div id="gachaPanelItem" style="display:none;">
+        <div class="card-title" style="color:#be123c;">🎁 アイテム・進化素材ガチャ（進化素材『🔮ゼノ・コア』1.0%排出！）</div>
+        <div class="help-box" style="border-color:#fda4af; background:#fff1f2; color:#881337;">
+          💡 <strong>99%の確率で即戦力の育成・強化アイテム</strong>（プロテイン液、超成長ホルモン、極限進化エリクサー、黄金フィーバー等）が当たり、<strong>1%の確率で超越進化素材『🔮 ゼノ・コア』</strong>が排出されます！<br>
+          🧪 『🔮 ゼノ・コア』を手に入れたら、メニューの<strong>「🧪 ゲノム合成」</strong>でLv.30のLRを<strong>【XR】・【MR】</strong>へと超越進化させよう！
+        </div>
+
+        <div class="gacha-grid">
+          <div class="gacha-card" style="background:#fffbeb; border-color:#f59e0b;">
+            <div style="font-size:2.2rem;">🎁</div>
+            <h3>アイテム・素材 単発ガチャ</h3>
+            <p style="font-size:0.8rem; color:var(--text-sub);">育成アイテム or 進化素材を1個抽出 ＋ 🧬5 メダル獲得</p>
+            <button class="btn btn-accent" style="width:100%; margin-top:auto;" onclick="pullItemGacha(1)">⚡ 300 ATP で1回引く</button>
+          </div>
+          <div class="gacha-card" style="background:linear-gradient(180deg, #fff1f2, #fae8ff); border-color:#e11d48;">
+            <div style="font-size:2.2rem;">🔮✨</div>
+            <h3>アイテム・素材 10連ガチャ（1回分お得！）</h3>
+            <p style="font-size:0.8rem; color:#be123c; font-weight:800;">一気に10個抽出（1回分お得！）＋ 🧬50 メダル獲得！</p>
+            <button class="btn btn-purple" style="width:100%; margin-top:auto; font-size:0.95rem; padding:12px; background:linear-gradient(135deg, #e11d48, #7e22ce);" onclick="pullItemGacha(10)">⚡ 2700 ATP で10連を引く！</button>
+          </div>
+        </div>
+
+        <div id="itemPullResultsBox" class="ten-pull-results">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="font-size:1rem; color:#fde047;">🎊 アイテム・素材ガチャ結果！</strong>
+            <button class="btn btn-outline" style="padding:3px 10px; font-size:0.75rem;" onclick="document.getElementById('itemPullResultsBox').style.display='none'">閉じる</button>
+          </div>
+          <div id="itemPullGrid" class="ten-pull-grid"></div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <div style="font-weight:900; font-size:0.88rem; margin-bottom:4px;">📊 アイテム・進化素材ガチャ排出確率一覧（単発・10連共通）</div>
+          <table class="prob-table">
+            <thead>
+              <tr><th>区分</th><th>アイテム・素材名</th><th>効果・用途</th><th>排出率</th></tr>
+            </thead>
+            <tbody>
+              <tr style="background:#fff1f2; font-weight:900; color:#be123c;">
+                <td>🔮 超激レア素材</td><td><strong>🔮 ゼノ・コア（超越進化核）</strong></td><td>Lv.30 LRを【XR】へ進化！3個合成で『🌌ミシック・コア（MR進化素材）』に進化！</td><td><strong>1.0 %</strong></td>
+              </tr>
+              <tr style="background:#fefce8; font-weight:800; color:#b45309;">
+                <td>👑 最高級育成</td><td>👑 極限進化エリクサー</td><td>対象キャラを一瞬で【Lv.30（第5形態）】までMAX進化！</td><td>5.0 %</td>
+              </tr>
+              <tr style="background:#f0fdfa; font-weight:800; color:#0d9488;">
+                <td>🧪 上級育成</td><td>🧪 超成長ホルモン注射</td><td>対象キャラのレベルを【即座に +5 UP】！</td><td>18.0 %</td>
+              </tr>
+              <tr>
+                <td>🍬 フィーバー</td><td>🍬✨ 黄金フィーバー栄養剤</td><td>シャーレに特大経験値の黄金粒を一気に15個散布！</td><td>18.0 %</td>
+              </tr>
+              <tr>
+                <td>✨ カスタム</td><td>✨ スキル書き換えカプセル / 📚 得意教科チューナー</td><td>固有スキルの指名変更（12%） / 得意教科の指名変更（12%）</td><td>計 24.0 %</td>
+              </tr>
+              <tr>
+                <td>🍼 基本育成</td><td>🍼 高濃度プロテイン液</td><td>対象キャラに【経験値 +120】を即座に付与！</td><td>34.0 %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1328,7 +1471,7 @@
   <section id="screen-exchange" class="screen">
     <div class="subscreen-back-bar">
       <strong style="color:#0369a1; font-size:0.9rem;">🏪 研究所メダル交換所（所持: 🧬<span id="shopMedalText">0</span> メダル / ⚡<span id="exchangeAtpText">500</span> ATP）</strong>
-      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+      <div class="subscreen-back-actions">
         <button class="btn btn-primary" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('gacha')">💊 ガチャへ</button>
         <button class="btn btn-purple" style="padding:4px 10px; font-size:0.76rem;" onclick="switchScreen('genome')">🧬 ゲノム編集へ</button>
         <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
@@ -2870,6 +3013,12 @@ const GENE_CHIPS_MASTER = [
     id: 'chip_sp_mast_cell', speciesId: 'mast_cell', name: '🧬 ヒスタミン過剰脱顆粒', rarity: 'SR', icon: '💣',
     desc: '【マスト細胞系専用】相手から攻撃を受けた際、相手に最大HP15%の炎症固定ダメージ！',
     color: '#e11d48', rate: 0.8
+  },
+  // ================= 🌌 MR達成特典：MRランク専用究極遺伝子チップ（ガチャ・交換所非売品！） =================
+  {
+    id: 'chip_mr_origin', isMrOnly: true, name: '🌌 オリジン・オメガ核（MR究極チップ）', rarity: 'MR', icon: '👑',
+    desc: '【MRランク専用・MR進化達成特典】全ステータス+25 ＆ 与えるダメージ1.25倍 ＆ 受けるダメージ20%軽減 ＆ 正解時HP15%自己再生！',
+    color: '#a855f7', rate: 0
   }
 ];
 
@@ -3035,7 +3184,9 @@ const TITLES_MASTER = [
   // --- 🧫 育成・コレクション・遺伝子系 ---
   { id: 't_lv30', name: '🐉 極限進化の到達者', condText: 'Lv.30（第5形態）の微生物を育てる', check: s => s.box.some(m => m.level >= 30) },
   { id: 't_mutant', name: '🌟 突然変異ハンター', condText: '突然変異種を仲間にする', check: s => s.box.some(m => m.isMutant) },
-  { id: 't_god', name: '🌌 神個体(LR)の覚醒者', condText: 'LR（変異種×感覚100）を仲間にする', check: s => s.box.some(m => m.rarity === 'LR') },
+  { id: 't_god', name: '🌌 神個体(LR)の覚醒者', condText: 'LR以上の神個体を仲間にする', check: s => s.box.some(m => m.rarity === 'LR' || m.rarity === 'XR' || m.rarity === 'MR') },
+  { id: 't_xr_evo', name: '🔥 超越変異(XR)の開拓者', condText: 'ゲノム合成でLRを【XR】へ超越進化させる', check: s => s.box.some(m => m.rarity === 'XR' || m.rarity === 'MR') },
+  { id: 't_mr_evo', name: '👑 神話起源(MR)の創造神', condText: 'ゲノム合成でXRを最高峰【MR】へ神話覚醒させる', check: s => s.box.some(m => m.rarity === 'MR') },
   { id: 't_collector', name: '📘 バイオ図鑑コンプリーター', condText: '手持ちボックスを15体以上にする', check: s => s.box.length >= 15 },
   { id: 't_first_chip', name: '🧬 遺伝子カスタムの第一歩', condText: 'いずれかのキャラに遺伝子チップを1枚以上装備させる', check: s => s.box.some(m => Array.isArray(m.chips) && m.chips.filter(Boolean).length >= 1) },
   { id: 't_dual_genome', name: '🧬 デュアルゲノムの開拓者', condText: 'いずれかのキャラに遺伝子チップを2枠とも装備させる', check: s => s.box.some(m => Array.isArray(m.chips) && m.chips.filter(Boolean).length >= 2) },
@@ -5244,6 +5395,17 @@ QUIZ_MASTER.forEach(q => {
 const NEWS_MASTER = [
   {
     ver: 'Ver 1.0',
+    date: '2026-11-22',
+    title: '🧪 新ランク【XR】【MR】超越進化 ＆ 🎁 アイテム・進化素材ガチャ ＆ ゲノム合成ラボ新設アプデ！',
+    items: [
+      '【🎁 アイテム・進化素材ガチャ新設】ガチャ画面に第3のモード「🎁 アイテム・素材ガチャ」を新設！99%の確率で即戦力の育成・強化アイテム（プロテイン液、超成長ホルモン、極限進化エリクサー、黄金フィーバー等）が排出され、1.0%の確率で超越進化素材『🔮 ゼノ・コア』が排出されます！',
+      '【🧪 メニューに「ゲノム合成」ラボを新設】メニューからいつでもアクセスできる「🧪 ゲノム合成（XR・MR進化 ＆ 素材合成）」を新設！Lv.30のLRキャラのさらなる進化と、ゼノ・コア3個から上位素材『🌌 ミシック・コア』への合成を行えます！',
+      '【🔥 第1超越進化「XR」解禁】Lv.30のLR＋『🔮 ゼノ・コア』1個で【XR】へ進化！全ステータスが +25 底上げされ、さらに【バトル開始時の初期HPが1.2倍】に強化！深紅プラズマオーラ＆紫の稲妻エフェクトを纏います！',
+      '【🌌 第2神話覚醒「MR」＆ 専用究極チップ特典】Lv.30のXR＋『🌌 ミシック・コア』1個（またはゼノ・コア3個）で最高峰【MR】へ覚醒！全ステータス極限底上げ（累計+50）＆初期HP1.2倍に加え、達成特典としてMRキャラのみ装備可能な『👑 オリジン・オメガ核（全ステ+25＆与ダメ1.25倍＆被ダメ20%軽減＆正解時HP15%再生）』が1個プレゼントされます！'
+    ]
+  },
+  {
+    ver: 'Ver 1.0',
     date: '2026-11-20',
     title: '🧪 有機化学・セミナー化学完全準拠 ＆ 全教科・全単元・全難易度480問超の大規模拡充アプデ！',
     items: [
@@ -5804,6 +5966,28 @@ const ITEMS_MASTER = [
     color: '#d97706',
     bgColor: '#fefce8',
     borderColor: '#fde047'
+  },
+  {
+    id: 'item_xeno_core',
+    icon: '🔮',
+    name: 'ゼノ・コア（第1超越進化核）',
+    desc: '【アイテムガチャ1%限定】Lv.30のLR神個体を【XR】へと進化させる超越核！3個集めると『🌌ミシック・コア』に合成可能！',
+    cost: 0,
+    category: 'evo_mat',
+    color: '#e11d48',
+    bgColor: '#fff1f2',
+    borderColor: '#fda4af'
+  },
+  {
+    id: 'item_mythic_core',
+    icon: '🌌',
+    name: 'ミシック・コア（神話合成進化核）',
+    desc: '【ゼノ・コア3個で合成】Lv.30のXR個体を最高峰【MR】へ覚醒させ、特典『👑オリジン・オメガ核』を授ける神話核！',
+    cost: 0,
+    category: 'evo_mat',
+    color: '#7c3aed',
+    bgColor: '#faf5ff',
+    borderColor: '#d8b4fe'
   }
 ];
 
@@ -6047,11 +6231,29 @@ function onBattlePresetChange(val) {
   }
 }
 
-// 自分の最新プロフィール＆出撃パーティ3体をFirebase(playersコレクション)に自動同期
-function syncMyProfileToCloud() {
+// 自分の最新プロフィール＆出撃パーティ3体をFirebase(playersコレクション)に自動同期（デバウンス付きで画面カクつき完全防止！）
+let cloudSyncDebounceTimer = null;
+function syncMyProfileToCloud(immediate = false) {
   if (!db || !state.friendCode) return;
   if (state.isTestAccount) return; // 🔧 テストアカウントはランキングに一切送らない！
 
+  if (!immediate) {
+    if (cloudSyncDebounceTimer) return;
+    cloudSyncDebounceTimer = setTimeout(() => {
+      cloudSyncDebounceTimer = null;
+      executeSyncMyProfileToCloud();
+    }, 3500);
+    return;
+  }
+  if (cloudSyncDebounceTimer) {
+    clearTimeout(cloudSyncDebounceTimer);
+    cloudSyncDebounceTimer = null;
+  }
+  executeSyncMyProfileToCloud();
+}
+
+function executeSyncMyProfileToCloud() {
+  if (!db || !state.friendCode || state.isTestAccount) return;
   const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
   const myData = getMyPlayerRankData();
   let partyTeam = [];
@@ -6261,13 +6463,29 @@ function applyChipStatDelta(m, chipId, dir) {
     m.stats.size = Math.max(1, (m.stats.size || 50) + sign * 20);
   } else if (chipId === 'chip_sp_tardigrade') {
     m.stats.defense = Math.max(1, (m.stats.defense || 50) + sign * 15);
+  } else if (chipId === 'chip_mr_origin') {
+    m.stats.speed = Math.max(1, (m.stats.speed || 50) + sign * 25);
+    m.stats.size = Math.max(1, (m.stats.size || 50) + sign * 25);
+    m.stats.defense = Math.max(1, (m.stats.defense || 50) + sign * 25);
+    m.stats.fuel = Math.max(1, (m.stats.fuel || 50) + sign * 25);
   }
 }
 
 function migrateMicrobe(m) {
+  if (!m.stats) m.stats = { speed: 60, size: 60, defense: 65, fuel: 60, sense: 0 };
   if (m.stats.defense === undefined) m.stats.defense = 65;
   if (!m.effort) m.effort = { speed: 0, size: 0, defense: 0, fuel: 0 };
   if (!m.chips) m.chips = [null, null];
+
+  // 🛡️ レアリティ欠落・異常値の自動復元補正（変異×感覚100の個体がLR認識されない現象を完全防止！）
+  if (!['N', 'R', 'SR', 'UR', 'LR', 'XR', 'MR'].includes(m.rarity)) {
+    if (m.isMutant && m.stats.sense >= 100) m.rarity = 'LR';
+    else if (m.isMutant || m.stats.sense >= 100) m.rarity = 'UR';
+    else if (m.stats.sense >= 50) m.rarity = 'SR';
+    else m.rarity = 'R';
+  } else if (m.isMutant && m.stats.sense >= 100 && !['LR', 'XR', 'MR'].includes(m.rarity)) {
+    m.rarity = 'LR';
+  }
 
   // 🧬 スロット移行保護：スロット1に汎用チップが入っている場合、安全にスロット2へ移動（スロット2が埋まっていれば手持ち返却）
   if (m.chips[0]) {
@@ -6378,11 +6596,11 @@ function importSaveBackupFromCeremony() {
   importSaveBackupFromInput('ceremonyImportCodeInput');
 }
 
-function saveData() {
+let saveLocalDebounceTimer = null;
+function saveData(fromPetriFood = false) {
   if (isDataResetting) return; // ★ リセット実行中は一切の再書き込みをシャットアウト！
   try {
-    localStorage.setItem('biologica_save_v50', JSON.stringify(state));
-    localStorage.setItem('biologica_save_v40', JSON.stringify(state));
+    // 画面上のATP・メダル数値は常に0秒で即時更新（DOMの軽いテキスト書き換えのみ）
     const atpEl = document.getElementById('atpDisplay');
     if (atpEl) atpEl.textContent = state.atp;
     const medalEl = document.getElementById('medalDisplay');
@@ -6401,10 +6619,35 @@ function saveData() {
     if (genMdl) genMdl.textContent = state.medals;
     const atpShopB = document.getElementById('atpShopBalance');
     if (atpShopB) atpShopB.textContent = state.atp;
-    updatePresentBadge();
-    updateNewsBadge();
-    updateDebugUiBanner();
-    syncMyProfileToCloud();
+    const synthAtp = document.getElementById('synthAtpText');
+    if (synthAtp) synthAtp.textContent = state.atp;
+
+    // シャーレのエサ連続捕食時は重いJSONシリアライズ＆localStorage書き込みを0.6秒おきにまとめて画面カクつきを完全根絶！
+    const flushLocalSave = () => {
+      if (isDataResetting) return;
+      const serialized = JSON.stringify(state);
+      localStorage.setItem('biologica_save_v50', serialized);
+      localStorage.setItem('biologica_save_v40', serialized);
+      updatePresentBadge();
+      updateNewsBadge();
+      updateDebugUiBanner();
+      syncMyProfileToCloud(false);
+    };
+
+    if (fromPetriFood) {
+      if (!saveLocalDebounceTimer) {
+        saveLocalDebounceTimer = setTimeout(() => {
+          saveLocalDebounceTimer = null;
+          flushLocalSave();
+        }, 600);
+      }
+    } else {
+      if (saveLocalDebounceTimer) {
+        clearTimeout(saveLocalDebounceTimer);
+        saveLocalDebounceTimer = null;
+      }
+      flushLocalSave();
+    }
   } catch (err) {
     console.warn('saveData error:', err);
   }
@@ -6956,7 +7199,7 @@ function switchScreen(screenId, btnEl) {
     if (screenId === 'petri') document.getElementById('mainTabPetri')?.classList.add('active');
     else if (screenId === 'battle') document.getElementById('mainTabBattle')?.classList.add('active');
     else if (screenId === 'friends') document.getElementById('mainTabFriends')?.classList.add('active');
-    else if (['menu', 'tower', 'box', 'shop', 'gacha', 'exchange', 'genome', 'pedia', 'mistakes', 'profile', 'settings', 'help', 'handbook'].includes(screenId)) {
+    else if (['menu', 'tower', 'box', 'synthesis', 'shop', 'gacha', 'exchange', 'genome', 'pedia', 'mistakes', 'profile', 'settings', 'help', 'handbook'].includes(screenId)) {
       document.getElementById('mainTabMenu')?.classList.add('active');
     }
   }
@@ -6964,6 +7207,7 @@ function switchScreen(screenId, btnEl) {
   if (screenId === 'petri') renderPetriStatusCard();
   if (screenId === 'tower') renderTowerLobby();
   if (screenId === 'box') renderBoxAndParty();
+  if (screenId === 'synthesis') renderSynthesisScreen();
   if (screenId === 'shop') renderAtpShop();
   if (screenId === 'gacha') {
     const gAtp = document.getElementById('gachaAtpText');
@@ -7146,12 +7390,78 @@ petriCanvas.addEventListener('touchmove', e => {
   if (e.touches[0]) updatePointerTarget(e.touches[0].clientX, e.touches[0].clientY);
 }, { passive: true });
 
-/* 全5段階進化ビジュアル描画（ユーザー選択：第2案 豪華Canvas 2D進化エフェクト！） */
+/* 全5段階進化ビジュアル描画（ユーザー選択：第2案 豪華Canvas 2D進化エフェクト ＆ XR深紅プラズマ＆紫雷 / MR宇宙黒×七色極光光輪！） */
 function drawMicrobe(ctx, x, y, r, m, tick) {
   const sp = getSpecies(m.speciesId);
   const stg = m.evoStage || 0;
   ctx.save();
   ctx.translate(x, y);
+
+  // 0. 🌌 MR（第2超越進化）：宇宙黒×七色プリズムの極光オーラ ＆ 神の光輪（ダブルセレスティアルリング）
+  if (m.rarity === 'MR') {
+    ctx.beginPath();
+    ctx.arc(0, 0, r + 24 + Math.sin(tick * 0.12) * 3.5, 0, Math.PI * 2);
+    const mrGrad = ctx.createRadialGradient(0, 0, r * 0.8, 0, 0, r + 28);
+    mrGrad.addColorStop(0, 'rgba(15, 23, 42, 0.85)');
+    mrGrad.addColorStop(0.35, 'rgba(168, 85, 247, 0.65)');
+    mrGrad.addColorStop(0.65, 'rgba(6, 182, 212, 0.45)');
+    mrGrad.addColorStop(0.85, 'rgba(250, 204, 21, 0.35)');
+    mrGrad.addColorStop(1, 'rgba(236, 72, 153, 0.0)');
+    ctx.fillStyle = mrGrad;
+    ctx.fill();
+
+    // 神の光輪（外周の黄金＆七色プリズム回転リング）
+    ctx.save();
+    ctx.rotate(tick * 0.04);
+    ctx.beginPath();
+    ctx.arc(0, 0, r + 21, 0, Math.PI * 2);
+    ctx.strokeStyle = '#fef08a';
+    ctx.lineWidth = 2.8;
+    ctx.setLineDash([10, 5]);
+    ctx.stroke();
+    for (let i = 0; i < 6; i++) {
+      const ang = (Math.PI * 2 * i) / 6;
+      const hx = Math.cos(ang) * (r + 21);
+      const hy = Math.sin(ang) * (r + 21);
+      ctx.beginPath();
+      ctx.arc(hx, hy, 4.2, 0, Math.PI * 2);
+      ctx.fillStyle = i % 2 === 0 ? '#38bdf8' : '#f472b6';
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // 0.5 🔥 XR（第1超越進化）＆ MR共通：深紅プラズマオーラ ＆ 紫の稲妻スパーク粒子
+  if (m.rarity === 'XR' || m.rarity === 'MR') {
+    ctx.beginPath();
+    ctx.arc(0, 0, r + 19 + Math.cos(tick * 0.15) * 2.5, 0, Math.PI * 2);
+    const xrGrad = ctx.createRadialGradient(0, 0, r, 0, 0, r + 22);
+    xrGrad.addColorStop(0, 'rgba(225, 29, 72, 0.55)');
+    xrGrad.addColorStop(0.55, 'rgba(147, 51, 234, 0.35)');
+    xrGrad.addColorStop(1, 'rgba(225, 29, 72, 0.0)');
+    ctx.fillStyle = xrGrad;
+    ctx.fill();
+
+    // 紫の稲妻スパーク（ジグザグ放電エフェクト）
+    ctx.save();
+    ctx.strokeStyle = m.rarity === 'MR' ? '#38bdf8' : '#d8b4fe';
+    ctx.lineWidth = 2.2;
+    for (let i = 0; i < 4; i++) {
+      const baseA = tick * 0.06 + (Math.PI * i) / 2;
+      const r1 = r + 5;
+      const r2 = r + 13;
+      const r3 = r + 20;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(baseA) * r1, Math.sin(baseA) * r1);
+      ctx.lineTo(Math.cos(baseA + 0.14) * r2, Math.sin(baseA + 0.14) * r2);
+      ctx.lineTo(Math.cos(baseA - 0.08) * r3, Math.sin(baseA - 0.08) * r3);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
 
   // 1. 第5形態（極限完全体）：8方向レーザークリスタル ＆ 神聖な光背（ヘイロー）
   if (stg >= 4) {
@@ -7346,16 +7656,18 @@ function drawMicrobe(ctx, x, y, r, m, tick) {
   ctx.restore();
 }
 
-function gainExp(m, amt) {
+function gainExp(m, amt, fromPetriFood = false) {
   if (m.level >= MAX_LEVEL) {
     m.exp = 0;
-    saveData(); // ★ Lv.30のキャラが餌を食べた時も必ずATP表示とセーブデータを更新する！
+    saveData(fromPetriFood); // ★ Lv.30のキャラが餌を食べた時もATP表示を更新し、負荷なく軽量保存する！
     return;
   }
   m.exp += amt;
+  let leveledUp = false;
   while (m.level < MAX_LEVEL && m.exp >= m.level * 22) {
     m.exp -= m.level * 22;
     m.level++;
+    leveledUp = true;
     m.stats.speed += 1;
     m.stats.size += 1;
     m.stats.defense += 1;
@@ -7384,7 +7696,7 @@ function gainExp(m, amt) {
       break;
     }
   }
-  saveData();
+  saveData(fromPetriFood && !leveledUp);
 }
 
 function unlockPedia(m) {
@@ -7394,6 +7706,24 @@ function unlockPedia(m) {
 
 function petriLoop() {
   animTick++;
+
+  // ★ 他画面（もちもの・ゲノム合成・ガチャ・対戦など）を開いている時に、裏で60fpsの重いCanvas描画やステータスパネルDOM再構築が走って画面がカクつくのを完全防止！
+  if (currentScreen !== 'petri') {
+    if (state.autoEat !== false && animTick % 50 === 0) {
+      const mBg = getMicrobeById(state.activeId);
+      if (mBg) {
+        if (foods.length < 10) spawnAtpFood(1);
+        if (foods.length > 0) {
+          const fBg = foods.pop();
+          state.atp += fBg.atp;
+          gainExp(mBg, fBg.exp, true);
+        }
+      }
+    }
+    requestAnimationFrame(petriLoop);
+    return;
+  }
+
   pCtx.clearRect(0, 0, petriCanvas.width, petriCanvas.height);
 
   pCtx.strokeStyle = 'rgba(13, 148, 136, 0.1)';
@@ -7470,8 +7800,8 @@ function petriLoop() {
       if (Math.hypot(playerPos.x - f.x, playerPos.y - f.y) < r + f.r + 12) {
         foods.splice(i, 1);
         state.atp += f.atp;
-        gainExp(m, f.exp);
-        renderPetriStatusCard();
+        gainExp(m, f.exp, true);
+        if (currentScreen === 'petri') renderPetriStatusCard();
       }
     }
 
@@ -7671,7 +8001,7 @@ let selectedPartySlotForSwap = null; // 0:先鋒, 1:中堅, 2:大将（枠をタ
 let editingMicrobeUid = null;
 
 function getRarityRank(r) {
-  return { LR: 5, UR: 4, SR: 3, R: 2, N: 1 }[r] || 0;
+  return { MR: 7, XR: 6, LR: 5, UR: 4, SR: 3, R: 2, N: 1 }[r] || 0;
 }
 
 function getTotalStats(m) {
@@ -7813,9 +8143,10 @@ function renderBoxAndParty() {
     const slotIdx = curPreset.ids.indexOf(m.uid);
     const inPreset = slotIdx >= 0;
     const roleBadge = inPreset ? `<span style="background:#0284c7; color:white; font-size:0.68rem; font-weight:900; padding:1px 6px; border-radius:999px;">🚩${roles[slotIdx]}</span>` : '';
+    const rarityCardCls = m.rarity === 'MR' ? 'card-rarity-MR' : (m.rarity === 'XR' ? 'card-rarity-XR' : '');
 
     return `
-      <div class="box-item ${isTrain ? 'active-train' : ''} ${inPreset ? 'in-party' : ''}">
+      <div class="box-item ${isTrain ? 'active-train' : ''} ${inPreset ? 'in-party' : ''} ${rarityCardCls}">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
           <div style="display:flex; gap:4px; align-items:center;">
             <span class="rarity-tag rarity-${m.rarity}">${m.rarity}</span>
@@ -8288,23 +8619,20 @@ let currentGachaCategory = 'bio';
 let currentExchangeCategory = 'char';
 
 function switchGachaCategory(mode) {
-  currentGachaCategory = mode === 'chip' ? 'chip' : 'bio';
+  currentGachaCategory = (mode === 'chip' || mode === 'item') ? mode : 'bio';
   const btnBio = document.getElementById('gachaToggleBio');
   const btnChip = document.getElementById('gachaToggleChip');
+  const btnItem = document.getElementById('gachaToggleItem');
   const panelBio = document.getElementById('gachaPanelBio');
   const panelChip = document.getElementById('gachaPanelChip');
+  const panelItem = document.getElementById('gachaPanelItem');
 
-  if (currentGachaCategory === 'chip') {
-    if (btnBio) btnBio.classList.remove('active');
-    if (btnChip) btnChip.classList.add('active');
-    if (panelBio) panelBio.style.display = 'none';
-    if (panelChip) panelChip.style.display = 'block';
-  } else {
-    if (btnBio) btnBio.classList.add('active');
-    if (btnChip) btnChip.classList.remove('active');
-    if (panelBio) panelBio.style.display = 'block';
-    if (panelChip) panelChip.style.display = 'none';
-  }
+  if (btnBio) btnBio.classList.toggle('active', currentGachaCategory === 'bio');
+  if (btnChip) btnChip.classList.toggle('active', currentGachaCategory === 'chip');
+  if (btnItem) btnItem.classList.toggle('active', currentGachaCategory === 'item');
+  if (panelBio) panelBio.style.display = currentGachaCategory === 'bio' ? 'block' : 'none';
+  if (panelChip) panelChip.style.display = currentGachaCategory === 'chip' ? 'block' : 'none';
+  if (panelItem) panelItem.style.display = currentGachaCategory === 'item' ? 'block' : 'none';
 }
 
 function switchExchangeCategory(mode) {
@@ -8455,19 +8783,20 @@ function renderInventory() {
 
   let cardsHtml = '';
 
-  // 育成アイテム群
+  // 育成アイテム・進化素材群
   if (currentInventoryTab === 'all' || currentInventoryTab === 'items') {
     ITEMS_MASTER.forEach(it => {
       const count = state.ownedItems[it.id] || 0;
       const hasItem = count > 0;
       const isFever = it.id === 'item_gold_fever';
+      const isEvoMat = it.category === 'evo_mat';
 
       cardsHtml += `
         <div class="card" style="padding:12px; display:flex; flex-direction:column; gap:6px; border-color:${hasItem ? it.borderColor : '#e2e8f0'}; background:${hasItem ? it.bgColor : '#f8fafc'}; opacity:${hasItem ? '1' : '0.65'};">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <div style="display:flex; align-items:center; gap:6px;">
               <span style="font-size:1.6rem;">${it.icon}</span>
-              <span style="background:#e0f2fe; color:#0369a1; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">育成アイテム</span>
+              <span style="background:${isEvoMat ? '#ffe4e6' : '#e0f2fe'}; color:${isEvoMat ? '#be123c' : '#0369a1'}; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">${isEvoMat ? '超越進化素材' : '育成アイテム'}</span>
             </div>
             <span style="font-size:0.76rem; font-weight:900; background:white; color:${hasItem ? it.color : '#94a3b8'}; padding:2px 8px; border-radius:999px; border:1px solid ${hasItem ? it.borderColor : '#cbd5e1'};">
               所持: ${count}個
@@ -8476,7 +8805,17 @@ function renderInventory() {
           <div style="font-weight:900; font-size:0.92rem; color:${hasItem ? it.color : '#475569'};">${it.name}</div>
           <div style="font-size:0.72rem; color:var(--text-sub); line-height:1.35; flex:1;">${it.desc}</div>
           <div style="margin-top:4px;">
-            ${hasItem ? (
+            ${isEvoMat ? (
+              it.id === 'item_xeno_core' ? (
+                hasItem
+                  ? `<button class="btn btn-purple" style="width:100%; font-size:0.76rem; font-weight:900; background:linear-gradient(135deg,#e11d48,#7e22ce);" onclick="switchScreen('synthesis'); switchSynthesisTab('evo_xr');">🔥 LRを選んで【XR】へ進化させる</button>`
+                  : `<button class="btn btn-outline" style="width:100%; font-size:0.74rem; font-weight:800; color:#be123c;" onclick="switchScreen('gacha'); switchGachaCategory('item');">🎁 アイテム・素材ガチャで入手</button>`
+              ) : (
+                hasItem
+                  ? `<button class="btn btn-purple" style="width:100%; font-size:0.76rem; font-weight:900; background:linear-gradient(135deg,#0f172a,#7c3aed,#ec4899); color:#fef08a;" onclick="switchScreen('synthesis'); switchSynthesisTab('evo_mr');">🌌 XRを選んで【MR】へ進化させる</button>`
+                  : `<button class="btn btn-outline" style="width:100%; font-size:0.74rem; font-weight:800; color:#6d28d9;" onclick="switchScreen('synthesis'); switchSynthesisTab('mat');">🔮 ゼノ・コア3個で合成して作る</button>`
+              )
+            ) : hasItem ? (
               isFever
                 ? `<button class="btn btn-accent" style="width:100%; font-size:0.76rem; font-weight:900;" onclick="useGoldFeverFromInv()">🍬 今すぐシャーレに散布 (残${count}個)</button>`
                 : `<button class="btn btn-primary" style="width:100%; font-size:0.76rem; font-weight:900;" onclick="openInventoryTargetModal('${it.id}', false)">🎯 キャラを選んで使う</button>`
@@ -8495,19 +8834,23 @@ function renderInventory() {
       const count = state.ownedChips[c.id] || 0;
       const hasChip = count > 0;
       const isDedicated = !!c.speciesId;
+      const isMrOnly = !!c.isMrOnly;
       const spObj = isDedicated ? getSpecies(c.speciesId) : null;
 
-      // 未所持の場合はチップタブのみ表示、あるいはallでは所持済み優先
+      // 未所持のMR特典チップは非表示、またallタブでは所持済み優先
+      if (isMrOnly && !hasChip) return;
       if (currentInventoryTab === 'all' && !hasChip) return;
 
       cardsHtml += `
         <div class="card" style="padding:12px; display:flex; flex-direction:column; gap:6px; border-color:${hasChip ? c.color : '#e2e8f0'}; background:${hasChip ? '#ffffff' : '#f8fafc'}; opacity:${hasChip ? '1' : '0.65'};">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <div style="display:flex; align-items:center; gap:5px;">
-              <span class="rarity-tag" style="background:${c.color}; font-size:0.68rem;">${c.rarity}</span>
-              ${isDedicated
-                ? `<span style="background:#ede9fe; color:#6d28d9; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">${spObj ? spObj.name : ''}専用</span>`
-                : `<span style="background:#e0f2fe; color:#0369a1; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">全キャラ共通</span>`
+              <span class="rarity-tag ${c.rarity === 'MR' ? 'rarity-MR' : ''}" style="${c.rarity === 'MR' ? '' : `background:${c.color};`} font-size:0.68rem;">${c.rarity}</span>
+              ${isMrOnly
+                ? `<span style="background:#fef3c7; color:#b45309; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">👑 MRランク専用</span>`
+                : isDedicated
+                  ? `<span style="background:#ede9fe; color:#6d28d9; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">${spObj ? spObj.name : ''}専用</span>`
+                  : `<span style="background:#e0f2fe; color:#0369a1; font-size:0.66rem; font-weight:900; padding:1px 6px; border-radius:999px;">全キャラ共通</span>`
               }
             </div>
             <span style="font-size:0.76rem; font-weight:900; background:white; color:${hasChip ? c.color : '#94a3b8'}; padding:2px 8px; border-radius:999px; border:1px solid ${hasChip ? c.color : '#cbd5e1'};">
@@ -8518,8 +8861,8 @@ function renderInventory() {
           <div style="font-size:0.72rem; color:var(--text-sub); line-height:1.35; flex:1;">${c.desc}</div>
           <div style="margin-top:4px;">
             ${hasChip ? `
-              <button class="btn ${isDedicated ? 'btn-purple' : 'btn-primary'}" style="width:100%; font-size:0.76rem; font-weight:900;" onclick="openInventoryTargetModal('${c.id}', true)">
-                ${isDedicated ? '🧬 専用枠1に装備' : '⚙️ 自由枠2に装備'}
+              <button class="btn ${isDedicated || isMrOnly ? 'btn-purple' : 'btn-primary'}" style="width:100%; font-size:0.76rem; font-weight:900;" onclick="openInventoryTargetModal('${c.id}', true)">
+                ${isDedicated ? '🧬 専用枠1に装備' : (isMrOnly ? '👑 MRキャラ自由枠2に装備' : '⚙️ 自由枠2に装備')}
               </button>
             ` : `
               <button class="btn btn-outline" style="width:100%; font-size:0.74rem; font-weight:800; color:#8b5cf6;" onclick="switchScreen('gacha'); switchGachaCategory('chip');">💊 ガチャで入手</button>
@@ -8608,7 +8951,15 @@ function openInventoryTargetModal(id, isChip) {
     }
 
     if (extraArea) {
-      if (isDedicated) {
+      if (chip.isMrOnly) {
+        extraArea.style.display = 'block';
+        extraArea.innerHTML = `
+          <div style="font-size:0.75rem; font-weight:900; color:#7c3aed;">
+            👑 このチップは<strong>【MRランク専用・究極特典チップ】</strong>です！<br>
+            <strong>MRランクのキャラのみ</strong>【⚙️ スロット2（自由枠）】に装着でき、全ステータス+25＆与ダメ1.25倍＆被ダメ20%軽減＆HP15%再生を発動します！
+          </div>
+        `;
+      } else if (isDedicated) {
         extraArea.style.display = 'block';
         extraArea.innerHTML = `
           <div style="font-size:0.75rem; font-weight:900; color:#6d28d9;">
@@ -8703,7 +9054,7 @@ function renderInventoryTargetList() {
   }
 
   // 2. ソート順
-  const rarityRank = { 'LR': 4, 'UR': 3, 'SR': 2, 'R': 1, 'N': 0 };
+  const rarityRank = { 'MR': 6, 'XR': 5, 'LR': 4, 'UR': 3, 'SR': 2, 'R': 1, 'N': 0 };
   list.sort((a, b) => {
     if (sortVal === 'rarity') {
       const rDiff = (rarityRank[b.rarity] || 0) - (rarityRank[a.rarity] || 0);
@@ -8741,7 +9092,12 @@ function renderInventoryTargetList() {
     let canEquipChip = true;
     let chipBlockReason = '';
     if (isChip && chip) {
-      if (chip.speciesId) {
+      if (chip.isMrOnly) {
+        if (m.rarity !== 'MR') {
+          canEquipChip = false;
+          chipBlockReason = '🔒【MRランク】キャラ専用';
+        }
+      } else if (chip.speciesId) {
         // 専用チップ
         if (chip.speciesId !== m.speciesId) {
           canEquipChip = false;
@@ -8912,6 +9268,12 @@ function equipChipOnTargetFromInv(uid, chipId) {
   if (!m.chips) m.chips = [null, null];
   const slotIdx = chip.speciesId ? 0 : 1;
 
+  // MR専用チップチェック
+  if (chip.isMrOnly && m.rarity !== 'MR') {
+    showToast('⚠️ このチップは【MRランク】に覚醒したキャラ専用です！');
+    return;
+  }
+
   // 種族専用チェック
   if (chip.speciesId && chip.speciesId !== m.speciesId) {
     const spReq = getSpecies(chip.speciesId);
@@ -8995,12 +9357,496 @@ function rollOneChip() {
   else if (roll < 38.5) targetRarity = 'R';
   else targetRarity = 'N';
 
-  const pool = GENE_CHIPS_MASTER.filter(c => c.rarity === targetRarity);
+  const pool = GENE_CHIPS_MASTER.filter(c => c.rarity === targetRarity && !c.isMrOnly);
   const chip = pool[Math.floor(Math.random() * pool.length)];
 
   if (!state.ownedChips) state.ownedChips = {};
   state.ownedChips[chip.id] = (state.ownedChips[chip.id] || 0) + 1;
   return chip;
+}
+
+/* ============================================================================
+   4.9 🎁 アイテム・進化素材ガチャ（99%: 育成・強化アイテム / 1%: 進化素材『🔮ゼノ・コア』）
+============================================================================ */
+function rollOneItemGacha() {
+  const roll = Math.random() * 100;
+  let targetItemId = 'item_exp120';
+
+  if (roll < 1.0) {
+    // 🔮 1.0%：進化素材『ゼノ・コア』
+    targetItemId = 'item_xeno_core';
+  } else if (roll < 6.0) {
+    // 👑 5.0%：極限進化エリクサー (Lv.30 MAX)
+    targetItemId = 'item_lv30';
+  } else if (roll < 24.0) {
+    // 🧪 18.0%：超成長ホルモン注射 (Lv+5)
+    targetItemId = 'item_lv5';
+  } else if (roll < 42.0) {
+    // 🍬 18.0%：黄金フィーバー栄養剤
+    targetItemId = 'item_gold_fever';
+  } else if (roll < 54.0) {
+    // ✨ 12.0%：スキル書き換えカプセル
+    targetItemId = 'item_skill_capsule';
+  } else if (roll < 66.0) {
+    // 📚 12.0%：得意教科チューナー
+    targetItemId = 'item_subj_tuner';
+  } else {
+    // 🍼 34.0%：高濃度プロテイン液
+    targetItemId = 'item_exp120';
+  }
+
+  const it = getItem(targetItemId) || ITEMS_MASTER[0];
+  if (!state.ownedItems) state.ownedItems = {};
+  state.ownedItems[it.id] = (state.ownedItems[it.id] || 0) + 1;
+  return it;
+}
+
+function pullItemGacha(count) {
+  const cost = count === 1 ? 300 : 2700;
+  if (state.atp < cost) {
+    showToast(`⚠️ ATPが足りません！（⚡${cost} ATP必要）`);
+    return;
+  }
+  state.atp -= cost;
+  state.medals += (count === 1 ? 5 : 50);
+  const results = [];
+  let gotCore = false;
+  for (let i = 0; i < count; i++) {
+    const it = rollOneItemGacha();
+    if (it.id === 'item_xeno_core') gotCore = true;
+    results.push(it);
+  }
+  saveData();
+  renderInventory();
+  renderAtpShop();
+  if (typeof renderSynthesisScreen === 'function') renderSynthesisScreen();
+  const medalBonus = count === 1 ? '（＋🧬5メダル）' : '（＋🧬50メダル獲得！）';
+  showItemPullResults(results, count === 1 ? `🎁 アイテム・素材単発結果！${medalBonus}` : `🎊 アイテム・素材10連結果！${medalBonus}`);
+  if (gotCore) {
+    showToast('🔮✨ 超激レア（1%）！進化素材『ゼノ・コア』を引き当てました！！');
+  }
+}
+
+function showItemPullResults(list, titleText) {
+  const box = document.getElementById('itemPullResultsBox');
+  const grid = document.getElementById('itemPullGrid');
+  if (!box || !grid) return;
+  box.style.display = 'block';
+  box.querySelector('strong').textContent = titleText;
+  grid.innerHTML = list.map(it => {
+    const isCore = it.id === 'item_xeno_core';
+    const isHigh = isCore || it.id === 'item_lv30';
+    return `
+      <div class="pull-result-item ${isHigh ? 'is-high' : ''}" style="${isCore ? 'border:2.5px solid #f43f5e; background:rgba(225,29,72,0.35); box-shadow:0 0 16px rgba(244,63,94,0.8);' : ''}">
+        <div>
+          <span class="rarity-tag" style="background:${isCore ? 'linear-gradient(135deg,#e11d48,#7e22ce)' : it.color}; font-size:0.68rem;">
+            ${isCore ? '🔮 1%進化素材!!' : '🎒 育成アイテム'}
+          </span>
+        </div>
+        <div style="font-weight:900; margin:4px 0; color:${isCore ? '#fda4af' : '#fde047'}; font-size:0.9rem;">${it.icon} ${it.name}</div>
+        <div style="font-size:0.7rem; color:#cbd5e1; line-height:1.25;">${it.desc}</div>
+      </div>
+    `;
+  }).join('');
+  showToast(`🎉 ${list.length}個のアイテム・素材を獲得しました！（もちものに保管）`);
+}
+
+/* ============================================================================
+   4.9.5 🧪 ゲノム合成 ＆ 超越進化（LR ➔ XR ➔ MR ＆ コア合成ラボ）
+============================================================================ */
+let currentSynthesisTab = 'evo_xr'; // 'evo_xr', 'evo_mr', 'mat'
+
+function switchSynthesisTab(tab) {
+  currentSynthesisTab = tab;
+  const b1 = document.getElementById('synthTabEvoXr');
+  const b2 = document.getElementById('synthTabEvoMr');
+  const b3 = document.getElementById('synthTabMat');
+  if (b1) b1.classList.toggle('active', tab === 'evo_xr');
+  if (b2) b2.classList.toggle('active', tab === 'evo_mr');
+  if (b3) b3.classList.toggle('active', tab === 'mat');
+  renderSynthesisScreen();
+}
+
+function isLrCandidate(m) {
+  if (!m) return false;
+  if (m.rarity === 'XR' || m.rarity === 'MR') return false;
+  if (m.rarity === 'LR') return true;
+  if (m.isMutant && m.stats && m.stats.sense >= 100) {
+    m.rarity = 'LR';
+    return true;
+  }
+  return false;
+}
+
+function renderSynthesisScreen() {
+  state.ownedItems = state.ownedItems || {};
+  state.ownedChips = state.ownedChips || {};
+  const xenoCores = state.ownedItems['item_xeno_core'] || 0;
+  const mythicCores = state.ownedItems['item_mythic_core'] || 0;
+
+  const atpEl = document.getElementById('synthAtpText');
+  if (atpEl) atpEl.textContent = state.atp;
+  const xenoEl = document.getElementById('synthXenoCoreCount');
+  if (xenoEl) xenoEl.textContent = xenoCores;
+  const mythicEl = document.getElementById('synthMythicCoreCount');
+  if (mythicEl) mythicEl.textContent = mythicCores;
+
+  const lrCandidates = (state.box || []).filter(m => isLrCandidate(m));
+  const xrCandidates = (state.box || []).filter(m => m && m.rarity === 'XR');
+
+  const cntLrEl = document.getElementById('synthCountLr');
+  if (cntLrEl) cntLrEl.textContent = lrCandidates.length;
+  const cntXrEl = document.getElementById('synthCountXr');
+  if (cntXrEl) cntXrEl.textContent = xrCandidates.length;
+
+  const area = document.getElementById('synthesisContentArea');
+  if (!area) return;
+
+  // 常時上部に表示する「🔮 クイック素材合成バー（ゼノ・コア3個 ➔ ミシック・コア1個）」
+  const canCraftMythic = xenoCores >= 3;
+  const mrChipCount = state.ownedChips['chip_mr_origin'] || 0;
+  const quickCraftBannerHtml = `
+    <div style="background:linear-gradient(135deg, #faf5ff 0%, #fff1f2 100%); border:2px solid #c084fc; border-radius:12px; padding:10px 14px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+        <span style="background:linear-gradient(135deg,#e11d48,#7c3aed); color:white; font-size:0.74rem; font-weight:900; padding:3px 10px; border-radius:999px;">🔮 素材＆特典所持数</span>
+        <span style="font-size:0.84rem; font-weight:900; color:#be123c;">🔮ゼノ・コア: <strong>${xenoCores}</strong>個</span>
+        <span style="color:#cbd5e1;">|</span>
+        <span style="font-size:0.84rem; font-weight:900; color:#6d28d9;">🌌ミシック・コア: <strong>${mythicCores}</strong>個</span>
+        <span style="color:#cbd5e1;">|</span>
+        <span style="font-size:0.84rem; font-weight:900; color:#b45309;">👑MR専用チップ: <strong>${mrChipCount}</strong>個</span>
+      </div>
+      <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+        <button class="btn ${canCraftMythic ? 'btn-purple' : 'btn-outline'}" style="padding:6px 12px; font-size:0.78rem; font-weight:900;" ${canCraftMythic ? '' : 'disabled'} onclick="synthesizeMythicCore()">
+          ${canCraftMythic ? '🧪 ゼノ・コア3個 ➔ 🌌ミシック・コア1個に今すぐ合成！' : `🔒 ミシック合成 (🔮${xenoCores}/3個)`}
+        </button>
+      </div>
+    </div>
+  `;
+
+  // 1. 🔮 素材合成タブ（ゼノ・コア3個 ➔ ミシック・コア1個）
+  if (currentSynthesisTab === 'mat') {
+    const canCraft = xenoCores >= 3;
+    const mrChipCount = state.ownedChips['chip_mr_origin'] || 0;
+    area.innerHTML = `
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:12px;">
+        <div class="card" style="border:2.5px solid #a855f7; background:linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%); display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="background:linear-gradient(135deg,#7c3aed,#ec4899); color:white; font-size:0.74rem; font-weight:900; padding:3px 10px; border-radius:999px;">🔮 上位進化コア合成</span>
+            <span style="font-size:0.8rem; font-weight:900; color:#6d28d9;">現在所持: ${mythicCores}個</span>
+          </div>
+          <div style="font-size:1.1rem; font-weight:900; color:#4c1d95;">🌌 ミシック・コア（神話合成進化核）</div>
+          <div style="font-size:0.78rem; color:#581c87; line-height:1.5;">
+            アイテムガチャで手に入る<strong>『🔮 ゼノ・コア』を 3個 合成</strong>して、第2超越進化（XR ➔ MR）に必要な<strong>『🌌 ミシック・コア』1個</strong>を生成します！
+          </div>
+          <div style="background:white; border:2px dashed #c084fc; border-radius:10px; padding:10px; display:flex; justify-content:space-around; align-items:center; font-weight:900;">
+            <div style="text-align:center;">
+              <div style="font-size:1.5rem;">🔮 × 3</div>
+              <div style="font-size:0.74rem; color:${canCraft ? '#15803d' : '#dc2626'};">所持: ${xenoCores} / 3個</div>
+            </div>
+            <div style="font-size:1.3rem; color:#9333ea;">➔</div>
+            <div style="text-align:center;">
+              <div style="font-size:1.5rem;">🌌 × 1</div>
+              <div style="font-size:0.74rem; color:#6d28d9;">ミシック・コア</div>
+            </div>
+          </div>
+          <button class="btn btn-purple" style="width:100%; padding:12px; font-size:0.95rem; font-weight:900; margin-top:auto;" ${canCraft ? '' : 'disabled'} onclick="synthesizeMythicCore()">
+            ${canCraft ? '🧪 ゼノ・コア3個を合成してミシック・コアを作る！' : `🔒 ゼノ・コアがあと ${3 - xenoCores} 個必要です`}
+          </button>
+        </div>
+
+        <div class="card" style="border:2px solid #cbd5e1; background:#f8fafc; display:flex; flex-direction:column; gap:8px;">
+          <div style="font-weight:900; font-size:0.95rem; color:#0f172a;">📦 進化素材・MR特典チップの所持状況</div>
+          <div style="background:white; border:1.5px solid #fda4af; border-radius:10px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-weight:900; color:#be123c; font-size:0.88rem;">🔮 ゼノ・コア（第1進化核）</div>
+              <div style="font-size:0.72rem; color:var(--text-sub);">アイテム・素材ガチャから1%で排出</div>
+            </div>
+            <strong style="font-size:1.1rem; color:#be123c;">${xenoCores} 個</strong>
+          </div>
+          <div style="background:white; border:1.5px solid #d8b4fe; border-radius:10px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-weight:900; color:#6d28d9; font-size:0.88rem;">🌌 ミシック・コア（第2進化核）</div>
+              <div style="font-size:0.72rem; color:var(--text-sub);">ゼノ・コア3個を合成して作成</div>
+            </div>
+            <strong style="font-size:1.1rem; color:#6d28d9;">${mythicCores} 個</strong>
+          </div>
+          <div style="background:#fefce8; border:1.5px solid #fde047; border-radius:10px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-weight:900; color:#b45309; font-size:0.88rem;">👑 オリジン・オメガ核（MR専用チップ）</div>
+              <div style="font-size:0.72rem; color:#854d0e;">MR進化達成時に1体につき1個自動プレゼント！</div>
+            </div>
+            <strong style="font-size:1.1rem; color:#b45309;">${mrChipCount} 個</strong>
+          </div>
+          <button class="btn btn-accent" style="width:100%; margin-top:auto;" onclick="switchScreen('gacha'); switchGachaCategory('item');">
+            🎁 アイテム・素材ガチャを回しに行く
+          </button>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // 2. 🔥 第1進化タブ（LR ➔ XR）
+  if (currentSynthesisTab === 'evo_xr') {
+    if (lrCandidates.length === 0) {
+      area.innerHTML = quickCraftBannerHtml + `
+        <div style="text-align:center; padding:28px 16px; background:white; border-radius:12px; border:2px dashed #fda4af; color:#881337; font-weight:800; display:flex; flex-direction:column; align-items:center; gap:10px;">
+          <div style="font-size:1rem;">現在、手持ちボックスに進化可能な【👑 LR】のキャラがいません。</div>
+          <div style="font-size:0.78rem; color:var(--text-sub); line-height:1.5;">
+            ※現在所持している DNAメダル: <strong style="color:#6d28d9;">🧬 ${state.medals} 枚</strong><br>
+            メダル交換所（2000メダル）またはキャラガチャで【👑 LR神個体】を仲間にしてLv.30にすると、ここに一覧表示されてすぐ【XR】へ進化できます！
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:4px;">
+            <button class="btn btn-purple" style="padding:8px 16px; font-size:0.82rem; font-weight:900;" onclick="switchScreen('exchange'); switchExchangeCategory('char');">🏪 メダル交換所でLR神個体を交換する</button>
+            <button class="btn btn-primary" style="padding:8px 16px; font-size:0.82rem; font-weight:900;" onclick="switchScreen('gacha'); switchGachaCategory('bio');">💊 キャラガチャへ</button>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    const sortedLr = [...lrCandidates].sort((a, b) => (b.level - a.level) || (getTotalStats(b) - getTotalStats(a)));
+    area.innerHTML = quickCraftBannerHtml + `
+      <div style="margin-bottom:10px; font-size:0.8rem; font-weight:900; color:#be123c; background:white; padding:8px 12px; border-radius:10px; border:1.5px solid #fda4af; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+        <span>🔥 <strong>進化条件：</strong>Lv.30の【LR】キャラ ＋ <strong>『🔮 ゼノ・コア』1個</strong></span>
+        <span>所持ゼノ・コア: <strong style="font-size:1rem;">${xenoCores}個</strong></span>
+      </div>
+      <div class="box-grid">
+        ${sortedLr.map(m => {
+          const isLv30 = m.level >= MAX_LEVEL;
+          const canEvo = isLv30 && xenoCores >= 1;
+          const subj = getSubject(m.subjId);
+          const skill = getSkill(m.skillId);
+          return `
+            <div class="box-item" style="border:2px solid ${canEvo ? '#e11d48' : '#cbd5e1'}; background:${canEvo ? '#fff1f2' : '#ffffff'};">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; gap:4px; align-items:center;">
+                  <span class="rarity-tag rarity-LR">LR</span>
+                  <span style="font-weight:900; color:#be123c;">➔</span>
+                  <span class="rarity-tag rarity-XR">XR</span>
+                </div>
+                <span class="subject-tag ${subj.cls}">${subj.icon}${subj.name}</span>
+              </div>
+              <div style="font-weight:900; font-size:0.95rem;">
+                ${m.nickname} <span style="color:${isLv30 ? '#15803d' : '#dc2626'}; font-size:0.82rem;">Lv.${m.level}/${MAX_LEVEL}</span>
+              </div>
+              <div style="font-size:0.72rem; color:var(--text-sub); background:white; padding:6px; border-radius:8px; border:1px solid #fecdd3;">
+                <div>現在: 速${m.stats.speed} / 攻${m.stats.size} / 耐${m.stats.defense} / 燃${m.stats.fuel}</div>
+                <div style="color:#be123c; font-weight:900; margin-top:2px;">
+                  🔥 XR進化後: 全ステ+25 ＆ バトル初期HP 1.2倍！
+                </div>
+              </div>
+              <div style="margin-top:auto; padding-top:4px;">
+                ${canEvo ? `
+                  <button class="btn btn-purple" style="width:100%; background:linear-gradient(135deg,#e11d48,#7e22ce); font-weight:900;" onclick="evolveLrToXr('${m.uid}')">
+                    🔥 ゼノ・コア1個で【XR】へ超越進化！
+                  </button>
+                ` : !isLv30 ? `
+                  <button class="btn btn-outline" style="width:100%; font-size:0.74rem; color:#0284c7;" onclick="openMicrobeEditModal('${m.uid}')">
+                    🆙 先にLv.30まで強化する (現在Lv.${m.level})
+                  </button>
+                ` : `
+                  <button class="btn btn-outline" disabled style="width:100%; font-size:0.74rem;">
+                    🔒 🔮ゼノ・コアが1個必要です
+                  </button>
+                `}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+    return;
+  }
+
+  // 3. 🌌 第2進化タブ（XR ➔ MR）
+  if (currentSynthesisTab === 'evo_mr') {
+    if (xrCandidates.length === 0) {
+      area.innerHTML = quickCraftBannerHtml + `
+        <div style="text-align:center; padding:28px 16px; background:white; border-radius:12px; border:2px dashed #c084fc; color:#581c87; font-weight:800; display:flex; flex-direction:column; align-items:center; gap:10px;">
+          <div>現在、手持ちボックスに【🔥 XR】のキャラがいません。</div>
+          <div style="font-size:0.78rem; color:var(--text-sub);">まずは「🔥 第1進化：LR ➔ XR」タブでLRキャラをXRへ進化させましょう！</div>
+          <button class="btn btn-purple" style="padding:8px 16px; font-size:0.82rem; font-weight:900;" onclick="switchSynthesisTab('evo_xr')">🔥 第1進化（LR ➔ XR）タブを開く</button>
+        </div>
+      `;
+      return;
+    }
+
+    const sortedXr = [...xrCandidates].sort((a, b) => (b.level - a.level) || (getTotalStats(b) - getTotalStats(a)));
+    const hasMat = (mythicCores >= 1) || (xenoCores >= 3);
+    area.innerHTML = quickCraftBannerHtml + `
+      <div style="margin-bottom:10px; font-size:0.8rem; font-weight:900; color:#6d28d9; background:white; padding:8px 12px; border-radius:10px; border:1.5px solid #d8b4fe; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+        <span>🌌 <strong>進化条件：</strong>Lv.30の【XR】キャラ ＋ <strong>『🌌 ミシック・コア 1個』（または 🔮ゼノ・コア 3個）</strong></span>
+        <span>🌌ミシック:${mythicCores}個 / 🔮ゼノ:${xenoCores}個</span>
+      </div>
+      <div class="box-grid">
+        ${sortedXr.map(m => {
+          const isLv30 = m.level >= MAX_LEVEL;
+          const canEvo = isLv30 && hasMat;
+          const subj = getSubject(m.subjId);
+          return `
+            <div class="box-item card-rarity-XR">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; gap:4px; align-items:center;">
+                  <span class="rarity-tag rarity-XR">XR</span>
+                  <span style="font-weight:900; color:#7c3aed;">➔</span>
+                  <span class="rarity-tag rarity-MR">MR</span>
+                </div>
+                <span class="subject-tag ${subj.cls}">${subj.icon}${subj.name}</span>
+              </div>
+              <div style="font-weight:900; font-size:0.95rem;">
+                ${m.nickname} <span style="color:#15803d; font-size:0.82rem;">Lv.${m.level}/${MAX_LEVEL}</span>
+              </div>
+              <div style="font-size:0.72rem; color:var(--text-sub); background:white; padding:6px; border-radius:8px; border:1px solid #d8b4fe;">
+                <div>現在: 速${m.stats.speed} / 攻${m.stats.size} / 耐${m.stats.defense} / 燃${m.stats.fuel}</div>
+                <div style="color:#6d28d9; font-weight:900; margin-top:2px;">
+                  🌌 MR進化後: 全ステさらに+25(累計+50) ＆ 初期HP1.2倍！<br>
+                  🎁 特典：『👑 オリジン・オメガ核(MR専用究極チップ)』1個獲得！
+                </div>
+              </div>
+              <div style="margin-top:auto; padding-top:4px;">
+                ${canEvo ? `
+                  <button class="btn btn-purple" style="width:100%; background:linear-gradient(135deg,#0f172a,#7c3aed,#ec4899); border:1.5px solid #fef08a; color:#fef08a; font-weight:900;" onclick="evolveXrToMr('${m.uid}')">
+                    🌌 ${mythicCores >= 1 ? 'ミシック・コア1個' : 'ゼノ・コア3個合成'}で【MR】へ神話覚醒！
+                  </button>
+                ` : `
+                  <button class="btn btn-outline" disabled style="width:100%; font-size:0.74rem;">
+                    🔒 🌌ミシック・コア1個（または🔮ゼノ・コア3個）が必要です
+                  </button>
+                `}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+  }
+}
+
+function synthesizeMythicCore() {
+  state.ownedItems = state.ownedItems || {};
+  const xeno = state.ownedItems['item_xeno_core'] || 0;
+  if (xeno < 3) {
+    showToast('⚠️ ゼノ・コアが3個ありません！');
+    return;
+  }
+  state.ownedItems['item_xeno_core'] -= 3;
+  state.ownedItems['item_mythic_core'] = (state.ownedItems['item_mythic_core'] || 0) + 1;
+  saveData();
+  renderSynthesisScreen();
+  renderInventory();
+  showToast('🌌✨ ゼノ・コア3個を合成し、『ミシック・コア』を1個生成しました！！');
+}
+
+function evolveLrToXr(uid) {
+  const m = getMicrobeById(uid);
+  if (!m || !isLrCandidate(m)) return;
+  if (m.level < MAX_LEVEL) {
+    showToast('⚠️ 先にLv.30まで育ててください！');
+    return;
+  }
+  state.ownedItems = state.ownedItems || {};
+  if ((state.ownedItems['item_xeno_core'] || 0) < 1) {
+    showToast('⚠️ 進化素材『🔮 ゼノ・コア』が足りません！');
+    return;
+  }
+
+  state.ownedItems['item_xeno_core']--;
+  m.rarity = 'XR';
+  m.isMutant = true;
+  m.subjId = 'all';
+  m.stats.sense = 100;
+  m.stats.speed += 25;
+  m.stats.size += 25;
+  m.stats.defense += 25;
+  m.stats.fuel += 25;
+
+  // デフォルト名の場合は『🔥XR・』の称号冠を付与
+  if (m.nickname.startsWith('🌟変異・')) {
+    m.nickname = m.nickname.replace('🌟変異・', '🔥XR・');
+  } else if (!m.nickname.startsWith('🔥XR・')) {
+    m.nickname = '🔥XR・' + m.nickname;
+  }
+
+  // 🏆 XR進化達成称号『🔥 超越変異(XR)の開拓者』の獲得＆自動装備
+  const wasXrTitleUnlocked = (state.equippedTitleId === 't_xr_evo' || state.equippedTitleId === 't_mr_evo');
+  if (!wasXrTitleUnlocked) {
+    state.equippedTitleId = 't_xr_evo';
+  }
+
+  saveData();
+  renderSynthesisScreen();
+  renderPetriStatusCard();
+  renderBoxAndParty();
+  renderInventory();
+  if (typeof updateStatsDisplay === 'function') updateStatsDisplay();
+  showToast(`🔥✨ 超越進化完了！！『${m.nickname}』が【XR】に覚醒！🏆新称号『🔥 超越変異(XR)の開拓者』を獲得＆装備しました！`);
+  alert(`🔥✨ 第1超越進化【XR】達成！！\n\n『${m.nickname}』が【XR】へ超越進化しました！\n・全ステータス +25 底上げ ＆ バトル開始時初期HP 1.2倍！\n・🏆 新称号『🔥 超越変異(XR)の開拓者』を獲得しました！（プロフィール画面からいつでも確認・変更できます）`);
+}
+
+function evolveXrToMr(uid) {
+  const m = getMicrobeById(uid);
+  if (!m || m.rarity !== 'XR') return;
+  if (m.level < MAX_LEVEL) {
+    showToast('⚠️ 先にLv.30まで育ててください！');
+    return;
+  }
+  state.ownedItems = state.ownedItems || {};
+  const mythic = state.ownedItems['item_mythic_core'] || 0;
+  const xeno = state.ownedItems['item_xeno_core'] || 0;
+
+  if (mythic >= 1) {
+    state.ownedItems['item_mythic_core']--;
+  } else if (xeno >= 3) {
+    state.ownedItems['item_xeno_core'] -= 3;
+  } else {
+    showToast('⚠️ ミシック・コア1個（またはゼノ・コア3個）が必要です！');
+    return;
+  }
+
+  m.rarity = 'MR';
+  m.isMutant = true;
+  m.subjId = 'all';
+  m.stats.sense = 100;
+  m.stats.speed += 25;
+  m.stats.size += 25;
+  m.stats.defense += 25;
+  m.stats.fuel += 25;
+
+  if (m.nickname.startsWith('🔥XR・')) {
+    m.nickname = m.nickname.replace('🔥XR・', '🌌MR・');
+  } else if (m.nickname.startsWith('🌟変異・')) {
+    m.nickname = m.nickname.replace('🌟変異・', '🌌MR・');
+  } else if (!m.nickname.startsWith('🌌MR・')) {
+    m.nickname = '🌌MR・' + m.nickname;
+  }
+
+  // 🏆 MR進化達成称号『👑 神話起源(MR)の創造神』の獲得＆自動装備
+  state.equippedTitleId = 't_mr_evo';
+
+  // 🎁 MR達成特典：『🌌 オリジン・オメガ核（MR究極チップ）』を1個プレゼント！
+  state.ownedChips = state.ownedChips || {};
+  state.ownedChips['chip_mr_origin'] = (state.ownedChips['chip_mr_origin'] || 0) + 1;
+
+  // もし自由枠2（m.chips[1]）が空いていれば自動で装着してあげる親切設計！
+  if (!m.chips) m.chips = [null, null];
+  let autoEquippedMsg = '（「🎒 もちもの・チップ管理」から装備できます！）';
+  if (!m.chips[1]) {
+    state.ownedChips['chip_mr_origin']--;
+    m.chips[1] = 'chip_mr_origin';
+    applyChipStatDelta(m, 'chip_mr_origin', 1);
+    m.chipStatApplied = true;
+    autoEquippedMsg = '（空き枠のスロット2に自動装備しました！全ステさらに+25！）';
+  }
+
+  saveData();
+  renderSynthesisScreen();
+  renderPetriStatusCard();
+  renderBoxAndParty();
+  renderInventory();
+  if (typeof updateStatsDisplay === 'function') updateStatsDisplay();
+  showToast(`🌌👑 神話覚醒【MR】達成！！🏆新称号『👑 神話起源(MR)の創造神』＆『👑 オリジン・オメガ核』を獲得しました！`);
+  alert(`🌌👑 神話覚醒【MR】達成！！\n\n『${m.nickname}』が最高峰ランク【MR】へ進化しました！\n・全ステータス極限底上げ（累計+50）＆バトル初期HP1.2倍！\n・🏆 新称号『👑 神話起源(MR)の創造神』を獲得＆装備しました！\n・🎁 MR達成特典『👑 オリジン・オメガ核（MR専用究極チップ）』を1個獲得しました！\n${autoEquippedMsg}`);
 }
 
 function pullChipGacha(count) {
@@ -9087,7 +9933,7 @@ function pullPremiumTen() {
 
 function renderMicrobeResultCardsHtml(list) {
   return list.map(m => {
-    const isHigh = m.rarity === 'UR' || m.rarity === 'LR';
+    const isHigh = m.rarity === 'UR' || m.rarity === 'LR' || m.rarity === 'XR' || m.rarity === 'MR';
     const subjObj = getSubject(m.subjId);
     const sk = getSkill(m.skillId);
     return `
@@ -9191,7 +10037,7 @@ function renderChipExchangeShop() {
   const grid = document.getElementById('chipExchangeShopGrid');
   if (!grid) return;
 
-  let pool = GENE_CHIPS_MASTER;
+  let pool = GENE_CHIPS_MASTER.filter(c => !c.isMrOnly);
   if (currentChipShopFilter === 'dedicated') {
     pool = pool.filter(c => !!c.speciesId);
   } else if (currentChipShopFilter === 'general') {
@@ -9251,7 +10097,8 @@ let battleGaugeInterval = null;
 let anagramInput = [];
 
 function createFighter(m, hpMult = 1.0) {
-  const maxHp = Math.round((85 + m.stats.size * 1.3 + m.stats.defense * 0.8 + m.level * 8) * hpMult);
+  const rankHpBonus = (m.rarity === 'XR' || m.rarity === 'MR') ? 1.2 : 1.0; // 🔥 XR・MR超越進化ボーナス：バトル開始時初期HP 1.2倍！
+  const maxHp = Math.round((85 + m.stats.size * 1.3 + m.stats.defense * 0.8 + m.level * 8) * hpMult * rankHpBonus);
   return {
     ...JSON.parse(JSON.stringify(m)),
     maxHp,
@@ -10527,6 +11374,10 @@ function executeAttack(who, isTypingBonus, speedMult) {
       dmg = Math.round(dmg * 1.15);
       notes.push('✨GFP+15%');
     }
+    if (p1Chips.includes('chip_mr_origin')) {
+      dmg = Math.round(dmg * 1.25);
+      notes.push('👑MRオメガ核1.25倍！');
+    }
     if (p1Chips.includes('chip_thermo') && ['chem', 'phys'].includes(q.subj)) {
       dmg = Math.round(dmg * 1.2);
       notes.push('🔥好熱菌1.2倍');
@@ -10540,6 +11391,11 @@ function executeAttack(who, isTypingBonus, speedMult) {
     if (p2Chips.includes('chip_sp_diatom')) {
       dmg = Math.max(1, Math.round(dmg * 0.85));
       notes.push('🛡️相手シリカ結晶-15%軽減');
+    }
+    // 相手MRオメガ核（受けるダメージ-20%軽減）
+    if (p2Chips.includes('chip_mr_origin')) {
+      dmg = Math.max(1, Math.round(dmg * 0.80));
+      notes.push('👑相手MRオメガ核-20%軽減');
     }
 
     // 会心率判定（相手がメチル化保護遺伝子を持っている場合は通常ダメージに無力化！）
@@ -10622,6 +11478,12 @@ function executeAttack(who, isTypingBonus, speedMult) {
       f1.hp = Math.min(f1.maxHp, f1.hp + heal);
       notes.push(`🌿テロメラーゼ+${heal}回復`);
     }
+    // 👑 MRオメガ核：正解時HP15%自己再生
+    if (p1Chips.includes('chip_mr_origin')) {
+      const mrHeal = Math.round(f1.maxHp * 0.15);
+      f1.hp = Math.min(f1.maxHp, f1.hp + mrHeal);
+      notes.push(`👑MRオメガ再生+${mrHeal}回復！`);
+    }
 
     // ヘルパーT細胞専用チップ：サイトカイン覚醒波（チーム全員HP12%回復）
     if (p1Chips.includes('chip_sp_helper_t')) {
@@ -10684,6 +11546,11 @@ function executeAttack(who, isTypingBonus, speedMult) {
     if (p1Chips.includes('chip_sp_diatom')) {
       dmg = Math.max(1, Math.round(dmg * 0.85));
       notes.push('🛡️シリカ結晶-15%軽減');
+    }
+    // プレイヤーのMRオメガ核（-20%ダメージ軽減）
+    if (p1Chips.includes('chip_mr_origin')) {
+      dmg = Math.max(1, Math.round(dmg * 0.80));
+      notes.push('👑MRオメガ核-20%軽減！');
     }
     if (p1Chips.includes('chip_def')) {
       notes.push('🟣二重生体膜(防+15軽減)');
@@ -14314,6 +15181,7 @@ function enterDebugTestMode() {
   state.playerName = '🔧開発テスト中';
   state.atp = 999999;
   state.medals = 99999;
+  state.ownedItems = { ...(state.ownedItems || {}), item_xeno_core: 10, item_mythic_core: 3, item_lv30: 5, item_gold_fever: 5 };
   state.box = debugBox;
   state.activeId = debugBox[0].uid;
   state.presets.forEach((p, i) => {
