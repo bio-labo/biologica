@@ -670,6 +670,9 @@
       <button class="btn btn-outline" style="padding:5px 10px; font-size:0.76rem; border-color:#0284c7; color:#0284c7; font-weight:800;" onclick="openTransferModal()">
         📲 引継ぎ
       </button>
+      <button class="btn btn-outline" style="padding:5px 10px; font-size:0.76rem; border-color:#0d9488; color:#0f766e; background:#f0fdfa; font-weight:900;" onclick="openLabLogicaApp()" title="姉妹作『ラボ・ロジカ（バーチャル理科室）』へ移動">
+        🔬 ラボ・ロジカへ
+      </button>
     </div>
   </header>
 
@@ -766,6 +769,11 @@
           <div class="menu-app-icon" style="background:#e0f2fe;">🌐</div>
           <div style="font-weight:900; font-size:0.95rem; color:#0369a1;">ゲーム公式サイト</div>
           <div style="font-size:0.74rem; color:var(--text-sub);">全種族図鑑・世界観・Webポータル</div>
+        </div>
+        <div class="menu-app-card" style="border-color:#0d9488; background:linear-gradient(180deg,#ffffff,#f0fdfa);" onclick="openLabLogicaApp()">
+          <div class="menu-app-icon" style="background:#ccfbf1;">🔬</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#0f766e;">ラボ・ロジカ (実験室)</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">姉妹作・高校理科バーチャル実験＆動画</div>
         </div>
         <div class="menu-app-card" style="border-color:#0284c7; background:linear-gradient(180deg,#ffffff,#f0f9ff);" onclick="openIconModal()">
           <div class="menu-app-icon" style="background:#e0f2fe;">📲</div>
@@ -5401,7 +5409,8 @@ const NEWS_MASTER = [
       '【🎁 アイテム・進化素材ガチャ新設】ガチャ画面に第3のモード「🎁 アイテム・素材ガチャ」を新設！99%の確率で即戦力の育成・強化アイテム（プロテイン液、超成長ホルモン、極限進化エリクサー、黄金フィーバー等）が排出され、1.0%の確率で超越進化素材『🔮 ゼノ・コア』が排出されます！',
       '【🧪 メニューに「ゲノム合成」ラボを新設】メニューからいつでもアクセスできる「🧪 ゲノム合成（XR・MR進化 ＆ 素材合成）」を新設！Lv.30のLRキャラのさらなる進化と、ゼノ・コア3個から上位素材『🌌 ミシック・コア』への合成を行えます！',
       '【🔥 第1超越進化「XR」解禁】Lv.30のLR＋『🔮 ゼノ・コア』1個で【XR】へ進化！全ステータスが +25 底上げされ、さらに【バトル開始時の初期HPが1.2倍】に強化！深紅プラズマオーラ＆紫の稲妻エフェクトを纏います！',
-      '【🌌 第2神話覚醒「MR」＆ 専用究極チップ特典】Lv.30のXR＋『🌌 ミシック・コア』1個（またはゼノ・コア3個）で最高峰【MR】へ覚醒！全ステータス極限底上げ（累計+50）＆初期HP1.2倍に加え、達成特典としてMRキャラのみ装備可能な『👑 オリジン・オメガ核（全ステ+25＆与ダメ1.25倍＆被ダメ20%軽減＆正解時HP15%再生）』が1個プレゼントされます！'
+      '【🌌 第2神話覚醒「MR」＆ 専用究極チップ特典】Lv.30のXR＋『🌌 ミシック・コア』1個（またはゼノ・コア3個）で最高峰【MR】へ覚醒！全ステータス極限底上げ（累計+50）＆初期HP1.2倍に加え、達成特典としてMRキャラのみ装備可能な『👑 オリジン・オメガ核（全ステ+25＆与ダメ1.25倍＆被ダメ20%軽減＆正解時HP15%再生）』が1個プレゼントされます！',
+      '【🔬 姉妹作『ラボ・ロジカ（バーチャル理科室）』直通リンク追加】研究所メインメニューから、高校理科の実験体験＆動画シミュレーター『ラボ・ロジカ』へワンタップで移動できるようになりました！'
     ]
   },
   {
@@ -19018,6 +19027,95 @@ function renderUltraHdIconToModal() {
     dlBtn.href = pngDataUrl;
   }
 }
+
+/* ============================================================================
+   🔬 姉妹作『ラボ・ロジカ (LAB LOGICA)』へのスマート遷移関数
+   ローカル環境（file: / localhost）では相対パス、Web公開版（GitHub Pages等）では公開URLへ遷移
+============================================================================ */
+function openLabLogicaApp() {
+  try {
+    if (typeof saveData === 'function') saveData();
+  } catch (e) {}
+  const isWebHosted = /^https?:$/i.test(window.location.protocol) &&
+                      !/^(localhost|127\.0\.0\.1)$/i.test(window.location.hostname);
+  if (isWebHosted) {
+    window.location.href = 'https://bio-labo.github.io/lab-logica/';
+  } else {
+    window.location.href = '../../ラボ・ロジカ/index.html';
+  }
+}
+
+/* ============================================================================
+   🎰 『カジノ・ロジカ (CASINO LOGICA)』0チップ破産者専用の出稼ぎ連動フック
+   ※ ?from=casino で遷移してきた時のみ起動。通常のバイオ・ロジカ学習時は一切表示・動作しない
+============================================================================ */
+(function initCasinoLogicaWorkMode() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('from') !== 'casino') return;
+
+    const WORK_KEY = 'casino_logica_work_session';
+    const getTotalCorrectNow = () => {
+      if (typeof state === 'undefined' || !state || !state.stats || !state.stats.subjCorrect) return 0;
+      return Object.values(state.stats.subjCorrect).reduce((a, b) => a + (Number(b) || 0), 0);
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const baseCorrect = getTotalCorrectNow();
+        let lastEarnedChips = 0;
+
+        // 画面最上部に出稼ぎ専用フローティングバーを表示
+        const bar = document.createElement('div');
+        bar.id = 'casinoWorkFloatingBar';
+        bar.style.cssText = 'position:fixed; top:0; left:0; right:0; z-index:99999; background:linear-gradient(90deg, #78350f, #b45309, #78350f); border-bottom:3px solid #facc15; color:#fff; padding:6px 12px; display:flex; align-items:center; justify-content:space-between; gap:8px; font-weight:900; font-size:0.8rem; box-shadow:0 4px 12px rgba(0,0,0,0.6);';
+        bar.innerHTML = `
+          <div id="casinoWorkStatusText">🎰 カジノ出稼ぎ中：3問正解ごとに <span style="color:#fef08a;">+10チップ</span>！（現在 0問正解 / 獲得 <strong>0</strong> 🪙）</div>
+          <button id="casinoReturnBtn" style="background:linear-gradient(180deg,#fef08a,#facc15); color:#422006; border:2px solid #fff; border-radius:999px; padding:4px 12px; font-weight:900; font-size:0.78rem; cursor:pointer; white-space:nowrap; box-shadow:0 2px 0 #854d0e;">🎰 カジノへ戻る</button>
+        `;
+        document.body.appendChild(bar);
+        document.body.style.paddingTop = '42px';
+
+        const updateWorkProgress = () => {
+          const nowCorrect = getTotalCorrectNow();
+          const solved = Math.max(0, nowCorrect - baseCorrect);
+          const earnedChips = Math.floor(solved / 3) * 10;
+          const rem = 3 - (solved % 3);
+
+          const txt = document.getElementById('casinoWorkStatusText');
+          if (txt) {
+            txt.innerHTML = `🎰 カジノ出稼ぎ中：現在 <strong>${solved}問</strong> 正解（あと${rem}問で+10🪙）｜獲得済: <span style="color:#fef08a; font-size:0.95rem;">${earnedChips} チップ</span>`;
+          }
+
+          if (earnedChips > lastEarnedChips) {
+            lastEarnedChips = earnedChips;
+            if (typeof showToast === 'function') {
+              showToast(`🎰 カジノチップ +10 獲得！（現在 ${earnedChips} チップ）`);
+            }
+          }
+
+          try {
+            localStorage.setItem(WORK_KEY, JSON.stringify({
+              active: true,
+              startCorrect: baseCorrect,
+              earnedChips: earnedChips,
+              updatedAt: Date.now()
+            }));
+          } catch (e) {}
+        };
+
+        setInterval(updateWorkProgress, 800);
+
+        document.getElementById('casinoReturnBtn').addEventListener('click', () => {
+          updateWorkProgress();
+          window.location.href = '../../カジノ・ロジカ/index.html?earned=' + lastEarnedChips;
+        });
+      }, 400);
+    });
+  } catch (e) {
+    console.warn('Casino work mode hook error:', e);
+  }
+})();
 </script>
 </body>
 </html>
