@@ -1407,14 +1407,27 @@
     background: linear-gradient(145deg, rgba(14, 165, 233, 0.12), rgba(15, 23, 42, 0.88));
   }
 
+  .eco-card.casino {
+    border-color: rgba(245, 158, 11, 0.5);
+    background: linear-gradient(145deg, rgba(245, 158, 11, 0.12), rgba(30, 27, 75, 0.88));
+  }
+
   .eco-card.tiktok {
     border-color: rgba(255, 42, 133, 0.45);
     background: linear-gradient(145deg, rgba(255, 42, 133, 0.12), rgba(15, 23, 42, 0.88));
   }
 
-  .eco-card.share {
-    border-color: rgba(0, 255, 157, 0.4);
-    background: linear-gradient(145deg, rgba(16, 185, 129, 0.1), rgba(15, 23, 42, 0.88));
+  .share-banner-box {
+    margin-top: 20px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(15, 23, 42, 0.9));
+    border: 1px solid rgba(0, 255, 157, 0.38);
+    border-radius: 18px;
+    padding: 20px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
   }
 
   .eco-btn {
@@ -1436,8 +1449,14 @@
 
   .eco-btn:hover { transform: translateY(-2px); opacity: 0.95; }
   .eco-btn.lab { background: linear-gradient(135deg, #0284c7, #0d9488); }
+  .eco-btn.casino { background: linear-gradient(135deg, #d97706, #9333ea); }
   .eco-btn.tiktok { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
-  .eco-btn.share { background: linear-gradient(135deg, #059669, #0284c7); }
+  .eco-btn.share { background: linear-gradient(135deg, #059669, #0284c7); flex-shrink: 0; }
+
+  .mobile-quick-nav a.mq-casino {
+    border-color: rgba(245, 158, 11, 0.5);
+    color: #fde68a;
+  }
 
   /* ⚡ スマホ用追従フローティングボタン */
   .floating-play-cta {
@@ -1503,6 +1522,7 @@
     <a href="#quiz">⚡ お試しクイズ</a>
     <a href="#handbook">📖 公式集</a>
     <a href="#ecosystem" class="mq-lab">🔬 ラボ・ロジカ</a>
+    <a href="#ecosystem" class="mq-casino">🎰 カジノ・ロジカ</a>
     <a href="https://www.tiktok.com/@user9957056324946" target="_blank" rel="noopener noreferrer" class="mq-tiktok">🎵 TikTok</a>
     <a href="#faq">❓ FAQ</a>
   </nav>
@@ -2073,8 +2093,8 @@
   <section id="ecosystem" class="container" style="margin-bottom:90px;">
     <div class="section-title-wrap">
       <span class="section-badge">LOGICA SERIES &amp; OFFICIAL SNS</span>
-      <h2 class="section-title">姉妹サイト『ラボ・ロジカ』＆ 公式TikTok</h2>
-      <p class="section-desc">実験で理解し、クイズと対戦で定着させる。攻略＆理系あるあるショート動画も配信中！</p>
+      <h2 class="section-title">姉妹サイト『ラボ・ロジカ』『カジノ・ロジカ』＆ 公式TikTok</h2>
+      <p class="section-desc">実験で理解し、息抜きも楽しみ、クイズと対戦で定着させる。攻略ショート動画も配信中！</p>
     </div>
 
     <div class="ecosystem-grid">
@@ -2082,7 +2102,7 @@
       <div class="eco-card lab">
         <div>
           <span class="section-badge" style="margin-bottom:10px;">姉妹Webアプリ・実験室</span>
-          <h3 style="font-size:1.28rem; font-weight:900; color:#fff; margin-bottom:8px;">🔬 ラボ・ロジカ（LAB LOGICA）</h3>
+          <h3 style="font-size:1.25rem; font-weight:900; color:#fff; margin-bottom:8px;">🔬 ラボ・ロジカ（LAB LOGICA）</h3>
           <p style="font-size:0.86rem; color:var(--text-secondary); line-height:1.65;">
             高校理科（化学・生物・物理）の<strong>全69実験</strong>を、60fpsのリアルなアニメーション＆ステップ操作で体験できるバーチャル理科室！オフラインPV動画解説・器具図鑑・確認クイズも完全無料。
           </p>
@@ -2092,11 +2112,25 @@
         </a>
       </div>
 
+      <!-- 姉妹サイト：カジノ・ロジカ -->
+      <div class="eco-card casino">
+        <div>
+          <span class="section-badge" style="background:rgba(245,158,11,0.14); border-color:rgba(245,158,11,0.45); color:#fde68a; margin-bottom:10px;">課金ゼロ・息抜きミニゲーム</span>
+          <h3 style="font-size:1.25rem; font-weight:900; color:#fff; margin-bottom:8px;">🎰 カジノ・ロジカ（CASINO LOGICA）</h3>
+          <p style="font-size:0.86rem; color:var(--text-secondary); line-height:1.65;">
+            勉強の合間に遊べる<strong>課金要素ゼロ</strong>の確率・戦略テーブル＆ダイスゲーム（全6種）！AIや友達との通信対戦にも対応し、<strong>チップが尽きたら『バイオ・ロジカ』で勉強して復活</strong>できる連動設計です。
+          </p>
+        </div>
+        <a href="https://bio-labo.github.io/casino-logica/" target="_blank" rel="noopener noreferrer" class="eco-btn casino">
+          <span>🎲 カジノ・ロジカで息抜きする</span>
+        </a>
+      </div>
+
       <!-- 公式TikTok -->
       <div class="eco-card tiktok">
         <div>
           <span class="section-badge" style="background:rgba(255,42,133,0.12); border-color:rgba(255,42,133,0.4); color:#f9a8d4; margin-bottom:10px;">OFFICIAL TIKTOK</span>
-          <h3 style="font-size:1.28rem; font-weight:900; color:#fff; margin-bottom:8px;">🎵 バイオ・ロジカ 公式TikTok</h3>
+          <h3 style="font-size:1.25rem; font-weight:900; color:#fff; margin-bottom:8px;">🎵 バイオ・ロジカ 公式TikTok</h3>
           <p style="font-size:0.86rem; color:var(--text-secondary); line-height:1.65;">
             高校化学・生物の「これ覚えられないよね！」を60秒で攻略する神まとめ・語呂合わせショート動画や、開発最新情報を発信中！フォローしてスキマ時間にチェックしよう。
           </p>
@@ -2105,20 +2139,19 @@
           <span>🎬 公式TikTokを開く</span>
         </a>
       </div>
+    </div>
 
-      <!-- 友達にシェア -->
-      <div class="eco-card share">
-        <div>
-          <span class="section-badge" style="background:rgba(0,255,157,0.1); border-color:rgba(0,255,157,0.35); color:var(--emerald); margin-bottom:10px;">SHARE &amp; BATTLE</span>
-          <h3 style="font-size:1.28rem; font-weight:900; color:#fff; margin-bottom:8px;">🤝 友達を誘ってリアルタイム対戦！</h3>
-          <p style="font-size:0.86rem; color:var(--text-secondary); line-height:1.65;">
-            LINEやDiscordでURLを送るだけで、アプリのインストールなしですぐに4桁コード対戦やフレンド招待バトルが始められます！
-          </p>
-        </div>
-        <button type="button" class="eco-btn share" id="sharePortalBtn" onclick="sharePortalUrl()">
-          <span>🔗 紹介ページURLをコピー / シェア</span>
-        </button>
+    <!-- 🤝 友達にシェア 横長バー -->
+    <div class="share-banner-box">
+      <div style="flex:1; min-width:240px;">
+        <h3 style="font-size:1.12rem; font-weight:900; color:#fff; margin-bottom:4px;">🤝 友達を誘ってリアルタイム対戦しよう！</h3>
+        <p style="font-size:0.84rem; color:var(--text-secondary); line-height:1.55; margin:0;">
+          LINEやDiscordでURLを送るだけで、アプリのインストールなしですぐに4桁コード対戦やフレンド招待バトルが始められます。
+        </p>
       </div>
+      <button type="button" class="eco-btn share" id="sharePortalBtn" onclick="sharePortalUrl()">
+        <span>🔗 紹介ページURLをコピー / シェア</span>
+      </button>
     </div>
   </section>
 
@@ -2346,6 +2379,7 @@
       <div class="footer-links">
         <a href="index.html">ゲーム本体を開く</a>
         <a href="https://bio-labo.github.io/lab-logica/" target="_blank" rel="noopener noreferrer">ラボ・ロジカ（姉妹サイト）</a>
+        <a href="https://bio-labo.github.io/casino-logica/" target="_blank" rel="noopener noreferrer">カジノ・ロジカ（姉妹サイト）</a>
         <a href="https://www.tiktok.com/@user9957056324946" target="_blank" rel="noopener noreferrer">公式TikTok</a>
         <a href="#cycle">遊び方</a>
         <a href="#dex">動く種族図鑑</a>
