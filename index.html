@@ -732,8 +732,8 @@
         </div>
         <div class="menu-app-card" onclick="switchScreen('pedia')">
           <div class="menu-app-icon" style="background:#e0e7ff;">📘</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#3730a3;">5段階図鑑 (全75種)</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">微生物6種＋免疫細胞9種の進化姿</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#3730a3;">5段階図鑑 (全100種)</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">微生物・免疫細胞・細菌など全20種族</div>
         </div>
         <div class="menu-app-card" onclick="switchScreen('mistakes')">
           <div class="menu-app-icon" style="background:#ffedd5;">📝</div>
@@ -1292,10 +1292,10 @@
       <!-- 🧫 微生物＆免疫細胞ガチャ vs 🧬 遺伝子チップガチャ vs 🎁 アイテム・素材ガチャ 3大モード切替バナー -->
       <div class="battle-category-toggle">
         <button id="gachaToggleBio" class="battle-cat-btn active" onclick="switchGachaCategory('bio')">
-          🧫 微生物＆免疫細胞ガチャ (全15種)
+          🧫 微生物＆細胞ガチャ (全20種)
         </button>
         <button id="gachaToggleChip" class="battle-cat-btn cat-eng" onclick="switchGachaCategory('chip')">
-          🧬 遺伝子チップガチャ (全27種)
+          🧬 遺伝子チップガチャ (全32種)
         </button>
         <button id="gachaToggleItem" class="battle-cat-btn cat-junior" onclick="switchGachaCategory('item')">
           🎁 アイテム・素材ガチャ (進化コア1%)
@@ -1304,10 +1304,10 @@
 
       <!-- ① 微生物＆免疫細胞ガチャパネル -->
       <div id="gachaPanelBio">
-        <div class="card-title">💊 微生物＆免疫細胞カプセル培養（全15系統・75形態！）</div>
+        <div class="card-title">💊 微生物＆免疫細胞カプセル培養（全20系統・100形態！）</div>
         <div class="help-box">
           👑 <strong>神個体「LR（突然変異種 × 感覚100）」</strong>：<strong>会心率100%（毎回確定クリティカル1.8倍！）</strong>＋全科目1.35倍！<br>
-          🛡️ 新登場の<strong>「マクロファージ・キラーT細胞・樹状細胞・好中球・NK細胞・B細胞・ヘルパーT細胞・メモリー細胞・マスト細胞」</strong>もガチャから排出されます！
+          🧬 原生生物6種＋免疫細胞9種に加え、新登場の<strong>「シアノバクテリア・大腸菌・インフルエンザウイルス・ニューロン・納豆菌」</strong>も排出されます！
         </div>
 
         <div class="gacha-grid">
@@ -1389,17 +1389,17 @@
         </div>
 
         <div style="margin-top:14px;">
-          <div style="font-weight:900; font-size:0.88rem; margin-bottom:4px;">📊 遺伝子チップ排出確率一覧（全15種族専用チップ ＆ 汎用チップ）</div>
+          <div style="font-weight:900; font-size:0.88rem; margin-bottom:4px;">📊 遺伝子チップ排出確率一覧（全20種族専用チップ ＆ 汎用チップ）</div>
           <table class="prob-table">
             <thead>
               <tr><th>レア度</th><th>遺伝子チップ名（一部抜粋）</th><th>主な効果</th><th>排出率</th></tr>
             </thead>
             <tbody>
               <tr style="background:#fefce8; font-weight:900; color:#b45309;">
-                <td>👑 UR</td><td>【専用】超マッハ繊毛 / 極限クロロフィル / パーフォリン / グランザイム / インジェクション ＆ 汎用3種</td><td>25%完全回避 / 正解時25%超回復 / 防御完全貫通 / 会心2.3倍 / 初撃1.5倍 等</td><td>計 1.5 %</td>
+                <td>👑 UR</td><td>【専用】超マッハ繊毛 / 跳躍伝導ミエリン / 抗原シフト / パーフォリン 等 ＆ 汎用3種</td><td>早押し1.3倍 / 全教科得意化 / 25%回避 / 防御完全貫通 等</td><td>計 1.5 %</td>
               </tr>
               <tr style="background:#faf5ff; font-weight:800; color:#6d28d9;">
-                <td>🌟 SR</td><td>【専用】絶対シリカ / 不定形アメーバ / NETsトラップ / 深淵貪食 / 抗原提示 等全10種 ＆ 汎用3種</td><td>被ダメ-15% / 30%反射 / 道連れ40%爆発 / 撃破時35%回復 / 2択消去 等</td><td>計 12.0 %</td>
+                <td>🌟 SR</td><td>【専用】地球大酸化 / プラスミド分裂 / 絶対芽胞 / 絶対シリカ 等全13種 ＆ 汎用3種</td><td>分裂追撃 / 2撃-35%軽減 / 時間+2.5秒＆回復 / 2択消去 等</td><td>計 12.0 %</td>
               </tr>
               <tr style="background:#eff6ff; font-weight:800; color:#1d4ed8;">
                 <td>✨ R</td><td>HSP逆境覚醒 / 好熱菌耐熱酵素 / 好冷菌タイム遅延</td><td>ピンチ時攻撃1.35倍 / 理化学威力1.2倍 / 解答時間+3.0秒延長</td><td>計 25.0 %</td>
@@ -1499,9 +1499,9 @@
 
       <!-- ① キャラ・細胞メダル交換所パネル -->
       <div id="exchangePanelChar">
-        <div class="card-title">👑 キャラ・細胞メダル交換所（全15種族指名 ＆ LR神個体・変異種）</div>
+        <div class="card-title">👑 キャラ・細胞メダル交換所（全20種族指名 ＆ LR神個体・変異種）</div>
         <div class="help-box">
-          💡 ガチャを回すと貯まる<strong>「🧬 DNAメダル」</strong>を使って、欲しい種族の指名カプセルや<strong>「👑【LR神個体】全15種ランダム召喚カプセル」</strong>を確実に交換できます！
+          💡 ガチャを回すと貯まる<strong>「🧬 DNAメダル」</strong>を使って、欲しい種族の指名カプセルや<strong>「👑【LR神個体】全20種ランダム召喚カプセル」</strong>を確実に交換できます！
         </div>
 
         <div id="exchangePullResultsBox" class="ten-pull-results" style="margin-bottom:14px;">
@@ -1517,15 +1517,15 @@
 
       <!-- ② 遺伝子チップ交換所パネル -->
       <div id="exchangePanelChip" style="display:none;">
-        <div class="card-title">🧬 遺伝子チップ交換所（全15種族専用シグネチャー ＆ 全12種汎用チップ指名交換！）</div>
+        <div class="card-title">🧬 遺伝子チップ交換所（全20種族専用シグネチャー ＆ 全12種汎用チップ指名交換！）</div>
         <div class="help-box">
-          💡 <strong>「🧬 DNAメダル」</strong>を使って、<strong>全15種族の専用チップ（UR: 250メダル / SR: 90メダル）や汎用チップをピンポイントで指名交換</strong>できます！交換したチップは「🧬 ゲノム編集ラボ」ですぐに装着可能です！
+          💡 <strong>「🧬 DNAメダル」</strong>を使って、<strong>全20種族の専用チップ（UR: 250メダル / SR: 90メダル）や汎用チップをピンポイントで指名交換</strong>できます！交換したチップは「🧬 ゲノム編集ラボ」ですぐに装着可能です！
         </div>
 
         <!-- 絞り込みフィルタータブ -->
         <div style="display:flex; gap:6px; margin:10px 0; flex-wrap:wrap;">
-          <button id="chipShopFilterAll" class="btn btn-primary" style="padding:5px 14px; font-size:0.8rem; font-weight:900;" onclick="filterChipExchangeShop('all')">🌟 全て表示 (全27種)</button>
-          <button id="chipShopFilterDedicated" class="btn btn-outline" style="padding:5px 14px; font-size:0.8rem; font-weight:900; color:#7c3aed; border-color:#d8b4fe;" onclick="filterChipExchangeShop('dedicated')">🧬 種族専用チップ (15種)</button>
+          <button id="chipShopFilterAll" class="btn btn-primary" style="padding:5px 14px; font-size:0.8rem; font-weight:900;" onclick="filterChipExchangeShop('all')">🌟 全て表示 (全32種)</button>
+          <button id="chipShopFilterDedicated" class="btn btn-outline" style="padding:5px 14px; font-size:0.8rem; font-weight:900; color:#7c3aed; border-color:#d8b4fe;" onclick="filterChipExchangeShop('dedicated')">🧬 種族専用チップ (20種)</button>
           <button id="chipShopFilterGeneral" class="btn btn-outline" style="padding:5px 14px; font-size:0.8rem; font-weight:900; color:#0284c7; border-color:#bae6fd;" onclick="filterChipExchangeShop('general')">⚙️ 全キャラ共通チップ (12種)</button>
         </div>
 
@@ -2090,7 +2090,7 @@
       <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
     </div>
     <div class="card">
-      <div class="card-title">📘 理系バイオ図鑑（全15系統・75形態 / 発見率: <span id="pediaRate">0</span>%）</div>
+      <div class="card-title">📘 理系バイオ図鑑（全20系統・100形態 / 発見率: <span id="pediaRate">0</span>%）</div>
       <div class="pedia-grid" id="pediaGrid"></div>
     </div>
   </section>
@@ -2873,6 +2873,43 @@ const SPECIES_MASTER = [
     typeLabel: '爆破トラップ型', color: '#e11d48',
     base: { speed: 52, size: 96, defense: 75, fuel: 65 }, shape: 'bear',
     desc: 'ヒスタミン顆粒を満載した生体爆弾。刺激を受けると強烈な炎症爆風を引き起こす！'
+  },
+
+  // --- 🧬 新登場：細菌・ウイルス・神経細胞シリーズ（全5種） ---
+  {
+    id: 'cyanobacteria', name: 'シアノバクテリア系',
+    evoNames: ['プチ藍藻', 'ストロマトライト', 'オキシゲン・シアノ', '太古の地球呼吸神', '創世始祖・ガイアシアノバクテリア'],
+    typeLabel: '光合成・持久支援', color: '#06b6d4',
+    base: { speed: 62, size: 68, defense: 82, fuel: 92 }, shape: 'oval',
+    desc: '太古の地球に大量の酸素を生み出した光合成細菌。高い燃費と持久戦能力を誇る。'
+  },
+  {
+    id: 'ecoli', name: '大腸菌（E. coli）系',
+    evoNames: ['ちびコリ', 'バイオコロニー菌', 'プラスミド・コリ', '組換え機動大腸菌', '超増殖神・オメガコリクローナー'],
+    typeLabel: '分裂連撃・万能型', color: '#22c55e',
+    base: { speed: 80, size: 78, defense: 64, fuel: 78 }, shape: 'oval',
+    desc: '分子生物学の主役！プラスミドによる遺伝子組換えと驚異の分裂スピードで戦う。'
+  },
+  {
+    id: 'influenza', name: 'インフルエンザウイルス系',
+    evoNames: ['スパイクウイルス', 'ヘマグルチニン', 'ミューテーション・フルー', 'パンデミック・シャドウ', '終焉災厄・インフェルノフルー'],
+    typeLabel: '高火力変異型', color: '#9333ea',
+    base: { speed: 88, size: 90, defense: 48, fuel: 70 }, shape: 'star',
+    desc: '抗原変異を繰り返して免疫の防御網をすり抜けるトリッキーな超火力ウイルス。'
+  },
+  {
+    id: 'neuron', name: 'ニューロン（神経細胞）系',
+    evoNames: ['ちびニューロン', 'シナプス伝達球', 'ミエリン・パルス', '活動電位スパーク', '神速電網・インフィニティシナプス'],
+    typeLabel: '超神速・電撃型', color: '#eab308',
+    base: { speed: 96, size: 80, defense: 58, fuel: 76 }, shape: 'neuron',
+    desc: '跳躍伝導で電光石火の活動電位を走らせる神経細胞！全種族トップクラスの超スピード！'
+  },
+  {
+    id: 'natto', name: '納豆菌（枯草菌）系',
+    evoNames: ['まめ納豆菌', 'ねばねばポリグルタミン', '要塞芽胞バチルス', '不滅エンドスポア', '金剛不壊神・エターナルナットウ'],
+    typeLabel: '絶対芽胞・要塞型', color: '#d97706',
+    base: { speed: 48, size: 76, defense: 96, fuel: 88 }, shape: 'shell',
+    desc: '100℃の熱や乾燥にも耐える最強の「芽胞」を持つ鉄壁の微生物！圧倒的耐久を誇る。'
   }
 ];
 
@@ -3021,6 +3058,31 @@ const GENE_CHIPS_MASTER = [
     id: 'chip_sp_mast_cell', speciesId: 'mast_cell', name: '🧬 ヒスタミン過剰脱顆粒', rarity: 'SR', icon: '💣',
     desc: '【マスト細胞系専用】相手から攻撃を受けた際、相手に最大HP15%の炎症固定ダメージ！',
     color: '#e11d48', rate: 0.8
+  },
+  {
+    id: 'chip_sp_cyanobacteria', speciesId: 'cyanobacteria', name: '🧬 地球大酸化クロロプラスト', rarity: 'SR', icon: '🌿',
+    desc: '【シアノバクテリア系専用】正解するたび最大HPの12%回復 ＆ 解答制限時間を常に+2.5秒延長！',
+    color: '#06b6d4', rate: 0.8
+  },
+  {
+    id: 'chip_sp_ecoli', speciesId: 'ecoli', name: '🧬 プラスミド高速分裂リング', rarity: 'SR', icon: '🧫',
+    desc: '【大腸菌系専用】攻撃力+15 ＆ 正解時50%の確率で「分裂追撃(+35%ダメージ)」が発生！',
+    color: '#22c55e', rate: 0.8
+  },
+  {
+    id: 'chip_sp_influenza', speciesId: 'influenza', name: '🧬 抗原シフト・変異スパイク', rarity: 'UR', icon: '🦠',
+    desc: '【インフルエンザウイルス系専用】全教科で「得意教科ボーナス(1.35倍)」が常時発動 ＆ 相手の防御軽減を半分無視！',
+    color: '#9333ea', rate: 0.1
+  },
+  {
+    id: 'chip_sp_neuron', speciesId: 'neuron', name: '🧬 跳躍伝導ミエリンパルス', rarity: 'UR', icon: '⚡',
+    desc: '【ニューロン系専用】すばやさ+25 ＆ 「早押し速度ボーナス」の攻撃倍率がさらに1.3倍に超強化！',
+    color: '#eab308', rate: 0.1
+  },
+  {
+    id: 'chip_sp_natto', speciesId: 'natto', name: '🧬 絶対芽胞エンドスポア', rarity: 'SR', icon: '🫘',
+    desc: '【納豆菌系専用】耐久(防御)+20 ＆ バトル中の最初の2撃の被ダメージを35%カット！',
+    color: '#d97706', rate: 0.8
   },
   // ================= 🌌 MR達成特典：MRランク専用究極遺伝子チップ（ガチャ・交換所非売品！） =================
   {
@@ -3227,11 +3289,18 @@ const EXCHANGE_SHOP_ITEMS = [
   { id: 'ex_memory_cell', name: 'メモリー細胞系 指名カプセル', desc: '記憶カウンター型（R以上確定）', cost: 45, speciesIdx: 13, mutant: false, sense: 0 },
   { id: 'ex_mast_cell', name: 'マスト細胞系 指名カプセル', desc: '爆破トラップ型（R以上確定）', cost: 45, speciesIdx: 14, mutant: false, sense: 0 },
 
+  // --- 🧬 新登場：細菌・ウイルス・神経細胞シリーズ（全5種） ---
+  { id: 'ex_cyanobacteria', name: 'シアノバクテリア系 指名カプセル', desc: '光合成・持久支援（R以上確定）', cost: 45, speciesIdx: 15, mutant: false, sense: 0 },
+  { id: 'ex_ecoli', name: '大腸菌（E. coli）系 指名カプセル', desc: '分裂連撃・万能型（R以上確定）', cost: 45, speciesIdx: 16, mutant: false, sense: 0 },
+  { id: 'ex_influenza', name: 'インフルエンザウイルス系 指名カプセル', desc: '高火力変異型（R以上確定）', cost: 45, speciesIdx: 17, mutant: false, sense: 0 },
+  { id: 'ex_neuron', name: 'ニューロン（神経細胞）系 指名カプセル', desc: '超神速・電撃型（R以上確定）', cost: 45, speciesIdx: 18, mutant: false, sense: 0 },
+  { id: 'ex_natto', name: '納豆菌（枯草菌）系 指名カプセル', desc: '絶対芽胞・要塞型（R以上確定）', cost: 45, speciesIdx: 19, mutant: false, sense: 0 },
+
   // --- ✨ 特殊確定枠 ---
   { id: 'ex_sense50', name: '✨ 感覚50確定 カプセル', desc: 'SR個体（生まれつき会心率20%固定）', cost: 120, speciesIdx: -1, mutant: false, sense: 50 },
   { id: 'ex_sense100', name: '👁️ 感覚100確定 特製カプセル', desc: 'UR個体（生まれつき会心率50%固定！）', cost: 450, speciesIdx: -1, mutant: false, sense: 100 },
-  { id: 'ex_mutant', name: '🌟 突然変異種 確定カプセル', desc: 'UR変異種（全15種から完全ランダム・全科目1.35倍＆全能力1.3倍）', cost: 700, speciesIdx: -1, mutant: true, sense: 50 },
-  { id: 'ex_god', name: '👑【LR神個体】全15種ランダム召喚カプセル', desc: '全15種族から完全ランダムで1体召喚！会心率100%(確定クリティカル)＋全科目1.35倍の至高神変異！', cost: 2000, speciesIdx: -1, mutant: true, sense: 100 }
+  { id: 'ex_mutant', name: '🌟 突然変異種 確定カプセル', desc: 'UR変異種（全20種から完全ランダム・全科目1.35倍＆全能力1.3倍）', cost: 700, speciesIdx: -1, mutant: true, sense: 50 },
+  { id: 'ex_god', name: '👑【LR神個体】全20種ランダム召喚カプセル', desc: '全20種族から完全ランダムで1体召喚！会心率100%(確定クリティカル)＋全科目1.35倍の至高神変異！', cost: 2000, speciesIdx: -1, mutant: true, sense: 100 }
 ];
 
 /* 圧倒的大増量した問題プール（全学年・全教科 200問超収録！） */
@@ -5403,6 +5472,16 @@ QUIZ_MASTER.forEach(q => {
 const NEWS_MASTER = [
   {
     ver: 'Ver 1.0',
+    date: '2026-11-23',
+    title: '🧬 新キャラ5種族（全20系統・100形態！）＆ 専用遺伝子チップ5種 一挙追加アプデ！',
+    items: [
+      '【🧬 新キャラ5種族がガチャ＆交換所＆図鑑に新登場！】「🌿 シアノバクテリア」「🧫 大腸菌（E. coli）」「🦠 インフルエンザウイルス」「⚡ ニューロン（神経細胞）」「🫘 納豆菌（枯草菌）」の5種族が仲間に！図鑑もついに全20系統・100形態の大ボリュームへ突入しました！',
+      '【⚡ ニューロン最終進化 専用グラフィック実装】ニューロンは進化すると細胞体・樹状突起・ミエリン鞘付きの長い軸索・跳躍伝導スパークまで備えた本物の神経細胞の姿へ覚醒します！',
+      '【🧬 新専用遺伝子チップ5種追加】遺伝子チップガチャ・チップ交換所にも新5種族専用の強力なシグネチャーチップ（跳躍伝導ミエリンパルス／抗原シフト・変異スパイク／プラスミド高速分裂リング／地球大酸化クロロプラスト／絶対芽胞エンドスポア）を同時実装しました！'
+    ]
+  },
+  {
+    ver: 'Ver 1.0',
     date: '2026-11-22',
     title: '🧪 新ランク【XR】【MR】超越進化 ＆ 🎁 アイテム・進化素材ガチャ ＆ ゲノム合成ラボ新設アプデ！',
     items: [
@@ -6472,6 +6551,12 @@ function applyChipStatDelta(m, chipId, dir) {
     m.stats.size = Math.max(1, (m.stats.size || 50) + sign * 20);
   } else if (chipId === 'chip_sp_tardigrade') {
     m.stats.defense = Math.max(1, (m.stats.defense || 50) + sign * 15);
+  } else if (chipId === 'chip_sp_ecoli') {
+    m.stats.size = Math.max(1, (m.stats.size || 50) + sign * 15);
+  } else if (chipId === 'chip_sp_neuron') {
+    m.stats.speed = Math.max(1, (m.stats.speed || 50) + sign * 25);
+  } else if (chipId === 'chip_sp_natto') {
+    m.stats.defense = Math.max(1, (m.stats.defense || 50) + sign * 20);
   } else if (chipId === 'chip_mr_origin') {
     m.stats.speed = Math.max(1, (m.stats.speed || 50) + sign * 25);
     m.stats.size = Math.max(1, (m.stats.size || 50) + sign * 25);
@@ -7472,8 +7557,8 @@ function drawMicrobe(ctx, x, y, r, m, tick) {
     ctx.restore();
   }
 
-  // 1. 第5形態（極限完全体）：8方向レーザークリスタル ＆ 神聖な光背（ヘイロー）
-  if (stg >= 4) {
+  // 1. 第5形態（極限完全体）：8方向レーザークリスタル ＆ 神聖な光背（ヘイロー） ※ニューロンは専用シルエットを保つためスキップ
+  if (stg >= 4 && sp.shape !== 'neuron') {
     ctx.beginPath();
     ctx.arc(0, 0, r + 18 + Math.sin(tick * 0.1) * 3, 0, Math.PI * 2);
     const grad = ctx.createRadialGradient(0, 0, r, 0, 0, r + 22);
@@ -7515,8 +7600,8 @@ function drawMicrobe(ctx, x, y, r, m, tick) {
     }
   }
 
-  // 2. 第4形態（超覚醒）：回転する二重六芒星（魔方陣シールド）＆ 4つの衛星オーブ
-  if (stg >= 3) {
+  // 2. 第4形態（超覚醒）：回転する二重六芒星（魔方陣シールド） ※ニューロンはスキップ
+  if (stg >= 3 && sp.shape !== 'neuron') {
     ctx.save();
     ctx.rotate(tick * 0.025);
     ctx.strokeStyle = sp.color + 'aa';
@@ -7539,8 +7624,8 @@ function drawMicrobe(ctx, x, y, r, m, tick) {
     ctx.setLineDash([]);
   }
 
-  // 3. 第2形態〜：周囲を公転する生体オーブノード（形態が上がるほど増加）
-  if (stg >= 1) {
+  // 3. 第2形態〜：周囲を公転する生体オーブノード ※ニューロンはスキップ
+  if (stg >= 1 && sp.shape !== 'neuron') {
     const orbCount = stg >= 4 ? 6 : (stg >= 3 ? 4 : (stg >= 2 ? 3 : 2));
     for (let i = 0; i < orbCount; i++) {
       const orbAng = tick * 0.05 + (Math.PI * 2 * i) / orbCount;
@@ -7556,8 +7641,8 @@ function drawMicrobe(ctx, x, y, r, m, tick) {
     }
   }
 
-  // 4. 第3形態〜：プラズマホーン／ツインブレード（角・アンテナ）
-  if (stg >= 2) {
+  // 4. 第3形態〜：プラズマホーン／ツインブレード（角・アンテナ） ※ニューロンはスキップ
+  if (stg >= 2 && sp.shape !== 'neuron') {
     const hornH = stg >= 4 ? 14 : (stg >= 3 ? 10 : 7);
     ctx.fillStyle = stg >= 4 ? '#f43f5e' : (stg >= 3 ? '#a855f7' : '#fbbf24');
     // 左ホーン
@@ -7576,8 +7661,8 @@ function drawMicrobe(ctx, x, y, r, m, tick) {
     ctx.fill();
   }
 
-  // 5. 繊毛・突起・エネルギー棘（第1形態〜）
-  if (stg >= 1) {
+  // 5. 繊毛・突起・エネルギー棘（第1形態〜 ※ニューロンは専用樹状突起を描くためスキップ）
+  if (stg >= 1 && sp.shape !== 'neuron') {
     const spikes = 8 + stg * 3;
     ctx.strokeStyle = sp.color;
     ctx.lineWidth = 2 + stg * 0.4;
@@ -7592,6 +7677,224 @@ function drawMicrobe(ctx, x, y, r, m, tick) {
   }
 
   // 6. メイン細胞体（種族ごとの基本形状）
+  if (sp.shape === 'neuron') {
+    // ⚡ ニューロン（神経細胞）専用グラフィック：有機的な樹状突起 ＋ 細胞体（神経核）＋ S字に伸びる軸索＆ミエリン鞘 ＋ 軸索終末
+    const somaX = stg >= 2 ? -r * 0.52 : (stg >= 1 ? -r * 0.25 : 0);
+    const somaY = stg >= 2 ? -r * 0.14 : 0;
+    const somaR = stg >= 2 ? r * 0.56 : r * 0.82;
+
+    // 6-A. 樹状突起（デンドライト：5本のしなやかな木の枝のように根元太く・先端細く）
+    const dendriteDefs = stg >= 2
+      ? [
+          { ang: -Math.PI * 0.85, len: r * 0.92, curve: -0.25 },
+          { ang: -Math.PI * 0.58, len: r * 0.98, curve: 0.22 },
+          { ang: -Math.PI * 0.28, len: r * 0.78, curve: -0.2 },
+          { ang: Math.PI * 0.85,  len: r * 0.88, curve: 0.28 },
+          { ang: Math.PI * 0.55,  len: r * 0.76, curve: -0.22 }
+        ]
+      : [
+          { ang: -Math.PI * 0.75, len: r * (0.9 + stg * 0.15), curve: -0.2 },
+          { ang: -Math.PI * 0.3,  len: r * (0.85 + stg * 0.15), curve: 0.2 },
+          { ang: Math.PI * 0.75,  len: r * (0.85 + stg * 0.15), curve: 0.2 }
+        ];
+
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    dendriteDefs.forEach((d, idx) => {
+      const sway = Math.sin(tick * 0.05 + idx * 1.4) * 0.05;
+      const a = d.ang + sway;
+      const startX = somaX + Math.cos(a) * (somaR * 0.55);
+      const startY = somaY + Math.sin(a) * (somaR * 0.55);
+      const midX = somaX + Math.cos(a + d.curve) * (d.len * 0.58);
+      const midY = somaY + Math.sin(a + d.curve) * (d.len * 0.58);
+      const endX = somaX + Math.cos(a) * d.len;
+      const endY = somaY + Math.sin(a) * d.len;
+
+      // 太めの幹
+      ctx.strokeStyle = '#f59e0b';
+      ctx.lineWidth = Math.max(2.2, r * 0.16);
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.quadraticCurveTo(midX, midY, endX, endY);
+      ctx.stroke();
+
+      // 明るい芯線
+      ctx.strokeStyle = '#fde047';
+      ctx.lineWidth = Math.max(1.0, r * 0.07);
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.quadraticCurveTo(midX, midY, endX, endY);
+      ctx.stroke();
+
+      // 第2形態〜：先端の繊細な二股枝分かれ
+      if (stg >= 1) {
+        const branchLen = d.len * (stg >= 3 ? 0.42 : 0.28);
+        [-0.42, 0.38].forEach(bOff => {
+          const bx = endX + Math.cos(a + bOff) * branchLen;
+          const by = endY + Math.sin(a + bOff) * branchLen;
+          ctx.strokeStyle = '#fbbf24';
+          ctx.lineWidth = Math.max(1.2, r * 0.065);
+          ctx.beginPath();
+          ctx.moveTo(endX, endY);
+          ctx.lineTo(bx, by);
+          ctx.stroke();
+
+          if (stg >= 3) {
+            // さらに先の小枝
+            const tx = bx + Math.cos(a + bOff * 1.5) * (branchLen * 0.5);
+            const ty = by + Math.sin(a + bOff * 1.5) * (branchLen * 0.5);
+            ctx.lineWidth = Math.max(0.8, r * 0.04);
+            ctx.beginPath();
+            ctx.moveTo(bx, by);
+            ctx.lineTo(tx, ty);
+            ctx.stroke();
+          }
+        });
+      }
+    });
+
+    // 6-B. 軸索丘 ➔ S字に長く伸びる軸索 ＆ ミエリン鞘 ＆ 軸索終末（第2形態〜徐々に伸長）
+    if (stg >= 1) {
+      const p0 = { x: somaX + somaR * 0.65, y: somaY + somaR * 0.22 };
+      const axonSpan = stg >= 4 ? r * 1.85 : (stg >= 3 ? r * 1.55 : (stg >= 2 ? r * 1.2 : r * 0.65));
+      const p1 = { x: p0.x + axonSpan * 0.35, y: p0.y + r * 0.48 };
+      const p2 = { x: p0.x + axonSpan * 0.70, y: p0.y - r * 0.08 };
+      const p3 = { x: p0.x + axonSpan,        y: p0.y + r * 0.12 };
+
+      const bezierPt = t => {
+        const u = 1 - t;
+        return {
+          x: u*u*u*p0.x + 3*u*u*t*p1.x + 3*u*t*t*p2.x + t*t*t*p3.x,
+          y: u*u*u*p0.y + 3*u*u*t*p1.y + 3*u*t*t*p2.y + t*t*t*p3.y
+        };
+      };
+
+      // 軸索の芯線
+      ctx.strokeStyle = '#fef08a';
+      ctx.lineWidth = Math.max(2.0, r * 0.12);
+      ctx.beginPath();
+      ctx.moveTo(p0.x, p0.y);
+      ctx.bezierCurveTo(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
+      ctx.stroke();
+
+      // ミエリン鞘（第3形態〜：本物の髄鞘のようにカーブに沿って連なるカプセル）
+      if (stg >= 2) {
+        const segCount = stg >= 4 ? 5 : (stg >= 3 ? 4 : 3);
+        for (let s = 0; s < segCount; s++) {
+          const tA = 0.08 + (s / segCount) * 0.82;
+          const tB = tA + (0.68 / segCount);
+          const ptA = bezierPt(tA);
+          const ptB = bezierPt(tB);
+          const midPt = bezierPt((tA + tB) * 0.5);
+          const ang = Math.atan2(ptB.y - ptA.y, ptB.x - ptA.x);
+          const segLen = Math.hypot(ptB.x - ptA.x, ptB.y - ptA.y);
+          const segH = Math.max(4.5, r * 0.24);
+
+          ctx.save();
+          ctx.translate(midPt.x, midPt.y);
+          ctx.rotate(ang);
+          const mGrad = ctx.createLinearGradient(0, -segH / 2, 0, segH / 2);
+          mGrad.addColorStop(0, '#fda4af');
+          mGrad.addColorStop(0.45, '#fb7185');
+          mGrad.addColorStop(1, '#be123c');
+          ctx.fillStyle = mGrad;
+          ctx.strokeStyle = '#ffe4e6';
+          ctx.lineWidth = 1.0;
+          ctx.beginPath();
+          if (ctx.roundRect) {
+            ctx.roundRect(-segLen / 2, -segH / 2, segLen, segH, segH / 2);
+          } else {
+            ctx.rect(-segLen / 2, -segH / 2, segLen, segH);
+          }
+          ctx.fill();
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+
+      // 跳躍伝導の電気信号パルス（細胞体から軸索終末へ向かって駆け抜ける光）
+      const pulseT = (tick * 0.035) % 1;
+      const pulsePt = bezierPt(pulseT);
+      ctx.beginPath();
+      ctx.arc(pulsePt.x, pulsePt.y, Math.max(2.6, r * 0.14), 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2.0;
+      ctx.stroke();
+
+      // 軸索終末（右端で枝分かれする神経終末）
+      const endBranches = stg >= 4 ? [-0.65, -0.2, 0.25, 0.68] : [-0.45, 0.45];
+      endBranches.forEach((bAng, bIdx) => {
+        const len1 = r * (stg >= 4 ? 0.36 : 0.24);
+        const bx = p3.x + Math.cos(bAng) * len1;
+        const by = p3.y + Math.sin(bAng) * len1;
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = Math.max(1.2, r * 0.07);
+        ctx.beginPath();
+        ctx.moveTo(p3.x, p3.y);
+        ctx.lineTo(bx, by);
+        ctx.stroke();
+
+        // 先端のシナプスボタン発光
+        ctx.beginPath();
+        ctx.arc(bx, by, Math.max(1.6, r * 0.08), 0, Math.PI * 2);
+        ctx.fillStyle = (tick + bIdx * 4) % 16 < 8 ? '#38bdf8' : '#fef08a';
+        ctx.fill();
+      });
+    }
+
+    // 6-C. 神経細胞体（ソーマ）＋ 紫の神経核 ＋ 可愛い目
+    ctx.save();
+    ctx.translate(somaX, somaY);
+    ctx.beginPath();
+    if (stg >= 2) {
+      // ふっくら有機的な星〜多極性細胞体（なめらか曲線）
+      const lobes = 5;
+      for (let i = 0; i < lobes; i++) {
+        const a1 = (Math.PI * 2 * i) / lobes;
+        const a2 = (Math.PI * 2 * (i + 0.5)) / lobes;
+        const a3 = (Math.PI * 2 * (i + 1)) / lobes;
+        const x1 = Math.cos(a1) * somaR * 1.08, y1 = Math.sin(a1) * somaR * 1.08;
+        const cx = Math.cos(a2) * somaR * 0.72, cy = Math.sin(a2) * somaR * 0.72;
+        const x2 = Math.cos(a3) * somaR * 1.08, y2 = Math.sin(a3) * somaR * 1.08;
+        if (i === 0) ctx.moveTo(x1, y1);
+        ctx.quadraticCurveTo(cx, cy, x2, y2);
+      }
+      ctx.closePath();
+    } else {
+      ctx.arc(0, 0, somaR, 0, Math.PI * 2);
+    }
+
+    const bodyGrad = ctx.createRadialGradient(-somaR * 0.15, -somaR * 0.15, somaR * 0.1, 0, 0, somaR * 1.1);
+    bodyGrad.addColorStop(0, '#fef08a');
+    bodyGrad.addColorStop(0.5, '#f59e0b');
+    bodyGrad.addColorStop(1, '#d97706');
+    ctx.fillStyle = bodyGrad;
+    ctx.fill();
+    ctx.strokeStyle = stg >= 4 ? '#fef08a' : '#ffffff';
+    ctx.lineWidth = 2.0;
+    ctx.stroke();
+
+    // 細胞体の中の紫の神経核（ニューロンらしさの象徴）
+    ctx.beginPath();
+    ctx.arc(0, somaR * 0.08, somaR * 0.42, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(147, 51, 234, 0.35)';
+    ctx.fill();
+
+    // つぶらな目
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.arc(-somaR * 0.28, -somaR * 0.1, Math.max(2.0, somaR * 0.15), 0, Math.PI * 2);
+    ctx.arc(somaR * 0.28, -somaR * 0.1, Math.max(2.0, somaR * 0.15), 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(-somaR * 0.31, -somaR * 0.14, Math.max(0.8, somaR * 0.05), 0, Math.PI * 2);
+    ctx.arc(somaR * 0.25, -somaR * 0.14, Math.max(0.8, somaR * 0.05), 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  } else {
   ctx.beginPath();
   if (sp.shape === 'shell') {
     const sides = 5 + stg;
@@ -7661,6 +7964,7 @@ function drawMicrobe(ctx, x, y, r, m, tick) {
   ctx.arc(-r * 0.29, -r * 0.12, Math.max(1, r * 0.05), 0, Math.PI * 2);
   ctx.arc(r * 0.23, -r * 0.12, Math.max(1, r * 0.05), 0, Math.PI * 2);
   ctx.fill();
+  }
 
   ctx.restore();
 }
@@ -10118,6 +10422,7 @@ function createFighter(m, hpMult = 1.0) {
     nextAtkMult: 1.0,
     phageFirstHitBonus: true,
     netsExploded: false,
+    nattoGuardCount: 2,
     combo: 0
   };
 }
@@ -10834,7 +11139,8 @@ function nextBattleQuestion() {
 
       const gauge = document.getElementById('battleTimeGauge');
       gauge.style.width = '100%';
-      battle.maxTimeSec = 10.0 + (Number.isFinite(battle.timeHandicap) ? battle.timeHandicap : 0);
+      const cyanoBonusEng = p1Chips.includes('chip_sp_cyanobacteria') ? 2.5 : 0.0;
+      battle.maxTimeSec = 10.0 + cyanoBonusEng + (Number.isFinite(battle.timeHandicap) ? battle.timeHandicap : 0);
       battle.remainTimeSec = battle.maxTimeSec;
 
       battleGaugeInterval = setInterval(() => {
@@ -10964,10 +11270,11 @@ function nextBattleQuestion() {
   const baseSec = battle.diff === 'easy' ? 12.0 : (battle.diff === 'normal' ? 9.5 : 7.0);
   const typingBonus = (fmt === 'typing') ? 18.0 : 0.0;
   const psychroBonus = p1Chips.includes('chip_psychro') ? 3.0 : 0.0;
+  const cyanoBonus = p1Chips.includes('chip_sp_cyanobacteria') ? 2.5 : 0.0;
   const spdBonusSec = Math.max(-2.0, (f1.stats.speed - f2.stats.speed) * 0.045);
 
   const timeHandicap = Number.isFinite(battle.timeHandicap) ? battle.timeHandicap : 0;
-  battle.maxTimeSec = Math.max(6.0, baseSec + typingBonus + psychroBonus + spdBonusSec + timeHandicap);
+  battle.maxTimeSec = Math.max(6.0, baseSec + typingBonus + psychroBonus + cyanoBonus + spdBonusSec + timeHandicap);
   battle.remainTimeSec = battle.maxTimeSec;
 
   battleGaugeInterval = setInterval(() => {
@@ -11334,13 +11641,21 @@ function executeAttack(who, isTypingBonus, speedMult) {
     }
 
     // キラーT細胞専用チップ：パーフォリン穿孔銃（相手の防御完全貫通！）
+    // インフルエンザウイルス専用チップ：抗原シフト・変異スパイク（相手の防御軽減を半分無視！）
     const hasKillerT = p1Chips.includes('chip_sp_killer_t');
-    const defReduction = hasKillerT ? 1.0 : (100 / (100 + (f2.stats.defense || 60) * 0.55));
+    const hasInfluenza = p1Chips.includes('chip_sp_influenza');
+    const baseDefRed = 100 / (100 + (f2.stats.defense || 60) * 0.55);
+    const defReduction = hasKillerT ? 1.0 : (hasInfluenza ? (baseDefRed + (1.0 - baseDefRed) * 0.5) : baseDefRed);
 
-    let dmg = Math.round((28 + f1.stats.size * 0.5 + f1.level * 2.5) * defReduction * (speedMult || 1.0) * (battle.atkMult || 1.0) * (f1.nextAtkMult || 1.0));
+    // ニューロン専用チップ：跳躍伝導ミエリンパルス（早押し速度ボーナス1.3倍！）
+    const hasNeuron = p1Chips.includes('chip_sp_neuron');
+    const effSpeedMult = hasNeuron ? Number(((speedMult || 1.0) * 1.3).toFixed(2)) : (speedMult || 1.0);
+
+    let dmg = Math.round((28 + f1.stats.size * 0.5 + f1.level * 2.5) * defReduction * effSpeedMult * (battle.atkMult || 1.0) * (f1.nextAtkMult || 1.0));
     f1.nextAtkMult = 1.0;
-    let notes = [`⚡速度×${(speedMult || 1.0).toFixed(2)}`];
+    let notes = [hasNeuron ? `⚡跳躍伝導速度×${effSpeedMult.toFixed(2)}` : `⚡速度×${effSpeedMult.toFixed(2)}`];
     if (hasKillerT) notes.push('🎯パーフォリン防御貫通！');
+    else if (hasInfluenza) notes.push('🦠抗原シフト防御半貫通！');
     if (p1Chips.includes('chip_size')) notes.push('🔴筋原線維(攻+15)');
     if (p1Chips.includes('chip_spd')) notes.push('⚡繊毛モーター(速+15)');
     if (p1Chips.includes('chip_def')) notes.push('🟣二重生体膜(防+15)');
@@ -11377,6 +11692,16 @@ function executeAttack(who, isTypingBonus, speedMult) {
     } else if (f1.subjId === q.subj || (p1Chips.includes('chip_dual_subj') && ['chem', 'phys'].includes(q.subj))) {
       dmg = Math.round(dmg * 1.5);
       notes.push('得意科目1.5倍');
+    } else if (hasInfluenza) {
+      dmg = Math.round(dmg * 1.35);
+      notes.push('🦠抗原シフト全教科1.35倍！');
+    }
+
+    // 大腸菌専用チップ：プラスミド高速分裂リング（50%で分裂追撃+35%ダメージ）
+    if (p1Chips.includes('chip_sp_ecoli') && Math.random() < 0.5) {
+      const splitBonus = Math.max(1, Math.round(dmg * 0.35));
+      dmg += splitBonus;
+      notes.push(`🧫プラスミド分裂追撃(+${splitBonus}!)`);
     }
 
     if (p1Chips.includes('chip_gfp')) {
@@ -11400,6 +11725,12 @@ function executeAttack(who, isTypingBonus, speedMult) {
     if (p2Chips.includes('chip_sp_diatom')) {
       dmg = Math.max(1, Math.round(dmg * 0.85));
       notes.push('🛡️相手シリカ結晶-15%軽減');
+    }
+    // 納豆菌専用チップ：絶対芽胞エンドスポア（最初の2撃を-35%軽減）
+    if (p2Chips.includes('chip_sp_natto') && (f2.nattoGuardCount || 0) > 0) {
+      f2.nattoGuardCount--;
+      dmg = Math.max(1, Math.round(dmg * 0.65));
+      notes.push(`🫘相手絶対芽胞-35%軽減(残${f2.nattoGuardCount}回)`);
     }
     // 相手MRオメガ核（受けるダメージ-20%軽減）
     if (p2Chips.includes('chip_mr_origin')) {
@@ -11482,6 +11813,11 @@ function executeAttack(who, isTypingBonus, speedMult) {
       const heal = Math.round(f1.maxHp * 0.25);
       f1.hp = Math.min(f1.maxHp, f1.hp + heal);
       notes.push(`🌿極限クロロフィル+${heal}超回復！`);
+    } else if (p1Chips.includes('chip_sp_cyanobacteria')) {
+      // シアノバクテリア専用チップ：地球大酸化クロロプラスト（正解時HP12%回復）
+      const heal = Math.round(f1.maxHp * 0.12);
+      f1.hp = Math.min(f1.maxHp, f1.hp + heal);
+      notes.push(`🌿大酸化クロロプラスト+${heal}回復！`);
     } else if (p1Chips.includes('chip_telomerase')) {
       const heal = Math.round(f1.maxHp * 0.08);
       f1.hp = Math.min(f1.maxHp, f1.hp + heal);
@@ -11529,14 +11865,24 @@ function executeAttack(who, isTypingBonus, speedMult) {
       return;
     }
 
-    // キラーT細胞貫通チェック
+    // キラーT細胞貫通チェック ＆ インフルエンザ半貫通チェック
     const hasEnemyKillerT = p2Chips.includes('chip_sp_killer_t');
-    const myDefReduction = hasEnemyKillerT ? 1.0 : (100 / (100 + (f1.stats.defense || 60) * 0.65));
+    const hasEnemyInfluenza = p2Chips.includes('chip_sp_influenza');
+    const baseMyDefRed = 100 / (100 + (f1.stats.defense || 60) * 0.65);
+    const myDefReduction = hasEnemyKillerT ? 1.0 : (hasEnemyInfluenza ? (baseMyDefRed + (1.0 - baseMyDefRed) * 0.5) : baseMyDefRed);
 
     let dmg = Math.round((28 + f2.stats.size * 0.45 + f2.level * 2.2) * myDefReduction * (f2.nextAtkMult || 1.0));
     f2.nextAtkMult = 1.0;
     let notes = [];
     if (hasEnemyKillerT) notes.push('🎯相手パーフォリン貫通！');
+    else if (hasEnemyInfluenza) notes.push('🦠相手抗原シフト半貫通！');
+
+    // 相手の大腸菌分裂追撃
+    if (p2Chips.includes('chip_sp_ecoli') && Math.random() < 0.5) {
+      const splitBonus = Math.max(1, Math.round(dmg * 0.35));
+      dmg += splitBonus;
+      notes.push(`🧫相手分裂追撃(+${splitBonus})`);
+    }
 
     // 相手のファージ初撃
     if (p2Chips.includes('chip_sp_phage') && f2.phageFirstHitBonus) {
@@ -11555,6 +11901,12 @@ function executeAttack(who, isTypingBonus, speedMult) {
     if (p1Chips.includes('chip_sp_diatom')) {
       dmg = Math.max(1, Math.round(dmg * 0.85));
       notes.push('🛡️シリカ結晶-15%軽減');
+    }
+    // プレイヤーの納豆菌専用チップ：絶対芽胞エンドスポア（最初の2撃-35%軽減）
+    if (p1Chips.includes('chip_sp_natto') && (f1.nattoGuardCount || 0) > 0) {
+      f1.nattoGuardCount--;
+      dmg = Math.max(1, Math.round(dmg * 0.65));
+      notes.push(`🫘絶対芽胞-35%軽減(残${f1.nattoGuardCount}回)`);
     }
     // プレイヤーのMRオメガ核（-20%ダメージ軽減）
     if (p1Chips.includes('chip_mr_origin')) {
@@ -12602,6 +12954,9 @@ function nextTowerQuestion() {
   // 制限時間設定
   let sec = 10.0;
   if (lastDigit === 3) sec = 6.5; // タイムアタック階
+  const p1TowerChips = (f1 && f1.chips) ? f1.chips : [];
+  if (p1TowerChips.includes('chip_psychro')) sec += 3.0;
+  if (p1TowerChips.includes('chip_sp_cyanobacteria')) sec += 2.5;
   battle.maxTimeSec = sec;
   battle.remainTimeSec = sec;
 
