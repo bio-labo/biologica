@@ -19463,7 +19463,13 @@ function openLabLogicaApp() {
 
         document.getElementById('casinoReturnBtn').addEventListener('click', () => {
           updateWorkProgress();
-          window.location.href = '../../カジノ・ロジカ/index.html?earned=' + lastEarnedChips;
+          const isWebHosted = /^https?:$/i.test(window.location.protocol) &&
+                              !/^(localhost|127\.0\.0\.1)$/i.test(window.location.hostname);
+          if (isWebHosted) {
+            window.location.href = 'https://bio-labo.github.io/casino-logica/?earned=' + lastEarnedChips;
+          } else {
+            window.location.href = '../../カジノ・ロジカ/index.html?earned=' + lastEarnedChips;
+          }
         });
       }, 400);
     });
