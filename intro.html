@@ -1382,15 +1382,15 @@
   /* 🌐 ロジカ・シリーズ ＆ 公式SNS セクション */
   .ecosystem-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
   }
 
   .eco-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 20px;
-    padding: 24px;
+    padding: 22px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1400,6 +1400,11 @@
 
   .eco-card:hover {
     transform: translateY(-4px);
+  }
+
+  .eco-card.battle {
+    border-color: rgba(239, 68, 68, 0.52);
+    background: linear-gradient(145deg, rgba(239, 68, 68, 0.14), rgba(15, 23, 42, 0.9));
   }
 
   .eco-card.lab {
@@ -1448,10 +1453,16 @@
   }
 
   .eco-btn:hover { transform: translateY(-2px); opacity: 0.95; }
+  .eco-btn.battle { background: linear-gradient(135deg, #dc2626, #f97316); }
   .eco-btn.lab { background: linear-gradient(135deg, #0284c7, #0d9488); }
   .eco-btn.casino { background: linear-gradient(135deg, #d97706, #9333ea); }
   .eco-btn.tiktok { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
   .eco-btn.share { background: linear-gradient(135deg, #059669, #0284c7); flex-shrink: 0; }
+
+  .mobile-quick-nav a.mq-battle {
+    border-color: rgba(239, 68, 68, 0.5);
+    color: #fca5a5;
+  }
 
   .mobile-quick-nav a.mq-casino {
     border-color: rgba(245, 158, 11, 0.5);
@@ -1521,6 +1532,7 @@
     <a href="#dex">🧬 動く図鑑</a>
     <a href="#quiz">⚡ お試しクイズ</a>
     <a href="#handbook">📖 公式集</a>
+    <a href="#ecosystem" class="mq-battle">⚔️ バトル・ロジカ</a>
     <a href="#ecosystem" class="mq-lab">🔬 ラボ・ロジカ</a>
     <a href="#ecosystem" class="mq-casino">🎰 カジノ・ロジカ</a>
     <a href="https://www.tiktok.com/@logica_apps" target="_blank" rel="noopener noreferrer" class="mq-tiktok">🎵 TikTok</a>
@@ -2093,11 +2105,25 @@
   <section id="ecosystem" class="container" style="margin-bottom:90px;">
     <div class="section-title-wrap">
       <span class="section-badge">LOGICA SERIES &amp; OFFICIAL SNS</span>
-      <h2 class="section-title">姉妹サイト『ラボ・ロジカ』『カジノ・ロジカ』＆ 公式TikTok</h2>
-      <p class="section-desc">実験で理解し、息抜きも楽しみ、クイズと対戦で定着させる。攻略ショート動画も配信中！</p>
+      <h2 class="section-title">姉妹サイト（バトル・ラボ・カジノ）＆ 公式TikTok</h2>
+      <p class="section-desc">実験で理解し、戦略バトルや息抜きも楽しみ、クイズで定着させる。攻略ショート動画も配信中！</p>
     </div>
 
     <div class="ecosystem-grid">
+      <!-- 姉妹サイト：バトル・ロジカ -->
+      <div class="eco-card battle">
+        <div>
+          <span class="section-badge" style="background:rgba(239,68,68,0.14); border-color:rgba(239,68,68,0.45); color:#fca5a5; margin-bottom:10px;">新作・戦略タワーディフェンス</span>
+          <h3 style="font-size:1.22rem; font-weight:900; color:#fff; margin-bottom:8px;">⚔️ バトル・ロジカ（BATTLE LOGICA）</h3>
+          <p style="font-size:0.84rem; color:var(--text-secondary); line-height:1.65;">
+            微生物＆免疫細胞を率いて出撃する<strong>横スクロール戦略バトル</strong>！全10章100ステージ・5属性相性・N〜MRガチャ＆進化で最強軍団を編成しよう（スマホ縦持ち横画面対応）。
+          </p>
+        </div>
+        <a href="https://bio-labo.github.io/battle-logica/" target="_blank" rel="noopener noreferrer" class="eco-btn battle">
+          <span>⚔️ バトル・ロジカで出撃する</span>
+        </a>
+      </div>
+
       <!-- 姉妹サイト：ラボ・ロジカ -->
       <div class="eco-card lab">
         <div>
@@ -2378,6 +2404,7 @@
 
       <div class="footer-links">
         <a href="index.html">ゲーム本体を開く</a>
+        <a href="https://bio-labo.github.io/battle-logica/" target="_blank" rel="noopener noreferrer">バトル・ロジカ（姉妹サイト）</a>
         <a href="https://bio-labo.github.io/lab-logica/" target="_blank" rel="noopener noreferrer">ラボ・ロジカ（姉妹サイト）</a>
         <a href="https://bio-labo.github.io/casino-logica/" target="_blank" rel="noopener noreferrer">カジノ・ロジカ（姉妹サイト）</a>
         <a href="https://www.tiktok.com/@logica_apps" target="_blank" rel="noopener noreferrer">公式TikTok</a>
