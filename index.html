@@ -6322,26 +6322,26 @@ function onBattlePresetChange(val) {
 // 自分の最新プロフィール＆出撃パーティ3体をFirebase(playersコレクション)に自動同期（デバウンス付きで画面カクつき完全防止！）
 let cloudSyncDebounceTimer = null;
 function syncMyProfileToCloud(immediate = false) {
-  if (!db || !state.friendCode) return;
-  if (state.isTestAccount) return; // 🔧 テストアカウントはランキングに一切送らない！
+  if (!db || !state.friendCode) return Promise.resolve();
+  if (state.isTestAccount) return Promise.resolve(); // 🔧 テストアカウントはランキングに一切送らない！
 
   if (!immediate) {
-    if (cloudSyncDebounceTimer) return;
+    if (cloudSyncDebounceTimer) return Promise.resolve();
     cloudSyncDebounceTimer = setTimeout(() => {
       cloudSyncDebounceTimer = null;
       executeSyncMyProfileToCloud();
     }, 3500);
-    return;
+    return Promise.resolve();
   }
   if (cloudSyncDebounceTimer) {
     clearTimeout(cloudSyncDebounceTimer);
     cloudSyncDebounceTimer = null;
   }
-  executeSyncMyProfileToCloud();
+  return executeSyncMyProfileToCloud();
 }
 
 function executeSyncMyProfileToCloud() {
-  if (!db || !state.friendCode || state.isTestAccount) return;
+  if (!db || !state.friendCode || state.isTestAccount) return Promise.resolve();
   const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
   const myData = getMyPlayerRankData();
   let partyTeam = [];
@@ -6388,7 +6388,7 @@ function executeSyncMyProfileToCloud() {
     payload.updatedAt = new Date().toISOString();
   }
 
-  db.collection('players').doc(myCode).set(payload, { merge: true }).catch(err => console.warn('Cloud sync error:', err));
+  return db.collection('players').doc(myCode).set(payload, { merge: true }).catch(err => console.warn('Cloud sync error:', err));
 }
 
 /* ============================================================================
@@ -12520,6 +12520,7 @@ function endBattle(isWin, isRetire) {
       const curParty = state.presets[state.activePresetIdx].ids;
       curParty.forEach(id => gainExp(getMicrobeById(id), 140)); // ★ バトル勝利経験値を35➔140にUP！
       saveData();
+      syncMyProfileToCloud(true);
       const streakMsg = state.stats.winStreak >= 2 ? `\n🔥 現在 ${state.stats.winStreak} 連勝中！（最高: ${state.stats.maxWinStreak} 連勝）` : '';
       alert(`🏆 大勝利！！\n報酬として ⚡1500 ATP ＆ パーティ全員に大量EXP(+140) を獲得しました！${streakMsg}`);
     } else {
@@ -12527,6 +12528,7 @@ function endBattle(isWin, isRetire) {
       state.stats.winStreak = 0;
       state.atp += 500;
       saveData();
+      syncMyProfileToCloud(true);
       alert(`💦 敗北...\n参加報酬として ⚡500 ATP を獲得しました！`);
     }
   }
@@ -12586,7 +12588,9 @@ async function renderTowerRankingBoard(route) {
   board.innerHTML = '<div style="text-align:center; padding:15px; color:var(--text-sub); font-size:0.82rem;">🗼 タワーランキング読み込み中...</div>';
 
   // 自分の最新タワー記録も同時にクラウドへ即時同期！
-  syncMyProfileToCloud();
+  try {
+    await withTimeout(syncMyProfileToCloud(true), 1500);
+  } catch (e) {}
 
   const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : (state.friendCode || 'BIO-0000');
   const fieldKey = route === 'junior' ? 'towerJunior' : 'towerSenior';
@@ -12627,7 +12631,7 @@ async function renderTowerRankingBoard(route) {
           if (!code || seenCodes.has(code)) return;
           const cleanName = (d.name || '').trim();
           // ★ 初期ネーム「研究員001」「研究員」はタワーランキングからも完全除外！
-          if (!cleanName || cleanName === '研究員001' || cleanName === '研究員') return;
+          if (!cleanName || isDefaultResearcherName(cleanName)) return;
           const floor = Number(d[fieldKey]) || 0;
           if (floor > 0) {
             seenCodes.add(code);
@@ -13029,7 +13033,7 @@ function advanceTowerFloor() {
   }
   if (isBestUpdated) {
     saveData();
-    syncMyProfileToCloud();
+    syncMyProfileToCloud(true);
     if (typeof checkUnlockedTitles === 'function') checkUnlockedTitles();
   }
 
@@ -13085,7 +13089,7 @@ function finishTowerRun(reachedFloor, isWin, isRetire) {
   state.atp += earnedAtp;
   state.medals += earnedMedals;
   saveData();
-  syncMyProfileToCloud();
+  syncMyProfileToCloud(true);
 
   // 称号チェック
   if (typeof checkUnlockedTitles === 'function') checkUnlockedTitles();
@@ -16593,12 +16597,14 @@ function renderRankingBoard(mode) {
 }
 
 // 🌍 全国実プレイヤーランキング（Firebaseから実プレイヤーだけを取得・フレンドコードは非表示！）
-function fetchAndRenderGlobalRanking() {
+async function fetchAndRenderGlobalRanking() {
   const area = document.getElementById('rankingListArea');
   area.innerHTML = '<div style="text-align:center; padding:25px; font-weight:800; color:var(--text-sub);">📡 全国の実プレイヤーデータを読み込み中...</div>';
 
-  // まず自分の最新スコアをクラウドへ同期
-  syncMyProfileToCloud();
+  // まず自分の最新スコアをクラウドへ即時同期（0秒同期完了後に取得）
+  try {
+    await withTimeout(syncMyProfileToCloud(true), 1500);
+  } catch (e) {}
 
   const me = getMyPlayerRankData();
   const myCode = normalizeFriendCode(state.friendCode);
@@ -16609,11 +16615,34 @@ function fetchAndRenderGlobalRanking() {
     return;
   }
 
-  withTimeout(
-    db.collection('players').limit(100).get(),
-    4500,
-    'ランキング読み込みタイムアウト'
-  ).then(snapshot => {
+  let snapshot = null;
+  // 1. まずRP降順で上位100名を取得（ROOM_やMATCH_等のシステムドキュメントはrpを持たないため自動除外される！）
+  try {
+    snapshot = await withTimeout(
+      db.collection('players').orderBy('rp', 'desc').limit(100).get(),
+      3500,
+      'ランキング降順クエリタイムアウト'
+    );
+  } catch (err) {
+    snapshot = null;
+  }
+
+  // 2. フォールバック：万一インデックス未作成等で空・失敗時は全件プレーン取得
+  if (!snapshot || snapshot.empty) {
+    try {
+      snapshot = await withTimeout(
+        db.collection('players').get(),
+        4500,
+        'ランキング全件読み込みタイムアウト'
+      );
+    } catch (err) {
+      console.error(err);
+      renderRankingListItems(isMeValidForGlobal ? [me] : []);
+      return;
+    }
+  }
+
+  try {
     let players = [];
     const seenCodes = new Set();
 
@@ -16703,10 +16732,10 @@ function fetchAndRenderGlobalRanking() {
 
     players.sort((a, b) => b.rp - a.rp);
     renderRankingListItems(players);
-  }).catch(err => {
+  } catch (err) {
     console.error(err);
     renderRankingListItems(isMeValidForGlobal ? [me] : []);
-  });
+  }
 }
 
 // 🤝 フレンド内ランキング（自分＋登録したフレンドの最新クラウドRPをリアルタイム反映！）
