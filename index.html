@@ -642,6 +642,61 @@
   #globalBattleInvitePopupArea > * {
     pointer-events: auto;
   }
+
+  /* 🎯 初心者ガイド ＆ ミッションUI */
+  #tutorialGuideBanner {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 24px);
+    max-width: 560px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #ffffff;
+    border: 2.5px solid #38bdf8;
+    border-radius: 16px;
+    padding: 12px 14px;
+    z-index: 6500;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.45);
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    box-sizing: border-box;
+  }
+  .mission-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .mission-card.claimable {
+    border-color: #f59e0b;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    box-shadow: 0 3px 10px rgba(245, 158, 11, 0.18);
+  }
+  .mission-card.claimed {
+    opacity: 0.68;
+    background: #f8fafc;
+  }
+  .mission-progress-bg {
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .mission-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0ea5e9, #10b981);
+    border-radius: 999px;
+    transition: width 0.25s ease;
+  }
 </style>
 </head>
 <body>
@@ -667,6 +722,9 @@
       <button class="btn btn-outline" style="padding:5px 10px; font-size:0.76rem; border-color:#f59e0b; color:#b45309;" onclick="openPresentModal()">
         🎁 プレゼント <span id="presentBadge" class="notif-badge" style="display:none;">0</span>
       </button>
+      <button class="btn btn-outline" style="padding:5px 10px; font-size:0.76rem; border-color:#0ea5e9; color:#0369a1; background:#f0f9ff; font-weight:900;" onclick="openMissionModal()">
+        🎯 ミッション <span id="missionBadge" class="notif-badge" style="display:none; background:#ef4444; color:white;">0</span>
+      </button>
       <button class="btn btn-outline" style="padding:5px 10px; font-size:0.76rem; border-color:#0284c7; color:#0284c7; font-weight:800;" onclick="openTransferModal()">
         📲 引継ぎ
       </button>
@@ -687,6 +745,9 @@
   <!-- 🔔 グローバル対戦招待リアルタイム枠（全画面どこにいても即時通知！） -->
   <div id="globalBattleInvitePopupArea"></div>
 
+  <!-- 🔰 初心者ステップガイド フローティングバナー -->
+  <div id="tutorialGuideBanner"></div>
+
   <!-- 📱 メニュー画面（ぷにぷに風アイコン一覧） -->
   <section id="screen-menu" class="screen">
     <div class="card">
@@ -695,6 +756,12 @@
         💡 <strong>「🗼 ゲノムタワー」</strong>・ボックス編成・ガチャ・交換所・もちもの・図鑑・設定にここからアクセスできます！
       </div>
       <div class="menu-grid">
+        <div class="menu-app-card" style="border-color:#0ea5e9; background:linear-gradient(180deg,#ffffff,#f0f9ff); position:relative;" onclick="openMissionModal()">
+          <span id="menuMissionBadge" class="notif-badge" style="display:none; position:absolute; top:10px; right:10px; background:#ef4444; color:white;">0</span>
+          <div class="menu-app-icon" style="background:#e0f2fe;">🎯</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#0369a1;">ミッション (新人・日課)</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">初心者ガイド達成＆毎日ATP・メダル獲得！</div>
+        </div>
         <div class="menu-app-card" style="border-color:#7c3aed; background:linear-gradient(180deg,#ffffff,#faf5ff);" onclick="switchScreen('tower')">
           <div class="menu-app-icon" style="background:#ede9fe;">🗼</div>
           <div style="font-weight:900; font-size:0.95rem; color:#6d28d9;">無限のゲノムタワー</div>
@@ -944,6 +1011,17 @@
     <div class="subscreen-back-bar">
       <strong style="color:#0369a1; font-size:0.9rem;">❓ ヘルプ ＆ よくある質問（遊び方ガイド）</strong>
       <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
+    </div>
+
+    <div class="card" style="border-color:#38bdf8; background:linear-gradient(135deg,#f0f9ff 0%,#ffffff 100%);">
+      <div class="card-title" style="color:#0369a1;">🔰 0. 初心者ガイド ＆ ミッション</div>
+      <div style="font-size:0.82rem; color:#334155; line-height:1.5; margin-bottom:10px;">
+        基本の遊び方（シャーレ育成 ＆ クイズ対戦）を体験できる初心者ステップガイドをいつでも再表示できます！
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="restartBeginnerTutorialGuide()">🔰 初心者ステップガイドを表示する</button>
+        <button class="btn btn-outline" style="border-color:#0ea5e9; color:#0369a1;" onclick="openMissionModal()">🎯 ミッション画面を開く</button>
+      </div>
     </div>
 
     <div class="card">
@@ -2226,6 +2304,33 @@
   </section>
 </div>
 
+<!-- 🎯 研究員ミッションモーダル（新人 ＆ デイリー） -->
+<div id="missionModal" class="modal-overlay" onclick="if(event.target===this) closeMissionModal()">
+  <div class="modal-card" style="max-width:560px;">
+    <div class="modal-header" style="background:linear-gradient(135deg, #0284c7, #0d9488);">
+      <span>🎯 研究員ミッション（新人 ＆ デイリー）</span>
+      <button class="btn btn-outline" style="padding:3px 10px; font-size:0.78rem;" onclick="closeMissionModal()">✕ 閉じる</button>
+    </div>
+    <div class="modal-body" style="display:flex; flex-direction:column; gap:10px;">
+      <!-- タブ切替 -->
+      <div class="battle-category-toggle" style="margin-bottom:2px;">
+        <button id="missionTabRookieBtn" class="battle-cat-btn active" onclick="switchMissionTab('rookie')">
+          🔰 新人ミッション (<span id="missionRookieProgText">0/6</span>)
+        </button>
+        <button id="missionTabDailyBtn" class="battle-cat-btn cat-junior" onclick="switchMissionTab('daily')">
+          📅 デイリー (<span id="missionDailyProgText">0/3</span>)
+        </button>
+      </div>
+
+      <!-- コンプリート報酬バナー -->
+      <div id="missionCompleteBanner" style="border-radius:12px; padding:10px 12px; border:2px solid #f59e0b; background:linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;"></div>
+
+      <!-- ミッション一覧 -->
+      <div id="missionListArea" style="display:flex; flex-direction:column; gap:8px;"></div>
+    </div>
+  </div>
+</div>
+
 <!-- 📢 アップデートおしらせモーダル -->
 <div id="newsModal" class="modal-overlay" onclick="if(event.target===this) closeNewsModal()">
   <div class="modal-card">
@@ -3261,12 +3366,31 @@ const TITLES_MASTER = [
   { id: 't_first_chip', name: '🧬 遺伝子カスタムの第一歩', condText: 'いずれかのキャラに遺伝子チップを1枚以上装備させる', check: s => s.box.some(m => Array.isArray(m.chips) && m.chips.filter(Boolean).length >= 1) },
   { id: 't_dual_genome', name: '🧬 デュアルゲノムの開拓者', condText: 'いずれかのキャラに遺伝子チップを2枠とも装備させる', check: s => s.box.some(m => Array.isArray(m.chips) && m.chips.filter(Boolean).length >= 2) },
 
+  // --- 🔰 新人研究員ミッション報酬称号 ---
+  { id: 't_honor_student', name: '🎓 期待の特待生', condText: '新人研究員ミッションをすべてコンプリートする', check: s => !!(s.missions && s.missions.rookieAllClaimed) },
+
   // --- 🗼 ゲノムタワー踏破称号（全5種・100階が称号の最高峰！） ---
   { id: 't_tower_10', name: '🗼 タワー登攀者', condText: 'ゲノムタワーで10階を突破する', check: s => (s.towerBestJunior >= 10 || s.towerBestSenior >= 10) },
   { id: 't_tower_30', name: '⚔️ 階層の覇士', condText: 'ゲノムタワーで30階を突破する', check: s => (s.towerBestJunior >= 30 || s.towerBestSenior >= 30) },
   { id: 't_tower_50', name: '🏅 ゲノムタワーの挑戦者', condText: 'ゲノムタワーで50階を突破する', check: s => (s.towerBestJunior >= 50 || s.towerBestSenior >= 50) },
   { id: 't_tower_70', name: '🌌 遺伝子の支配者', condText: 'ゲノムタワーで70階を突破する', check: s => (s.towerBestJunior >= 70 || s.towerBestSenior >= 70 || s.towerBestJunior >= 200 || s.towerBestSenior >= 200) },
   { id: 't_tower_100', name: '👑 百層を踏破せし者', condText: 'ゲノムタワーで100階を突破する（称号最高峰！）', check: s => (s.towerBestJunior >= 100 || s.towerBestSenior >= 100 || s.towerBestJunior >= 500 || s.towerBestSenior >= 500) }
+];
+
+/* 🎯 新人研究員ミッション ＆ デイリーミッション マスター */
+const ROOKIE_MISSIONS_MASTER = [
+  { id: 'eat_food', icon: '🔬', title: 'シャーレでエサを10個あげよう', desc: '「🔬 育成」画面で微生物を動かしてエサを10個食べよう！（初回ガイドで達成）', target: 10, rewardText: '⚡ 500 ATP', reward: { atp: 500 }, goScreen: 'petri' },
+  { id: 'win_battle', icon: '⚔️', title: 'クイズ対戦で1勝しよう', desc: '「⚔️ 対戦」画面のAI特訓（初級）などで1回勝利しよう！（初回ガイドで達成）', target: 1, rewardText: '⚡ 500 ATP ＋ 🧬 10メダル', reward: { atp: 500, medals: 10 }, goScreen: 'battle' },
+  { id: 'pull_gacha', icon: '💊', title: 'ガチャを1回引いてみよう', desc: 'メニューの「💊 ガチャ」でキャラ・チップ・素材いずれかを1回引こう！', target: 1, rewardText: '⚡ 500 ATP', reward: { atp: 500 }, goScreen: 'gacha' },
+  { id: 'edit_party', icon: '📦', title: 'チーム編成を更新しよう', desc: 'メニューの「📦 ボックス・編成」で枠を入替または自動編成してみよう！', target: 1, rewardText: '⚡ 500 ATP', reward: { atp: 500 }, goScreen: 'box' },
+  { id: 'equip_chip', icon: '🧬', title: '遺伝子チップを1枚装備しよう', desc: '「🎒 もちもの・チップ管理」でキャラにチップを装着しよう！（チップガチャ300 ATPで入手可）', target: 1, rewardText: '🧪 プロテイン液×2 ＋ ⚡ 500 ATP', reward: { atp: 500, itemId: 'item_exp120', itemCount: 2 }, goScreen: 'genome' },
+  { id: 'play_tower', icon: '🗼', title: 'ゲノムタワーに1回挑戦しよう', desc: 'メニューの「🗼 無限のゲノムタワー」で1階から挑戦してみよう！', target: 1, rewardText: '⚡ 1,000 ATP ＋ 🧬 20メダル', reward: { atp: 1000, medals: 20 }, goScreen: 'tower' }
+];
+
+const DAILY_MISSIONS_MASTER = [
+  { id: 'eat_food', icon: '🔬', title: '【日課】シャーレでエサを20個あげる', desc: '「🔬 育成」画面で微生物にエサを20個食べさせよう！', target: 20, rewardText: '⚡ 200 ATP', reward: { atp: 200 }, goScreen: 'petri' },
+  { id: 'win_battle', icon: '⚔️', title: '【日課】クイズ対戦で1勝する', desc: 'CPU戦またはオンライン対戦で1回勝利しよう！', target: 1, rewardText: '⚡ 300 ATP', reward: { atp: 300 }, goScreen: 'battle' },
+  { id: 'play_mode', icon: '🗼', title: '【日課】タワーまたは対人戦を1回プレイ', desc: 'ゲノムタワーまたはフレンド・全国対戦を1回プレイしよう！', target: 1, rewardText: '⚡ 300 ATP', reward: { atp: 300 }, goScreen: 'tower' }
 ];
 
 const EXCHANGE_SHOP_ITEMS = [
@@ -5472,6 +5596,16 @@ QUIZ_MASTER.forEach(q => {
 const NEWS_MASTER = [
   {
     ver: 'Ver 1.0',
+    date: '2026-11-24',
+    title: '🎯 初心者ステップガイド ＆ 新人・デイリーミッション新設アプデ！',
+    items: [
+      '【🔰 初心者ステップガイド新設】初めて遊ぶ方でも「シャーレ育成」と「クイズ対戦」の基本がすぐわかるガイド機能を実装しました！（メニュー内「❓ ヘルプ」からいつでも再表示可能です）',
+      '【🎯 新人研究員ミッション（全6項目）】ガイドをクリアするだけでも最初のミッションが達成！6つすべてクリアするとコンプリート報酬として【⚡ 2,700 ATP（10連ガチャ1回分） ＋ 🏆 限定称号「期待の特待生」】を獲得できます！',
+      '【📅 デイリーミッション（毎日0時更新）】毎日のエサやり・クイズ対戦1勝・タワーやオンライン対戦でコツコツATPと研究メダルが貯まる日課ミッションを新設しました！'
+    ]
+  },
+  {
+    ver: 'Ver 1.0',
     date: '2026-11-23',
     title: '🧬 新キャラ5種族（全20系統・100形態！）＆ 専用遺伝子チップ5種 一挙追加アプデ！',
     items: [
@@ -6437,6 +6571,17 @@ function getFreshInitialState() {
       engBreakdown: { word: 0, idiom: 0, gram: 0 },
       subjCorrect: { bio: 0, chem: 0, phys: 0, m1a: 0, m2b: 0, m3c: 0, eng: 0 }
     },
+    missions: {
+      tutorialStep: 0,
+      tutorialDismissed: false,
+      rookie: { eat_food: 0, win_battle: 0, pull_gacha: 0, edit_party: 0, equip_chip: 0, play_tower: 0 },
+      rookieClaimed: {},
+      rookieAllClaimed: false,
+      dailyDate: '',
+      daily: { eat_food: 0, win_battle: 0, play_mode: 0 },
+      dailyClaimed: {},
+      dailyAllClaimed: false
+    },
     starterCeremonyDone: false
   };
 }
@@ -6724,6 +6869,7 @@ function saveData(fromPetriFood = false) {
       localStorage.setItem('biologica_save_v40', serialized);
       updatePresentBadge();
       updateNewsBadge();
+      if (typeof updateMissionBadge === 'function') updateMissionBadge();
       updateDebugUiBanner();
       syncMyProfileToCloud(false);
     };
@@ -6749,15 +6895,21 @@ function saveData(fromPetriFood = false) {
 
 function loadData() {
   const raw = localStorage.getItem('biologica_save_v50') || localStorage.getItem('biologica_save_v40') || localStorage.getItem('biologica_save_v30') || localStorage.getItem('biologica_save_v25');
+  let hadMissionsData = false;
   if (raw) {
     try {
-      state = { ...getFreshInitialState(), ...JSON.parse(raw) };
+      const parsed = JSON.parse(raw);
+      hadMissionsData = !!(parsed && parsed.missions);
+      state = { ...getFreshInitialState(), ...parsed };
       state.box = (state.box || []).map(migrateMicrobe);
     } catch (e) {
       state = getFreshInitialState();
     }
   } else {
     state = getFreshInitialState();
+  }
+  if (typeof ensureMissionsState === 'function') {
+    ensureMissionsState(hadMissionsData);
   }
   if (!state.friendCode || typeof state.friendCode !== 'string') {
     state.friendCode = 'BIO-' + Math.floor(1000 + Math.random() * 9000);
@@ -6829,6 +6981,8 @@ function loadData() {
     updateSubjectOptionsByGrade();
     updatePresentBadge();
     updateNewsBadge();
+    if (typeof updateMissionBadge === 'function') updateMissionBadge();
+    if (typeof renderTutorialGuideBanner === 'function') renderTutorialGuideBanner();
     updateDebugUiBanner();
     updateAutoEatButton();
     cleanupDummyDocsInCloud();
@@ -7090,11 +7244,19 @@ function finishWelcomeCeremony() {
     }
   }
   state.starterCeremonyDone = true;
+  if (typeof ensureMissionsState === 'function') {
+    ensureMissionsState(true);
+    state.missions.rookie.eat_food = 0;
+    state.missions.daily.eat_food = 0;
+  }
   saveData();
   document.getElementById('welcomeCeremonyModal').classList.remove('active');
   renderPetriStatusCard();
   renderBoxAndParty();
   showToast(`🎉 ようこそ ${state.playerName} 研究員！Lv.30の相棒と一緒に冒険を始めよう！`);
+  if (typeof startBeginnerTutorialGuide === 'function') {
+    startBeginnerTutorialGuide();
+  }
 }
 
 function resetSaveData() {
@@ -8020,9 +8182,11 @@ function unlockPedia(m) {
 function petriLoop() {
   animTick++;
 
+  const isCeremonyBlocking = !state.starterCeremonyDone || document.getElementById('welcomeCeremonyModal')?.classList.contains('active');
+
   // ★ 他画面（もちもの・ゲノム合成・ガチャ・対戦など）を開いている時に、裏で60fpsの重いCanvas描画やステータスパネルDOM再構築が走って画面がカクつくのを完全防止！
   if (currentScreen !== 'petri') {
-    if (state.autoEat !== false && animTick % 50 === 0) {
+    if (!isCeremonyBlocking && state.autoEat !== false && animTick % 50 === 0) {
       const mBg = getMicrobeById(state.activeId);
       if (mBg) {
         if (foods.length < 10) spawnAtpFood(1);
@@ -8056,9 +8220,9 @@ function petriLoop() {
 
     const r = Math.min(34, 14 + (m.stats.size / 10) + m.evoStage * 2.5);
 
-    // 🤖 スマホ快適オート捕食アシスト（ONの時のみ、指を離して0.9秒経つか目標地点に着いたら自動で近くのエサやミッションへ泳ぐ！）
+    // 🤖 スマホ快適オート捕食アシスト（ONの時のみ、指を離して0.9秒経つか目標地点に着いたら自動で近くのエサやミッションへ泳ぐ！※セレモニー中は待機）
     const isIdle = (Date.now() - lastUserTouchTime > 900) || (Math.hypot(playerPos.tx - playerPos.x, playerPos.ty - playerPos.y) < 10);
-    if (state.autoEat !== false && isIdle) {
+    if (!isCeremonyBlocking && state.autoEat !== false && isIdle) {
       if (activeMission) {
         if (activeMission.type === 'heater' && activeMission.zone) {
           playerPos.tx = activeMission.zone.x;
@@ -8092,12 +8256,12 @@ function petriLoop() {
       playerPos.y += (dy / dist) * Math.min(dist, spd);
     }
 
-    // 🧲 強力マグネット吸引 ＆ 捕食判定（近くを通るだけでスッと吸い込む！）
+    // 🧲 強力マグネット吸引 ＆ 捕食判定（近くを通るだけでスッと吸い込む！※セレモニー中は捕食待機）
     const magnetRadius = r + 95;
     for (let i = foods.length - 1; i >= 0; i--) {
       const f = foods[i];
       const fDist = Math.hypot(playerPos.x - f.x, playerPos.y - f.y);
-      if (fDist < magnetRadius && fDist > 1) {
+      if (!isCeremonyBlocking && fDist < magnetRadius && fDist > 1) {
         f.x += ((playerPos.x - f.x) / fDist) * 5.2;
         f.y += ((playerPos.y - f.y) / fDist) * 5.2;
       }
@@ -8110,10 +8274,11 @@ function petriLoop() {
       pCtx.lineWidth = 2;
       pCtx.stroke();
 
-      if (Math.hypot(playerPos.x - f.x, playerPos.y - f.y) < r + f.r + 12) {
+      if (!isCeremonyBlocking && Math.hypot(playerPos.x - f.x, playerPos.y - f.y) < r + f.r + 12) {
         foods.splice(i, 1);
         state.atp += f.atp;
         gainExp(m, f.exp, true);
+        if (typeof recordMissionProgress === 'function') recordMissionProgress('eat_food', 1, true);
         if (currentScreen === 'petri') renderPetriStatusCard();
       }
     }
@@ -8356,6 +8521,7 @@ function autoBuildBestParty() {
   renderBoxAndParty();
   updateBattlePresetSelect();
   showToast(`⚡『${curPreset.name}』に手持ち最強トップ3を自動編成しました！`);
+  if (typeof recordMissionProgress === 'function') recordMissionProgress('edit_party', 1);
 }
 
 function renderBoxAndParty() {
@@ -8539,6 +8705,7 @@ function setPartyMember(slot, uid) {
   renderBoxAndParty();
   updateBattlePresetSelect();
   showToast(`🚩『${cur.name}』の編成を更新しました！`);
+  if (typeof recordMissionProgress === 'function') recordMissionProgress('edit_party', 1);
 }
 
 function updateBattlePresetSelect() {
@@ -9621,6 +9788,7 @@ function equipChipOnTargetFromInv(uid, chipId) {
   renderInventory();
 
   showToast(`🧬『${m.nickname}』の${slotIdx === 0 ? '【種族専用枠1】' : '【自由枠2】'}に【${chip.name}】を装着しました！`);
+  if (typeof recordMissionProgress === 'function') recordMissionProgress('equip_chip', 1);
 
   if (state.ownedChips[chipId] > 0) {
     openInventoryTargetModal(chipId, true);
@@ -9738,6 +9906,7 @@ function pullItemGacha(count) {
   if (gotCore) {
     showToast('🔮✨ 超激レア（1%）！進化素材『ゼノ・コア』を引き当てました！！');
   }
+  if (typeof recordMissionProgress === 'function') recordMissionProgress('pull_gacha', count);
 }
 
 function showItemPullResults(list, titleText) {
@@ -10179,6 +10348,7 @@ function pullChipGacha(count) {
   renderChipExchangeShop();
   const medalBonus = count === 1 ? '（＋🧬5メダル）' : '（＋🧬50メダル獲得！）';
   showChipPullResults(results, count === 1 ? `🧬 チップ単発抽出結果！${medalBonus}` : `🎊 遺伝子チップ10連抽出結果！${medalBonus}`);
+  if (typeof recordMissionProgress === 'function') recordMissionProgress('pull_gacha', count);
 }
 
 function showChipPullResults(list, titleText) {
@@ -10230,6 +10400,7 @@ function pullNormalSingle() {
   saveData();
   renderExchangeShop();
   showPullResults([m], 'ノーマル単発培養結果（＋🧬10メダル）');
+  if (typeof recordMissionProgress === 'function') recordMissionProgress('pull_gacha', 1);
 }
 
 function pullPremiumTen() {
@@ -10242,6 +10413,7 @@ function pullPremiumTen() {
   saveData();
   renderExchangeShop();
   showPullResults(results, '🎊 プレミアム10連培養結果！（＋🧬100メダル獲得！）');
+  if (typeof recordMissionProgress === 'function') recordMissionProgress('pull_gacha', 10);
 }
 
 function renderMicrobeResultCardsHtml(list) {
@@ -12521,6 +12693,7 @@ function endBattle(isWin, isRetire) {
       curParty.forEach(id => gainExp(getMicrobeById(id), 140)); // ★ バトル勝利経験値を35➔140にUP！
       saveData();
       syncMyProfileToCloud(true);
+      if (typeof recordMissionProgress === 'function') recordMissionProgress('win_battle', 1);
       const streakMsg = state.stats.winStreak >= 2 ? `\n🔥 現在 ${state.stats.winStreak} 連勝中！（最高: ${state.stats.maxWinStreak} 連勝）` : '';
       alert(`🏆 大勝利！！\n報酬として ⚡1500 ATP ＆ パーティ全員に大量EXP(+140) を獲得しました！${streakMsg}`);
     } else {
@@ -12789,6 +12962,10 @@ function startTowerBattle(route) {
 
   updateBattleHud();
   nextTowerQuestion();
+  if (typeof recordMissionProgress === 'function') {
+    recordMissionProgress('play_tower', 1);
+    recordMissionProgress('play_mode', 1);
+  }
 }
 
 // 階層エネミー数式プロシージャル生成
@@ -19087,6 +19264,10 @@ function onRoomBattleFinished(r) {
     const curParty = (state.presets[state.activePresetIdx] && state.presets[state.activePresetIdx].ids) || [];
     curParty.forEach(id => gainExp(getMicrobeById(id), 140));
     saveData();
+    if (typeof recordMissionProgress === 'function') {
+      recordMissionProgress('win_battle', 1);
+      recordMissionProgress('play_mode', 1);
+    }
 
     const surrenderNotice = reason === 'surrender' ? '\n（相手が降参・リタイアしました）' : '';
     const streakMsg = state.stats.winStreak >= 2 ? `\n🔥 現在 ${state.stats.winStreak} 連勝中！（最高: ${state.stats.maxWinStreak} 連勝）` : '';
@@ -19096,6 +19277,9 @@ function onRoomBattleFinished(r) {
     state.stats.winStreak = 0;
     state.atp += 500;
     saveData();
+    if (typeof recordMissionProgress === 'function') {
+      recordMissionProgress('play_mode', 1);
+    }
 
     const surrenderNotice = reason === 'surrender' ? '\n（降参・リタイアしました）' : '';
     const winnerDisplay = r.winnerName ? `相手『${r.winnerName}』さんの勝利です！` : '相手の勝利です！';
@@ -19409,6 +19593,537 @@ function renderUltraHdIconToModal() {
   }
   if (dlBtn) {
     dlBtn.href = pngDataUrl;
+  }
+}
+
+/* ============================================================================
+   🎯 初心者ステップガイド ＆ 新人・デイリーミッション管理システム
+============================================================================ */
+let currentMissionTab = 'rookie';
+
+function getLocalDateKey() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function ensureMissionsState(hadMissionsData = true) {
+  if (!state.missions || typeof state.missions !== 'object') {
+    state.missions = {
+      tutorialStep: 0,
+      tutorialDismissed: false,
+      rookie: { eat_food: 0, win_battle: 0, pull_gacha: 0, edit_party: 0, equip_chip: 0, play_tower: 0 },
+      rookieClaimed: {},
+      rookieAllClaimed: false,
+      dailyDate: getLocalDateKey(),
+      daily: { eat_food: 0, win_battle: 0, play_mode: 0 },
+      dailyClaimed: {},
+      dailyAllClaimed: false
+    };
+  }
+  const ms = state.missions;
+  if (typeof ms.tutorialStep !== 'number') ms.tutorialStep = 0;
+  if (typeof ms.tutorialDismissed !== 'boolean') ms.tutorialDismissed = false;
+  if (!ms.rookie) ms.rookie = { eat_food: 0, win_battle: 0, pull_gacha: 0, edit_party: 0, equip_chip: 0, play_tower: 0 };
+  if (!ms.rookieClaimed) ms.rookieClaimed = {};
+  if (!ms.daily) ms.daily = { eat_food: 0, win_battle: 0, play_mode: 0 };
+  if (!ms.dailyClaimed) ms.dailyClaimed = {};
+
+  // 既存プレイヤー向け：初回セレモニー完了済みでミッションデータ未作成だった場合はガイドは非表示にしつつ、達成済み実績を同期
+  if (!hadMissionsData && state.starterCeremonyDone) {
+    ms.tutorialDismissed = true;
+    ms.tutorialStep = 3;
+    if ((state.stats && state.stats.wins) >= 1) ms.rookie.win_battle = Math.max(ms.rookie.win_battle || 0, 1);
+    if ((state.box || []).some(m => Array.isArray(m.chips) && m.chips.filter(Boolean).length >= 1)) {
+      ms.rookie.equip_chip = Math.max(ms.rookie.equip_chip || 0, 1);
+    }
+    if ((state.towerBestJunior || 0) > 0 || (state.towerBestSenior || 0) > 0) {
+      ms.rookie.play_tower = Math.max(ms.rookie.play_tower || 0, 1);
+    }
+  }
+
+  // デイリーミッションの日付リセット判定
+  const todayKey = getLocalDateKey();
+  if (ms.dailyDate !== todayKey) {
+    ms.dailyDate = todayKey;
+    ms.daily = { eat_food: 0, win_battle: 0, play_mode: 0 };
+    ms.dailyClaimed = {};
+    ms.dailyAllClaimed = false;
+  }
+}
+
+function computeCurrentTutorialStep(ms) {
+  const r = (ms && ms.rookie) || {};
+  if ((r.eat_food || 0) < 10) return 1;
+  if ((r.win_battle || 0) < 1) return 2;
+  if ((r.pull_gacha || 0) < 1) return 3;
+  if ((r.edit_party || 0) < 1) return 4;
+  if ((r.equip_chip || 0) < 1) return 5;
+  return 6;
+}
+
+function recordMissionProgress(actionType, amount = 1, fromPetriFood = false) {
+  ensureMissionsState(true);
+  const ms = state.missions;
+  let justAchieved = [];
+  let changed = false;
+
+  // 1. 新人ミッション加算
+  const rookieDef = ROOKIE_MISSIONS_MASTER.find(x => x.id === actionType);
+  if (rookieDef) {
+    const prev = ms.rookie[actionType] || 0;
+    if (prev < rookieDef.target) {
+      const nextVal = Math.min(rookieDef.target, prev + amount);
+      ms.rookie[actionType] = nextVal;
+      changed = true;
+      if (prev < rookieDef.target && nextVal >= rookieDef.target && !ms.rookieClaimed[actionType]) {
+        justAchieved.push(`🔰 新人ミッション「${rookieDef.title}」`);
+      }
+    }
+  }
+
+  // 2. デイリーミッション加算
+  const dailyDef = DAILY_MISSIONS_MASTER.find(x => x.id === actionType);
+  if (dailyDef) {
+    const prevD = ms.daily[actionType] || 0;
+    if (prevD < dailyDef.target) {
+      const nextD = Math.min(dailyDef.target, prevD + amount);
+      ms.daily[actionType] = nextD;
+      changed = true;
+      if (prevD < dailyDef.target && nextD >= dailyDef.target && !ms.dailyClaimed[actionType]) {
+        justAchieved.push(`📅 デイリー「${dailyDef.title}」`);
+      }
+    }
+  }
+
+  // 3. 初心者ステップガイドの自動進行（全5ステップ＋完了）
+  let stepAdvanced = false;
+  if (!ms.tutorialDismissed && ms.tutorialStep > 0) {
+    const nextStep = computeCurrentTutorialStep(ms);
+    if (nextStep !== ms.tutorialStep) {
+      ms.tutorialStep = nextStep;
+      stepAdvanced = true;
+    }
+  }
+
+  if (changed || stepAdvanced) {
+    saveData(fromPetriFood && justAchieved.length === 0 && !stepAdvanced);
+    updateMissionBadge();
+    if (!ms.tutorialDismissed && ms.tutorialStep > 0) {
+      renderTutorialGuideBanner();
+    }
+    if (document.getElementById('missionModal')?.classList.contains('active')) {
+      renderMissionModal();
+    }
+    if (justAchieved.length > 0) {
+      showToast(`🎯 ミッション達成！ ${justAchieved[0]}（ヘッダーの「🎯ミッション」から受取！）`);
+    }
+  }
+}
+
+function getMissionClaimableCounts() {
+  ensureMissionsState(true);
+  const ms = state.missions;
+
+  let rookieReady = 0;
+  let rookieDone = 0;
+  ROOKIE_MISSIONS_MASTER.forEach(m => {
+    const prog = ms.rookie[m.id] || 0;
+    const claimed = !!ms.rookieClaimed[m.id];
+    if (claimed) rookieDone++;
+    else if (prog >= m.target) rookieReady++;
+  });
+  const rookieAllCleared = ROOKIE_MISSIONS_MASTER.every(m => (ms.rookie[m.id] || 0) >= m.target);
+  const rookieCompleteReady = rookieAllCleared && !ms.rookieAllClaimed ? 1 : 0;
+
+  let dailyReady = 0;
+  let dailyDone = 0;
+  DAILY_MISSIONS_MASTER.forEach(m => {
+    const prog = ms.daily[m.id] || 0;
+    const claimed = !!ms.dailyClaimed[m.id];
+    if (claimed) dailyDone++;
+    else if (prog >= m.target) dailyReady++;
+  });
+  const dailyAllCleared = DAILY_MISSIONS_MASTER.every(m => (ms.daily[m.id] || 0) >= m.target);
+  const dailyCompleteReady = dailyAllCleared && !ms.dailyAllClaimed ? 1 : 0;
+
+  return {
+    rookieReady,
+    rookieDone,
+    rookieCompleteReady,
+    dailyReady,
+    dailyDone,
+    dailyCompleteReady,
+    totalReady: rookieReady + rookieCompleteReady + dailyReady + dailyCompleteReady
+  };
+}
+
+function updateMissionBadge() {
+  const counts = getMissionClaimableCounts();
+  const badge = document.getElementById('missionBadge');
+  if (badge) {
+    if (counts.totalReady > 0) {
+      badge.style.display = 'inline-block';
+      badge.textContent = counts.totalReady;
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+  const menuBadge = document.getElementById('menuMissionBadge');
+  if (menuBadge) {
+    if (counts.totalReady > 0) {
+      menuBadge.style.display = 'inline-block';
+      menuBadge.textContent = counts.totalReady;
+    } else {
+      menuBadge.style.display = 'none';
+    }
+  }
+}
+
+function openMissionModal(tab) {
+  ensureMissionsState(true);
+  if (tab === 'rookie' || tab === 'daily') {
+    currentMissionTab = tab;
+  }
+  renderMissionModal();
+  const modal = document.getElementById('missionModal');
+  if (modal) modal.classList.add('active');
+}
+
+function closeMissionModal() {
+  const modal = document.getElementById('missionModal');
+  if (modal) modal.classList.remove('active');
+}
+
+function switchMissionTab(tab) {
+  currentMissionTab = tab === 'daily' ? 'daily' : 'rookie';
+  renderMissionModal();
+}
+
+function goToMissionScreen(screenId) {
+  closeMissionModal();
+  switchScreen(screenId);
+}
+
+function renderMissionModal() {
+  ensureMissionsState(true);
+  const ms = state.missions;
+  const counts = getMissionClaimableCounts();
+
+  const btnR = document.getElementById('missionTabRookieBtn');
+  const btnD = document.getElementById('missionTabDailyBtn');
+  if (btnR) btnR.classList.toggle('active', currentMissionTab === 'rookie');
+  if (btnD) btnD.classList.toggle('active', currentMissionTab === 'daily');
+
+  const rTxt = document.getElementById('missionRookieProgText');
+  if (rTxt) rTxt.textContent = `${ROOKIE_MISSIONS_MASTER.filter(m => (ms.rookie[m.id] || 0) >= m.target).length}/${ROOKIE_MISSIONS_MASTER.length}`;
+  const dTxt = document.getElementById('missionDailyProgText');
+  if (dTxt) dTxt.textContent = `${DAILY_MISSIONS_MASTER.filter(m => (ms.daily[m.id] || 0) >= m.target).length}/${DAILY_MISSIONS_MASTER.length}`;
+
+  const banner = document.getElementById('missionCompleteBanner');
+  const listArea = document.getElementById('missionListArea');
+  if (!banner || !listArea) return;
+
+  if (currentMissionTab === 'rookie') {
+    const clearedCnt = ROOKIE_MISSIONS_MASTER.filter(m => (ms.rookie[m.id] || 0) >= m.target).length;
+    const allCleared = clearedCnt === ROOKIE_MISSIONS_MASTER.length;
+    const allClaimed = !!ms.rookieAllClaimed;
+
+    banner.style.background = allClaimed ? '#f8fafc' : 'linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)';
+    banner.style.borderColor = allClaimed ? '#cbd5e1' : '#f59e0b';
+    banner.innerHTML = `
+      <div style="flex:1; min-width:210px;">
+        <div style="font-weight:900; font-size:0.9rem; color:${allClaimed ? '#64748b' : '#b45309'};">
+          👑 新人ミッション全達成コンプリート報酬（${clearedCnt}/6）
+        </div>
+        <div style="font-size:0.78rem; font-weight:800; color:#78350f; margin-top:2px;">
+          ⚡ 2,700 ATP（10連ガチャ1回分） ＋ 🏆 限定称号「期待の特待生」
+        </div>
+      </div>
+      <button class="btn ${allClaimed ? 'btn-outline' : (allCleared ? 'btn-accent' : 'btn-outline')}" ${(!allCleared || allClaimed) ? 'disabled' : ''} onclick="claimMissionCompleteBonus('rookie')">
+        ${allClaimed ? '✅ 受取済' : (allCleared ? '🎁 コンプ報酬を受け取る！' : `あと ${6 - clearedCnt} 個`)}
+      </button>
+    `;
+
+    listArea.innerHTML = ROOKIE_MISSIONS_MASTER.map(m => {
+      const prog = Math.min(m.target, ms.rookie[m.id] || 0);
+      const isCleared = prog >= m.target;
+      const isClaimed = !!ms.rookieClaimed[m.id];
+      const pct = Math.round((prog / m.target) * 100);
+      return `
+        <div class="mission-card ${isClaimed ? 'claimed' : (isCleared ? 'claimable' : '')}">
+          <div style="flex:1; min-width:200px;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-size:1.15rem;">${m.icon}</span>
+              <strong style="font-size:0.88rem; color:#0f172a;">${m.title}</strong>
+            </div>
+            <div style="font-size:0.73rem; color:var(--text-sub); margin-top:2px;">${m.desc}</div>
+            <div style="display:flex; justify-content:space-between; font-size:0.72rem; font-weight:900; color:#0369a1; margin-top:4px;">
+              <span>報酬: <span style="color:#b45309;">${m.rewardText}</span></span>
+              <span>進捗: ${prog} / ${m.target}</span>
+            </div>
+            <div class="mission-progress-bg"><div class="mission-progress-fill" style="width:${pct}%"></div></div>
+          </div>
+          <div>
+            ${isClaimed
+              ? `<button class="btn btn-outline" disabled style="padding:6px 12px; font-size:0.76rem;">✅ 受取済</button>`
+              : (isCleared
+                ? `<button class="btn btn-accent" style="padding:6px 14px; font-size:0.8rem;" onclick="claimMissionReward('rookie', '${m.id}')">🎁 受取</button>`
+                : `<button class="btn btn-outline" style="padding:6px 12px; font-size:0.76rem; border-color:#0284c7; color:#0284c7;" onclick="goToMissionScreen('${m.goScreen}')">🚀 行く</button>`
+              )
+            }
+          </div>
+        </div>
+      `;
+    }).join('');
+  } else {
+    const clearedCnt = DAILY_MISSIONS_MASTER.filter(m => (ms.daily[m.id] || 0) >= m.target).length;
+    const allCleared = clearedCnt === DAILY_MISSIONS_MASTER.length;
+    const allClaimed = !!ms.dailyAllClaimed;
+
+    banner.style.background = allClaimed ? '#f8fafc' : 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)';
+    banner.style.borderColor = allClaimed ? '#cbd5e1' : '#10b981';
+    banner.innerHTML = `
+      <div style="flex:1; min-width:210px;">
+        <div style="font-weight:900; font-size:0.9rem; color:${allClaimed ? '#64748b' : '#047857'};">
+          🌟 デイリー全達成ボーナス（毎日0時リセット・${clearedCnt}/3）
+        </div>
+        <div style="font-size:0.78rem; font-weight:800; color:#065f46; margin-top:2px;">
+          ⚡ 500 ATP ＋ 🧬 5メダル
+        </div>
+      </div>
+      <button class="btn ${allClaimed ? 'btn-outline' : (allCleared ? 'btn-secondary' : 'btn-outline')}" ${(!allCleared || allClaimed) ? 'disabled' : ''} onclick="claimMissionCompleteBonus('daily')">
+        ${allClaimed ? '✅ 受取済' : (allCleared ? '🎁 ボーナス受取！' : `あと ${3 - clearedCnt} 個`)}
+      </button>
+    `;
+
+    listArea.innerHTML = DAILY_MISSIONS_MASTER.map(m => {
+      const prog = Math.min(m.target, ms.daily[m.id] || 0);
+      const isCleared = prog >= m.target;
+      const isClaimed = !!ms.dailyClaimed[m.id];
+      const pct = Math.round((prog / m.target) * 100);
+      return `
+        <div class="mission-card ${isClaimed ? 'claimed' : (isCleared ? 'claimable' : '')}">
+          <div style="flex:1; min-width:200px;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-size:1.15rem;">${m.icon}</span>
+              <strong style="font-size:0.88rem; color:#0f172a;">${m.title}</strong>
+            </div>
+            <div style="font-size:0.73rem; color:var(--text-sub); margin-top:2px;">${m.desc}</div>
+            <div style="display:flex; justify-content:space-between; font-size:0.72rem; font-weight:900; color:#0369a1; margin-top:4px;">
+              <span>報酬: <span style="color:#b45309;">${m.rewardText}</span></span>
+              <span>進捗: ${prog} / ${m.target}</span>
+            </div>
+            <div class="mission-progress-bg"><div class="mission-progress-fill" style="width:${pct}%"></div></div>
+          </div>
+          <div>
+            ${isClaimed
+              ? `<button class="btn btn-outline" disabled style="padding:6px 12px; font-size:0.76rem;">✅ 受取済</button>`
+              : (isCleared
+                ? `<button class="btn btn-accent" style="padding:6px 14px; font-size:0.8rem;" onclick="claimMissionReward('daily', '${m.id}')">🎁 受取</button>`
+                : `<button class="btn btn-outline" style="padding:6px 12px; font-size:0.76rem; border-color:#059669; color:#059669;" onclick="goToMissionScreen('${m.goScreen}')">🚀 行く</button>`
+              )
+            }
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+}
+
+function claimMissionReward(tab, missionId) {
+  ensureMissionsState(true);
+  const ms = state.missions;
+  const master = tab === 'daily' ? DAILY_MISSIONS_MASTER : ROOKIE_MISSIONS_MASTER;
+  const m = master.find(x => x.id === missionId);
+  if (!m) return;
+
+  const progMap = tab === 'daily' ? ms.daily : ms.rookie;
+  const claimedMap = tab === 'daily' ? ms.dailyClaimed : ms.rookieClaimed;
+  if ((progMap[missionId] || 0) < m.target || claimedMap[missionId]) return;
+
+  claimedMap[missionId] = true;
+  if (m.reward.atp) state.atp += m.reward.atp;
+  if (m.reward.medals) state.medals += m.reward.medals;
+  if (m.reward.itemId && m.reward.itemCount) {
+    state.ownedItems = state.ownedItems || {};
+    state.ownedItems[m.reward.itemId] = (state.ownedItems[m.reward.itemId] || 0) + m.reward.itemCount;
+  }
+
+  saveData();
+  updateMissionBadge();
+  renderMissionModal();
+  if (typeof renderInventory === 'function') renderInventory();
+  if (typeof renderExchangeShop === 'function') renderExchangeShop();
+  showToast(`🎉 ミッション報酬【${m.rewardText}】を受け取りました！`);
+}
+
+function claimMissionCompleteBonus(tab) {
+  ensureMissionsState(true);
+  const ms = state.missions;
+
+  if (tab === 'rookie') {
+    const allCleared = ROOKIE_MISSIONS_MASTER.every(m => (ms.rookie[m.id] || 0) >= m.target);
+    if (!allCleared || ms.rookieAllClaimed) return;
+    ms.rookieAllClaimed = true;
+    state.atp += 2700;
+    state.equippedTitleId = 't_honor_student';
+    saveData();
+    updateMissionBadge();
+    renderMissionModal();
+    if (typeof updateStatsDisplay === 'function') updateStatsDisplay();
+    showToast(`🎊 新人ミッション完全制覇！⚡2,700 ATP ＆ 🏆限定称号『🎓 期待の特待生』を獲得＆装備！`);
+    alert(`🎊 新人研究員ミッション コンプリート！！\n\n・⚡ 2,700 ATP（10連ガチャ1回分！）\n・🏆 限定称号『🎓 期待の特待生』\nを獲得しました！（称号はプロフィールからいつでも変更できます）`);
+  } else {
+    const allCleared = DAILY_MISSIONS_MASTER.every(m => (ms.daily[m.id] || 0) >= m.target);
+    if (!allCleared || ms.dailyAllClaimed) return;
+    ms.dailyAllClaimed = true;
+    state.atp += 500;
+    state.medals += 5;
+    saveData();
+    updateMissionBadge();
+    renderMissionModal();
+    if (typeof renderExchangeShop === 'function') renderExchangeShop();
+    showToast(`🌟 デイリーミッション全達成ボーナス【⚡500 ATP ＋ 🧬5メダル】を獲得しました！`);
+  }
+}
+
+/* 🔰 初心者ステップガイド制御 */
+function startBeginnerTutorialGuide() {
+  ensureMissionsState(true);
+  const ms = state.missions;
+  ms.tutorialDismissed = false;
+  ms.tutorialStep = computeCurrentTutorialStep(ms);
+  saveData();
+  renderTutorialGuideBanner();
+}
+
+function restartBeginnerTutorialGuide() {
+  ensureMissionsState(true);
+  const ms = state.missions;
+  ms.tutorialDismissed = false;
+  ms.tutorialStep = computeCurrentTutorialStep(ms);
+  const stepScreenMap = { 1: 'petri', 2: 'battle', 3: 'gacha', 4: 'box', 5: 'genome' };
+  if (stepScreenMap[ms.tutorialStep]) {
+    switchScreen(stepScreenMap[ms.tutorialStep]);
+  }
+  saveData();
+  renderTutorialGuideBanner();
+  showToast('🔰 初心者ステップガイドを表示しました！');
+}
+
+function dismissTutorialGuide() {
+  ensureMissionsState(true);
+  state.missions.tutorialDismissed = true;
+  saveData();
+  renderTutorialGuideBanner();
+}
+
+function renderTutorialGuideBanner() {
+  const banner = document.getElementById('tutorialGuideBanner');
+  if (!banner) return;
+  ensureMissionsState(true);
+  const ms = state.missions;
+
+  if (ms.tutorialDismissed || !ms.tutorialStep || ms.tutorialStep <= 0) {
+    banner.style.display = 'none';
+    return;
+  }
+
+  banner.style.display = 'flex';
+  const step = ms.tutorialStep;
+  const skipBtn = `<button class="btn btn-outline" style="padding:4px 10px; font-size:0.74rem; color:#cbd5e1; border-color:#475569; background:transparent;" onclick="dismissTutorialGuide()">スキップ</button>`;
+
+  if (step === 1) {
+    const cnt = Math.min(10, ms.rookie.eat_food || 0);
+    banner.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+        <span style="background:#0ea5e9; color:white; font-size:0.72rem; font-weight:900; padding:2px 9px; border-radius:999px;">🔰 初心者ガイド (1/5)</span>
+        <span style="font-size:0.76rem; font-weight:900; color:#fde047;">エサ捕食: ${cnt} / 10</span>
+      </div>
+      <div style="font-size:0.84rem; font-weight:800; line-height:1.45;">
+        まずは<strong>「🔬 育成」</strong>画面のシャーレで微生物を動かして、エサを<strong>10個</strong>食べさせてみよう！
+      </div>
+      <div style="display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap;">
+        ${skipBtn}
+        <button class="btn btn-primary" style="padding:5px 12px; font-size:0.78rem;" onclick="switchScreen('petri')">🔬 育成画面へ</button>
+      </div>
+    `;
+  } else if (step === 2) {
+    banner.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+        <span style="background:#10b981; color:white; font-size:0.72rem; font-weight:900; padding:2px 9px; border-radius:999px;">🔰 初心者ガイド (2/5)</span>
+        <span style="font-size:0.74rem; font-weight:900; color:#6ee7b7;">Step1 クリア済！</span>
+      </div>
+      <div style="font-size:0.84rem; font-weight:800; line-height:1.45;">
+        次は<strong>「⚔️ 対戦」</strong>画面の下にある<strong>「🤖 1人で特訓（初級）」</strong>で1勝してATPを稼ごう！
+      </div>
+      <div style="display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap;">
+        ${skipBtn}
+        <button class="btn btn-secondary" style="padding:5px 12px; font-size:0.78rem;" onclick="switchScreen('battle')">⚔️ 対戦画面へ移動！</button>
+      </div>
+    `;
+  } else if (step === 3) {
+    banner.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+        <span style="background:#ec4899; color:white; font-size:0.72rem; font-weight:900; padding:2px 9px; border-radius:999px;">🔰 初心者ガイド (3/5)</span>
+        <span style="font-size:0.74rem; font-weight:900; color:#fbcfe8;">勝利報酬でガチャが引ける！</span>
+      </div>
+      <div style="font-size:0.84rem; font-weight:800; line-height:1.45;">
+        貯まったATPで<strong>「💊 ガチャ」</strong>を1回引いてみよう！（🧬チップガチャは300 ATPから引けるよ！）
+      </div>
+      <div style="display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap;">
+        ${skipBtn}
+        <button class="btn btn-purple" style="padding:5px 12px; font-size:0.78rem;" onclick="switchScreen('gacha')">💊 ガチャを引く！</button>
+      </div>
+    `;
+  } else if (step === 4) {
+    banner.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+        <span style="background:#0284c7; color:white; font-size:0.72rem; font-weight:900; padding:2px 9px; border-radius:999px;">🔰 初心者ガイド (4/5)</span>
+        <span style="font-size:0.74rem; font-weight:900; color:#bae6fd;">強い3体チームを作ろう！</span>
+      </div>
+      <div style="font-size:0.84rem; font-weight:800; line-height:1.45;">
+        <strong>「📦 ボックス・編成」</strong>で枠を入替するか、<strong>「⚡ 最強自動編成」</strong>でパーティを更新してみよう！
+      </div>
+      <div style="display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap;">
+        ${skipBtn}
+        <button class="btn btn-primary" style="padding:5px 12px; font-size:0.78rem;" onclick="switchScreen('box')">📦 ボックス・編成へ</button>
+      </div>
+    `;
+  } else if (step === 5) {
+    const hasAnyChip = Object.values(state.ownedChips || {}).some(c => c > 0);
+    banner.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+        <span style="background:#7c3aed; color:white; font-size:0.72rem; font-weight:900; padding:2px 9px; border-radius:999px;">🔰 初心者ガイド (5/5)</span>
+        <span style="font-size:0.74rem; font-weight:900; color:#ddd6fe;">あと少しで完了！</span>
+      </div>
+      <div style="font-size:0.84rem; font-weight:800; line-height:1.45;">
+        <strong>「🎒 もちもの・チップ管理」</strong>で微生物に遺伝子チップを1枚装備してみよう！
+        ${!hasAnyChip ? '<br><small style="color:#fde047;">（※チップを持っていない時は「💊 チップガチャ」300 ATPで引いてみよう！）</small>' : ''}
+      </div>
+      <div style="display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap;">
+        ${skipBtn}
+        ${!hasAnyChip ? `<button class="btn btn-purple" style="padding:5px 10px; font-size:0.76rem;" onclick="switchScreen('gacha'); switchGachaCategory('chip');">💊 チップガチャへ</button>` : ''}
+        <button class="btn btn-primary" style="padding:5px 12px; font-size:0.78rem;" onclick="switchScreen('genome')">🎒 もちものへ</button>
+      </div>
+    `;
+  } else {
+    banner.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+        <span style="background:linear-gradient(135deg,#f59e0b,#db2777); color:white; font-size:0.72rem; font-weight:900; padding:2px 9px; border-radius:999px;">🎊 初心者ガイド完了！</span>
+        <button class="btn btn-outline" style="padding:2px 8px; font-size:0.72rem; color:#cbd5e1; border-color:#475569; background:transparent;" onclick="dismissTutorialGuide()">✕ 閉じる</button>
+      </div>
+      <div style="font-size:0.84rem; font-weight:800; line-height:1.45;">
+        基本操作マスターおめでとう！あとは<strong>ゲノムタワーに1回挑戦</strong>すれば<strong>コンプ報酬（⚡2,700 ATP ＋ 🏆『期待の特待生』）</strong>が手に入るよ！
+      </div>
+      <div style="display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap;">
+        <button class="btn btn-purple" style="padding:5px 12px; font-size:0.78rem;" onclick="dismissTutorialGuide(); switchScreen('tower');">🗼 タワーへ挑戦！</button>
+        <button class="btn btn-accent" style="padding:6px 14px; font-size:0.8rem;" onclick="dismissTutorialGuide(); openMissionModal('rookie');">🎯 ミッション報酬を受取！</button>
+      </div>
+    `;
   }
 }
 
