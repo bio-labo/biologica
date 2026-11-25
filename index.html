@@ -711,9 +711,6 @@
       </div>
     </div>
     <div class="status-bar">
-      <button id="exitDebugBtn" class="btn btn-purple" style="display:none; padding:5px 12px; font-size:0.78rem; box-shadow:0 0 10px rgba(219,39,119,0.5);" onclick="exitDebugTestMode()">
-        🔧 テスト終了（本番データに戻す）
-      </button>
       <div class="atp-badge">⚡ <span id="atpDisplay">500</span> ATP</div>
       <div class="medal-badge">🧬 <span id="medalDisplay">0</span> メダル</div>
       <button class="btn btn-outline" style="padding:5px 10px; font-size:0.76rem;" onclick="openNewsModal()">
@@ -938,7 +935,7 @@
       <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
     </div>
     <div class="card">
-      <div class="card-title" onclick="triggerAdminSecretTap()" style="cursor:pointer;" title="設定">⚙️ 環境設定</div>
+      <div class="card-title">⚙️ 環境設定</div>
       <div style="display:flex; flex-direction:column; gap:12px;">
         <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:12px; border-radius:12px; border:1px solid #cbd5e1;">
           <div>
@@ -946,29 +943,6 @@
             <div style="font-size:0.76rem; color:var(--text-sub);">ONにすると、指を離している間に自動で近くのエサやミッションを追尾します</div>
           </div>
           <button class="btn btn-purple" onclick="toggleAutoEat()">切替</button>
-        </div>
-
-        <!-- 👑 運営専用ツール（通常時は完全非表示！合言葉「ADMIN」、または「環境設定」5回タップで出現） -->
-        <div id="adminGiftSettingsCard" style="display:none; flex-direction:column; gap:10px; background:#fefce8; padding:14px; border-radius:14px; border:2.5px solid #f59e0b; box-shadow:0 4px 15px rgba(245, 158, 11, 0.15);">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; border-bottom:1.5px dashed #fcd34d; padding-bottom:8px;">
-            <div>
-              <div style="font-weight:900; font-size:0.95rem; color:#854d0e; display:flex; align-items:center; gap:6px;">
-                <span>👑 運営局・管理者コントロールパネル</span>
-                <span style="background:#f59e0b; color:white; font-size:0.68rem; font-weight:900; padding:1px 6px; border-radius:999px;">管理者専用</span>
-              </div>
-              <div style="font-size:0.75rem; color:#713f12; margin-top:2px;">運営者マスターパスコードで保護された極秘管理ツールです</div>
-            </div>
-            <button class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; border-color:#d97706; color:#b45309;" onclick="closeAdminGiftSettingsCard()">✕ 隠す</button>
-          </div>
-
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:8px;">
-            <button class="btn btn-primary" style="padding:10px 12px; font-size:0.86rem; font-weight:900; background:linear-gradient(135deg, #0284c7, #059669); border-color:#0284c7; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="openAdminInquiryViewer()">
-              <span>📨 届いたお問い合わせ一覧</span>
-            </button>
-            <button class="btn btn-accent" style="padding:10px 12px; font-size:0.86rem; font-weight:900; background:linear-gradient(135deg, #d97706, #7c3aed); border-color:#b45309; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="openAdminGiftModal()">
-              <span>🎁 個別プレゼント発行ツール</span>
-            </button>
-          </div>
         </div>
 
         <!-- 📲 セーブデータ引き継ぎ・バックアップ -->
@@ -2414,104 +2388,6 @@
       <button class="btn btn-secondary" style="padding:11px; font-size:0.95rem; font-weight:900;" onclick="submitInquiry()">
         📨 不具合・ご意見を送信する
       </button>
-    </div>
-  </div>
-</div>
-
-<!-- 👑 運営専用：特定プレイヤーへの個別プレゼント送付モーダル -->
-<div id="adminGiftModal" class="modal-overlay" onclick="if(event.target===this) closeAdminGiftModal()">
-  <div class="modal-card" style="max-width:480px; border:3px solid #f59e0b;">
-    <div class="modal-header" style="background:linear-gradient(135deg, #d97706, #7c3aed);">
-      <span>👑 運営専用：特定プレイヤーへプレゼント送付</span>
-      <div style="display:flex; gap:6px; align-items:center;">
-        <button class="btn btn-outline" style="padding:2px 8px; font-size:0.7rem;" onclick="changeAdminPass()">🔑 パス変更</button>
-        <button class="btn btn-outline" style="padding:3px 10px; font-size:0.78rem;" onclick="closeAdminGiftModal()">✕ 閉じる</button>
-      </div>
-    </div>
-    <div class="modal-body" style="display:flex; flex-direction:column; gap:12px;">
-      <div style="background:#fefce8; border:1px solid #fde047; padding:8px 12px; border-radius:8px; font-size:0.78rem; color:#854d0e; line-height:1.45;">
-        【運営配布ツール】特定のフレンドコードを指定し、「バイオ・ロジカ運営局」からの特別個別プレゼントを発行・配送します！相手のプレゼントBOXに届きます。<br>
-        <strong>※運営発行のため、あなたの所持ATP・メダルは消費されません。</strong>
-      </div>
-
-      <div>
-        <label style="font-size:0.78rem; font-weight:900; color:#854d0e; display:block; margin-bottom:4px;">🎯 贈り先（対象プレイヤーのフレンドコード）</label>
-        <input type="text" id="adminGiftTargetCodeInput" class="btn-outline" style="width:100%; padding:8px 10px; border-radius:8px; font-weight:900; font-size:0.95rem;" placeholder="例: BIO-1234">
-      </div>
-
-      <div>
-        <label style="font-size:0.78rem; font-weight:900; color:#0369a1; display:block; margin-bottom:4px;">🏷️ ギフトのタイトル（名目）</label>
-        <input type="text" id="adminGiftTitleInput" class="btn-outline" style="width:100%; padding:8px 10px; border-radius:8px; font-weight:800;" placeholder="例: 🎉 不具合報告のお礼 / 🧬 テスト勉強応援ボーナス" value="👑 運営局からの特別プレゼント">
-      </div>
-
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-        <div>
-          <label style="font-size:0.78rem; font-weight:900; color:#b45309; display:block; margin-bottom:4px;">⚡ 配布するATP</label>
-          <select id="adminGiftAtpSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800;">
-            <option value="0">0 ATP</option>
-            <option value="500">⚡ 500 ATP</option>
-            <option value="1000">⚡ 1000 ATP</option>
-            <option value="2000">⚡ 2000 ATP</option>
-            <option value="3000" selected>⚡ 3000 ATP</option>
-            <option value="5000">⚡ 5000 ATP</option>
-            <option value="10000">⚡ 10000 ATP (特大ボーナス)</option>
-          </select>
-        </div>
-        <div>
-          <label style="font-size:0.78rem; font-weight:900; color:#7c3aed; display:block; margin-bottom:4px;">🧬 配布するDNAメダル</label>
-          <select id="adminGiftMedalSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800;">
-            <option value="0">0 枚</option>
-            <option value="20">🧬 20 メダル</option>
-            <option value="50">🧬 50 メダル</option>
-            <option value="100" selected>🧬 100 メダル (10連分)</option>
-            <option value="200">🧬 200 メダル</option>
-            <option value="500">🧬 500 メダル</option>
-          </select>
-        </div>
-      </div>
-
-      <div>
-        <label style="font-size:0.78rem; font-weight:900; color:#0369a1; display:block; margin-bottom:4px;">💌 運営からのメッセージ</label>
-        <textarea id="adminGiftMessageInput" class="btn-outline" style="width:100%; height:75px; padding:8px 10px; border-radius:8px; font-weight:700; font-size:0.8rem; resize:vertical;" placeholder="メッセージを入力してください">いつもバイオ・ロジカを遊んでいただきありがとうございます！開発・運営局からの特別応援ギフトです！</textarea>
-      </div>
-
-      <button class="btn btn-accent" style="padding:12px; font-size:1rem; font-weight:900; background:linear-gradient(135deg, #f59e0b, #7c3aed);" onclick="submitAdminGift()">
-        🚀 運営プレゼントを発行・配送する！
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- 👑 運営専用：届いたお問い合わせ・不具合報告一覧モーダル -->
-<div id="adminInquiryViewerModal" class="modal-overlay" onclick="if(event.target===this) closeAdminInquiryViewer()">
-  <div class="modal-card" style="max-width:680px; max-height:88vh; display:flex; flex-direction:column; border:3px solid #0284c7;">
-    <div class="modal-header" style="background:linear-gradient(135deg, #0284c7, #059669); flex-shrink:0;">
-      <div style="display:flex; align-items:center; gap:8px;">
-        <span>👑 運営専用：届いたお問い合わせ一覧</span>
-        <span id="adminInquiryTotalBadge" style="background:white; color:#0369a1; font-size:0.72rem; font-weight:900; padding:2px 8px; border-radius:999px;">0件</span>
-      </div>
-      <div style="display:flex; gap:6px; align-items:center;">
-        <button class="btn btn-outline" style="padding:3px 10px; font-size:0.75rem; color:white; border-color:white; background:rgba(255,255,255,0.15);" onclick="loadAdminInquiries()">🔄 最新更新</button>
-        <button class="btn btn-outline" style="padding:3px 10px; font-size:0.78rem; color:white; border-color:white;" onclick="closeAdminInquiryViewer()">✕ 閉じる</button>
-      </div>
-    </div>
-
-    <div class="modal-body" style="padding:14px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;">
-      <!-- 種別フィルタータブ -->
-      <div style="display:flex; gap:6px; flex-wrap:wrap; background:#f8fafc; padding:8px; border-radius:10px; border:1px solid #cbd5e1;">
-        <button id="inqFilterAll" class="btn btn-primary" style="padding:4px 10px; font-size:0.75rem; font-weight:900;" onclick="filterAdminInquiries('all')">すべて (<span id="inqCountAll">0</span>)</button>
-        <button id="inqFilterBug" class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; font-weight:800;" onclick="filterAdminInquiries('bug')">🐛 バグ (<span id="inqCountBug">0</span>)</button>
-        <button id="inqFilterTypo" class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; font-weight:800;" onclick="filterAdminInquiries('quiz_typo')">📝 誤字・問題 (<span id="inqCountTypo">0</span>)</button>
-        <button id="inqFilterReq" class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; font-weight:800;" onclick="filterAdminInquiries('request')">💡 ご要望 (<span id="inqCountReq">0</span>)</button>
-        <button id="inqFilterOther" class="btn btn-outline" style="padding:4px 10px; font-size:0.75rem; font-weight:800;" onclick="filterAdminInquiries('other')">💬 その他 (<span id="inqCountOther">0</span>)</button>
-      </div>
-
-      <!-- お問い合わせ一覧リストエリア -->
-      <div id="adminInquiryListArea" style="display:flex; flex-direction:column; gap:10px;">
-        <div style="text-align:center; padding:30px 10px; color:var(--text-sub); font-size:0.85rem;">
-          データベースから最新のお問い合わせを照会中...
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -5597,6 +5473,16 @@ const NEWS_MASTER = [
   {
     ver: 'Ver 1.0',
     date: '2026-11-24',
+    title: '🛡️ セキュリティ強化 ＆ 通信の安定性・最適化アップデート！',
+    items: [
+      '【🛡️ データ表示・通信セキュリティの強化】ランキング・フレンド申請・対戦招待・プレゼント表示など、オンライン通信経由で受け取るデータの検証・安全性保護を全面強化しました！',
+      '【⚡ 通信負荷の軽減・安定性向上】ランキング取得やバックグラウンド同期処理を見直し、通信量を大幅に最適化してより安定して快適に遊べるよう改善しました！',
+      '【🔒 お問い合わせ送信のプライバシー保護強化】不具合報告やご意見の送信処理をより安全に保護し、安心してサポートをご利用いただけるよう改善しました！'
+    ]
+  },
+  {
+    ver: 'Ver 1.0',
+    date: '2026-11-24',
     title: '🎯 初心者ステップガイド ＆ 新人・デイリーミッション新設アプデ！',
     items: [
       '【🔰 初心者ステップガイド新設】初めて遊ぶ方でも「シャーレ育成」と「クイズ対戦」の基本がすぐわかるガイド機能を実装しました！（メニュー内「❓ ヘルプ」からいつでも再表示可能です）',
@@ -6092,7 +5978,6 @@ const NEWS_MASTER = [
       '【🎒 中学理科・中学数学の完全両立】出題教科に「中学理科（第1・第2分野）」と「中学数学（一次方程式・平方根・1次関数・三平方・確率等の無限生成）」を追加！高校科目と完全隔離して集中特訓可能！',
       '【📝 克服型 復習ノート】間違えた問題に詳細な「💡 解説・ポイント」を確認できる機能と、その場ですぐにリトライできる「✍️ 解き直す」ボタンを追加！正解すると「🎉 克服！」となって自動消去！',
       '【🌐 公式サイト＆公式アプリアイコン】メニュー内に「🌐 ゲーム公式サイト（全75形態図鑑・世界観ポータル）」と「📲 公式アイコン保存（1024×1024超高画質PNG）」の直通リンクを配備！',
-      '【🔒 運営者メニューの非表示化】設定画面の「環境設定」5回タップで出現する管理者ツールに「✕ 隠す」ボタンを追加し、いつでも簡単に再非表示に戻せるよう改善！',
       '【🧬 バランス調整＆不具合修正】遺伝子チップ「HSP」をHP35%以下で攻撃力1.35倍の逆境覚醒へリニューアル、対戦ルーム入室ボタンの配置崩れ修正、シャーレ初期化の安全ガードを徹底強化！'
     ]
   },
@@ -6409,10 +6294,10 @@ function displayDiagnosticModal(res) {
       ${guidanceHtml}
 
       <div style="display:flex; flex-direction:column; gap:8px; font-size:0.8rem; font-weight:800; background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #cbd5e1; margin-bottom:12px;">
-        <div>🔑 <strong>Firebase認証:</strong> ${res.auth}</div>
-        <div>📖 <strong>MATCH_LOBBY 読み取り:</strong> ${res.readMatchLobby}</div>
-        <div>✍️ <strong>MATCH_LOBBY 書き込み:</strong> ${res.writeMatchLobby}</div>
-        <div>✍️ <strong>自ドキュメント書き込み:</strong> ${res.writeMyDoc}</div>
+        <div>🔑 <strong>Firebase認証:</strong> ${escapeHtml(res.auth)}</div>
+        <div>📖 <strong>MATCH_LOBBY 読み取り:</strong> ${escapeHtml(res.readMatchLobby)}</div>
+        <div>✍️ <strong>MATCH_LOBBY 書き込み:</strong> ${escapeHtml(res.writeMatchLobby)}</div>
+        <div>✍️ <strong>自ドキュメント書き込み:</strong> ${escapeHtml(res.writeMyDoc)}</div>
       </div>
 
       <div style="display:flex; gap:8px;">
@@ -6761,12 +6646,6 @@ function getCritRatePct(m) {
   return 0;
 }
 
-function updateDebugUiBanner() {
-  const btn = document.getElementById('exitDebugBtn');
-  if (!btn) return;
-  btn.style.display = state.isTestAccount ? 'inline-flex' : 'none';
-}
-
 /* ============================================================================
    2.8 📲 セーブデータ引き継ぎコード（バックアップ・復元・URL移行）
 ============================================================================ */
@@ -6777,6 +6656,9 @@ function encodeSaveState(obj) {
 
 function decodeSaveState(codeStr) {
   const clean = codeStr.trim();
+  if (clean.length > 500000) {
+    throw new Error('Save code too large');
+  }
   if (clean.startsWith('{') && clean.endsWith('}')) {
     return JSON.parse(clean);
   }
@@ -6813,10 +6695,17 @@ function importSaveBackupFromInput(inputId) {
   }
   try {
     const loadedState = decodeSaveState(val);
-    if (!loadedState || !loadedState.box || !Array.isArray(loadedState.box)) {
+    if (!loadedState || typeof loadedState !== 'object' || Array.isArray(loadedState) || !Array.isArray(loadedState.box)) {
       throw new Error('Invalid state structure');
     }
-    state = loadedState;
+    delete loadedState.__proto__;
+    delete loadedState.constructor;
+    delete loadedState.prototype;
+    loadedState.isTestAccount = false;
+    if (loadedState.playerName === '🔧開発テスト中') {
+      loadedState.playerName = '研究員001';
+    }
+    state = { ...getFreshInitialState(), ...loadedState, isTestAccount: false };
     state.starterCeremonyDone = true;
     saveData();
     alert('🎉 セーブデータを正常に復元・引き継ぎしました！ゲームを再開します。');
@@ -6870,7 +6759,6 @@ function saveData(fromPetriFood = false) {
       updatePresentBadge();
       updateNewsBadge();
       if (typeof updateMissionBadge === 'function') updateMissionBadge();
-      updateDebugUiBanner();
       syncMyProfileToCloud(false);
     };
 
@@ -6896,11 +6784,30 @@ function saveData(fromPetriFood = false) {
 function loadData() {
   const raw = localStorage.getItem('biologica_save_v50') || localStorage.getItem('biologica_save_v40') || localStorage.getItem('biologica_save_v30') || localStorage.getItem('biologica_save_v25');
   let hadMissionsData = false;
+  let rescuedFromTestMode = false;
   if (raw) {
     try {
-      const parsed = JSON.parse(raw);
+      let parsed = JSON.parse(raw);
+      // 既存ローカルセーブに旧テストアカウント状態が残っていた場合の本番データ救済・安全正規化
+      if (parsed && parsed.isTestAccount) {
+        rescuedFromTestMode = true;
+        const prodBackupRaw = localStorage.getItem('biologica_prod_backup_v50');
+        if (prodBackupRaw) {
+          try {
+            const backup = JSON.parse(prodBackupRaw);
+            if (backup && typeof backup === 'object' && !Array.isArray(backup) && Array.isArray(backup.box)) {
+              parsed = backup;
+            }
+          } catch (bkErr) {}
+          localStorage.removeItem('biologica_prod_backup_v50');
+        }
+        parsed.isTestAccount = false;
+        if (parsed.playerName === '🔧開発テスト中') {
+          parsed.playerName = '研究員001';
+        }
+      }
       hadMissionsData = !!(parsed && parsed.missions);
-      state = { ...getFreshInitialState(), ...parsed };
+      state = { ...getFreshInitialState(), ...parsed, isTestAccount: false };
       state.box = (state.box || []).map(migrateMicrobe);
     } catch (e) {
       state = getFreshInitialState();
@@ -6908,6 +6815,7 @@ function loadData() {
   } else {
     state = getFreshInitialState();
   }
+  try { localStorage.removeItem('biologica_admin_pass'); } catch (e) {}
   if (typeof ensureMissionsState === 'function') {
     ensureMissionsState(hadMissionsData);
   }
@@ -6957,6 +6865,9 @@ function loadData() {
       state.activeId = state.box[0].uid;
     }
   }
+  if (rescuedFromTestMode) {
+    saveData();
+  }
 
   const atpEl = document.getElementById('atpDisplay');
   if (atpEl) atpEl.textContent = state.atp;
@@ -6983,9 +6894,7 @@ function loadData() {
     updateNewsBadge();
     if (typeof updateMissionBadge === 'function') updateMissionBadge();
     if (typeof renderTutorialGuideBanner === 'function') renderTutorialGuideBanner();
-    updateDebugUiBanner();
     updateAutoEatButton();
-    cleanupDummyDocsInCloud();
     syncMyProfileToCloud();
     renderFriendList();
     listenToIncomingBattleInvites();
@@ -6995,11 +6904,12 @@ function loadData() {
   }
 
   // 🎊 初回プレイ時（またはまだ初回限定Lv.30配布セレモニーを受けていない場合）は歓迎セレモニーを起動！
-  if (!state.starterCeremonyDone && !state.isTestAccount) {
-    // もしクラウド上に同名が残ってしまっていても、自分が直前に持っていたコードなら確実に削除しておく
+  if (!state.starterCeremonyDone) {
+    // 自分が直前にリセットした旧コードのみ安全にクリーンアップ
     const lastCode = localStorage.getItem('biologica_last_reset_code');
-    if (db && lastCode) {
+    if (db && lastCode && lastCode !== state.friendCode && /^BIO-[A-Z0-9]{2,12}$/i.test(lastCode)) {
       db.collection('players').doc(lastCode).delete().catch(() => {});
+      localStorage.removeItem('biologica_last_reset_code');
     }
     openWelcomeCeremonyModal();
   }
@@ -7070,29 +6980,17 @@ function validatePlayerName(rawName) {
   return { valid: true, cleanName: name };
 }
 
-// 🔒 同じ名前の研究員がすでに存在しないかクラウドでチェックする関数
-// ★ 他人のアカウントデータは絶対に削除せず、自分がリセットした直前の旧コードのみ整理する安全設計！
+// 🔒 自分が直前にリセットした旧コードのみ整理（全件スキャン・他人データ削除は禁止）
 async function checkNameTakenInCloud(candidateName) {
   const cleanTarget = (candidateName || '').trim().toLowerCase();
   if (!cleanTarget) return false;
   if (!db) return false;
   try {
     const lastResetCode = localStorage.getItem('biologica_last_reset_code');
-    const snap = await db.collection('players').get();
-    for (const doc of snap.docs) {
-      if (doc.id === state.friendCode) continue; // 現在の自分自身はOK
-      if (doc.id.startsWith('ROOM_') || doc.id.startsWith('MATCH_')) continue;
-      const data = doc.data() || {};
-      if (data.isSystemDoc) continue;
-      const existingName = (data.name || '').trim().toLowerCase();
-      
-      // 同じ名前を見つけた場合：自分が直前にリセットした旧コードの場合のみ古いドキュメントを消去し、他人のデータは絶対に消さない！
-      if (existingName && existingName !== '研究員001' && existingName === cleanTarget) {
-        if (lastResetCode && doc.id === lastResetCode) {
-          await db.collection('players').doc(doc.id).delete().catch(() => {});
-        }
-        return false;
-      }
+    const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
+    if (lastResetCode && lastResetCode !== myCode && /^BIO-[A-Z0-9]{2,12}$/i.test(lastResetCode)) {
+      await db.collection('players').doc(lastResetCode).delete().catch(() => {});
+      localStorage.removeItem('biologica_last_reset_code');
     }
   } catch (e) {
     console.warn('Name check error:', e);
@@ -7306,7 +7204,7 @@ function openDeleteAccountModal() {
   const infoEl = document.getElementById('deleteAccountTargetInfo');
   const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : (state.friendCode || '---');
   if (infoEl) {
-    infoEl.innerHTML = `削除対象アカウント：<strong>${state.playerName || '研究員'}</strong> <span style="color:#b91c1c;">(${myCode})</span>`;
+    infoEl.innerHTML = `削除対象アカウント：<strong>${escapeHtml(state.playerName || '研究員')}</strong> <span style="color:#b91c1c;">(${escapeHtml(myCode)})</span>`;
   }
   if (modal) {
     modal.classList.add('active');
@@ -7333,7 +7231,7 @@ async function executeDeleteAccount() {
 
   try {
     const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
-    const myFriends = Array.isArray(state.friendsList) ? [...state.friendsList] : [];
+    const myFriends = Array.isArray(state.friendsList) ? state.friendsList.slice(0, 30) : [];
 
     if (db && myCode) {
       // 1. 自分の players/{myCode} ドキュメントをクラウドから完全に削除（完了するまでawaitで確実に待つ！）
@@ -7347,17 +7245,17 @@ async function executeDeleteAccount() {
         const fCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(f.code) : f.code;
         if (!fCode || fCode === myCode) continue;
         try {
-          const fDoc = await db.collection('players').doc(fCode).get();
+          const fDoc = await withTimeout(db.collection('players').doc(fCode).get(), 1500);
           if (fDoc.exists && fDoc.data()) {
             const fd = fDoc.data();
             const cleanApproved = Array.isArray(fd.approvedFriends) ? fd.approvedFriends.filter(x => x && normalizeFriendCode(x.code) !== myCode) : [];
             const cleanReqs = Array.isArray(fd.incomingReqs) ? fd.incomingReqs.filter(x => x && normalizeFriendCode(x.fromCode) !== myCode) : [];
             const cleanInvs = Array.isArray(fd.incomingInvites) ? fd.incomingInvites.filter(x => x && normalizeFriendCode(x.fromCode) !== myCode) : [];
-            await db.collection('players').doc(fCode).set({
+            await withTimeout(db.collection('players').doc(fCode).set({
               approvedFriends: cleanApproved,
               incomingReqs: cleanReqs,
               incomingInvites: cleanInvs
-            }, { merge: true }).catch(() => {});
+            }, { merge: true }), 1500).catch(() => {});
           }
         } catch (e) {}
       }
@@ -8417,8 +8315,8 @@ function renderPetriStatusCard() {
           <span class="subject-tag ${subj.cls}">${subj.icon} ${subj.name}</span>
         </div>
         <div style="font-size:1.05rem; font-weight:900; margin-top:3px;">
-          ${m.nickname}
-          <button class="btn btn-outline" style="padding:2px 6px; font-size:0.7rem;" onclick="renameMicrobe('${m.uid}')">✏️改名</button>
+          ${escapeHtml(m.nickname)}
+          <button class="btn btn-outline" style="padding:2px 6px; font-size:0.7rem;" onclick="renameMicrobe('${escapeJsAttr(m.uid)}')">✏️改名</button>
         </div>
         <div style="font-size:0.72rem; color:var(--text-sub);">${sp.name} / ${stageNames[m.evoStage]}</div>
       </div>
@@ -8462,9 +8360,10 @@ function renderPetriStatusCard() {
 
 function renameMicrobe(uid) {
   const m = getMicrobeById(uid);
-  const n = prompt('新しいニックネームを入力してください：', m.nickname);
+  if (!m) return;
+  const n = prompt('新しいニックネームを入力してください（20文字以内）：', m.nickname);
   if (n && n.trim()) {
-    m.nickname = n.trim();
+    m.nickname = n.trim().slice(0, 20);
     saveData();
     renderPetriStatusCard();
     renderBoxAndParty();
@@ -8528,7 +8427,7 @@ function renderBoxAndParty() {
   const tabsArea = document.getElementById('presetTabsArea');
   tabsArea.innerHTML = state.presets.map((p, idx) => `
     <button class="preset-tab-btn ${idx === state.activePresetIdx ? 'active' : ''}" onclick="selectPreset(${idx})">
-      🚩 ${p.name}
+      🚩 ${escapeHtml(p.name)}
     </button>
   `).join('');
 
@@ -8543,7 +8442,7 @@ function renderBoxAndParty() {
       <div class="party-slot-card" style="${isSelecting ? 'border:3px solid #db2777; background:#fdf2f8; box-shadow:0 0 12px rgba(219,39,119,0.25);' : ''}">
         <div class="slot-badge" style="${isSelecting ? 'background:#db2777;' : ''}">${roles[idx]} ${isSelecting ? '(入替選択中👇)' : ''}</div>
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-top:4px; gap:4px;">
-          <div style="font-weight:900; font-size:0.9rem;">${m.nickname} <small style="color:var(--primary);">Lv.${m.level}</small></div>
+          <div style="font-weight:900; font-size:0.9rem;">${escapeHtml(m.nickname)} <small style="color:var(--primary);">Lv.${m.level}</small></div>
         </div>
         <div style="font-size:0.72rem; margin-top:3px; display:flex; gap:4px; flex-wrap:wrap; align-items:center;">
           <span class="rarity-tag rarity-${m.rarity}">${m.rarity}</span>
@@ -8557,7 +8456,7 @@ function renderBoxAndParty() {
           <button class="btn ${isSelecting ? 'btn-purple' : 'btn-outline'}" style="padding:4px 8px; font-size:0.72rem; flex:1;" onclick="selectSlotForSwap(${idx})">
             ${isSelecting ? '✕ 選択解除' : '🔄 枠を入替'}
           </button>
-          <button class="btn btn-primary" style="padding:4px 8px; font-size:0.72rem; flex:1;" onclick="openMicrobeEditModal('${m.uid}')">
+          <button class="btn btn-primary" style="padding:4px 8px; font-size:0.72rem; flex:1;" onclick="openMicrobeEditModal('${escapeJsAttr(m.uid)}')">
             ⚙️ 能力・スキル編集
           </button>
         </div>
@@ -8623,6 +8522,7 @@ function renderBoxAndParty() {
     const inPreset = slotIdx >= 0;
     const roleBadge = inPreset ? `<span style="background:#0284c7; color:white; font-size:0.68rem; font-weight:900; padding:1px 6px; border-radius:999px;">🚩${roles[slotIdx]}</span>` : '';
     const rarityCardCls = m.rarity === 'MR' ? 'card-rarity-MR' : (m.rarity === 'XR' ? 'card-rarity-XR' : '');
+    const safeUidAttr = escapeJsAttr(m.uid);
 
     return `
       <div class="box-item ${isTrain ? 'active-train' : ''} ${inPreset ? 'in-party' : ''} ${rarityCardCls}">
@@ -8635,7 +8535,7 @@ function renderBoxAndParty() {
           <span class="subject-tag ${subj.cls}">${subj.icon}${subj.name}</span>
         </div>
         <div style="font-weight:900; display:flex; justify-content:space-between; align-items:center;">
-          <span>${m.nickname} <small style="color:var(--primary);">Lv.${m.level}</small></span>
+          <span>${escapeHtml(m.nickname)} <small style="color:var(--primary);">Lv.${m.level}</small></span>
           <small style="color:#64748b; font-size:0.72rem;">総合:${getTotalStats(m)}</small>
         </div>
         <div style="font-size:0.72rem; color:var(--text-sub);">
@@ -8644,19 +8544,19 @@ function renderBoxAndParty() {
         <div style="font-size:0.72rem; color:#0369a1; font-weight:800;">🎛️ 振分:${getUsedEffort(m)}/${MAX_EFFORT_PT}pt | ✨${skill.name}</div>
         <div style="display:flex; gap:4px; margin-top:auto; flex-wrap:wrap;">
           ${selectedPartySlotForSwap !== null ? `
-            <button class="btn btn-purple" style="padding:6px 10px; font-size:0.76rem; width:100%;" onclick="setPartyMember(${selectedPartySlotForSwap}, '${m.uid}')">
+            <button class="btn btn-purple" style="padding:6px 10px; font-size:0.76rem; width:100%;" onclick="setPartyMember(${selectedPartySlotForSwap}, '${safeUidAttr}')">
               🚩 このキャラを【${roles[selectedPartySlotForSwap]}】に編成する！
             </button>
           ` : `
-            <button class="btn btn-primary" style="padding:4px 8px; font-size:0.72rem; flex:1;" onclick="openMicrobeEditModal('${m.uid}')">
+            <button class="btn btn-primary" style="padding:4px 8px; font-size:0.72rem; flex:1;" onclick="openMicrobeEditModal('${safeUidAttr}')">
               ⚙️ 編集・強化
             </button>
-            <button class="btn ${isTrain ? 'btn-secondary' : 'btn-outline'}" style="padding:4px 8px; font-size:0.72rem;" onclick="setTrainMicrobe('${m.uid}')">
+            <button class="btn ${isTrain ? 'btn-secondary' : 'btn-outline'}" style="padding:4px 8px; font-size:0.72rem;" onclick="setTrainMicrobe('${safeUidAttr}')">
               ${isTrain ? '🔬育成中' : '🔬育てる'}
             </button>
-            <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="setPartyMember(0, '${m.uid}')">先鋒</button>
-            <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="setPartyMember(1, '${m.uid}')">中堅</button>
-            <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="setPartyMember(2, '${m.uid}')">大将</button>
+            <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="setPartyMember(0, '${safeUidAttr}')">先鋒</button>
+            <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="setPartyMember(1, '${safeUidAttr}')">中堅</button>
+            <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="setPartyMember(2, '${safeUidAttr}')">大将</button>
           `}
         </div>
       </div>
@@ -8673,9 +8573,9 @@ function selectPreset(idx) {
 
 function renameCurrentPreset() {
   const cur = state.presets[state.activePresetIdx];
-  const n = prompt('このパーティの名前を入力してください：', cur.name);
+  const n = prompt('このパーティの名前を入力してください（20文字以内）：', cur.name);
   if (n && n.trim()) {
-    cur.name = n.trim();
+    cur.name = n.trim().slice(0, 20);
     saveData();
     renderBoxAndParty();
     updateBattlePresetSelect();
@@ -8714,7 +8614,7 @@ function updateBattlePresetSelect() {
   const junSel = document.getElementById('juniorBattlePresetSelect');
   const html = state.presets.map((p, idx) => {
     const names = p.ids.map(id => (getMicrobeById(id) || {}).nickname || '---').join(' / ');
-    return `<option value="${idx}" ${idx === state.activePresetIdx ? 'selected' : ''}>${p.name}（${names}）</option>`;
+    return `<option value="${idx}" ${idx === state.activePresetIdx ? 'selected' : ''}>${escapeHtml(p.name)}（${escapeHtml(names)}）</option>`;
   }).join('');
   if (sel) sel.innerHTML = html;
   if (engSel) engSel.innerHTML = html;
@@ -8747,6 +8647,7 @@ function renderMicrobeEditModal() {
   const roles = ['先鋒', '中堅', '大将'];
   const curPreset = state.presets[state.activePresetIdx];
 
+  const safeUidAttr = escapeJsAttr(m.uid);
   const statRows = [
     { key: 'speed', label: '⚡ すばやさ', val: m.stats.speed, pt: m.effort.speed || 0, color: '#0ea5e9' },
     { key: 'size', label: '🔴 大きさ(攻撃)', val: m.stats.size, pt: m.effort.size || 0, color: '#ef4444' },
@@ -8761,10 +8662,10 @@ function renderMicrobeEditModal() {
         </div>
       </div>
       <div class="ev-btn-group">
-        <button class="ev-mini-btn" ${row.pt <= 0 ? 'disabled' : ''} onclick="adjustEffortInModal('${m.uid}', '${row.key}', -10)">-10</button>
-        <button class="ev-mini-btn" ${row.pt <= 0 ? 'disabled' : ''} onclick="adjustEffortInModal('${m.uid}', '${row.key}', -1)">-1</button>
-        <button class="ev-mini-btn" ${remainPt <= 0 ? 'disabled' : ''} onclick="adjustEffortInModal('${m.uid}', '${row.key}', 1)">+1</button>
-        <button class="ev-mini-btn" ${remainPt <= 0 ? 'disabled' : ''} onclick="adjustEffortInModal('${m.uid}', '${row.key}', 10)">+10</button>
+        <button class="ev-mini-btn" ${row.pt <= 0 ? 'disabled' : ''} onclick="adjustEffortInModal('${safeUidAttr}', '${row.key}', -10)">-10</button>
+        <button class="ev-mini-btn" ${row.pt <= 0 ? 'disabled' : ''} onclick="adjustEffortInModal('${safeUidAttr}', '${row.key}', -1)">-1</button>
+        <button class="ev-mini-btn" ${remainPt <= 0 ? 'disabled' : ''} onclick="adjustEffortInModal('${safeUidAttr}', '${row.key}', 1)">+1</button>
+        <button class="ev-mini-btn" ${remainPt <= 0 ? 'disabled' : ''} onclick="adjustEffortInModal('${safeUidAttr}', '${row.key}', 10)">+10</button>
       </div>
     </div>
   `).join('');
@@ -8787,8 +8688,8 @@ function renderMicrobeEditModal() {
           <span class="subject-tag ${subj.cls}">${subj.icon} ${subj.name}</span>
         </div>
         <div style="font-size:1.05rem; font-weight:900; margin-top:3px;">
-          ${m.nickname} <span style="color:var(--primary);">Lv.${m.level}/${MAX_LEVEL}</span>
-          <button class="btn btn-outline" style="padding:2px 6px; font-size:0.7rem;" onclick="renameMicrobe('${m.uid}'); renderMicrobeEditModal();">✏️改名</button>
+          ${escapeHtml(m.nickname)} <span style="color:var(--primary);">Lv.${m.level}/${MAX_LEVEL}</span>
+          <button class="btn btn-outline" style="padding:2px 6px; font-size:0.7rem;" onclick="renameMicrobe('${safeUidAttr}'); renderMicrobeEditModal();">✏️改名</button>
         </div>
       </div>
       <div style="text-align:right; font-size:0.78rem; font-weight:900; color:#b45309;">
@@ -8798,9 +8699,9 @@ function renderMicrobeEditModal() {
 
     <!-- パーティ枠へのワンタップ配置 -->
     <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
-      <span style="font-size:0.76rem; font-weight:900; color:#334155;">🚩『${curPreset.name}』に配置：</span>
+      <span style="font-size:0.76rem; font-weight:900; color:#334155;">🚩『${escapeHtml(curPreset.name)}』に配置：</span>
       ${roles.map((rName, idx) => `
-        <button class="btn ${curPreset.ids[idx] === m.uid ? 'btn-primary' : 'btn-outline'}" style="padding:4px 10px; font-size:0.75rem; flex:1;" onclick="setPartyMember(${idx}, '${m.uid}'); renderMicrobeEditModal();">
+        <button class="btn ${curPreset.ids[idx] === m.uid ? 'btn-primary' : 'btn-outline'}" style="padding:4px 10px; font-size:0.75rem; flex:1;" onclick="setPartyMember(${idx}, '${safeUidAttr}'); renderMicrobeEditModal();">
           ${curPreset.ids[idx] === m.uid ? `✓ ${rName}に編成中` : `${rName}にする`}
         </button>
       `).join('')}
@@ -8810,7 +8711,7 @@ function renderMicrobeEditModal() {
     <div style="background:#f0f9ff; padding:10px; border-radius:12px; border:1px solid #bae6fd;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
         <span style="font-size:0.8rem; font-weight:900; color:#0369a1;">🎛️ 強化ポイント配分（残り: ${remainPt} / ${MAX_EFFORT_PT} pt）</span>
-        <button class="ev-mini-btn" onclick="state.activeId='${m.uid}'; resetAllEffort(); renderMicrobeEditModal();">🔄 0に戻す</button>
+        <button class="ev-mini-btn" onclick="state.activeId='${safeUidAttr}'; resetAllEffort(); renderMicrobeEditModal();">🔄 0に戻す</button>
       </div>
       ${statRows}
     </div>
@@ -8845,7 +8746,7 @@ function renderMicrobeEditModal() {
         <label style="font-size:0.78rem; font-weight:900; color:#6d28d9; display:block; margin-bottom:3px;">✨ 固有スキルを選択して変更（⚡400 ATP）</label>
         <div style="display:flex; gap:6px; align-items:center; width:100%;">
           <select id="modalSkillSelect" class="btn-outline" style="flex:1; min-width:0; max-width:100%; padding:6px; border-radius:8px; font-size:0.78rem; font-weight:800; overflow:hidden; text-overflow:ellipsis;">${skillOptions}</select>
-          <button class="btn btn-purple" style="padding:6px 10px; font-size:0.76rem; white-space:nowrap;" onclick="buySkillChange('${m.uid}', document.getElementById('modalSkillSelect').value)">⚡400 変更</button>
+          <button class="btn btn-purple" style="padding:6px 10px; font-size:0.76rem; white-space:nowrap;" onclick="buySkillChange('${safeUidAttr}', document.getElementById('modalSkillSelect').value)">⚡400 変更</button>
         </div>
       </div>
 
@@ -8858,7 +8759,7 @@ function renderMicrobeEditModal() {
         ` : `
           <div style="display:flex; gap:6px; align-items:center; width:100%;">
             <select id="modalSubjSelect" class="btn-outline" style="flex:1; min-width:0; max-width:100%; padding:6px; border-radius:8px; font-size:0.78rem; font-weight:800; overflow:hidden; text-overflow:ellipsis;">${subjOptions}</select>
-            <button class="btn btn-secondary" style="padding:6px 10px; font-size:0.76rem; white-space:nowrap;" onclick="buySubjChange('${m.uid}', document.getElementById('modalSubjSelect').value)">⚡350 変更</button>
+            <button class="btn btn-secondary" style="padding:6px 10px; font-size:0.76rem; white-space:nowrap;" onclick="buySubjChange('${safeUidAttr}', document.getElementById('modalSubjSelect').value)">⚡350 変更</button>
           </div>
         `}
       </div>
@@ -8868,8 +8769,8 @@ function renderMicrobeEditModal() {
     <div style="background:#f0fdf4; padding:10px; border-radius:12px; border:1px solid #bbf7d0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
       <span style="font-size:0.78rem; font-weight:900; color:#15803d;">🆙 ATPで今すぐレベル強化：</span>
       <div style="display:flex; gap:6px; flex-wrap:wrap;">
-        <button class="btn btn-secondary" style="padding:5px 10px; font-size:0.75rem;" ${m.level >= MAX_LEVEL ? 'disabled' : ''} onclick="buyAtpLevelItem('${m.uid}', 'atp_lv5')">🧪 Lv+5 (⚡500)</button>
-        <button class="btn btn-accent" style="padding:5px 10px; font-size:0.75rem;" ${m.level >= MAX_LEVEL ? 'disabled' : ''} onclick="buyAtpLevelItem('${m.uid}', 'atp_lv30')">👑 Lv.30極限進化 (⚡2000)</button>
+        <button class="btn btn-secondary" style="padding:5px 10px; font-size:0.75rem;" ${m.level >= MAX_LEVEL ? 'disabled' : ''} onclick="buyAtpLevelItem('${safeUidAttr}', 'atp_lv5')">🧪 Lv+5 (⚡500)</button>
+        <button class="btn btn-accent" style="padding:5px 10px; font-size:0.75rem;" ${m.level >= MAX_LEVEL ? 'disabled' : ''} onclick="buyAtpLevelItem('${safeUidAttr}', 'atp_lv30')">👑 Lv.30極限進化 (⚡2000)</button>
       </div>
     </div>
   `;
@@ -9223,7 +9124,7 @@ function renderInventory() {
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
             <div style="display:flex; align-items:center; gap:6px;">
               <span class="rarity-tag rarity-${m.rarity}">${m.rarity}</span>
-              <strong style="font-size:0.95rem; color:var(--text);">${m.nickname}</strong>
+              <strong style="font-size:0.95rem; color:var(--text);">${escapeHtml(m.nickname)}</strong>
               <span class="subject-tag ${subj.cls}">${subj.icon}${subj.name}</span>
               <span style="font-size:0.75rem; color:var(--text-sub); font-weight:800;">Lv.${m.level}/${MAX_LEVEL}</span>
             </div>
@@ -9239,7 +9140,7 @@ function renderInventory() {
                     <span style="font-size:0.7rem; font-weight:900; color:${isDedicated ? '#6d28d9' : '#0369a1'};">
                       ${isDedicated ? `🧬 スロット1【${sp.name}専用枠】` : '⚙️ スロット2【汎用自由枠】'}
                     </span>
-                    ${chip ? `<button class="btn btn-outline" style="padding:2px 8px; font-size:0.7rem; color:#dc2626;" onclick="unequipChipFromInv('${m.uid}', ${slotIdx})">取り外す</button>` : ''}
+                    ${chip ? `<button class="btn btn-outline" style="padding:2px 8px; font-size:0.7rem; color:#dc2626;" onclick="unequipChipFromInv('${escapeJsAttr(m.uid)}', ${slotIdx})">取り外す</button>` : ''}
                   </div>
                   ${chip ? `
                     <div style="font-weight:900; font-size:0.86rem; color:${chip.color};">${chip.icon} ${chip.name}</div>
@@ -9610,7 +9511,7 @@ function renderInventoryTargetList() {
         actionBtnHtml = `<span style="font-size:0.72rem; color:#94a3b8; font-weight:800; background:#f1f5f9; padding:4px 8px; border-radius:6px; text-align:center;">${chipBlockReason}</span>`;
       } else {
         actionBtnHtml = `
-          <button class="btn ${isDedicated ? 'btn-purple' : 'btn-primary'}" style="padding:5px 12px; font-size:0.76rem; font-weight:900;" onclick="equipChipOnTargetFromInv('${m.uid}', '${chip.id}')">
+          <button class="btn ${isDedicated ? 'btn-purple' : 'btn-primary'}" style="padding:5px 12px; font-size:0.76rem; font-weight:900;" onclick="equipChipOnTargetFromInv('${escapeJsAttr(m.uid)}', '${escapeJsAttr(chip.id)}')">
             ${isDedicated ? '🧬 専用枠1に装着' : '⚙️ 自由枠2に装着'}
           </button>
         `;
@@ -9623,7 +9524,7 @@ function renderInventoryTargetList() {
         actionBtnHtml = `<span style="font-size:0.72rem; color:#94a3b8; font-weight:800; background:#f1f5f9; padding:4px 8px; border-radius:6px; text-align:center;">${itemBlockReason}</span>`;
       } else {
         actionBtnHtml = `
-          <button class="btn ${item.category === 'skill' ? 'btn-purple' : (item.category === 'subject' ? 'btn-secondary' : 'btn-accent')}" style="padding:5px 12px; font-size:0.76rem; font-weight:900;" onclick="useItemOnTarget('${m.uid}', '${item.id}')">
+          <button class="btn ${item.category === 'skill' ? 'btn-purple' : (item.category === 'subject' ? 'btn-secondary' : 'btn-accent')}" style="padding:5px 12px; font-size:0.76rem; font-weight:900;" onclick="useItemOnTarget('${escapeJsAttr(m.uid)}', '${escapeJsAttr(item.id)}')">
             🎯 このキャラに使う
           </button>
         `;
@@ -9639,7 +9540,7 @@ function renderInventoryTargetList() {
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
           <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
             <span class="rarity-tag rarity-${m.rarity}">${m.rarity}</span>
-            <strong style="font-size:0.92rem; color:var(--text);">${m.nickname}</strong>
+            <strong style="font-size:0.92rem; color:var(--text);">${escapeHtml(m.nickname)}</strong>
             <span class="subject-tag ${subj.cls}">${subj.icon}${subj.name}</span>
             <span style="font-size:0.76rem; font-weight:800; color:#0369a1;">Lv.${m.level}/${MAX_LEVEL}</span>
             <span style="font-size:0.72rem; color:#6d28d9; font-weight:800;">✨${skill.name}</span>
@@ -10110,7 +10011,7 @@ function renderSynthesisScreen() {
                 <span class="subject-tag ${subj.cls}">${subj.icon}${subj.name}</span>
               </div>
               <div style="font-weight:900; font-size:0.95rem;">
-                ${m.nickname} <span style="color:${isLv30 ? '#15803d' : '#dc2626'}; font-size:0.82rem;">Lv.${m.level}/${MAX_LEVEL}</span>
+                ${escapeHtml(m.nickname)} <span style="color:${isLv30 ? '#15803d' : '#dc2626'}; font-size:0.82rem;">Lv.${m.level}/${MAX_LEVEL}</span>
               </div>
               <div style="font-size:0.72rem; color:var(--text-sub); background:white; padding:6px; border-radius:8px; border:1px solid #fecdd3;">
                 <div>現在: 速${m.stats.speed} / 攻${m.stats.size} / 耐${m.stats.defense} / 燃${m.stats.fuel}</div>
@@ -10120,11 +10021,11 @@ function renderSynthesisScreen() {
               </div>
               <div style="margin-top:auto; padding-top:4px;">
                 ${canEvo ? `
-                  <button class="btn btn-purple" style="width:100%; background:linear-gradient(135deg,#e11d48,#7e22ce); font-weight:900;" onclick="evolveLrToXr('${m.uid}')">
+                  <button class="btn btn-purple" style="width:100%; background:linear-gradient(135deg,#e11d48,#7e22ce); font-weight:900;" onclick="evolveLrToXr('${escapeJsAttr(m.uid)}')">
                     🔥 ゼノ・コア1個で【XR】へ超越進化！
                   </button>
                 ` : !isLv30 ? `
-                  <button class="btn btn-outline" style="width:100%; font-size:0.74rem; color:#0284c7;" onclick="openMicrobeEditModal('${m.uid}')">
+                  <button class="btn btn-outline" style="width:100%; font-size:0.74rem; color:#0284c7;" onclick="openMicrobeEditModal('${escapeJsAttr(m.uid)}')">
                     🆙 先にLv.30まで強化する (現在Lv.${m.level})
                   </button>
                 ` : `
@@ -10177,7 +10078,7 @@ function renderSynthesisScreen() {
                 <span class="subject-tag ${subj.cls}">${subj.icon}${subj.name}</span>
               </div>
               <div style="font-weight:900; font-size:0.95rem;">
-                ${m.nickname} <span style="color:#15803d; font-size:0.82rem;">Lv.${m.level}/${MAX_LEVEL}</span>
+                ${escapeHtml(m.nickname)} <span style="color:#15803d; font-size:0.82rem;">Lv.${m.level}/${MAX_LEVEL}</span>
               </div>
               <div style="font-size:0.72rem; color:var(--text-sub); background:white; padding:6px; border-radius:8px; border:1px solid #d8b4fe;">
                 <div>現在: 速${m.stats.speed} / 攻${m.stats.size} / 耐${m.stats.defense} / 燃${m.stats.fuel}</div>
@@ -10188,7 +10089,7 @@ function renderSynthesisScreen() {
               </div>
               <div style="margin-top:auto; padding-top:4px;">
                 ${canEvo ? `
-                  <button class="btn btn-purple" style="width:100%; background:linear-gradient(135deg,#0f172a,#7c3aed,#ec4899); border:1.5px solid #fef08a; color:#fef08a; font-weight:900;" onclick="evolveXrToMr('${m.uid}')">
+                  <button class="btn btn-purple" style="width:100%; background:linear-gradient(135deg,#0f172a,#7c3aed,#ec4899); border:1.5px solid #fef08a; color:#fef08a; font-weight:900;" onclick="evolveXrToMr('${escapeJsAttr(m.uid)}')">
                     🌌 ${mythicCores >= 1 ? 'ミシック・コア1個' : 'ゼノ・コア3個合成'}で【MR】へ神話覚醒！
                   </button>
                 ` : `
@@ -10428,7 +10329,7 @@ function renderMicrobeResultCardsHtml(list) {
           ${m.isMutant ? '<span class="mutant-badge" style="margin-left:3px;">🌟変異</span>' : ''}
           <span class="subject-tag ${subjObj.cls || 'subj-bio'}" style="margin-left:3px; font-size:0.65rem;">${subjObj.icon || '📚'}${subjObj.name}</span>
         </div>
-        <div style="font-weight:900; margin:4px 0; font-size:0.88rem;">${m.nickname}</div>
+        <div style="font-weight:900; margin:4px 0; font-size:0.88rem;">${escapeHtml(m.nickname)}</div>
         <div style="font-size:0.72rem; color:#cbd5e1; line-height:1.35;">
           👁️感覚:${m.stats.sense} (会心${getCritRatePct(m)}%) | ✨${sk.name}<br>
           速:${m.stats.speed} 攻:${m.stats.size} 耐:${m.stats.defense} 燃:${m.stats.fuel}
@@ -10819,7 +10720,7 @@ function updateBattleHud() {
     return c ? `<span title="${c.name} (${c.desc})" style="font-size:0.75rem; margin-left:3px; background:#f1f5f9; padding:1px 4px; border-radius:4px; border:1px solid #cbd5e1; vertical-align:middle;">${c.icon}</span>` : '';
   }).filter(Boolean).join('');
 
-  document.getElementById('p1NameText').innerHTML = `<span>${f1.nickname} Lv.${f1.level}</span>${p1ChipsHtml}`;
+  document.getElementById('p1NameText').innerHTML = `<span>${escapeHtml(f1.nickname)} Lv.${Number(f1.level) || 1}</span>${p1ChipsHtml}`;
   document.getElementById('p1SpdText').textContent = f1.stats.speed;
   document.getElementById('p1DefText').textContent = f1.stats.defense;
   document.getElementById('p1SenseText').textContent = `${f1.stats.sense}(会心${getCritRatePct(f1)}%)`;
@@ -10831,7 +10732,7 @@ function updateBattleHud() {
 
   const oppLabel = battle.oppName || battle.ghostName || '';
   const p2Prefix = oppLabel ? `[${oppLabel}] ` : '';
-  document.getElementById('p2NameText').innerHTML = `<span>${p2Prefix}${f2.nickname} Lv.${f2.level}</span>${p2ChipsHtml}`;
+  document.getElementById('p2NameText').innerHTML = `<span>${escapeHtml(p2Prefix)}${escapeHtml(f2.nickname)} Lv.${Number(f2.level) || 1}</span>${p2ChipsHtml}`;
   document.getElementById('p2SpdText').textContent = f2.stats.speed;
   document.getElementById('p2DefText').textContent = f2.stats.defense;
   document.getElementById('p2SenseText').textContent = `${f2.stats.sense}(会心${getCritRatePct(f2)}%)`;
@@ -11475,7 +11376,7 @@ function nextBattleQuestion() {
       // 🗼 タワーモード時は時間切れミスで即ゲームオーバー＆タワーロビー（始める前）に戻る！
       if (battle.mode === 'tower') {
         const logEl = document.getElementById('battleLog');
-        if (logEl) logEl.innerHTML = `⏰ <strong>時間切れ！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${battle.currentQ.ans}</strong>』でした。`;
+        if (logEl) logEl.innerHTML = `⏰ <strong>時間切れ！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${escapeHtml(battle.currentQ.ans)}</strong>』でした。`;
         setTimeout(() => {
           finishTowerRun(battle.towerFloor, false, false);
         }, 1100);
@@ -11602,14 +11503,14 @@ function submitChoice(text, btn) {
 
       // 🗼 タワーモード時は1問ミスで即ゲームオーバー＆タワーロビー（始める前）に戻る！
       if (battle.mode === 'tower') {
-        if (logEl) logEl.innerHTML = `❌ <strong>不正解！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${q.ans}</strong>』でした。`;
+        if (logEl) logEl.innerHTML = `❌ <strong>不正解！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${escapeHtml(q.ans)}</strong>』でした。`;
         setTimeout(() => {
           finishTowerRun(battle.towerFloor, false, false);
         }, 1100);
         return;
       }
 
-      if (logEl) logEl.innerHTML = `❌ 不正解！ 正解は『<strong>${q.ans}</strong>』でした！相手の攻撃を受けます！`;
+      if (logEl) logEl.innerHTML = `❌ 不正解！ 正解は『<strong>${escapeHtml(q.ans)}</strong>』でした！相手の攻撃を受けます！`;
       setTimeout(() => {
         if (battle) executeAttack('p2', false, 1.0);
       }, 900);
@@ -11716,14 +11617,14 @@ function submitAnagram() {
 
       // 🗼 タワーモード時は1問ミスで即ゲームオーバー＆タワーロビー（始める前）に戻る！
       if (battle.mode === 'tower') {
-        if (logEl) logEl.innerHTML = `❌ <strong>不正解！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${q.ans}</strong>』でした。`;
+        if (logEl) logEl.innerHTML = `❌ <strong>不正解！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${escapeHtml(q.ans)}</strong>』でした。`;
         setTimeout(() => {
           finishTowerRun(battle.towerFloor, false, false);
         }, 1100);
         return;
       }
 
-      if (logEl) logEl.innerHTML = `❌ 不正解！ 正解は『<strong>${q.ans}</strong>』でした！相手の攻撃を受けます！`;
+      if (logEl) logEl.innerHTML = `❌ 不正解！ 正解は『<strong>${escapeHtml(q.ans)}</strong>』でした！相手の攻撃を受けます！`;
       setTimeout(() => {
         if (battle) executeAttack('p2', false, 1.0);
       }, 900);
@@ -11764,14 +11665,14 @@ function submitTyping() {
 
       // 🗼 タワーモード時は1問ミスで即ゲームオーバー＆タワーロビー（始める前）に戻る！
       if (battle.mode === 'tower') {
-        if (logEl) logEl.innerHTML = `❌ <strong>不正解！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${q.ans || q.rawWord}</strong>』でした。`;
+        if (logEl) logEl.innerHTML = `❌ <strong>不正解！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${escapeHtml(q.ans || q.rawWord)}</strong>』でした。`;
         setTimeout(() => {
           finishTowerRun(battle.towerFloor, false, false);
         }, 1100);
         return;
       }
 
-      if (logEl) logEl.innerHTML = `❌ 不正解！ 正解は『<strong>${q.ans || q.rawWord}</strong>』でした！相手の攻撃を受けます！`;
+      if (logEl) logEl.innerHTML = `❌ 不正解！ 正解は『<strong>${escapeHtml(q.ans || q.rawWord)}</strong>』でした！相手の攻撃を受けます！`;
       setTimeout(() => {
         if (battle) executeAttack('p2', false, 1.0);
       }, 900);
@@ -11798,7 +11699,7 @@ function executeAttack(who, isTypingBonus, speedMult) {
   if (who === 'p1') {
     // ゾウリムシ専用チップ：超マッハ繊毛（相手の攻撃を25%で完全回避！）
     if (p2Chips.includes('chip_sp_ciliate') && Math.random() < 0.25) {
-      document.getElementById('battleLog').innerHTML = `⭕ 正解！ しかし相手の ${f2.nickname} は【🧬 超マッハ繊毛モーター】で素早く身をかわした！<br><small style="color:#0ea5e9;">(💨 相手が25%の確率で完全回避！)</small>`;
+      document.getElementById('battleLog').innerHTML = `⭕ 正解！ しかし相手の ${escapeHtml(f2.nickname)} は【🧬 超マッハ繊毛モーター】で素早く身をかわした！<br><small style="color:#0ea5e9;">(💨 相手が25%の確率で完全回避！)</small>`;
       updateBattleHud();
       setTimeout(() => {
         if (!battle) return;
@@ -12016,14 +11917,14 @@ function executeAttack(who, isTypingBonus, speedMult) {
       notes.push(`光合成+${heal}回復`);
     }
 
-    document.getElementById('battleLog').innerHTML = `⭕ 正解！ ${f1.nickname} の攻撃！ <strong>${dmg}</strong> ダメージ！<br><small style="color:#0369a1;">(${notes.join(' / ')})</small>`;
+    document.getElementById('battleLog').innerHTML = `⭕ 正解！ ${escapeHtml(f1.nickname)} の攻撃！ <strong>${dmg}</strong> ダメージ！<br><small style="color:#0369a1;">(${notes.join(' / ')})</small>`;
   } else {
     // 相手からの攻撃（who === 'p2'）
     if (f1) f1.combo = 0; // 不正解時はコンボリセット
 
     // ゾウリムシ専用チップ：超マッハ繊毛（プレイヤーが25%で完全回避！）
     if (p1Chips.includes('chip_sp_ciliate') && Math.random() < 0.25) {
-      document.getElementById('battleLog').innerHTML = `💥 相手の攻撃！ しかし ${f1.nickname} は【🧬 超マッハ繊毛モーター】で鮮やかに完全回避！<br><small style="color:#0ea5e9;">(💨 25%の確率で相手の攻撃を完全回避！ 正解は『<strong>${q.ans || q.rawWord}</strong>』)</small>`;
+      document.getElementById('battleLog').innerHTML = `💥 相手の攻撃！ しかし ${escapeHtml(f1.nickname)} は【🧬 超マッハ繊毛モーター】で鮮やかに完全回避！<br><small style="color:#0ea5e9;">(💨 25%の確率で相手の攻撃を完全回避！ 正解は『<strong>${escapeHtml(q.ans || q.rawWord)}</strong>』)</small>`;
       updateBattleHud();
       setTimeout(() => {
         if (!battle) return;
@@ -12141,7 +12042,7 @@ function executeAttack(who, isTypingBonus, speedMult) {
       }
     }
 
-    document.getElementById('battleLog').innerHTML = `💥 相手の攻撃で <strong>${dmg}</strong> ダメージ！ 正解は『<strong>${q.ans || q.rawWord}</strong>』でした！<br><small style="color:#dc2626;">(${notes.join(' / ')})</small>`;
+    document.getElementById('battleLog').innerHTML = `💥 相手の攻撃で <strong>${dmg}</strong> ダメージ！ 正解は『<strong>${escapeHtml(q.ans || q.rawWord)}</strong>』でした！<br><small style="color:#dc2626;">(${notes.join(' / ')})</small>`;
   }
 
   updateBattleHud();
@@ -12722,6 +12623,28 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
+// 🛡️ HTML属性内のインラインJS文字列リテラル用エスケープ（onclick内での脱出・XSS防止）
+function escapeJsAttr(str) {
+  if (str === null || str === undefined) return '';
+  const jsEscaped = String(str)
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/"/g, '\\"')
+    .replace(/\r/g, '\\r')
+    .replace(/\n/g, '\\n')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029')
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e');
+  return escapeHtml(jsEscaped);
+}
+
+// 🛡️ 外部受信文字列の型・制御文字・長さ正規化
+function sanitizePlainText(val, maxLen = 60) {
+  if (typeof val !== 'string' && typeof val !== 'number') return '';
+  return String(val).replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, maxLen);
+}
+
 /* ============================================================================
    6.5 🗼 無限のゲノムタワー ＆ 📊 実戦模試モード（Ver 4.9.0 新機能）
 ============================================================================ */
@@ -12786,12 +12709,12 @@ async function renderTowerRankingBoard(route) {
         snap = null;
       }
 
-      // インデックスがない場合等のフォールバック：全件プレーン取得
+      // インデックスがない場合等のフォールバック：上限100件で安全取得（無料枠保護）
       if (!snap || snap.empty) {
         snap = await withTimeout(
-          db.collection('players').get(),
+          db.collection('players').limit(100).get(),
           4500,
-          'タワー全件取得タイムアウト'
+          'タワー取得タイムアウト'
         );
       }
 
@@ -12818,25 +12741,26 @@ async function renderTowerRankingBoard(route) {
         });
       }
 
-      // 2. ★ 登録済みフレンドの個別ダイレクト照合（知り合いがクラウドのどこにいても100%確実に反映！）
+      // 2. ★ 登録済みフレンドの個別ダイレクト照合（最大30名上限で無料枠保護）
       if (Array.isArray(state.friendsList) && state.friendsList.length > 0) {
-        const friendCodes = state.friendsList.map(f => normalizeFriendCode(f.code)).filter(c => c && !seenCodes.has(c));
+        const friendCodes = state.friendsList.map(f => normalizeFriendCode(f.code)).filter(c => c && !seenCodes.has(c)).slice(0, 30);
         if (friendCodes.length > 0) {
           try {
             const fDocs = await Promise.all(friendCodes.map(c => db.collection('players').doc(c).get()));
             fDocs.forEach((fd, i) => {
               if (fd && fd.exists && fd.data()) {
                 const fData = fd.data();
-                const fName = (fData.name || state.friendsList[i].name || '').trim();
+                const fCode = friendCodes[i];
+                const fLocal = state.friendsList.find(f => f && normalizeFriendCode(f.code) === fCode) || {};
+                const fName = (fData.name || fLocal.name || '').trim();
                 if (!fName || fName === '研究員001' || fName === '研究員') return;
                 const floor = Number(fData[fieldKey]) || 0;
-                const fCode = friendCodes[i];
                 if (floor > 0 && !seenCodes.has(fCode)) {
                   seenCodes.add(fCode);
                   list.push({
                     name: fName,
                     code: fCode,
-                    title: fData.title || state.friendsList[i].title || '🌱 新米研究助手',
+                    title: fData.title || fLocal.title || '🌱 新米研究助手',
                     floor: floor
                   });
                 }
@@ -13170,7 +13094,7 @@ function nextTowerQuestion() {
       // 🗼 タワーモード時は時間切れミスで即ゲームオーバー＆タワーロビー（始める前）に戻る！
       if (battle.mode === 'tower') {
         const logEl = document.getElementById('battleLog');
-        if (logEl) logEl.innerHTML = `⏰ <strong>時間切れ！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${battle.currentQ.ans}</strong>』でした。`;
+        if (logEl) logEl.innerHTML = `⏰ <strong>時間切れ！1問ミスによりタワー踏破失敗！</strong> 正解は『<strong>${escapeHtml(battle.currentQ.ans)}</strong>』でした。`;
         setTimeout(() => {
           finishTowerRun(battle.towerFloor, false, false);
         }, 1100);
@@ -13629,7 +13553,7 @@ function findQuestionExp(m) {
     return `
       <div class="exp-section">
         <div class="exp-title exp-title-step">💡 ポイント解説</div>
-        <div class="exp-body-text">${m.exp.replace(/\n/g, '<br>')}</div>
+        <div class="exp-body-text">${escapeHtml(m.exp).replace(/\n/g, '<br>')}</div>
       </div>
     `;
   }
@@ -13645,7 +13569,7 @@ function findQuestionExp(m) {
     html += `
       <div class="exp-section">
         <div class="exp-title exp-title-focus">🎯 着眼点・使用公式</div>
-        <div class="exp-body-text">${info.focus.replace(/\n/g, '<br>')}</div>
+        <div class="exp-body-text">${escapeHtml(info.focus).replace(/\n/g, '<br>')}</div>
       </div>
     `;
   }
@@ -13653,7 +13577,7 @@ function findQuestionExp(m) {
     html += `
       <div class="exp-section">
         <div class="exp-title exp-title-step">✍️ 思考ステップ・解法</div>
-        <div class="exp-body-text">${info.step.replace(/\n/g, '<br>')}</div>
+        <div class="exp-body-text">${escapeHtml(info.step).replace(/\n/g, '<br>')}</div>
       </div>
     `;
   }
@@ -13661,11 +13585,11 @@ function findQuestionExp(m) {
     html += `
       <div class="exp-section">
         <div class="exp-title exp-title-tips">⚠️ 合格のツボ・注意点</div>
-        <div class="exp-body-text">${info.tips.replace(/\n/g, '<br>')}</div>
+        <div class="exp-body-text">${escapeHtml(info.tips).replace(/\n/g, '<br>')}</div>
       </div>
     `;
   }
-  return html || `<div class="exp-body-text">正解：<strong>${m.ans}</strong></div>`;
+  return html || `<div class="exp-body-text">正解：<strong>${escapeHtml(m.ans)}</strong></div>`;
 }
 
 function findQuestionChoices(m) {
@@ -13714,11 +13638,11 @@ function renderMistakes() {
       <div class="mistake-item" id="mistakeCard_${origIdx}">
         <div style="flex:1;">
           <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:4px;">
-            <span class="subject-tag ${subjObj.cls || ('subj-' + m.subj)}">${subjObj.icon || '📚'} ${subjObj.name}</span>
-            ${m.level ? `<span style="font-size:0.72rem; color:#64748b; font-weight:800;">[${m.level}]</span>` : ''}
+            <span class="subject-tag ${subjObj.cls || ('subj-' + escapeHtml(m.subj))}">${subjObj.icon || '📚'} ${subjObj.name}</span>
+            ${m.level ? `<span style="font-size:0.72rem; color:#64748b; font-weight:800;">[${escapeHtml(m.level)}]</span>` : ''}
           </div>
-          <div style="font-weight:900; font-size:0.92rem; color:#0f172a; margin-bottom:4px;">${m.q}</div>
-          <div style="font-size:0.84rem; color:#15803d; font-weight:900; margin-bottom:6px;">正解：<strong>${m.ans}</strong></div>
+          <div style="font-weight:900; font-size:0.92rem; color:#0f172a; margin-bottom:4px;">${escapeHtml(m.q)}</div>
+          <div style="font-size:0.84rem; color:#15803d; font-weight:900; margin-bottom:6px;">正解：<strong>${escapeHtml(m.ans)}</strong></div>
 
           <!-- 解説トグル領域（構造化リッチ解説表示） -->
           <div id="mistakeExpBox_${origIdx}" class="mistake-exp-container" style="display:none;">
@@ -13731,7 +13655,7 @@ function renderMistakes() {
             ${!isTypingOnly ? `
               <div class="mistake-retry-choices">
                 ${choices.map(cText => `
-                  <button class="choice-btn" style="padding:7px 10px; font-size:0.82rem;" onclick="checkMistakeAnswer(${origIdx}, '${cText.replace(/'/g, "\\'")}', this)">${cText}</button>
+                  <button class="choice-btn" style="padding:7px 10px; font-size:0.82rem;" onclick="checkMistakeAnswer(${origIdx}, '${escapeJsAttr(cText)}', this)">${escapeHtml(cText)}</button>
                 `).join('')}
               </div>
             ` : `
@@ -14925,8 +14849,8 @@ function renderSavedFriends() {
   const area = document.getElementById('savedFriendsArea');
   if (!area) return;
   area.innerHTML = (state.savedFriends || []).map(code => `
-    <button class="btn btn-outline" style="padding:3px 8px; font-size:0.72rem;" onclick="document.getElementById('targetFriendCode').value='${code}'">
-      👤 ${code}
+    <button class="btn btn-outline" style="padding:3px 8px; font-size:0.72rem;" onclick="document.getElementById('targetFriendCode').value='${escapeJsAttr(code)}'">
+      👤 ${escapeHtml(code)}
     </button>
   `).join('');
 }
@@ -15049,8 +14973,8 @@ function claimAllPresents() {
   if (!state.claimedGifts) state.claimedGifts = [];
   unclaimedGifts.forEach(g => {
     state.claimedGifts.push(g.id);
-    totalAtp += (g.atp || 0);
-    totalMedals += (g.medals || 0);
+    totalAtp += Math.max(0, Number(g.atp) || 0);
+    totalMedals += Math.max(0, Number(g.medals) || 0);
     // クラウド側の更新（非同期・失敗しても手元のアイテムは完全保証）
     if (db) {
       db.collection('gifts').doc(g.id).update({
@@ -15077,30 +15001,6 @@ function redeemSerialCode() {
   const inp = document.getElementById('serialCodeInput');
   const code = (inp.value || '').trim().toUpperCase();
   if (!code) return;
-
-  // 👑 運営専用コントロールパネルの合言葉起動
-  if (code === 'ADMIN' || code === 'BIOADMIN' || code === 'BIO_ADMIN') {
-    inp.value = '';
-    closePresentModal();
-    verifyAdminAccess(() => {
-      switchScreen('settings');
-      const card = document.getElementById('adminGiftSettingsCard');
-      if (card) {
-        card.style.display = 'flex';
-        card.scrollIntoView({ behavior: 'smooth' });
-      }
-      showToast('👑 運営者コントロールパネルを開きました！');
-    });
-    return;
-  }
-
-  // 🔧 開発者専用デバッグ合言葉（本番データを裏に自動退避して全解放＆ランキング完全除外）
-  if (code === 'DEBUG_MAX') {
-    inp.value = '';
-    enterDebugTestMode();
-    closePresentModal();
-    return;
-  }
 
   const gift = SERIAL_CODES[code];
   if (!gift) {
@@ -15145,9 +15045,9 @@ async function checkIncomingGifts(showToastFeedback = false) {
       }
     } catch (e) {}
 
-    // 2. 後方互換経路：gifts コレクションからも取得
+    // 2. 後方互換経路：gifts コレクションからも上限30件で取得
     try {
-      const snap = await db.collection('gifts').where('targetCode', '==', myCode).get();
+      const snap = await db.collection('gifts').where('targetCode', '==', myCode).limit(30).get();
       snap.forEach(doc => {
         const data = doc.data();
         if (data && !data.claimed && !state.claimedGifts.includes(doc.id)) {
@@ -15186,27 +15086,35 @@ function renderIncomingGifts() {
   }
 
   sec.style.display = 'block';
-  area.innerHTML = incomingGiftsList.map(g => `
+  area.innerHTML = incomingGiftsList.map(g => {
+    const safeFrom = escapeHtml(g.fromName || 'バイオ・ロジカ運営局');
+    const safeTitle = escapeHtml(g.title || '特別支給ボーナス');
+    const safeMsg = escapeHtml(g.message || 'いつも遊んでいただきありがとうございます！');
+    const atpNum = Math.max(0, Number(g.atp) || 0);
+    const medalsNum = Math.max(0, Number(g.medals) || 0);
+    const safeIdAttr = escapeJsAttr(g.id);
+    return `
     <div style="background:#fff1f2; border:2px solid #f472b6; border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
       <div style="flex:1;">
         <div style="font-weight:900; font-size:0.92rem; color:#be185d;">
-          👑 <strong>${g.fromName || 'バイオ・ロジカ運営局'}</strong> からのプレゼント！
+          👑 <strong>${safeFrom}</strong> からのプレゼント！
         </div>
         <div style="font-size:0.8rem; font-weight:800; color:#0369a1; margin-top:2px;">
-          ${g.title || '特別支給ボーナス'}
+          ${safeTitle}
         </div>
         <div style="font-size:0.78rem; color:#334155; margin:3px 0; background:white; padding:5px 9px; border-radius:6px; border:1px solid #fbcfe8; line-height:1.4;">
-          「${g.message || 'いつも遊んでいただきありがとうございます！'}」
+          「${safeMsg}」
         </div>
         <div style="font-size:0.8rem; font-weight:900; color:#b45309;">
-          ${(g.atp > 0) ? `⚡ +${g.atp} ATP ` : ''}${(g.medals > 0) ? `🧬 +${g.medals} メダル` : ''}
+          ${(atpNum > 0) ? `⚡ +${atpNum} ATP ` : ''}${(medalsNum > 0) ? `🧬 +${medalsNum} メダル` : ''}
         </div>
       </div>
-      <button class="btn btn-accent" style="padding:7px 16px; font-size:0.85rem;" onclick="claimDirectGift('${g.id}')">
+      <button class="btn btn-accent" style="padding:7px 16px; font-size:0.85rem;" onclick="claimDirectGift('${safeIdAttr}')">
         🎁 受け取る
       </button>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 // 🎁 個別ギフト受取実行（アイテムを先に確実に付与し、クラウド通信エラーでも受取が絶対失敗しない超堅牢設計！）
@@ -15225,8 +15133,8 @@ async function claimDirectGift(giftDocId) {
 
   // 1. ローカルに受取済みを記録＆アイテム即時加算（100%確実に手に入る！）
   state.claimedGifts.push(giftDocId);
-  const gainedAtp = gift.atp || 0;
-  const gainedMedals = gift.medals || 0;
+  const gainedAtp = Math.max(0, Number(gift.atp) || 0);
+  const gainedMedals = Math.max(0, Number(gift.medals) || 0);
   state.atp += gainedAtp;
   state.medals += gainedMedals;
   saveData();
@@ -15257,391 +15165,6 @@ async function claimDirectGift(giftDocId) {
   showToast(`🎉『${gift.fromName || 'バイオ・ロジカ運営局'}』からのギフトを受け取りました！（⚡+${gainedAtp} ATP / 🧬+${gainedMedals} メダル）`);
 }
 
-// 👑 運営専用：特定プレイヤーへの個別プレゼント送付＆お問い合わせ一覧（管理者パスコード認証保護！）
-const ADMIN_MASTER_PASSWORD_DEFAULT = 'bio2026';
-let adminSecretTapCount = 0;
-let isAdminAuthenticatedSession = false; // セッション中の認証キャッシュ
-
-// 運営管理者パスコード認証チェック共通関数
-function verifyAdminAccess(actionCallback) {
-  if (isAdminAuthenticatedSession) {
-    if (typeof actionCallback === 'function') actionCallback();
-    return true;
-  }
-  const savedPass = localStorage.getItem('biologica_admin_pass') || ADMIN_MASTER_PASSWORD_DEFAULT;
-  const input = prompt('👑【バイオ・ロジカ運営局 管理者認証】\n運営者マスターパスコードを入力してください：');
-  if (input === null) return false;
-  if (input.trim() !== savedPass) {
-    showToast('❌ パスコードが一致しません！運営専用ツールは利用できません。');
-    return false;
-  }
-  isAdminAuthenticatedSession = true;
-  if (typeof actionCallback === 'function') actionCallback();
-  return true;
-}
-
-function triggerAdminSecretTap() {
-  adminSecretTapCount++;
-  if (adminSecretTapCount >= 5) {
-    adminSecretTapCount = 0;
-    const card = document.getElementById('adminGiftSettingsCard');
-    if (card) {
-      const isVisible = (card.style.display === 'flex');
-      card.style.display = isVisible ? 'none' : 'flex';
-      showToast(isVisible ? '🔒 運営者メニューを非表示に戻しました。' : '👑 運営者メニューが出現しました！');
-    }
-  }
-}
-
-function closeAdminGiftSettingsCard() {
-  const card = document.getElementById('adminGiftSettingsCard');
-  if (card) card.style.display = 'none';
-  adminSecretTapCount = 0;
-  showToast('🔒 運営者メニューを非表示に戻しました。');
-}
-
-function openAdminGiftModal() {
-  verifyAdminAccess(() => {
-    document.getElementById('adminGiftTargetCodeInput').value = '';
-    document.getElementById('adminGiftTitleInput').value = '👑 運営局からの特別プレゼント';
-    document.getElementById('adminGiftAtpSelect').value = '3000';
-    document.getElementById('adminGiftMedalSelect').value = '100';
-    document.getElementById('adminGiftMessageInput').value = 'いつもバイオ・ロジカを遊んでいただきありがとうございます！開発・運営局からの特別応援ギフトです！';
-    document.getElementById('adminGiftModal').classList.add('active');
-  });
-}
-
-function changeAdminPass() {
-  const currentSaved = localStorage.getItem('biologica_admin_pass') || ADMIN_MASTER_PASSWORD_DEFAULT;
-  const curInput = prompt('現在のマスターパスコードを入力してください：');
-  if (curInput === null) return;
-  if (curInput.trim() !== currentSaved) {
-    showToast('❌ 現在のパスコードが違います！');
-    return;
-  }
-  const newPass = prompt('新しいマスターパスコードを入力してください（4文字以上）：');
-  if (!newPass || newPass.trim().length < 4) {
-    showToast('⚠️ パスコードは4文字以上で設定してください！');
-    return;
-  }
-  localStorage.setItem('biologica_admin_pass', newPass.trim());
-  isAdminAuthenticatedSession = true;
-  showToast('🔑 運営者マスターパスコードを更新しました！');
-}
-
-function closeAdminGiftModal() {
-  document.getElementById('adminGiftModal').classList.remove('active');
-}
-
-/* ============================================================================
-   👑 運営専用：届いたお問い合わせ・不具合報告一覧ビューア
-============================================================================ */
-let adminInquiriesCache = [];
-let adminInquiryActiveFilter = 'all';
-
-function openAdminInquiryViewer() {
-  verifyAdminAccess(() => {
-    const modal = document.getElementById('adminInquiryViewerModal');
-    if (modal) modal.classList.add('active');
-    loadAdminInquiries();
-  });
-}
-
-function closeAdminInquiryViewer() {
-  const modal = document.getElementById('adminInquiryViewerModal');
-  if (modal) modal.classList.remove('active');
-}
-
-async function loadAdminInquiries() {
-  const listArea = document.getElementById('adminInquiryListArea');
-  if (!listArea) return;
-
-  listArea.innerHTML = `
-    <div style="text-align:center; padding:35px 10px; color:var(--text-sub); font-size:0.85rem;">
-      <div style="font-size:2rem; margin-bottom:8px; animation: pulse 1s infinite;">⏳</div>
-      データベースから最新のお問い合わせを照会中...
-    </div>
-  `;
-
-  if (!db) {
-    listArea.innerHTML = `
-      <div style="background:#fee2e2; border:2px solid #ef4444; border-radius:10px; padding:16px; text-align:center; color:#991b1b; font-weight:800;">
-        ⚠️ Firebase接続が確立されていません。インターネット通信環境をご確認ください。
-      </div>
-    `;
-    return;
-  }
-
-  try {
-    let snapshot;
-    try {
-      // 作成日時降順で取得を試みる
-      snapshot = await withTimeout(db.collection('inquiries').orderBy('createdAt', 'desc').limit(80).get(), 5000);
-    } catch (orderErr) {
-      console.warn('orderBy query failed, falling back to basic query:', orderErr);
-      snapshot = await withTimeout(db.collection('inquiries').limit(80).get(), 5000);
-    }
-
-    const items = [];
-    if (snapshot && !snapshot.empty) {
-      snapshot.forEach(doc => {
-        const data = doc.data() || {};
-        items.push({
-          id: doc.id,
-          fromCode: data.fromCode || '不明',
-          fromName: data.fromName || '名無し研究員',
-          type: data.type || 'other',
-          title: data.title || '(無題)',
-          body: data.body || '',
-          createdAt: typeof data.createdAt === 'number' ? data.createdAt : 0,
-          userAgent: data.userAgent || ''
-        });
-      });
-      items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-    }
-
-    adminInquiriesCache = items;
-    updateAdminInquiryCounts();
-    renderAdminInquiryList();
-  } catch (err) {
-    console.error('Failed to load inquiries:', err);
-    listArea.innerHTML = `
-      <div style="background:#fee2e2; border:2px solid #ef4444; border-radius:10px; padding:16px; text-align:center; color:#991b1b; font-weight:800;">
-        ⚠️ お問い合わせデータの取得に失敗しました。<br>
-        <span style="font-size:0.75rem; font-weight:700; color:#7f1d1d;">(${err.message || '通信・権限エラー'})</span>
-      </div>
-    `;
-  }
-}
-
-function updateAdminInquiryCounts() {
-  const total = adminInquiriesCache.length;
-  const counts = { bug: 0, quiz_typo: 0, request: 0, other: 0 };
-  adminInquiriesCache.forEach(item => {
-    if (counts[item.type] !== undefined) {
-      counts[item.type]++;
-    } else {
-      counts.other++;
-    }
-  });
-
-  const totalEl = document.getElementById('adminInquiryTotalBadge');
-  if (totalEl) totalEl.textContent = `${total}件`;
-
-  const countAll = document.getElementById('inqCountAll');
-  if (countAll) countAll.textContent = total;
-  const countBug = document.getElementById('inqCountBug');
-  if (countBug) countBug.textContent = counts.bug;
-  const countTypo = document.getElementById('inqCountTypo');
-  if (countTypo) countTypo.textContent = counts.quiz_typo;
-  const countReq = document.getElementById('inqCountReq');
-  if (countReq) countReq.textContent = counts.request;
-  const countOther = document.getElementById('inqCountOther');
-  if (countOther) countOther.textContent = counts.other;
-}
-
-function filterAdminInquiries(type) {
-  adminInquiryActiveFilter = type;
-  const tabs = [
-    { id: 'inqFilterAll', key: 'all' },
-    { id: 'inqFilterBug', key: 'bug' },
-    { id: 'inqFilterTypo', key: 'quiz_typo' },
-    { id: 'inqFilterReq', key: 'request' },
-    { id: 'inqFilterOther', key: 'other' }
-  ];
-  tabs.forEach(t => {
-    const el = document.getElementById(t.id);
-    if (!el) return;
-    if (t.key === type) {
-      el.className = 'btn btn-primary';
-    } else {
-      el.className = 'btn btn-outline';
-    }
-  });
-  renderAdminInquiryList();
-}
-
-function renderAdminInquiryList() {
-  const listArea = document.getElementById('adminInquiryListArea');
-  if (!listArea) return;
-
-  const filtered = adminInquiryActiveFilter === 'all'
-    ? adminInquiriesCache
-    : adminInquiriesCache.filter(item => item.type === adminInquiryActiveFilter);
-
-  if (filtered.length === 0) {
-    listArea.innerHTML = `
-      <div style="background:#f8fafc; border:2px dashed #cbd5e1; border-radius:12px; padding:35px 15px; text-align:center;">
-        <div style="font-size:2.5rem; margin-bottom:8px;">📬✨</div>
-        <div style="font-weight:900; font-size:1rem; color:#334155;">該当するお問い合わせはありません</div>
-        <div style="font-size:0.78rem; color:var(--text-sub); margin-top:4px;">
-          ${adminInquiryActiveFilter === 'all' ? '現在プレイヤーからの新規報告は届いていません。' : 'このカテゴリのお問い合わせは現在ありません。'}
-        </div>
-      </div>
-    `;
-    return;
-  }
-
-  const typeMap = {
-    bug: { label: '🐛 不具合・バグ報告', bg: '#fee2e2', color: '#991b1b', border: '#fca5a5' },
-    quiz_typo: { label: '📝 問題の誤字・誤答', bg: '#fef3c7', color: '#92400e', border: '#fcd34d' },
-    request: { label: '💡 ご要望・提案', bg: '#e0f2fe', color: '#075985', border: '#7dd3fc' },
-    other: { label: '💬 その他', bg: '#f1f5f9', color: '#334155', border: '#cbd5e1' }
-  };
-
-  const html = filtered.map(item => {
-    const meta = typeMap[item.type] || typeMap.other;
-    const dateStr = item.createdAt > 0
-      ? new Date(item.createdAt).toLocaleString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
-      : '日時不明';
-
-    const safeTitle = typeof escapeHtml === 'function' ? escapeHtml(item.title) : item.title;
-    const safeBody = typeof escapeHtml === 'function' ? escapeHtml(item.body) : item.body;
-    const safeName = typeof escapeHtml === 'function' ? escapeHtml(item.fromName) : item.fromName;
-    const safeCode = typeof escapeHtml === 'function' ? escapeHtml(item.fromCode) : item.fromCode;
-    const safeUa = typeof escapeHtml === 'function' ? escapeHtml(item.userAgent || '不明') : (item.userAgent || '不明');
-
-    return `
-      <div style="background:#ffffff; border:2px solid ${meta.border}; border-radius:12px; padding:12px 14px; box-shadow:0 2px 8px rgba(0,0,0,0.04); display:flex; flex-direction:column; gap:8px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
-          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-            <span style="background:${meta.bg}; color:${meta.color}; border:1px solid ${meta.border}; font-size:0.72rem; font-weight:900; padding:2px 8px; border-radius:6px;">
-              ${meta.label}
-            </span>
-            <span style="font-size:0.8rem; font-weight:900; color:#0f172a;">
-              👤 ${safeName} <span style="font-size:0.72rem; color:var(--text-sub); font-weight:700;">(${safeCode})</span>
-            </span>
-          </div>
-          <span style="font-size:0.72rem; color:#64748b; font-weight:800;">
-            🕒 ${dateStr}
-          </span>
-        </div>
-
-        <div style="font-size:0.95rem; font-weight:900; color:#0f172a; border-left:3.5px solid ${meta.color}; padding-left:8px; margin:2px 0;">
-          ${safeTitle}
-        </div>
-
-        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:10px; font-size:0.84rem; color:#1e293b; line-height:1.55; white-space:pre-wrap; word-break:break-word;">
-          ${safeBody}
-        </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; padding-top:4px; border-top:1px dashed #e2e8f0;">
-          <div style="font-size:0.68rem; color:#94a3b8; max-width:65%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${safeUa}">
-            💻 ${safeUa}
-          </div>
-          <button class="btn btn-accent" style="padding:4px 10px; font-size:0.74rem; font-weight:900;" onclick="quickRewardFromInquiry('${safeCode}', '${safeName}')">
-            🎁 この人に返答・お礼ギフトを送る
-          </button>
-        </div>
-      </div>
-    `;
-  }).join('');
-
-  listArea.innerHTML = html;
-}
-
-function quickRewardFromInquiry(targetCode, targetName) {
-  closeAdminInquiryViewer();
-  openAdminGiftModal();
-  const codeInp = document.getElementById('adminGiftTargetCodeInput');
-  const titleInp = document.getElementById('adminGiftTitleInput');
-  const msgInp = document.getElementById('adminGiftMessageInput');
-  if (codeInp) codeInp.value = targetCode;
-  if (titleInp) titleInp.value = '🎉 不具合報告・ご意見のお礼ギフト';
-  if (msgInp) msgInp.value = `${targetName}様、貴重なご報告・ご意見をいただき誠にありがとうございました！いただいた内容をもとに改善を行いました！`;
-}
-
-// 👑 運営プレゼント発行・配送実行（※全角・小文字・4桁数字のみでも自動補完して確実に届く！）
-async function submitAdminGift() {
-  const codeInp = document.getElementById('adminGiftTargetCodeInput');
-  const rawCode = (codeInp.value || '').trim();
-
-  // 1. フレンドコードの完全自動正規化（全角➔半角、小文字➔大文字、余計な空白除去）
-  let code = rawCode
-    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
-    .replace(/ー/g, '-')
-    .replace(/－/g, '-')
-    .toUpperCase()
-    .replace(/\s+/g, '');
-
-  // 4桁数字のみ（例: "1234"）の場合は自動で "BIO-1234" に補完！
-  if (/^\d{4}$/.test(code)) {
-    code = 'BIO-' + code;
-  }
-  // ハイフン抜け（例: "BIO1234"）の場合も自動で "BIO-1234" に補完！
-  if (/^BIO\d{4}$/.test(code)) {
-    code = 'BIO-' + code.slice(3);
-  }
-
-  const title = (document.getElementById('adminGiftTitleInput').value || '').trim() || '👑 運営局からの特別プレゼント';
-  const sendAtp = parseInt(document.getElementById('adminGiftAtpSelect').value || '0', 10);
-  const sendMedals = parseInt(document.getElementById('adminGiftMedalSelect').value || '0', 10);
-  const message = (document.getElementById('adminGiftMessageInput').value || '').trim() || 'いつも遊んでいただきありがとうございます！';
-
-  if (!code) {
-    showToast('⚠️ 贈り先のフレンドコードを入力してください！');
-    codeInp.focus();
-    return;
-  }
-  if (sendAtp === 0 && sendMedals === 0) {
-    showToast('⚠️ 配布するATPまたはメダルの数量を選択してください！');
-    return;
-  }
-
-  showToast('🎁 運営プレゼントを発行・配送中...');
-  try {
-    let targetName = '研究員';
-    let existingGifts = [];
-    if (db) {
-      try {
-        const doc = await db.collection('players').doc(code).get();
-        if (doc.exists && doc.data()) {
-          targetName = doc.data().name || '研究員';
-          if (Array.isArray(doc.data().incomingGifts)) {
-            existingGifts = doc.data().incomingGifts;
-          }
-        }
-      } catch (e) {
-        console.warn('Player name fetch warning (ignored):', e);
-      }
-
-      const giftObj = {
-        id: 'gift_' + Date.now() + '_' + Math.floor(Math.random() * 10000),
-        isOfficial: true,
-        fromCode: state.friendCode,
-        fromName: 'バイオ・ロジカ運営局',
-        targetCode: code,
-        targetName,
-        title,
-        atp: sendAtp,
-        medals: sendMedals,
-        message,
-        claimed: false,
-        createdAt: Date.now()
-      };
-
-      // ★ 1. 100%確実に権限が通る players/{code}.incomingGifts へ直接格納！
-      await db.collection('players').doc(code).set({
-        incomingGifts: [...existingGifts, giftObj]
-      }, { merge: true });
-
-      // ★ 2. 後方互換用として gifts コレクションにも非同期送信
-      db.collection('gifts').doc(giftObj.id).set(giftObj).catch(() => {});
-    }
-
-    closeAdminGiftModal();
-    showToast(`👑『${targetName}』(${code}) 宛てに運営プレゼント（⚡${sendAtp} ATP / 🧬${sendMedals} メダル）を発行・送付しました！`);
-
-    // もし自分宛てに送った場合は即座にプレゼントBOXを再読み込み
-    if (code === state.friendCode) {
-      checkIncomingGifts();
-    }
-  } catch (err) {
-    console.error(err);
-    showToast('⚠️ プレゼント送信中にエラーが発生しました: ' + (err.message || '通信エラー'));
-  }
-}
-
 // お問い合わせモーダル
 function openInquiryModal() {
   document.getElementById('inquiryTitleInput').value = '';
@@ -15653,11 +15176,13 @@ function closeInquiryModal() {
   document.getElementById('inquiryModal').classList.remove('active');
 }
 
-// お問い合わせ送信実行
+// お問い合わせ送信実行（公開 players ドキュメントには書き込まず inquiries コレクションへ直接送信）
 async function submitInquiry() {
-  const type = document.getElementById('inquiryTypeSelect').value;
-  const title = (document.getElementById('inquiryTitleInput').value || '').trim();
-  const body = (document.getElementById('inquiryBodyInput').value || '').trim();
+  const allowedTypes = ['bug', 'quiz_typo', 'request', 'other'];
+  const rawType = (document.getElementById('inquiryTypeSelect') || {}).value || 'other';
+  const type = allowedTypes.includes(rawType) ? rawType : 'other';
+  const title = (document.getElementById('inquiryTitleInput').value || '').trim().slice(0, 120);
+  const body = (document.getElementById('inquiryBodyInput').value || '').trim().slice(0, 2000);
 
   if (!title) {
     showToast('⚠️ タイトル（件名）を入力してください！');
@@ -15673,94 +15198,25 @@ async function submitInquiry() {
   showToast('📨 不具合・ご意見を送信中...');
   try {
     if (db) {
-      const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
+      const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : String(state.friendCode || '');
       const inqObj = {
-        fromCode: myCode,
-        fromName: state.playerName,
+        fromCode: sanitizePlainText(myCode, 20),
+        fromName: sanitizePlainText(state.playerName || '研究員', 20) || '研究員',
         type,
         title,
         body,
         createdAt: Date.now(),
-        userAgent: navigator.userAgent
+        userAgent: String(navigator.userAgent || '').slice(0, 300)
       };
-      await db.collection('players').doc(myCode).set({
-        lastInquiry: inqObj
-      }, { merge: true }).catch(() => {});
-      db.collection('inquiries').add(inqObj).catch(() => {});
+      await withTimeout(db.collection('inquiries').add(inqObj), 4000, 'お問い合わせ送信タイムアウト');
     }
     closeInquiryModal();
     alert('📨 お問い合わせ・不具合報告を送信しました！\n\nご報告いただき誠にありがとうございます！開発・運営チームにて内容を確認し、今後のアップデート・修正に役立てます。');
     showToast('✅ ご報告ありがとうございました！');
   } catch (err) {
     console.error(err);
-    showToast('⚠️ 送信中にエラーが発生しました。');
+    showToast('⚠️ 送信中にエラーが発生しました。時間をおいて再度お試しください。');
   }
-}
-
-// 🔧 開発者テストモード突入（本番データを完全バックアップ保存）
-function enterDebugTestMode() {
-  if (!state.isTestAccount) {
-    localStorage.setItem('biologica_prod_backup_v50', JSON.stringify(state));
-  }
-
-  // 全6種族のLv.30極限完全体（LR神個体）を生成
-  const debugBox = SPECIES_MASTER.map((sp, idx) => {
-    const m = generateMicrobeInstance({ speciesObj: sp, isMutant: true, fixedSense: 100, highIv: true });
-    m.level = 30;
-    m.evoStage = 4;
-    m.nickname = `👑[TEST]${sp.evoNames[4]}`;
-    m.skillId = SKILLS[idx % SKILLS.length].id;
-    m.stats.speed += 45;
-    m.stats.size += 45;
-    m.stats.defense += 45;
-    m.stats.fuel += 45;
-    return m;
-  });
-
-  const allPedia = {};
-  SPECIES_MASTER.forEach(sp => {
-    [0, 1, 2, 3, 4].forEach(stg => { allPedia[`${sp.id}_${stg}`] = true; });
-  });
-
-  state.isTestAccount = true;
-  state.playerName = '🔧開発テスト中';
-  state.atp = 999999;
-  state.medals = 99999;
-  state.ownedItems = { ...(state.ownedItems || {}), item_xeno_core: 10, item_mythic_core: 3, item_lv30: 5, item_gold_fever: 5 };
-  state.box = debugBox;
-  state.activeId = debugBox[0].uid;
-  state.presets.forEach((p, i) => {
-    p.name = `テスト編成${i + 1}`;
-    p.ids = [debugBox[0].uid, debugBox[1].uid, debugBox[5].uid];
-  });
-  state.pediaUnlocked = allPedia;
-
-  saveData();
-  renderPetriStatusCard();
-  renderBoxAndParty();
-  updateBattlePresetSelect();
-  showToast('🔧 開発者テストモード起動！（本番データは安全に保護され、ランキングには一切載りません）');
-}
-
-// 🔧 テストモード終了（元の本番データへ1秒で完全復元！）
-function exitDebugTestMode() {
-  const backupRaw = localStorage.getItem('biologica_prod_backup_v50');
-  if (backupRaw) {
-    try {
-      state = JSON.parse(backupRaw);
-      state.isTestAccount = false;
-      localStorage.removeItem('biologica_prod_backup_v50');
-      saveData();
-      loadData();
-      renderPetriStatusCard();
-      renderBoxAndParty();
-      showToast('✅ 元の本番アカウントデータに完全復元しました！');
-      return;
-    } catch (e) {}
-  }
-  state.isTestAccount = false;
-  saveData();
-  location.reload();
 }
 
 /* ============================================================================
@@ -15806,7 +15262,11 @@ function initPeerConnection() {
     peerInstance = new Peer('biologica_' + cleanCode);
     peerInstance.on('connection', conn => {
       conn.on('data', data => {
-        handlePeerDirectMessage(data);
+        try {
+          handlePeerDirectMessage(data);
+        } catch (err) {
+          console.warn('PeerJS data error:', err);
+        }
       });
     });
     peerInstance.on('error', err => {
@@ -15818,19 +15278,48 @@ function initPeerConnection() {
 }
 
 function handlePeerDirectMessage(data) {
-  if (!data) return;
-  if (data.type === 'peer_friend_request' && data.request) {
+  if (!data || typeof data !== 'object') return;
+  const myCode = normalizeFriendCode(state.friendCode);
+  if (data.type === 'peer_friend_request' && data.request && typeof data.request === 'object') {
     const req = data.request;
-    const fc = normalizeFriendCode(req.fromCode);
-    const myCode = normalizeFriendCode(state.friendCode);
-    const reqId = req.id || req.reqId || `${fc}_${myCode}`;
-    activeIncomingRequestsMap.set(reqId, { ...req, id: reqId, fromCode: fc, targetCode: myCode });
+    const fc = normalizeFriendCode(sanitizePlainText(req.fromCode, 20));
+    if (!/^BIO-[A-Z0-9]{2,12}$/.test(fc) || fc === myCode) return;
+    if ((state.friendsList || []).some(f => normalizeFriendCode(f.code) === fc)) return;
+    const reqId = `${fc}_${myCode}`;
+    if (!activeIncomingRequestsMap.has(reqId) && activeIncomingRequestsMap.size >= 50) return;
+    const safeFromName = sanitizePlainText(req.fromName, 20) || '研究員';
+    const safeFromTitle = sanitizePlainText(req.fromTitle, 40) || '🌱 新米研究助手';
+    activeIncomingRequestsMap.set(reqId, {
+      id: reqId,
+      reqId,
+      fromCode: fc,
+      fromName: safeFromName,
+      fromTitle: safeFromTitle,
+      targetCode: myCode,
+      status: 'pending',
+      createdAt: Number(req.createdAt) || Date.now()
+    });
     renderIncomingFriendRequestsUI();
-    showToast(`📬【直通受信】『${req.fromName || '研究員'}』(${fc}) さんからフレンド申請が届きました！`);
+    showToast(`📬【直通受信】『${safeFromName}』(${fc}) さんからフレンド申請が届きました！`);
   }
-  if (data.type === 'peer_battle_invite' && data.invite) {
-    renderReceivedBattleInvites([data.invite]);
-    showToast(`⚔️【直通受信】『${data.invite.fromName || '友達'}』さんから対戦ルーム【${data.invite.roomId}】の招待が届きました！`);
+  if (data.type === 'peer_battle_invite' && data.invite && typeof data.invite === 'object') {
+    const inv = data.invite;
+    const safeRoomId = sanitizePlainText(inv.roomId, 10);
+    if (!/^\d{4}$/.test(safeRoomId)) return;
+    const fcRaw = normalizeFriendCode(sanitizePlainText(inv.fromCode, 20));
+    const safeFromCode = /^BIO-[A-Z0-9]{2,12}$/.test(fcRaw) ? fcRaw : 'HOST';
+    const safeFromName = sanitizePlainText(inv.fromName, 20) || '友達';
+    const cleanInvite = {
+      id: `${safeRoomId}_${myCode}`,
+      roomId: safeRoomId,
+      fromCode: safeFromCode,
+      fromName: safeFromName,
+      targetCode: myCode,
+      createdAt: Number(inv.createdAt) || Date.now(),
+      isDirectInvite: true
+    };
+    renderReceivedBattleInvites([cleanInvite]);
+    showToast(`⚔️【直通受信】『${safeFromName}』さんから対戦ルーム【${safeRoomId}】の招待が届きました！`);
   }
 }
 
@@ -15852,41 +15341,63 @@ try {
   globalAppChannel = new BroadcastChannel('biologica_global_app_channel');
   globalAppChannel.onmessage = (event) => {
     const data = event.data;
-    if (!data) return;
+    if (!data || typeof data !== 'object') return;
     const myCode = normalizeFriendCode(state.friendCode);
     if (data.type === 'friend_request_sent' && normalizeFriendCode(data.targetCode) === myCode) {
-      showToast(`📬『${data.fromName}』さんからフレンド申請が届きました！`);
-      if (data.request) {
-        const fc = normalizeFriendCode(data.request.fromCode);
-        const reqId = data.request.id || data.request.reqId || `${fc}_${myCode}`;
-        activeIncomingRequestsMap.set(reqId, { ...data.request, id: reqId, fromCode: fc, targetCode: myCode });
-        renderIncomingFriendRequestsUI();
+      const safeToastName = sanitizePlainText(data.fromName, 20) || '研究員';
+      showToast(`📬『${safeToastName}』さんからフレンド申請が届きました！`);
+      if (data.request && typeof data.request === 'object') {
+        const fc = normalizeFriendCode(sanitizePlainText(data.request.fromCode, 20));
+        if (/^BIO-[A-Z0-9]{2,12}$/.test(fc) && fc !== myCode) {
+          const reqId = `${fc}_${myCode}`;
+          if (activeIncomingRequestsMap.has(reqId) || activeIncomingRequestsMap.size < 50) {
+            activeIncomingRequestsMap.set(reqId, {
+              id: reqId,
+              reqId,
+              fromCode: fc,
+              fromName: sanitizePlainText(data.request.fromName, 20) || safeToastName,
+              fromTitle: sanitizePlainText(data.request.fromTitle, 40) || '🌱 新米研究助手',
+              targetCode: myCode,
+              status: 'pending',
+              createdAt: Number(data.request.createdAt) || Date.now()
+            });
+            renderIncomingFriendRequestsUI();
+          }
+        }
       }
       checkIncomingFriendRequests();
     }
     if (data.type === 'friend_request_approved' && normalizeFriendCode(data.targetCode) === myCode) {
-      showToast(`🎉『${data.fromName}』さんにフレンド申請が承認されました！`);
+      const safeName = sanitizePlainText(data.fromName, 20) || 'フレンド';
+      showToast(`🎉『${safeName}』さんにフレンド申請が承認されました！`);
       syncFriendsFromCloud();
     }
     if (data.type === 'battle_invite_sent' && normalizeFriendCode(data.targetCode) === myCode) {
-      showToast(`⚔️『${data.fromName}』さんから対戦ルーム【${data.roomId}】の招待が届きました！`);
-      if (data.invite) {
-        renderReceivedBattleInvites([data.invite]);
-      } else if (typeof renderReceivedBattleInvites === 'function') {
-        renderReceivedBattleInvites([{
-          id: `${data.roomId}_${myCode}`,
-          roomId: data.roomId,
-          fromCode: data.fromCode,
-          fromName: data.fromName,
-          targetCode: myCode,
-          createdAt: Date.now()
-        }]);
+      const rawInv = (data.invite && typeof data.invite === 'object') ? data.invite : data;
+      const safeRoomId = sanitizePlainText(rawInv.roomId, 10);
+      if (/^\d{4}$/.test(safeRoomId)) {
+        const fcRaw = normalizeFriendCode(sanitizePlainText(rawInv.fromCode, 20));
+        const safeFromCode = /^BIO-[A-Z0-9]{2,12}$/.test(fcRaw) ? fcRaw : 'HOST';
+        const safeFromName = sanitizePlainText(rawInv.fromName, 20) || '友達';
+        showToast(`⚔️『${safeFromName}』さんから対戦ルーム【${safeRoomId}】の招待が届きました！`);
+        if (typeof renderReceivedBattleInvites === 'function') {
+          renderReceivedBattleInvites([{
+            id: `${safeRoomId}_${myCode}`,
+            roomId: safeRoomId,
+            fromCode: safeFromCode,
+            fromName: safeFromName,
+            targetCode: myCode,
+            createdAt: Number(rawInv.createdAt) || Date.now(),
+            isDirectInvite: true
+          }]);
+        }
       }
       checkPendingBattleInvites();
     }
     if (data.type === 'random_match_ready' && randomMatchmaker && randomMatchmaker.active) {
-      if (data.roomId !== currentRoomId && (!data.category || data.category === (currentBattleCategory || 'sci'))) {
-        joinFoundRandomMatch(data.docId || ('ROOM_' + data.roomId), data.roomId, data.hostName);
+      const safeRoomId = sanitizePlainText(data.roomId, 10);
+      if (/^\d{4}$/.test(safeRoomId) && safeRoomId !== currentRoomId && (!data.category || data.category === (currentBattleCategory || 'sci'))) {
+        joinFoundRandomMatch('ROOM_' + safeRoomId, safeRoomId, sanitizePlainText(data.hostName, 20) || '全国プレイヤー');
       }
     }
   };
@@ -15967,18 +15478,23 @@ function renderIncomingFriendRequestsUI(overrideList) {
   container.innerHTML = list.map(d => {
     const safeFromCode = normalizeFriendCode(d.fromCode);
     const safeId = d.id || d.reqId || `${safeFromCode}_${normalizeFriendCode(state.friendCode)}`;
+    const safeNameHtml = escapeHtml(d.fromName || '研究員');
+    const safeCodeHtml = escapeHtml(safeFromCode);
+    const safeTitleHtml = escapeHtml(d.fromTitle || '🌱 新米研究助手');
+    const safeIdAttr = escapeJsAttr(safeId);
+    const safeCodeAttr = escapeJsAttr(safeFromCode);
     return `
       <div style="background:#fff1f2; border:2.5px solid #fda4af; border-radius:12px; padding:12px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow:0 4px 12px rgba(244,63,94,0.15);">
         <div>
           <div style="font-weight:900; font-size:1rem; color:#be123c; display:flex; align-items:center; gap:6px;">
-            <span>👤 <strong>${d.fromName || '研究員'}</strong></span>
-            <span style="font-size:0.75rem; background:#ffe4e6; color:#9f1239; padding:2px 8px; border-radius:999px;">${safeFromCode}</span>
+            <span>👤 <strong>${safeNameHtml}</strong></span>
+            <span style="font-size:0.75rem; background:#ffe4e6; color:#9f1239; padding:2px 8px; border-radius:999px;">${safeCodeHtml}</span>
           </div>
-          <div style="font-size:0.78rem; color:#881337; margin-top:2px;">称号: ${d.fromTitle || '🌱 新米研究助手'}</div>
+          <div style="font-size:0.78rem; color:#881337; margin-top:2px;">称号: ${safeTitleHtml}</div>
         </div>
         <div style="display:flex; gap:8px;">
-          <button class="btn btn-primary" style="padding:7px 16px; font-size:0.86rem; font-weight:900;" onclick="approveFriendRequest('${safeId}', '${safeFromCode}')">✅ 承認する</button>
-          <button class="btn btn-outline" style="padding:7px 12px; font-size:0.82rem; color:#dc2626; border-color:#fca5a5;" onclick="rejectFriendRequest('${safeId}', '${safeFromCode}')">❌ 拒否</button>
+          <button class="btn btn-primary" style="padding:7px 16px; font-size:0.86rem; font-weight:900;" onclick="approveFriendRequest('${safeIdAttr}', '${safeCodeAttr}')">✅ 承認する</button>
+          <button class="btn btn-outline" style="padding:7px 12px; font-size:0.82rem; color:#dc2626; border-color:#fca5a5;" onclick="rejectFriendRequest('${safeIdAttr}', '${safeCodeAttr}')">❌ 拒否</button>
         </div>
       </div>
     `;
@@ -16354,9 +15870,9 @@ async function checkIncomingFriendRequests() {
       }
     } catch (e) {}
 
-    // 3. 旧 friend_requests コレクションからも念のため取得してマージ
+    // 3. 旧 friend_requests コレクションからも上限30件で取得してマージ
     try {
-      const snap = await withTimeout(db.collection('friend_requests').where('targetCode', '==', myCode).get(), 1800, '旧コレクション確認タイムアウト');
+      const snap = await withTimeout(db.collection('friend_requests').where('targetCode', '==', myCode).limit(30).get(), 1800, '旧コレクション確認タイムアウト');
       if (snap) {
         snap.forEach(doc => {
           const rd = doc.data();
@@ -16582,9 +16098,10 @@ async function syncFriendsFromCloud() {
 
   const myCode = normalizeFriendCode(state.friendCode);
 
-  // 既存フレンドの最新プロフィール＆実パーティ取得
+  // 既存フレンドの最新プロフィール＆実パーティ取得（最大30名ずつで無料枠保護）
   if (state.friendsList && state.friendsList.length > 0) {
-    const codes = state.friendsList.map(f => normalizeFriendCode(f.code));
+    const targetFriends = state.friendsList.slice(0, 30);
+    const codes = targetFriends.map(f => normalizeFriendCode(f.code));
     try {
       const docs = await Promise.all(codes.map(c => db.collection('players').doc(c).get()));
       const updated = [];
@@ -16592,21 +16109,21 @@ async function syncFriendsFromCloud() {
         if (d.exists && d.data()) {
           const pd = d.data();
           updated.push({
-            ...state.friendsList[idx],
-            name: pd.name || state.friendsList[idx].name,
+            ...targetFriends[idx],
+            name: pd.name || targetFriends[idx].name,
             code: codes[idx],
-            title: pd.title || state.friendsList[idx].title,
+            title: pd.title || targetFriends[idx].title,
             wins: pd.wins || 0,
             losses: pd.losses || 0,
             rp: pd.rp || 0,
-            leader: pd.leader || state.friendsList[idx].leader,
-            partyTeam: pd.partyTeam || state.friendsList[idx].partyTeam
+            leader: pd.leader || targetFriends[idx].leader,
+            partyTeam: pd.partyTeam || targetFriends[idx].partyTeam
           });
         } else {
-          updated.push(state.friendsList[idx]);
+          updated.push(targetFriends[idx]);
         }
       });
-      state.friendsList = updated;
+      state.friendsList = [...updated, ...state.friendsList.slice(30)];
       saveData();
     } catch (e) {}
   }
@@ -16657,30 +16174,39 @@ function renderFriendList() {
 
   container.innerHTML = list.map(f => {
     const leader = (f.partyTeam && f.partyTeam[0]) || f.leader || { nickname: '自慢の相棒', level: 30, rarity: 'UR' };
-    const winRate = (f.wins + (f.losses || 0)) > 0 ? Math.round((f.wins / (f.wins + (f.losses || 0))) * 100) : 0;
+    const wins = Number(f.wins) || 0;
+    const losses = Number(f.losses) || 0;
+    const rp = Number(f.rp) || 0;
+    const winRate = (wins + losses) > 0 ? Math.round((wins / (wins + losses)) * 100) : 0;
+    const safeName = escapeHtml(f.name || '研究員');
+    const safeCode = escapeHtml(f.code || '');
+    const safeCodeAttr = escapeJsAttr(f.code || '');
+    const safeTitle = escapeHtml(f.title || '🌱 新米研究助手');
+    const safeLeaderNick = escapeHtml(leader.nickname || '自慢の相棒');
+    const leaderLv = Number(leader.level) || 1;
     return `
       <div class="card" style="border-color:#bae6fd; background:#f0f9ff; padding:12px; display:flex; flex-direction:column; gap:6px;">
         <div style="display:flex; justify-content:space-between; align-items:flex-start;">
           <div>
-            <div style="font-weight:900; font-size:1.02rem; color:#0369a1;">${f.name}</div>
-            <div style="font-size:0.74rem; color:var(--text-sub); font-weight:800;">🔑 ${f.code}</div>
+            <div style="font-weight:900; font-size:1.02rem; color:#0369a1;">${safeName}</div>
+            <div style="font-size:0.74rem; color:var(--text-sub); font-weight:800;">🔑 ${safeCode}</div>
           </div>
           <div style="display:flex; gap:4px;">
-            <button class="btn btn-outline" style="padding:2px 8px; font-size:0.7rem; color:#6d28d9; border-color:#d8b4fe;" onclick="quickInviteFriendToRoom('${f.code}')">⚔️ 対戦招待</button>
-            <button class="btn btn-outline" style="padding:2px 6px; font-size:0.68rem; color:#dc2626;" onclick="removeFriend('${f.code}')">解除</button>
+            <button class="btn btn-outline" style="padding:2px 8px; font-size:0.7rem; color:#6d28d9; border-color:#d8b4fe;" onclick="quickInviteFriendToRoom('${safeCodeAttr}')">⚔️ 対戦招待</button>
+            <button class="btn btn-outline" style="padding:2px 6px; font-size:0.68rem; color:#dc2626;" onclick="removeFriend('${safeCodeAttr}')">解除</button>
           </div>
         </div>
 
         <div style="background:white; border-radius:8px; padding:6px 10px; border:1px solid #e2e8f0; font-size:0.75rem;">
-          <div style="color:#b45309; font-weight:900;">${f.title || '🌱 新米研究助手'}</div>
+          <div style="color:#b45309; font-weight:900;">${safeTitle}</div>
           <div style="display:flex; justify-content:space-between; margin-top:3px; font-weight:800;">
-            <span>⚡ 通算 ${f.wins || 0}勝 (勝率 ${winRate}%)</span>
-            <span style="color:#0284c7; font-weight:900;">${(f.rp || 0).toLocaleString()} RP</span>
+            <span>⚡ 通算 ${wins}勝 (勝率 ${winRate}%)</span>
+            <span style="color:#0284c7; font-weight:900;">${rp.toLocaleString()} RP</span>
           </div>
         </div>
 
         <div style="font-size:0.74rem; color:#475569; margin-top:auto;">
-          👑 先鋒：<strong>${leader.nickname}</strong> <small style="color:#0284c7;">(Lv.${leader.level || 1})</small>
+          👑 先鋒：<strong>${safeLeaderNick}</strong> <small style="color:#0284c7;">(Lv.${leaderLv})</small>
         </div>
       </div>
     `;
@@ -16698,46 +16224,6 @@ function isDefaultResearcherName(name) {
     .replace(/\s+/g, '')
     .trim();
   return /^研究員\d*$/i.test(n) || n === '研究員' || n === '名無し研究員' || n === '名無し';
-}
-
-// 過去のテスト初期放置「らむね（600 RP・0勝）」アカウントおよび初期ネーム放置データをフレンド一覧＆Firestoreから完全に抹消するクリーンアップ
-function cleanupDummyDocsInCloud() {
-  if (Array.isArray(state.friendsList)) {
-    const beforeLen = state.friendsList.length;
-    state.friendsList = state.friendsList.filter(f => {
-      if (!f) return false;
-      const fn = (f.name || '').trim();
-      const isDead = ((fn === 'らむね' || fn === 'RAMUNE' || fn === 'ラムネ') && (f.wins || 0) === 0 && (f.rp === undefined || f.rp <= 600)) || isDefaultResearcherName(fn);
-      if (isDead) {
-        if (db && f.code) {
-          db.collection('players').doc(normalizeFriendCode(f.code)).delete().catch(() => {});
-        }
-        return false;
-      }
-      return true;
-    });
-    if (state.friendsList.length !== beforeLen) {
-      saveData();
-    }
-  }
-
-  if (!db) return;
-  db.collection('players').get().then(snapshot => {
-    const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : state.friendCode;
-    snapshot.forEach(doc => {
-      if (doc.id.startsWith('ROOM_') || doc.id.startsWith('MATCH_')) return;
-      const p = doc.data();
-      if (!p || p.isSystemDoc) return;
-      const docCode = normalizeFriendCode(p.code || doc.id);
-      if (docCode === myCode) return;
-      const pName = (p.name || '').trim();
-      const isDeadRamune = (pName === 'らむね' || pName === 'RAMUNE' || pName === 'ラムネ') && (p.wins || 0) === 0 && (p.rp === undefined || p.rp <= 600);
-      const isDefault = isDefaultResearcherName(pName);
-      if (p.isTestAccount || isDeadRamune || isDefault) {
-        db.collection('players').doc(doc.id).delete().catch(() => {});
-      }
-    });
-  }).catch(() => {});
 }
 
 let currentRankTab = 'global';
@@ -16804,13 +16290,13 @@ async function fetchAndRenderGlobalRanking() {
     snapshot = null;
   }
 
-  // 2. フォールバック：万一インデックス未作成等で空・失敗時は全件プレーン取得
+  // 2. フォールバック：万一インデックス未作成等で空・失敗時は上限100件で安全取得（無料枠保護）
   if (!snapshot || snapshot.empty) {
     try {
       snapshot = await withTimeout(
-        db.collection('players').get(),
+        db.collection('players').limit(100).get(),
         4500,
-        'ランキング全件読み込みタイムアウト'
+        'ランキング読み込みタイムアウト'
       );
     } catch (err) {
       console.error(err);
@@ -16834,19 +16320,15 @@ async function fetchAndRenderGlobalRanking() {
       const cleanName = (p.name || '').trim();
       if (!cleanName) return;
 
-      // ★ 初期ネーム「研究員001」「研究員」等はランキングから完全に除外＆クラウドからも自動クリーンアップ！
+      // ★ 初期ネーム「研究員001」「研究員」等はランキング表示から除外（他人ドキュメント削除は行わない）
       if (isDefaultResearcherName(cleanName)) {
-        if (docCode !== myCode) {
-          db.collection('players').doc(doc.id).delete().catch(() => {});
-        }
         return;
       }
 
-      // 使わなくなった過去の初期放置「らむね（600 RP・0勝）」アカウントをクラウドから完全抹消＆非表示
+      // 過去の初期放置「らむね（600 RP・0勝）」データはランキング表示から除外のみ行う（削除禁止）
       const isDeadRamune = docCode !== myCode && (cleanName === 'らむね' || cleanName === 'RAMUNE' || cleanName === 'ラムネ') && (p.wins || 0) === 0 && (p.rp === undefined || p.rp <= 600);
       if (isDeadRamune) {
-        seenCodes.add(docCode); // seenCodesに登録してフレンド復元ループからも完全遮断！
-        db.collection('players').doc(doc.id).delete().catch(() => {});
+        seenCodes.add(docCode);
         return;
       }
 
@@ -16866,14 +16348,8 @@ async function fetchAndRenderGlobalRanking() {
       }
     });
 
-    // ★ もし登録済みフレンドのデータが（旧バージョンの不具合等で）クラウドから欠落していた場合、自動的にランキングへ補完＆クラウドへ復元！
+    // 登録済みフレンドのうち上位100件に含まれないメンバーをローカル表示のみ補完（他人のクラウドデータは書き換えない）
     if (Array.isArray(state.friendsList) && state.friendsList.length > 0) {
-      state.friendsList = state.friendsList.filter(f => {
-        if (!f) return false;
-        const fn = (f.name || '').trim();
-        const isDead = ((fn === 'らむね' || fn === 'RAMUNE' || fn === 'ラムネ') && (f.wins || 0) === 0 && (f.rp === undefined || f.rp <= 600)) || isDefaultResearcherName(fn);
-        return !isDead;
-      });
       state.friendsList.forEach(f => {
         if (!f || !f.code) return;
         const fCode = normalizeFriendCode(f.code);
@@ -16889,17 +16365,6 @@ async function fetchAndRenderGlobalRanking() {
           rp: f.rp || 600,
           isMe: false
         });
-        // クラウド側にも安全に再登録して次回以降も残るようにする
-        db.collection('players').doc(fCode).set({
-          name: f.name,
-          code: fCode,
-          title: f.title || '🌱 新米研究助手',
-          wins: f.wins || 0,
-          losses: f.losses || 0,
-          rp: f.rp || 600,
-          leader: f.leader || null,
-          partyTeam: f.partyTeam || null
-        }, { merge: true }).catch(() => {});
       });
     }
 
@@ -16925,7 +16390,7 @@ async function renderFriendRankingLocal() {
       area.innerHTML = '<div style="text-align:center; padding:25px; font-weight:800; color:var(--text-sub);">📡 フレンドの最新スコアを読み込み中...</div>';
     }
     try {
-      const codes = state.friendsList.map(f => normalizeFriendCode(f.code));
+      const codes = state.friendsList.slice(0, 30).map(f => normalizeFriendCode(f.code));
       const docs = await Promise.all(codes.map(c => db.collection('players').doc(c).get()));
       docs.forEach((d, idx) => {
         if (d.exists && d.data()) {
@@ -16961,9 +16426,7 @@ function renderRankingListItems(list) {
   if (!area) return;
 
   let bannerHtml = '';
-  if (state.isTestAccount) {
-    bannerHtml = `<div style="background:#fdf4ff; border:2px solid #d946ef; color:#86198f; padding:8px 12px; border-radius:10px; font-size:0.8rem; font-weight:900; margin-bottom:8px;">🔧 現在「開発者テストモード」のため、あなたのテストデータは全国ランキングには送信・表示されません。</div>`;
-  } else if (isDefaultResearcherName(state.playerName)) {
+  if (isDefaultResearcherName(state.playerName)) {
     bannerHtml = `<div style="background:#fffbeb; border:2px solid #f59e0b; color:#92400e; padding:8px 12px; border-radius:10px; font-size:0.8rem; font-weight:900; margin-bottom:8px;">💡 「👤 称号・戦績」タブで好きな名前に変更すると、全国ランキングにあなたの名前が載ります！</div>`;
   }
 
@@ -16975,20 +16438,24 @@ function renderRankingListItems(list) {
   area.innerHTML = bannerHtml + list.map((r, idx) => {
     const rank = idx + 1;
     const rankCls = rank === 1 ? 'rank-1' : (rank === 2 ? 'rank-2' : (rank === 3 ? 'rank-3' : ''));
+    const safeName = escapeHtml(r.name || '研究員');
+    const safeTitle = escapeHtml(r.title || '🌱 新米研究助手');
+    const safeRp = (Number(r.rp) || 0).toLocaleString();
+    const safeWins = Number(r.wins) || 0;
     return `
       <div class="rank-row ${r.isMe ? 'is-me' : ''}">
         <div style="display:flex; align-items:center; gap:10px;">
           <div class="rank-num ${rankCls}">${rank}</div>
           <div>
             <div style="font-weight:900; font-size:0.95rem;">
-              ${r.name}
+              ${safeName}
             </div>
-            <div style="font-size:0.74rem; color:#b45309; font-weight:800;">${r.title}</div>
+            <div style="font-size:0.74rem; color:#b45309; font-weight:800;">${safeTitle}</div>
           </div>
         </div>
         <div style="text-align:right;">
-          <div style="font-weight:900; font-size:0.98rem; color:#0284c7;">${(r.rp || 0).toLocaleString()} RP</div>
-          <div style="font-size:0.74rem; color:var(--text-sub); font-weight:800;">通算 ${r.wins || 0} 勝</div>
+          <div style="font-weight:900; font-size:0.98rem; color:#0284c7;">${safeRp} RP</div>
+          <div style="font-size:0.74rem; color:var(--text-sub); font-weight:800;">通算 ${safeWins} 勝</div>
         </div>
       </div>
     `;
@@ -17421,7 +16888,7 @@ async function fallbackToGhostBattle(cat, myTeam) {
   document.getElementById('battleSetupPanel').style.display = 'none';
   document.getElementById('friendRoomLobbyPanel').style.display = 'none';
   document.getElementById('battleArena').classList.add('active');
-  document.getElementById('battleLog').innerHTML = `🌍 全国マッチング成立！ <strong>${ghostName}</strong> 選手 (${ghostTitle}) のチームが出現！`;
+  document.getElementById('battleLog').innerHTML = `🌍 全国マッチング成立！ <strong>${escapeHtml(ghostName)}</strong> 選手 (${escapeHtml(ghostTitle)}) のチームが出現！`;
   updateBattleHud();
   nextBattleQuestion();
 }
@@ -17877,7 +17344,7 @@ function renderLobbyTeamIcons(containerId, teamList) {
     return `
       <div style="background:white; border:1.5px solid ${sp.color || '#bae6fd'}; border-radius:8px; padding:3px 6px; font-size:0.7rem; font-weight:900; color:#0f172a; display:flex; align-items:center; gap:3px;">
         <span style="font-size:0.85rem;">🧬</span>
-        <span>${m.nickname || sp.name}</span>
+        <span>${escapeHtml(m.nickname || sp.name)}</span>
       </div>
     `;
   }).join('');
@@ -18067,7 +17534,7 @@ function renderLobbySentInvites() {
   list.innerHTML = sentInvitesInRoom.map(inv => `
     <div style="background:white; border:1.5px solid #f472b6; border-radius:8px; padding:4px 10px; font-size:0.76rem; font-weight:900; color:#831843; display:flex; align-items:center; gap:6px;">
       <span>📩</span>
-      <span>${inv.name}</span>
+      <span>${escapeHtml(inv.name || '')}</span>
       <span style="color:#db2777; font-size:0.7rem; font-weight:800;">（相手の「招待された部屋に入る」枠へ送信済！）</span>
     </div>
   `).join('');
@@ -18082,7 +17549,7 @@ function renderLobbyFriendInviteButtons() {
     container.innerHTML = `
       <div style="font-size:0.78rem; color:#64748b; background:white; padding:8px 12px; border-radius:10px; border:1.5px dashed #cbd5e1; width:100%;">
         👥 まだフレンドがいません。<br>
-        上の<strong>「📋 番号をコピー」</strong>で部屋番号（${currentRoomId}）を友達に教えるか、<br>
+        上の<strong>「📋 番号をコピー」</strong>で部屋番号（${escapeHtml(currentRoomId || '')}）を友達に教えるか、<br>
         下の入力欄に友達のコードを入れて直接招待を送ろう！
       </div>
     `;
@@ -18090,9 +17557,10 @@ function renderLobbyFriendInviteButtons() {
   }
   container.innerHTML = friends.map(f => {
     const normCode = normalizeFriendCode(f.code);
+    const safeName = escapeHtml(f.name || '研究員');
     return `
-      <button id="inviteBtn_${normCode}" class="btn btn-outline" style="padding:6px 12px; font-size:0.78rem; border-color:#c084fc; color:#7e22ce; font-weight:900;" onclick="sendBattleInviteToFriend('${normCode}', '${f.name}')">
-        📩 ${f.name} を招待
+      <button id="inviteBtn_${escapeHtml(normCode)}" class="btn btn-outline" style="padding:6px 12px; font-size:0.78rem; border-color:#c084fc; color:#7e22ce; font-weight:900;" onclick="sendBattleInviteToFriend('${escapeJsAttr(normCode)}', '${escapeJsAttr(f.name || '研究員')}')">
+        📩 ${safeName} を招待
       </button>
     `;
   }).join('');
@@ -18336,12 +17804,12 @@ function listenToIncomingBattleInvites() {
     } catch (e) {}
   }
 
-  // 3. 安全のための定期確認（onSnapshotが主役なので15秒に1回で十分・読み取り回数を節約）
+  // 3. 安全のための定期確認（onSnapshotが主役なので60秒に1回・非表示タブ時はスキップで無料枠保護）
   battleInvitesInterval = setInterval(() => {
-    if (!currentRoomId) {
+    if (!currentRoomId && !document.hidden) {
       checkPendingBattleInvites(false);
     }
-  }, 15000);
+  }, 60000);
 }
 
 // 届いている招待バナー（「📩 招待された部屋に入る」専用ボックス）＆全画面最前面フローティングポップアップの描画（Ver 4.8）
@@ -18352,16 +17820,16 @@ function renderReceivedBattleInvites(invites) {
   const statusLine = document.getElementById('battleSyncStatusLine');
 
   const myCode = typeof normalizeFriendCode === 'function' ? normalizeFriendCode(state.friendCode) : (state.friendCode || 'BIO-0000');
-  const validList = (Array.isArray(invites) ? invites : []).filter(inv => inv && inv.roomId && (!currentRoomId || String(inv.roomId) !== String(currentRoomId)));
+  const validList = (Array.isArray(invites) ? invites : []).filter(inv => inv && /^\d{4}$/.test(String(inv.roomId || '')) && (!currentRoomId || String(inv.roomId) !== String(currentRoomId)));
 
   // 📡 リアルタイム通信ステータスラインの常時更新（部屋が0件でも動いていることが一目でわかる！）
   if (statusLine) {
     const scanErr = (typeof lastInviteScanError === 'string') ? lastInviteScanError : '';
     if (scanErr) {
       const quotaHint = /resource-exhausted|quota/i.test(scanErr) ? '（Firebaseの1日の無料通信量を使い切った可能性）' : '';
-      statusLine.innerHTML = `📡 待機部屋スキャン: <strong style="color:#dc2626;">🔴 通信エラー (Ver 1.0)</strong> ｜ ${scanErr}${quotaHint} <button type="button" class="btn btn-outline" style="padding:1px 6px; font-size:0.65rem; margin-left:6px;" onclick="runCloudDiagnostics(true)">🧪 診断</button>`;
+      statusLine.innerHTML = `📡 待機部屋スキャン: <strong style="color:#dc2626;">🔴 通信エラー (Ver 1.0)</strong> ｜ ${escapeHtml(scanErr)}${quotaHint} <button type="button" class="btn btn-outline" style="padding:1px 6px; font-size:0.65rem; margin-left:6px;" onclick="runCloudDiagnostics(true)">🧪 診断</button>`;
     } else {
-      statusLine.innerHTML = `📡 待機部屋スキャン: <strong style="color:#059669;">🟢 正常 (Ver 1.0)</strong> ｜ あなた: <strong>${myCode}</strong> ｜ 待機部屋: <strong style="color:#db2777;">${validList.length}件</strong> <button type="button" class="btn btn-outline" style="padding:1px 6px; font-size:0.65rem; margin-left:6px;" onclick="runCloudDiagnostics(true)">🧪 診断</button>`;
+      statusLine.innerHTML = `📡 待機部屋スキャン: <strong style="color:#059669;">🟢 正常 (Ver 1.0)</strong> ｜ あなた: <strong>${escapeHtml(myCode)}</strong> ｜ 待機部屋: <strong style="color:#db2777;">${validList.length}件</strong> <button type="button" class="btn btn-outline" style="padding:1px 6px; font-size:0.65rem; margin-left:6px;" onclick="runCloudDiagnostics(true)">🧪 診断</button>`;
     }
   }
 
@@ -18401,6 +17869,10 @@ function renderReceivedBattleInvites(invites) {
   if (globalArea) {
     globalArea.innerHTML = validList.slice(0, 2).map(inv => {
       const safeId = inv.id || `${inv.roomId}_${normalizeFriendCode(state.friendCode)}`;
+      const safeIdAttr = escapeJsAttr(safeId);
+      const safeRoomHtml = escapeHtml(inv.roomId);
+      const safeRoomAttr = escapeJsAttr(inv.roomId);
+      const safeFromName = escapeHtml(inv.fromName || '研究員');
       let tagText = '💌 対戦ルーム招待が届きました！';
       if (inv.isMyOwnRoom) tagText = '🏠 あなたの作成した部屋！';
       else if (inv.isDirectInvite) tagText = '💌 あなた宛ての招待！';
@@ -18416,18 +17888,18 @@ function renderReceivedBattleInvites(invites) {
             <div>
               <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
                 <span style="background:linear-gradient(135deg, #ec4899, #db2777); color:white; font-size:0.74rem; font-weight:900; padding:2px 10px; border-radius:999px; box-shadow:0 2px 6px rgba(219,39,119,0.35);">${tagText}</span>
-                <span style="font-size:0.82rem; font-weight:900; color:#9d174d;">部屋番号: 【 ${inv.roomId} 】</span>
+                <span style="font-size:0.82rem; font-weight:900; color:#9d174d;">部屋番号: 【 ${safeRoomHtml} 】</span>
               </div>
               <div style="font-weight:900; font-size:1.05rem; color:#831843; margin-top:4px;">
-                ${inv.isMyOwnRoom ? '👤 あなたがホストの部屋です（ロビー待機中）' : `👤 <strong>${inv.fromName || '研究員'}</strong> さんの対戦部屋に合流できます！`}
+                ${inv.isMyOwnRoom ? '👤 あなたがホストの部屋です（ロビー待機中）' : `👤 <strong>${safeFromName}</strong> さんの対戦部屋に合流できます！`}
               </div>
             </div>
           </div>
           <div style="display:flex; gap:8px; align-items:center; margin-left:auto;">
-            <button class="btn btn-purple" style="padding:10px 20px; font-size:0.95rem; font-weight:900; box-shadow:0 4px 16px rgba(219,39,119,0.45); cursor:pointer;" onclick="acceptBattleInvite('${safeId}', '${inv.roomId}')">
+            <button class="btn btn-purple" style="padding:10px 20px; font-size:0.95rem; font-weight:900; box-shadow:0 4px 16px rgba(219,39,119,0.45); cursor:pointer;" onclick="acceptBattleInvite('${safeIdAttr}', '${safeRoomAttr}')">
               ${actionBtnText}
             </button>
-            <button class="btn btn-outline" style="padding:9px 12px; font-size:0.82rem; border-color:#f472b6; color:#9d174d; font-weight:800; cursor:pointer;" onclick="dismissBattleInvite('${safeId}', '${inv.roomId}')">
+            <button class="btn btn-outline" style="padding:9px 12px; font-size:0.82rem; border-color:#f472b6; color:#9d174d; font-weight:800; cursor:pointer;" onclick="dismissBattleInvite('${safeIdAttr}', '${safeRoomAttr}')">
               ✕
             </button>
           </div>
@@ -18440,6 +17912,11 @@ function renderReceivedBattleInvites(invites) {
   if (battleArea) {
     battleArea.innerHTML = validList.map(inv => {
       const safeId = inv.id || `${inv.roomId}_${normalizeFriendCode(state.friendCode)}`;
+      const safeIdAttr = escapeJsAttr(safeId);
+      const safeRoomHtml = escapeHtml(inv.roomId);
+      const safeRoomAttr = escapeJsAttr(inv.roomId);
+      const safeFromName = escapeHtml(inv.fromName || '研究員');
+      const safeFromCode = inv.fromCode ? escapeHtml(inv.fromCode) : '';
       let tagLabel = '💌 招待';
       if (inv.isMyOwnRoom) tagLabel = '🏠 自部屋';
       else if (inv.isDirectInvite) tagLabel = '💌 あなた宛て';
@@ -18453,15 +17930,15 @@ function renderReceivedBattleInvites(invites) {
           <div>
             <div style="display:flex; align-items:center; gap:6px;">
               <span style="font-size:0.68rem; font-weight:900; background:#fce7f3; color:#be185d; padding:1px 6px; border-radius:999px;">${tagLabel}</span>
-              <span style="font-weight:900; color:#be185d; font-size:0.96rem;">${inv.isMyOwnRoom ? '🏠 あなたの部屋' : `⚔️ ${inv.fromName || '研究員'} さんの部屋`}</span>
+              <span style="font-weight:900; color:#be185d; font-size:0.96rem;">${inv.isMyOwnRoom ? '🏠 あなたの部屋' : `⚔️ ${safeFromName} さんの部屋`}</span>
             </div>
-            <div style="font-size:0.78rem; color:#9d174d; font-weight:800; margin-top:2px;">ルーム番号：【 ${inv.roomId} 】 ${inv.fromCode ? `<small style="color:#94a3b8;">(${inv.fromCode})</small>` : ''}</div>
+            <div style="font-size:0.78rem; color:#9d174d; font-weight:800; margin-top:2px;">ルーム番号：【 ${safeRoomHtml} 】 ${safeFromCode ? `<small style="color:#94a3b8;">(${safeFromCode})</small>` : ''}</div>
           </div>
           <div style="display:flex; gap:6px; align-items:center;">
-            <button class="btn btn-purple" style="padding:9px 16px; font-size:0.88rem; font-weight:900; box-shadow:0 3px 12px rgba(219,39,119,0.35); cursor:pointer;" onclick="acceptBattleInvite('${safeId}', '${inv.roomId}')">
+            <button class="btn btn-purple" style="padding:9px 16px; font-size:0.88rem; font-weight:900; box-shadow:0 3px 12px rgba(219,39,119,0.35); cursor:pointer;" onclick="acceptBattleInvite('${safeIdAttr}', '${safeRoomAttr}')">
               ${actionBtnText}
             </button>
-            <button class="btn btn-outline" style="padding:7px 10px; font-size:0.75rem; color:#9d174d; border-color:#f9a8d4; cursor:pointer;" onclick="dismissBattleInvite('${safeId}', '${inv.roomId}')">✕</button>
+            <button class="btn btn-outline" style="padding:7px 10px; font-size:0.75rem; color:#9d174d; border-color:#f9a8d4; cursor:pointer;" onclick="dismissBattleInvite('${safeIdAttr}', '${safeRoomAttr}')">✕</button>
           </div>
         </div>
       `;
@@ -18494,7 +17971,7 @@ async function checkPendingBattleInvites(showFeedback = false) {
       if (lobbySnap && lobbySnap.exists && lobbySnap.data() && Array.isArray(lobbySnap.data().friendRooms)) {
         const fRooms = lobbySnap.data().friendRooms;
         fRooms.forEach(r => {
-          if (!r || !r.roomId) return;
+          if (!r || !/^\d{4}$/.test(String(r.roomId || ''))) return;
           if (r.createdAt && (now - r.createdAt > 30 * 60 * 1000)) return; // 30分以上前は除外
           if (r.status && r.status !== 'waiting') return; // 解散・終了は除外
 
@@ -18510,7 +17987,7 @@ async function checkPendingBattleInvites(showFeedback = false) {
 
           mergedInvites.push({
             id: `lobby_room_${r.roomId}_${r.hostCode || 'host'}`,
-            roomId: r.roomId,
+            roomId: String(r.roomId),
             fromCode: r.hostCode || 'HOST',
             fromName: r.hostName || '研究員',
             fromTitle: r.hostTitle || '研究員',
@@ -18533,25 +18010,25 @@ async function checkPendingBattleInvites(showFeedback = false) {
       const myDoc = await withTimeout(db.collection('players').doc(myCode).get(), 1500, '自ドキュメント招待確認タイムアウト');
       if (myDoc && myDoc.exists && myDoc.data() && Array.isArray(myDoc.data().incomingInvites)) {
         myDoc.data().incomingInvites.forEach(inv => {
-          if (inv && inv.roomId && (!inv.createdAt || (now - inv.createdAt < 30 * 60 * 1000))) {
+          if (inv && /^\d{4}$/.test(String(inv.roomId || '')) && (!inv.createdAt || (now - inv.createdAt < 30 * 60 * 1000))) {
             if (!mergedInvites.some(x => String(x.roomId) === String(inv.roomId))) {
-              mergedInvites.push({ ...inv, isDirectInvite: true });
+              mergedInvites.push({ ...inv, roomId: String(inv.roomId), isDirectInvite: true });
             }
           }
         });
       }
     } catch (e) {}
 
-    // ★ 3. 友達の activeHostRoom からもマージ（並行タイムアウト保護）
+    // ★ 3. 友達の activeHostRoom からもマージ（最大30名上限・並行タイムアウト保護）
     if (Array.isArray(state.friendsList) && state.friendsList.length > 0) {
       try {
-        const friendCodes = state.friendsList.map(f => normalizeFriendCode(f.code)).filter(c => c && c !== myCode);
+        const friendCodes = state.friendsList.map(f => normalizeFriendCode(f.code)).filter(c => c && c !== myCode).slice(0, 30);
         const friendDocs = await Promise.all(friendCodes.map(c => withTimeout(db.collection('players').doc(c).get(), 1500).catch(() => null)));
         friendDocs.forEach((fDoc, idx) => {
           if (!fDoc || !fDoc.exists || !fDoc.data()) return;
           const fd = fDoc.data();
           const hostRoom = fd.activeHostRoom || fd.hostingRoom;
-          if (hostRoom && hostRoom.roomId) {
+          if (hostRoom && /^\d{4}$/.test(String(hostRoom.roomId || ''))) {
             const roomCreated = hostRoom.createdAt || 0;
             if (!roomCreated || (now - roomCreated < 30 * 60 * 1000)) {
               if (!mergedInvites.some(x => String(x.roomId) === String(hostRoom.roomId))) {
@@ -18559,7 +18036,7 @@ async function checkPendingBattleInvites(showFeedback = false) {
                 const friendName = friendObj ? friendObj.name : (fd.name || 'フレンド');
                 mergedInvites.push({
                   id: `friend_room_${hostRoom.roomId}_${friendCodes[idx]}`,
-                  roomId: hostRoom.roomId,
+                  roomId: String(hostRoom.roomId),
                   fromCode: friendCodes[idx],
                   fromName: friendName,
                   targetCode: myCode,
@@ -18977,7 +18454,7 @@ function startSynchronizedRoomBattle(r) {
   };
 
   if (r.actionLog) {
-    document.getElementById('battleLog').innerHTML = r.actionLog;
+    document.getElementById('battleLog').textContent = sanitizePlainText(r.actionLog, 300);
   }
   updateBattleHud();
   if (r.currentQ) {
@@ -19019,7 +18496,7 @@ function renderSynchronizedQuestion(q) {
   const choices = Array.isArray(q.c) ? [...q.c] : [];
   battle.currentChoices = choices;
   choiceArea.innerHTML = choices.map((text, idx) => `
-    <button class="choice-btn" onclick="submitRoomChoiceByIdx(${idx}, this)">${text}</button>
+    <button class="choice-btn" onclick="submitRoomChoiceByIdx(${idx}, this)">${escapeHtml(text)}</button>
   `).join('');
 
   battle.maxTimeSec = 10.0;
@@ -19209,7 +18686,7 @@ function syncRoomBattleState(r) {
   }
 
   if (r.actionLog) {
-    document.getElementById('battleLog').innerHTML = r.actionLog;
+    document.getElementById('battleLog').textContent = sanitizePlainText(r.actionLog, 300);
   }
 
   updateBattleHud();
@@ -19369,7 +18846,6 @@ try {
 // 起動時にフレンド申請・対戦招待・ギフトをチェック（MATCH_LOBBY ＆ players/{myCode} を常時リアルタイム監視！）
 setTimeout(() => {
   syncMyProfileToCloud(); // ★ 起動時に自分の最新ステータス（タワー記録等）をクラウドへ強制自動同期！
-  cleanupDummyDocsInCloud(); // ★ 初期ネーム放置データ・テストダミーをクラウドから完全クリーンアップ！
   listenToIncomingFriendRequests();
   listenToIncomingBattleInvites();
   checkIncomingFriendRequests();
@@ -19380,12 +18856,12 @@ setTimeout(() => {
   if (typeof checkPendingBattleInvites === 'function') checkPendingBattleInvites(false);
 }, 1600);
 
-// 15秒ごとに申請・招待・ギフトをバックグラウンド確認（リアルタイム監視onSnapshotの保険。読み取り回数を節約）
+// 60秒ごとに申請・ギフトをバックグラウンド確認（リアルタイム監視onSnapshotの保険・非表示タブ時はスキップして無料枠保護）
 setInterval(() => {
+  if (document.hidden) return;
   if (!battle) checkIncomingFriendRequests();
-  if (!battle) checkPendingBattleInvites(false);
   if (!battle) checkIncomingGifts();
-}, 15000);
+}, 60000);
 
 /* ========================================================
    📲 公式アプリアイコン超高画質（1024x1024）生成＆モーダル
