@@ -697,6 +697,152 @@
     border-radius: 999px;
     transition: width 0.25s ease;
   }
+
+  /* 🏠 新生ホーム画面（カジノ・ラボ風ハブ）＆ 対戦ドリルダウンUI */
+  .home-hero-card {
+    position: relative;
+    background: linear-gradient(145deg, #0f172a 0%, #0369a1 52%, #059669 100%);
+    color: white;
+    border-radius: 22px;
+    padding: 18px 16px 20px;
+    border: 3px solid #38bdf8;
+    box-shadow: 0 12px 30px rgba(2, 132, 199, 0.28);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .home-hero-top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    z-index: 2;
+  }
+  .home-buddy-stage {
+    position: relative;
+    width: 168px;
+    height: 168px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.22) 0%, rgba(56,189,248,0.12) 60%, rgba(15,23,42,0) 75%);
+    border: 2px solid rgba(255,255,255,0.28);
+    box-shadow: 0 0 28px rgba(56, 189, 248, 0.45), inset 0 0 22px rgba(255,255,255,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: buddyFloat 3.4s ease-in-out infinite;
+    z-index: 2;
+  }
+  @keyframes buddyFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-7px); }
+  }
+  .home-buddy-info {
+    text-align: center;
+    z-index: 2;
+    max-width: 100%;
+  }
+  .home-main-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+  }
+  .home-nav-card {
+    background: white;
+    border: 2.5px solid #cbd5e1;
+    border-radius: 18px;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.16s ease;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+    position: relative;
+    min-width: 0;
+  }
+  .home-nav-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(2, 132, 199, 0.18);
+  }
+  .home-nav-card:active { transform: scale(0.97); }
+  .home-nav-card.span-3 { grid-column: span 3; min-height: 120px; }
+  .home-nav-card.span-2 { grid-column: span 2; min-height: 110px; }
+  @media (max-width: 640px) {
+    .home-main-grid { grid-template-columns: repeat(2, 1fr); }
+    .home-nav-card.span-3 { grid-column: span 1; min-height: 112px; }
+    .home-nav-card.span-2 { grid-column: span 1; min-height: 104px; }
+    .home-nav-card.span-mobile-full { grid-column: span 2; min-height: 92px; }
+  }
+
+  .menu-section-title {
+    font-size: 0.92rem;
+    font-weight: 900;
+    color: #0f172a;
+    background: #f1f5f9;
+    border-left: 5px solid var(--primary);
+    padding: 7px 12px;
+    border-radius: 8px;
+    margin: 14px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ⚔️ 対戦ドリルダウンUI */
+  .drill-breadcrumb {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: #f8fafc;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+  }
+  .drill-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .drill-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 620px) {
+    .drill-grid-2, .drill-grid-3 { grid-template-columns: 1fr; }
+  }
+  .drill-card-btn {
+    background: white;
+    border: 2.5px solid #cbd5e1;
+    border-radius: 16px;
+    padding: 18px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.16s ease;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    min-width: 0;
+  }
+  .drill-card-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(2, 132, 199, 0.16);
+    border-color: var(--primary);
+  }
+  .drill-card-btn:active { transform: scale(0.97); }
 </style>
 </head>
 <body>
@@ -704,40 +850,31 @@
 <div class="app-container">
   <header class="app-header">
     <div class="logo-area">
-      <div class="logo-icon">🧬</div>
-      <div>
-        <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 1.0</span></div>
-        <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
+      <button id="headerHomeBtn" class="btn btn-outline" style="padding:6px 10px; font-size:0.8rem; border-color:#0284c7; color:#0369a1; font-weight:900; display:none;" onclick="switchScreen('home')" title="ホーム画面に戻る">
+        🏠 ホーム
+      </button>
+      <div class="logo-area" style="cursor:pointer;" onclick="switchScreen('home')">
+        <div class="logo-icon">🧬</div>
+        <div>
+          <div class="logo-title">バイオ・ロジカ <span style="font-size:0.75rem; color:#10b981;">Ver 1.0</span></div>
+          <div style="font-size:0.72rem; color:var(--text-sub); font-weight:700;">理系微生物＆免疫細胞育成・戦略クイズバトル</div>
+        </div>
       </div>
     </div>
     <div class="status-bar">
       <div class="atp-badge">⚡ <span id="atpDisplay">500</span> ATP</div>
       <div class="medal-badge">🧬 <span id="medalDisplay">0</span> メダル</div>
-      <button class="btn btn-outline" style="padding:5px 10px; font-size:0.76rem;" onclick="openNewsModal()">
-        📢 おしらせ <span id="newsBadge" class="notif-badge" style="display:none;">新着</span>
+      <button class="btn btn-outline" style="padding:5px 10px; font-size:0.76rem; border-color:#0ea5e9; color:#0369a1; background:#f0f9ff; font-weight:900;" onclick="openMissionModal()">
+        🎯 ミッション <span id="missionBadge" class="notif-badge" style="display:none; background:#ef4444; color:white;">0</span>
       </button>
       <button class="btn btn-outline" style="padding:5px 10px; font-size:0.76rem; border-color:#f59e0b; color:#b45309;" onclick="openPresentModal()">
         🎁 プレゼント <span id="presentBadge" class="notif-badge" style="display:none;">0</span>
       </button>
-      <button class="btn btn-outline" style="padding:5px 10px; font-size:0.76rem; border-color:#0ea5e9; color:#0369a1; background:#f0f9ff; font-weight:900;" onclick="openMissionModal()">
-        🎯 ミッション <span id="missionBadge" class="notif-badge" style="display:none; background:#ef4444; color:white;">0</span>
-      </button>
-      <button class="btn btn-outline" style="padding:5px 10px; font-size:0.76rem; border-color:#0284c7; color:#0284c7; font-weight:800;" onclick="openTransferModal()">
-        📲 引継ぎ
-      </button>
-      <button class="btn btn-outline" style="padding:5px 10px; font-size:0.76rem; border-color:#0d9488; color:#0f766e; background:#f0fdfa; font-weight:900;" onclick="openLabLogicaApp()" title="姉妹作『ラボ・ロジカ（バーチャル理科室）』へ移動">
-        🔬 ラボ・ロジカへ
+      <button id="soundMuteBtn" class="btn btn-outline" style="padding:5px 9px; font-size:0.86rem; border-color:#cbd5e1;" onclick="toggleSoundMute()" title="音量 ON/OFF 切り替え">
+        🔊
       </button>
     </div>
   </header>
-
-  <!-- ぷにぷに風 4大メインナビゲーション（タワーはメニュー内へ集約） -->
-  <nav class="nav-tabs">
-    <button id="mainTabPetri" class="nav-btn active" onclick="switchScreen('petri', this)">🔬 育成</button>
-    <button id="mainTabBattle" class="nav-btn" onclick="switchScreen('battle', this)">⚔️ 対戦 <span id="battleInviteBadge" class="notif-badge" style="display:none; background:#ec4899; color:white;">招待!</span></button>
-    <button id="mainTabFriends" class="nav-btn" onclick="switchScreen('friends', this)">🤝 順位 <span id="friendReqBadge" class="notif-badge" style="display:none;">0</span></button>
-    <button id="mainTabMenu" class="nav-btn" onclick="switchScreen('menu', this)">📱 メニュー</button>
-  </nav>
 
   <!-- 🔔 グローバル対戦招待リアルタイム枠（全画面どこにいても即時通知！） -->
   <div id="globalBattleInvitePopupArea"></div>
@@ -745,59 +882,122 @@
   <!-- 🔰 初心者ステップガイド フローティングバナー -->
   <div id="tutorialGuideBanner"></div>
 
-  <!-- 📱 メニュー画面（ぷにぷに風アイコン一覧） -->
-  <section id="screen-menu" class="screen">
-    <div class="card">
-      <div class="card-title">📱 研究所メインメニュー</div>
-      <div class="help-box">
-        💡 <strong>「🗼 ゲノムタワー」</strong>・ボックス編成・ガチャ・交換所・もちもの・図鑑・設定にここからアクセスできます！
+  <!-- 🏠 新生タイトル・ホーム画面（カジノ・ラボ風メインハブ） -->
+  <section id="screen-home" class="screen active">
+    <div class="home-hero-card">
+      <div class="home-hero-top">
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <span style="font-size:0.74rem; font-weight:900; color:#bae6fd; letter-spacing:0.04em;">🧬 BIO-LOGICA RESEARCH LAB</span>
+          <span id="homeWelcomeText" style="font-size:0.95rem; font-weight:900; color:#ffffff;">ようこそ、研究員さん！</span>
+        </div>
+        <button class="btn" style="background:rgba(255,255,255,0.16); border:1.5px solid rgba(255,255,255,0.45); color:white; padding:6px 12px; font-size:0.78rem; backdrop-filter:blur(4px);" onclick="openNewsModal()">
+          📢 おしらせ <span id="newsBadge" class="notif-badge" style="display:none;">新着</span>
+        </button>
       </div>
+
+      <div class="home-buddy-stage">
+        <canvas id="homeBuddyCanvas" width="160" height="160" style="width:156px; height:156px;"></canvas>
+      </div>
+
+      <div class="home-buddy-info">
+        <div id="homeBuddyBadges" style="display:flex; justify-content:center; gap:5px; flex-wrap:wrap; margin-bottom:4px;"></div>
+        <div id="homeBuddyNameText" style="font-size:1.12rem; font-weight:900; color:#fef08a; text-shadow:0 2px 6px rgba(0,0,0,0.4);">相棒ロード中...</div>
+        <div id="homeBuddySubText" style="font-size:0.76rem; color:#e0f2fe; font-weight:800; margin-top:2px;">第1パーティのリーダーが研究所でお出迎え！</div>
+      </div>
+    </div>
+
+    <div class="home-main-grid">
+      <div class="home-nav-card span-3" style="border-color:#10b981; background:linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%);" onclick="switchScreen('petri')">
+        <div style="font-size:2.3rem;">🔬</div>
+        <div style="font-weight:900; font-size:1.08rem; color:#047857;">育成（シャーレ）</div>
+        <div style="font-size:0.74rem; color:var(--text-sub); font-weight:700;">エサやり・進化・ステータス強化</div>
+      </div>
+
+      <div class="home-nav-card span-3" style="border-color:#0284c7; background:linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);" onclick="switchScreen('battle')">
+        <span id="battleInviteBadge" class="notif-badge" style="display:none; position:absolute; top:10px; right:12px; background:#ec4899; color:white;">招待!</span>
+        <div style="font-size:2.3rem;">⚔️</div>
+        <div style="font-weight:900; font-size:1.08rem; color:#0369a1;">対戦（バトル）</div>
+        <div style="font-size:0.74rem; color:var(--text-sub); font-weight:700;">理系・英語・フレンド対戦へ！</div>
+      </div>
+
+      <div class="home-nav-card span-2" style="border-color:#f59e0b; background:linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);" onclick="switchScreen('friends')">
+        <span id="friendReqBadge" class="notif-badge" style="display:none; position:absolute; top:10px; right:12px;">0</span>
+        <div style="font-size:2rem;">🤝</div>
+        <div style="font-weight:900; font-size:0.98rem; color:#b45309;">順位・フレンド</div>
+        <div style="font-size:0.72rem; color:var(--text-sub); font-weight:700;">全国ランキング＆友達</div>
+      </div>
+
+      <div class="home-nav-card span-2" style="border-color:#6366f1; background:linear-gradient(135deg, #ffffff 0%, #eef2ff 100%);" onclick="switchScreen('box')">
+        <div style="font-size:2rem;">📦</div>
+        <div style="font-weight:900; font-size:0.98rem; color:#4338ca;">ボックス編成</div>
+        <div style="font-size:0.72rem; color:var(--text-sub); font-weight:700;">パーティ3体＆5枠管理</div>
+      </div>
+
+      <div class="home-nav-card span-2 span-mobile-full" style="border-color:#8b5cf6; background:linear-gradient(135deg, #ffffff 0%, #faf5ff 100%);" onclick="switchScreen('menu')">
+        <div style="font-size:2rem;">📱</div>
+        <div style="font-weight:900; font-size:0.98rem; color:#6d28d9;">メニュー</div>
+        <div style="font-size:0.72rem; color:var(--text-sub); font-weight:700;">タワー・ガチャ・図鑑・設定</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📱 メニュー画面（カテゴリ整理：タワー＋育成ガチャ＋勉強図鑑＋システム） -->
+  <section id="screen-menu" class="screen">
+    <div class="subscreen-back-bar">
+      <strong style="color:#6d28d9; font-size:0.95rem;">📱 研究所メニュー</strong>
+      <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('home')">🏠 ホームへ戻る</button>
+    </div>
+
+    <div class="card">
+      <!-- 🗼 無限のゲノムタワー（独立配置） -->
+      <div class="menu-app-card" style="border:2.5px solid #7c3aed; background:linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%); min-height:auto; flex-direction:row; justify-content:space-between; padding:14px 18px; text-align:left;" onclick="switchScreen('tower')">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="menu-app-icon" style="background:#ffffff; border:2px solid #c4b5fd; flex-shrink:0;">🗼</div>
+          <div>
+            <div style="font-weight:900; font-size:1.05rem; color:#5b21b6;">無限のゲノムタワー</div>
+            <div style="font-size:0.76rem; color:#6d28d9; font-weight:700;">少年の塔（中学生）＆ 覇者の塔（高校生）・1問ミスで即終了の限界挑戦！</div>
+          </div>
+        </div>
+        <span style="font-size:1.2rem; font-weight:900; color:#7c3aed;">➔</span>
+      </div>
+
+      <!-- 🧬 育成・ガチャ -->
+      <div class="menu-section-title" style="border-left-color:#ec4899; background:#fdf2f8; color:#9d174d;">🧬 育成・ガチャ</div>
       <div class="menu-grid">
-        <div class="menu-app-card" style="border-color:#0ea5e9; background:linear-gradient(180deg,#ffffff,#f0f9ff); position:relative;" onclick="openMissionModal()">
-          <span id="menuMissionBadge" class="notif-badge" style="display:none; position:absolute; top:10px; right:10px; background:#ef4444; color:white;">0</span>
-          <div class="menu-app-icon" style="background:#e0f2fe;">🎯</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#0369a1;">ミッション (新人・日課)</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">初心者ガイド達成＆毎日ATP・メダル獲得！</div>
-        </div>
-        <div class="menu-app-card" style="border-color:#7c3aed; background:linear-gradient(180deg,#ffffff,#faf5ff);" onclick="switchScreen('tower')">
-          <div class="menu-app-icon" style="background:#ede9fe;">🗼</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#6d28d9;">無限のゲノムタワー</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">少年の塔(中学生)＆覇者の塔(高校生)・階層踏破</div>
-        </div>
-        <div class="menu-app-card" onclick="switchScreen('box')">
-          <div class="menu-app-icon" style="background:#e0f2fe;">📦</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#0369a1;">ボックス・編成</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">パーティ5枠・ソート＆能力編集</div>
-        </div>
-        <div class="menu-app-card" style="border-color:#e11d48; background:linear-gradient(180deg,#ffffff,#fff1f2);" onclick="switchScreen('synthesis')">
-          <div class="menu-app-icon" style="background:#ffe4e6;">🧪</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#be123c;">ゲノム合成 (XR・MR進化)</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">LR➔XR➔MR超越進化 ＆ 素材合成</div>
-        </div>
         <div class="menu-app-card" style="border-color:#ec4899; background:linear-gradient(180deg,#ffffff,#fdf2f8);" onclick="switchScreen('gacha')">
-          <div class="menu-app-icon" style="background:#fce7f3;">💊</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#be185d;">ガチャ (キャラ・チップ・素材)</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">キャラ・遺伝子チップ・進化素材ガチャ</div>
+          <div class="menu-app-icon" style="background:#fce7f3;">🎰</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#be185d;">ガチャ</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">キャラ・チップ・進化素材ガチャ</div>
         </div>
         <div class="menu-app-card" style="border-color:#f59e0b; background:linear-gradient(180deg,#ffffff,#fffbeb);" onclick="switchScreen('exchange')">
           <div class="menu-app-icon" style="background:#fef3c7;">🏪</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#b45309;">交換所 (キャラ＆チップ)</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">キャラ指名交換所 ＆ 遺伝子チップ交換所</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#b45309;">交換所</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">キャラ指名＆遺伝子チップ交換</div>
         </div>
         <div class="menu-app-card" style="border-color:#a855f7; background:linear-gradient(180deg,#ffffff,#faf5ff);" onclick="switchScreen('genome')">
           <div class="menu-app-icon" style="background:#f3e8ff;">🎒</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#6d28d9;">もちもの・チップ管理</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">育成アイテム使用＆遺伝子チップ装着</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#6d28d9;">もちもの</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">育成アイテム使用＆チップ装着</div>
         </div>
-        <div class="menu-app-card" onclick="switchScreen('shop')">
-          <div class="menu-app-icon" style="background:#dcfce7;">🛒</div>
+        <div class="menu-app-card" style="border-color:#10b981; background:linear-gradient(180deg,#ffffff,#f0fdf4);" onclick="switchScreen('shop')">
+          <div class="menu-app-icon" style="background:#dcfce7;">⚡</div>
           <div style="font-weight:900; font-size:0.95rem; color:#15803d;">ATPショップ</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">瞬間Lv.30進化・スキル＆教科変更</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">瞬間進化・スキル＆教科変更</div>
         </div>
+        <div class="menu-app-card" style="border-color:#e11d48; background:linear-gradient(180deg,#ffffff,#fff1f2);" onclick="switchScreen('synthesis')">
+          <div class="menu-app-icon" style="background:#ffe4e6;">🧪</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#be123c;">ゲノム合成</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">LR➔XR➔MR超越進化＆コア合成</div>
+        </div>
+      </div>
+
+      <!-- 📚 勉強・図鑑 -->
+      <div class="menu-section-title" style="border-left-color:#0284c7; background:#f0f9ff; color:#0369a1;">📚 勉強・図鑑</div>
+      <div class="menu-grid">
         <div class="menu-app-card" onclick="switchScreen('pedia')">
           <div class="menu-app-icon" style="background:#e0e7ff;">📘</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#3730a3;">5段階図鑑 (全100種)</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">微生物・免疫細胞・細菌など全20種族</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#3730a3;">図鑑</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">全20種族・100形態コレクション</div>
         </div>
         <div class="menu-app-card" onclick="switchScreen('mistakes')">
           <div class="menu-app-icon" style="background:#ffedd5;">📝</div>
@@ -806,43 +1006,48 @@
         </div>
         <div class="menu-app-card" style="border-color:#f59e0b; background:linear-gradient(180deg,#ffffff,#fffbeb);" onclick="switchScreen('handbook')">
           <div class="menu-app-icon" style="background:#fef3c7;">📖</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#b45309;">公式・要点ハンドブック</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#b45309;">公式・要点</div>
           <div style="font-size:0.74rem; color:var(--text-sub);">数学公式・理科法則・英文法まとめ</div>
         </div>
         <div class="menu-app-card" onclick="switchScreen('profile')">
-          <div class="menu-app-icon" style="background:#f1f5f9;">👤</div>
+          <div class="menu-app-icon" style="background:#f1f5f9;">🏅</div>
           <div style="font-weight:900; font-size:0.95rem; color:#0f172a;">称号・戦績</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">名前変更・称号コレクション・勝率</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">名前変更・称号・教科別勝率</div>
         </div>
+      </div>
+
+      <!-- ⚙️ システム -->
+      <div class="menu-section-title" style="border-left-color:#64748b; background:#f8fafc; color:#334155;">⚙️ システム</div>
+      <div class="menu-grid">
         <div class="menu-app-card" onclick="switchScreen('settings')">
           <div class="menu-app-icon" style="background:#fee2e2;">⚙️</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#b91c1c;">設定・データ管理</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">オート捕食・データリセット・アカウント削除</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#b91c1c;">設定</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">オート捕食・データ管理</div>
         </div>
         <div class="menu-app-card" style="border-color:#38bdf8; background:linear-gradient(180deg,#ffffff,#f0f9ff);" onclick="switchScreen('help')">
           <div class="menu-app-icon" style="background:#e0f2fe;">❓</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#0284c7;">ヘルプ・よくある質問</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">すばやさの意味・ステータス解説</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#0284c7;">ヘルプ</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">ガイド再表示・ステータス解説</div>
         </div>
         <div class="menu-app-card" style="border-color:#10b981; background:linear-gradient(180deg,#ffffff,#f0fdf4);" onclick="openInquiryModal()">
           <div class="menu-app-icon" style="background:#dcfce7;">📨</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#059669;">お問い合わせ・不具合報告</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">バグ報告・問題文の間違い・ご要望</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#059669;">お問い合わせ</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">バグ報告・問題誤字・ご要望</div>
+        </div>
+        <div class="menu-app-card" style="border-color:#0284c7; background:linear-gradient(180deg,#ffffff,#f0f9ff);" onclick="openTransferModal()">
+          <div class="menu-app-icon" style="background:#e0f2fe;">📲</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#0369a1;">引き継ぎ</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">セーブコード発行・別端末復元</div>
         </div>
         <div class="menu-app-card" style="border-color:#0ea5e9; background:linear-gradient(180deg,#ffffff,#f0f9ff);" onclick="if(typeof saveData==='function'){try{saveData();}catch(e){}} location.href='https://bio-labo.github.io/'">
           <div class="menu-app-icon" style="background:#e0f2fe;">🌐</div>
           <div style="font-weight:900; font-size:0.95rem; color:#0369a1;">ゲーム公式サイト</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">ロジカ総合ポータルサイト（シリーズ一覧）</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">ロジカ総合ポータルサイト</div>
         </div>
         <div class="menu-app-card" style="border-color:#0d9488; background:linear-gradient(180deg,#ffffff,#f0fdfa);" onclick="openLabLogicaApp()">
           <div class="menu-app-icon" style="background:#ccfbf1;">🔬</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#0f766e;">ラボ・ロジカ (実験室)</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">姉妹作・高校理科バーチャル実験＆動画</div>
-        </div>
-        <div class="menu-app-card" style="border-color:#0284c7; background:linear-gradient(180deg,#ffffff,#f0f9ff);" onclick="openIconModal()">
-          <div class="menu-app-icon" style="background:#e0f2fe;">📲</div>
-          <div style="font-weight:900; font-size:0.95rem; color:#0284c7;">公式アイコン保存</div>
-          <div style="font-size:0.74rem; color:var(--text-sub);">スマホ写真保存用・超高画質PNG</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#0f766e;">ラボ・ロジカ</div>
+          <div style="font-size:0.74rem; color:var(--text-sub);">姉妹作・高校理科バーチャル実験</div>
         </div>
       </div>
     </div>
@@ -1192,7 +1397,11 @@
   </section>
 
   <!-- 1. シャーレ育成 ＆ 50pt自由配分パネル -->
-  <section id="screen-petri" class="screen active">
+  <section id="screen-petri" class="screen">
+    <div class="subscreen-back-bar">
+      <strong style="color:#047857; font-size:0.95rem;">🔬 シャーレ育成ラボ</strong>
+      <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('home')">🏠 ホームへ戻る</button>
+    </div>
     <div class="petri-layout">
       <div>
         <div class="petri-stage-wrap" id="petriWrap">
@@ -1211,16 +1420,10 @@
           </div>
         </div>
 
-        <div class="help-box" style="margin-top:8px; margin-bottom:6px;">
-          💡 <strong>シャーレでは経験値と少量のATPがコツコツ貯まります！</strong>（大量のATPは「⚔️ クイズ対戦」や「🌪️ 環境ミッション」で稼ごう！）<br>
-          ステータス強化（50pt）は右のパネルで<strong>自分の好きなように「＋ / ー」ボタンで直接割り振れます！</strong>
-        </div>
-
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <button id="toggleAutoEatBtn" class="btn btn-purple" onclick="toggleAutoEat()">🤖 オート捕食: ON</button>
-          <button id="spawnFoodBtn" class="btn btn-secondary" onclick="spawnFoodBurst()">🍬 栄養をまく (8個)</button>
-          <button class="btn btn-accent" onclick="startPetriEvent()">🌪️ 環境ミッション挑戦 (+180 ATP)</button>
-          <button class="btn btn-outline" style="border-color:#0284c7; color:#0284c7; font-weight:800;" onclick="copySaveBackupCode()">📋 引継ぎコードコピー</button>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:8px; margin-top:10px;">
+          <button id="toggleAutoEatBtn" class="btn btn-purple" style="padding:10px 8px;" onclick="toggleAutoEat()">🤖 オート捕食: ON</button>
+          <button id="spawnFoodBtn" class="btn btn-secondary" style="padding:10px 8px;" onclick="spawnFoodBurst()">🍬 栄養をまく (8個)</button>
+          <button class="btn btn-accent" style="padding:10px 8px;" onclick="startPetriEvent()">🌪️ 環境ミッション (+180 ATP)</button>
         </div>
       </div>
 
@@ -1233,7 +1436,7 @@
   <section id="screen-box" class="screen">
     <div class="subscreen-back-bar">
       <strong style="color:#0369a1; font-size:0.9rem;">📦 ボックス ＆ パーティ編成</strong>
-      <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('menu')">⬅️ メニューへ戻る</button>
+      <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('home')">🏠 ホームへ戻る</button>
     </div>
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
@@ -1586,258 +1789,350 @@
     </div>
   </section>
 
-  <!-- 4. クイズ対戦画面（理系 vs 英語 ＆ 全国ランダムマッチ ＆ フレンド対戦ルーム） -->
+  <!-- 4. クイズ対戦画面（階層型ドリルダウンUI ＆ 全国マッチ ＆ フレンド対戦ルーム） -->
   <section id="screen-battle" class="screen">
     <div id="battleSetupPanel" class="card">
-      <!-- 🧬 理系 vs 📖 英語 vs 🎒 中学生 3大モード切替バナー -->
-      <div class="battle-category-toggle">
-        <button id="catToggleSci" class="battle-cat-btn active" onclick="switchBattleCategory('sci')">
-          🧬 高校・大学入試 理系<br><small style="font-size:0.72rem; opacity:0.85;">(理科・数学)</small>
-        </button>
-        <button id="catToggleEng" class="battle-cat-btn cat-eng" onclick="switchBattleCategory('eng')">
-          📖 高校・大学入試 英語<br><small style="font-size:0.72rem; opacity:0.85;">(単語・熟語・文法)</small>
-        </button>
-        <button id="catToggleJunior" class="battle-cat-btn cat-junior" onclick="switchBattleCategory('junior')">
-          🎒 中学生・高校受験<br><small style="font-size:0.72rem; opacity:0.85;">(中学理科・数学・英語)</small>
-        </button>
-      </div>
 
-      <div class="card-title" id="battleCategoryTitle">⚔️ 3 vs 3 理系クイズバトル（全国マッチ ＆ ルーム対戦 ＆ AI特訓）</div>
-
-      <div class="help-box" id="battleCategoryHelp">
-        <strong>📚 教科書・標準問題集レベル・大学入試実戦問題対応！</strong><br>
-        生物（7章）、数学（IA/IIB/IIIC各単元）、物理（5単元）、化学（4単元）を自由に選んでバトルできます！
-      </div>
-
-      <!-- 共通：出撃パーティ＆出題範囲設定（理系用パネル） -->
-      <div id="sciBattleSettingsArea" style="background:#f0f9ff; border:2px solid #7dd3fc; border-radius:14px; padding:12px; margin-bottom:12px;">
-        <div style="font-weight:900; font-size:0.92rem; color:#0369a1; margin-bottom:8px;">🎯 1. 出撃パーティ ＆ 理系問題の設定</div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:8px;">
-          <div>
-            <label style="font-size:0.76rem; font-weight:900; display:block;">🚩 出撃するパーティ</label>
-            <select id="battlePresetSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800;"></select>
-          </div>
-
-          <div>
-            <label style="font-size:0.76rem; font-weight:900; display:block; color:#0369a1;">🎓 問題の難易度レベル</label>
-            <select id="battleGradeSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#0284c7;">
-              <option value="all" selected>🌈 全難易度ミックス（基礎〜入試まで）</option>
-              <option value="textbook">🌱 教科書・基礎レベル（基本用語・公式確認）</option>
-              <option value="refbook">🏫 教科書・標準問題集レベル</option>
-              <option value="exam">🔬 大学入試・実戦難問レベル（東大・京大・共通テスト）</option>
-            </select>
-          </div>
-
-          <div>
-            <label style="font-size:0.76rem; font-weight:900; display:block; color:#059669;">📚 出題教科</label>
-            <select id="battleSubjectSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#059669;" onchange="updateUnitOptionsBySubject()"></select>
-          </div>
-
-          <div>
-            <label style="font-size:0.76rem; font-weight:900; display:block; color:#7c3aed;">📖 単元・章の選択（全単元もOK！）</label>
-            <select id="battleUnitSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#7c3aed;"></select>
-          </div>
-
-          <div>
-            <label style="font-size:0.76rem; font-weight:900; display:block;">🎮 解答形式</label>
-            <select id="battleQuizTypeSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800;">
-              <option value="mix" selected>🎲 オールランダム（4択＋並び替え＋記述）</option>
-              <option value="choice">🔘 4択問題のみ</option>
-              <option value="anagram">🔤 文字・数字並び替えのみ</option>
-              <option value="typing">⌨️ 記述入力のみ【時間+18秒＆威力1.25倍！】</option>
-            </select>
-          </div>
+      <!-- ステップ0：対戦トップ（理系科目 / 英語 / フレンド対戦） -->
+      <div id="battleStepTop">
+        <div class="drill-breadcrumb">
+          <strong style="font-size:0.95rem; color:#0369a1;">⚔️ 対戦モードを選択してください</strong>
+          <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('home')">🏠 ホームへ戻る</button>
         </div>
-      </div>
-
-      <!-- 📖 英語モード用設定パネル -->
-      <div id="engBattleSettingsArea" style="display:none; background:#faf5ff; border:2px solid #d8b4fe; border-radius:14px; padding:12px; margin-bottom:12px;">
-        <div style="font-weight:900; font-size:0.92rem; color:#6b21a8; margin-bottom:8px;">🎯 1. 出撃パーティ ＆ 英語問題の設定</div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:8px;">
-          <div>
-            <label style="font-size:0.76rem; font-weight:900; display:block;">🚩 出撃するパーティ</label>
-            <select id="engBattlePresetSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800;" onchange="document.getElementById('battlePresetSelect').value=this.value"></select>
-          </div>
-
-          <div>
-            <label style="font-size:0.76rem; font-weight:900; display:block; color:#6b21a8;">📖 英語ジャンル</label>
-            <select id="engGenreSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#a855f7;" onchange="updateEngUiState()">
-              <option value="eng_word" selected>🔤 英単語 (大学入試 必須頻出英単語1900)</option>
-              <option value="eng_idiom">🔗 英熟語・イディオム (頻出英熟語・イディオム1000)</option>
-              <option value="eng_gram">📚 大学入試 英文法・語法 (全14単元)</option>
-              <option value="eng_all">🎲 英語オールミックス (単語＋熟語＋文法)</option>
-            </select>
-          </div>
-
-          <div id="engGramUnitRow" style="display:none;">
-            <label style="font-size:0.76rem; font-weight:900; display:block; color:#0369a1;">📑 英文法単元 (全14単元)</label>
-            <select id="engGramUnitSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#0284c7;"></select>
-          </div>
-
-          <div id="engLevelRow" style="display:none;">
-            <label style="font-size:0.76rem; font-weight:900; display:block; color:#b45309;">🎓 英文法 過去問レベル</label>
-            <select id="engLevelSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#f59e0b;">
-              <option value="all" selected>🌈 全レベルミックス</option>
-              <option value="elem">🌱 教科書・基礎レベル（定期テスト基礎）</option>
-              <option value="private">🏫 私学レベル（追手門・産近甲龍・関関同立の本物過去問！）</option>
-              <option value="national">🔬 難関・国公立・早慶レベル（東大・京大・早慶過去問！）</option>
-            </select>
-          </div>
-
-          <div>
-            <label style="font-size:0.76rem; font-weight:900; display:block; color:#be185d;">🎮 解答スタイル</label>
-            <select id="engAnswerStyleSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#ec4899;">
-              <option value="fast_choice" selected>⚡ 4択早押しバトル (制限時間10秒・反射神経＆思考力！)</option>
-              <option value="unlimited_typing">✍️ スペル記述 (時間無制限・手動キーボード打ち込み！)</option>
-            </select>
-          </div>
+        <div class="help-box">
+          💡 <strong>「理系科目」「英語」</strong>から挑戦したい学年・教科を選んで出撃するか、<strong>「フレンド対戦」</strong>で友達とリアルタイムバトルを楽しもう！
         </div>
-      </div>
+        <div class="drill-grid-3">
+          <button class="drill-card-btn" style="border-color:#0284c7; background:linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);" onclick="battleDrillSelectCategory('sci')">
+            <div style="font-size:2.6rem;">🧬</div>
+            <div style="font-weight:900; font-size:1.12rem; color:#0369a1;">理系科目</div>
+            <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">化学・物理・生物・数学（中学 / 高校）</div>
+          </button>
 
-      <!-- 🎒 中学生・高校受験用設定パネル -->
-      <div id="juniorBattleSettingsArea" style="display:none; background:#fffbeb; border:2px solid #fde047; border-radius:14px; padding:12px; margin-bottom:12px;">
-        <div style="font-weight:900; font-size:0.92rem; color:#b45309; margin-bottom:8px;">🎯 1. 出撃パーティ ＆ 中学生（高校受験）問題の設定</div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:8px;">
-          <div>
-            <label style="font-size:0.76rem; font-weight:900; display:block;">🚩 出撃するパーティ</label>
-            <select id="juniorBattlePresetSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800;" onchange="document.getElementById('battlePresetSelect').value=this.value"></select>
-          </div>
+          <button class="drill-card-btn" style="border-color:#7c3aed; background:linear-gradient(180deg, #ffffff 0%, #faf5ff 100%);" onclick="battleDrillSelectCategory('eng')">
+            <div style="font-size:2.6rem;">📖</div>
+            <div style="font-weight:900; font-size:1.12rem; color:#6d28d9;">英語</div>
+            <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">英単語・英熟語・英文法（中学 / 高校）</div>
+          </button>
 
-          <div>
-            <label style="font-size:0.76rem; font-weight:900; display:block; color:#0284c7;">🎓 問題の難易度レベル</label>
-            <select id="juniorGradeSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#0284c7;">
-              <option value="all" selected>🌈 全難易度ミックス（基礎〜難関高校入試）</option>
-              <option value="textbook">🔰 教科書・基礎レベル（定期テスト・基本用語・基本計算）</option>
-              <option value="refbook">📘 標準・公立高校入試レベル（標準問題集・公立高校入試頻出）</option>
-              <option value="exam">🏛️ 難関私立・国立高校入試レベル（開成・灘・早慶過去問）</option>
-            </select>
-          </div>
-
-          <div>
-            <label style="font-size:0.76rem; font-weight:900; display:block; color:#b45309;">📚 出題教科</label>
-            <select id="juniorSubjectSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#f59e0b;" onchange="updateJuniorUnitOptions()">
-              <option value="j_all" selected>🌈 中学3科目オールミックス（理科・数学・英語）</option>
-              <option value="j_sci">🔬 中学理科（第1分野・第2分野）</option>
-              <option value="j_math">📐 中学数学（数と式・関数・図形・確率）</option>
-              <option value="j_eng">📖 中学英語（基本英単語・中学文法）</option>
-            </select>
-          </div>
-
-          <div>
-            <label style="font-size:0.76rem; font-weight:900; display:block; color:#d97706;">📖 中学単元・分野の選択</label>
-            <select id="juniorUnitSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#d97706;">
-              <option value="all_units" selected>🌈 全単元ミックス</option>
-            </select>
-          </div>
-
-          <div>
-            <label style="font-size:0.76rem; font-weight:900; display:block; color:#854d0e;">🎮 解答形式</label>
-            <select id="juniorQuizTypeSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800; border-color:#eab308;">
-              <option value="choice" selected>🔘 4択問題のみ (おすすめ・テンポ良く解ける！)</option>
-              <option value="mix">🎲 オールランダム (4択＋並び替え＋記述)</option>
-              <option value="typing">⌨️ 記述入力のみ【時間たっぷり＋18秒＆威力1.25倍！】</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3大対戦モード（全国だれでもマッチ ＆ フレンド対戦ルーム ＆ AI特訓） -->
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(290px, 1fr)); gap:12px;">
-        <!-- 1. 【NEW!!】🌍 全国だれでも対戦（リアルタイム・ランダムマッチ） -->
-        <div class="card" style="border:3px solid #10b981; background:linear-gradient(180deg, #f0fdf4 0%, #dcfce7 100%); display:flex; flex-direction:column; gap:8px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h3 style="color:#15803d; margin:0;">🌍 全国だれでも対戦</h3>
-            <span style="background:#10b981; color:white; font-size:0.7rem; font-weight:900; padding:2px 8px; border-radius:999px;">オンライン対戦</span>
-          </div>
-          <p style="font-size:0.76rem; color:#14532d; line-height:1.45; margin:0;">
-            見知らぬ全国のプレイヤーとリアルタイムで自動マッチング！<br>
-            ※35秒間マッチングしなかった場合は、<strong>全国ランキング実在プレイヤーのパーティ（ゴーストAI）</strong>と即座に白熱バトルが開始されます！
-          </p>
-          <button class="btn btn-secondary" style="width:100%; padding:12px; font-size:0.95rem; font-weight:900; margin-top:auto;" onclick="startRandomMatchmaking()">
-            🌍 全国プレイヤーと対戦を探す！（即マッチ）
+          <button class="drill-card-btn" style="border-color:#ec4899; background:linear-gradient(180deg, #ffffff 0%, #fdf2f8 100%);" onclick="battleDrillGoStep('friend')">
+            <div style="font-size:2.6rem;">👥</div>
+            <div style="font-weight:900; font-size:1.12rem; color:#be185d;">フレンド対戦</div>
+            <div style="font-size:0.75rem; color:var(--text-sub); font-weight:700;">ルームを立てる / 招待 / 番号入室</div>
           </button>
         </div>
+      </div>
 
-        <!-- 2. 🏟️ ポケモンチャンピオンズ風 フレンド対戦ルーム -->
-        <div class="card" style="border-color:#c084fc; background:linear-gradient(180deg, #faf5ff 0%, #f3e8ff 100%); display:flex; flex-direction:column; gap:8px;">
-          <h3 style="margin-bottom:2px; color:#6b21a8;">🏟️ フレンド対戦ルーム</h3>
-          <p style="font-size:0.75rem; color:#581c87; margin-bottom:4px; line-height:1.45;">
-            部屋を作って友達を招待したり、招待された部屋・4桁の部屋番号でリアルタイム対戦！
-          </p>
+      <!-- ステップF：フレンド対戦（ルームを立てる / 招待されたルーム / ルーム番号入力） -->
+      <div id="battleStepFriend" style="display:none;">
+        <div class="drill-breadcrumb">
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <span style="font-size:0.86rem; font-weight:900; color:#be185d;">⚔️ 対戦 ＞ 👥 フレンド対戦</span>
+          </div>
+          <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="battleDrillGoStep('top')">◀ 対戦トップへ戻る</button>
+        </div>
 
-          <!-- 📩 招待された部屋に入る専用ボックス（常時表示・ワンタップ入室！Ver 4.8.5） -->
-          <div id="invitedRoomsDedicatedBox" style="background:linear-gradient(135deg, #fff1f2 0%, #fdf2f8 100%); border:2.5px solid #f472b6; border-radius:12px; padding:10px 12px; box-shadow:0 3px 10px rgba(236,72,153,0.12);">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; gap:6px; flex-wrap:wrap;">
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <!-- 1. ルームを立てる -->
+          <div class="card" style="border-color:#c084fc; background:linear-gradient(180deg, #faf5ff 0%, #f3e8ff 100%);">
+            <div style="font-weight:900; font-size:1rem; color:#6b21a8; margin-bottom:4px;">🏠 ルームを立てる（部屋を作って友達を招待）</div>
+            <div style="font-size:0.76rem; color:#581c87; margin-bottom:10px;">
+              4桁のルーム番号を発行して待機ロビーを開きます。出題ジャンルを選んで部屋を作れます！
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:10px;">
+              <label style="font-size:0.78rem; font-weight:900; color:#581c87;">出題ルール：</label>
+              <select id="friendRoomQuickCat" class="btn-outline" style="flex:1; min-width:180px; padding:7px; border-radius:8px; font-weight:800;" onchange="switchBattleCategory(this.value)">
+                <option value="sci">🧬 高校・大学入試 理系</option>
+                <option value="eng">📖 高校・大学入試 英語</option>
+                <option value="junior">🎒 中学生・高校受験（理科・数学・英語）</option>
+              </select>
+            </div>
+            <button class="btn btn-purple" style="width:100%; padding:12px; font-size:0.95rem; font-weight:900;" onclick="createFriendBattleRoom()">
+              🏠 対戦ルームを立てる！
+            </button>
+          </div>
+
+          <!-- 2. 招待されたルームに入る -->
+          <div id="invitedRoomsDedicatedBox" style="background:linear-gradient(135deg, #fff1f2 0%, #fdf2f8 100%); border:2.5px solid #f472b6; border-radius:14px; padding:12px 14px; box-shadow:0 3px 10px rgba(236,72,153,0.12);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; gap:6px; flex-wrap:wrap;">
               <div style="display:flex; align-items:center; gap:6px;">
-                <span style="font-size:0.84rem; font-weight:900; color:#be185d;">📩 招待された部屋に入る</span>
-                <span id="battleSyncVerBadge" style="background:#fce7f3; color:#9d174d; border:1px solid #f472b6; font-size:0.68rem; font-weight:900; padding:1px 6px; border-radius:999px;">Ver 4.8.7</span>
+                <span style="font-size:0.95rem; font-weight:900; color:#be185d;">✉️ 招待されたルームに入る</span>
+                <span id="battleSyncVerBadge" style="background:#fce7f3; color:#9d174d; border:1px solid #f472b6; font-size:0.68rem; font-weight:900; padding:1px 6px; border-radius:999px;">Ver 1.0</span>
               </div>
               <div style="display:flex; gap:4px;">
-                <button type="button" class="btn btn-outline" style="padding:3px 8px; font-size:0.7rem; border-color:#f472b6; color:#be185d; background:white; font-weight:900;" onclick="checkPendingBattleInvites(true)">🔄 招待を確認</button>
-                <button type="button" class="btn btn-outline" style="padding:3px 8px; font-size:0.7rem; border-color:#a855f7; color:#7e22ce; background:white; font-weight:900;" onclick="runCloudDiagnostics(true)">🧪 通信テスト</button>
+                <button type="button" class="btn btn-outline" style="padding:3px 8px; font-size:0.72rem; border-color:#f472b6; color:#be185d; background:white; font-weight:900;" onclick="checkPendingBattleInvites(true)">🔄 招待を確認</button>
+                <button type="button" class="btn btn-outline" style="padding:3px 8px; font-size:0.72rem; border-color:#a855f7; color:#7e22ce; background:white; font-weight:900;" onclick="runCloudDiagnostics(true)">🧪 通信テスト</button>
               </div>
             </div>
-            <div id="battleSyncStatusLine" style="font-size:0.68rem; color:#831843; font-weight:800; margin-bottom:6px; background:rgba(255,255,255,0.7); padding:3px 8px; border-radius:6px; border:1px dashed #f9a8d4;">
+            <div id="battleSyncStatusLine" style="font-size:0.7rem; color:#831843; font-weight:800; margin-bottom:6px; background:rgba(255,255,255,0.7); padding:4px 8px; border-radius:6px; border:1px dashed #f9a8d4;">
               📡 クラウド待機部屋スキャナー：待機中
             </div>
-            <div id="battleInviteBannerArea" style="font-size:0.75rem; color:#9d174d; font-weight:800; line-height:1.4;">
-              現在届いている部屋招待はありません。<br><span style="font-size:0.7rem; color:#be185d; opacity:0.85;">※友達が部屋を作ると、ここに<strong>「🚀 この部屋に入る！」</strong>ボタンが自動出現します！</span>
+            <div id="battleInviteBannerArea" style="font-size:0.78rem; color:#9d174d; font-weight:800; line-height:1.45;">
+              現在届いている部屋招待はありません。<br><span style="font-size:0.72rem; color:#be185d; opacity:0.85;">※友達が部屋を作ると、ここに<strong>「🚀 この部屋に入る！」</strong>ボタンが自動出現します！</span>
             </div>
           </div>
 
-          <div style="display:flex; flex-direction:column; gap:8px; margin-top:auto;">
-            <button class="btn btn-purple" style="width:100%; padding:11px; font-size:0.9rem;" onclick="createFriendBattleRoom()">
-              🏠 対戦ルームを作る（部屋に入って友達を招待）
-            </button>
+          <!-- 3. ルーム番号入力 -->
+          <div class="card" style="border-color:#bae6fd; background:#f8fafc;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:6px;">
+              <label style="font-size:0.92rem; font-weight:900; color:#0369a1;">🔢 ルーム番号入力（4桁で入室）</label>
+              <button type="button" class="btn btn-outline" style="padding:3px 10px; font-size:0.74rem; border-color:#c084fc; color:#7e22ce; font-weight:900;" onclick="switchScreen('friends')">🤝 友達追加はこちら</button>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="text" id="joinRoomIdInput" class="btn-outline" style="flex:1; min-width:0; padding:10px 8px; border-radius:10px; font-weight:900; text-align:center; font-size:1.05rem; box-sizing:border-box;" placeholder="部屋番号 4桁（例: 4829）">
+              <button class="btn btn-secondary" style="flex-shrink:0; white-space:nowrap; padding:10px 18px; font-size:0.92rem;" onclick="joinFriendBattleRoom()">🚀 入室する</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            <div style="background:white; padding:8px 10px; border-radius:10px; border:1px solid #d8b4fe; box-sizing:border-box;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                <label style="font-size:0.75rem; font-weight:900; color:#6b21a8; display:block;">🔑 ルーム番号（4桁）で入室</label>
-                <button type="button" class="btn btn-outline" style="padding:2px 8px; font-size:0.68rem; border-color:#c084fc; color:#7e22ce; font-weight:900;" onclick="switchScreen('friends')">🤝 友達追加はこちら</button>
-              </div>
-              <div style="display:flex; gap:6px; align-items:center;">
-                <input type="text" id="joinRoomIdInput" class="btn-outline" style="flex:1; min-width:0; padding:8px 6px; border-radius:8px; font-weight:900; text-align:center; font-size:0.95rem; box-sizing:border-box;" placeholder="部屋番号 4桁（例: 4829）">
-                <button class="btn btn-secondary" style="flex-shrink:0; white-space:nowrap; padding:8px 12px; font-size:0.85rem;" onclick="joinFriendBattleRoom()">🚀 入室</button>
-              </div>
-              <div style="font-size:0.68rem; color:#7e22ce; margin-top:4px; line-height:1.35;">
-                💡 <strong>ルーム番号とは：</strong>ホストが「🏠 対戦ルームを作る」を押した時に部屋上部に表示される黄色い4桁番号です。（※友達追加・フレンド申請は上の『🤝 フレンド・順位』から行えます）
-              </div>
+      <!-- ステップ1：学年選択（中学用 / 高校用） -->
+      <div id="battleStepGrade" style="display:none;">
+        <div class="drill-breadcrumb">
+          <span id="battleGradeBreadcrumb" style="font-size:0.88rem; font-weight:900; color:#0369a1;">⚔️ 対戦 ＞ 🧬 理系科目</span>
+          <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="battleDrillGoStep('top')">◀ 対戦トップへ戻る</button>
+        </div>
+        <div class="card-title" style="margin-bottom:10px;">🎓 対象レベルを選択してください</div>
+        <div class="drill-grid-2">
+          <button class="drill-card-btn" style="border-color:#f59e0b; background:linear-gradient(180deg, #ffffff 0%, #fffbeb 100%);" onclick="battleDrillSelectGrade('junior')">
+            <div style="font-size:2.6rem;">🎒</div>
+            <div style="font-weight:900; font-size:1.15rem; color:#b45309;">中学用</div>
+            <div style="font-size:0.76rem; color:var(--text-sub); font-weight:700;">中学生・高校受験・定期テスト対策</div>
+          </button>
+          <button class="drill-card-btn" style="border-color:#0284c7; background:linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);" onclick="battleDrillSelectGrade('high')">
+            <div style="font-size:2.6rem;">🏛️</div>
+            <div style="font-weight:900; font-size:1.15rem; color:#0369a1;">高校用</div>
+            <div style="font-size:0.76rem; color:var(--text-sub); font-weight:700;">高校生・大学入試・共通テスト対策</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- ステップ2：教科選択（化学・物理・生物・数学 / 英単語・英熟語・英文法） -->
+      <div id="battleStepSubject" style="display:none;">
+        <div class="drill-breadcrumb">
+          <span id="battleSubjectBreadcrumb" style="font-size:0.86rem; font-weight:900; color:#0369a1;">⚔️ 対戦 ＞ 🧬 理系科目 ＞ 🏛️ 高校用</span>
+          <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="battleDrillGoStep('grade')">◀ 学年選択へ戻る</button>
+        </div>
+        <div class="card-title" style="margin-bottom:10px;">📚 出題する教科・ジャンルを選択してください</div>
+        <div id="battleSubjectGrid" class="drill-grid-2"></div>
+      </div>
+
+      <!-- ステップ2.5：高校数学 詳細分岐（数Ⅰ・数A・数Ⅱ・数B・数Ⅲ・数C） -->
+      <div id="battleStepHighMath" style="display:none;">
+        <div class="drill-breadcrumb">
+          <span style="font-size:0.86rem; font-weight:900; color:#6d28d9;">⚔️ 対戦 ＞ 🧬 理系科目 ＞ 🏛️ 高校用 ＞ 📐 数学</span>
+          <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="battleDrillGoStep('subject')">◀ 教科選択へ戻る</button>
+        </div>
+        <div class="card-title" style="margin-bottom:10px;">📐 高校数学の科目を選択してください</div>
+        <div class="drill-grid-3">
+          <button class="drill-card-btn" style="border-color:#7c3aed; background:#faf5ff;" onclick="battleDrillSelectHighMath('m1', '📐 数学Ⅰ')">
+            <div style="font-size:1.9rem;">📐</div>
+            <div style="font-weight:900; font-size:1.05rem; color:#6d28d9;">数学Ⅰ</div>
+            <div style="font-size:0.72rem; color:var(--text-sub);">数と式・2次関数・三角比・データ</div>
+          </button>
+          <button class="drill-card-btn" style="border-color:#a21caf; background:#fdf4ff;" onclick="battleDrillSelectHighMath('ma', '🎲 数学A')">
+            <div style="font-size:1.9rem;">🎲</div>
+            <div style="font-weight:900; font-size:1.05rem; color:#a21caf;">数学A</div>
+            <div style="font-size:0.72rem; color:var(--text-sub);">場合の数と確率・図形の性質・整数</div>
+          </button>
+          <button class="drill-card-btn" style="border-color:#be185d; background:#fdf2f8;" onclick="battleDrillSelectHighMath('m2', '📊 数学Ⅱ')">
+            <div style="font-size:1.9rem;">📊</div>
+            <div style="font-weight:900; font-size:1.05rem; color:#be185d;">数学Ⅱ</div>
+            <div style="font-size:0.72rem; color:var(--text-sub);">式と証明・三角・指数対数・微積</div>
+          </button>
+          <button class="drill-card-btn" style="border-color:#e11d48; background:#fff1f2;" onclick="battleDrillSelectHighMath('mb', '📈 数学B')">
+            <div style="font-size:1.9rem;">📈</div>
+            <div style="font-weight:900; font-size:1.05rem; color:#e11d48;">数学B</div>
+            <div style="font-size:0.72rem; color:var(--text-sub);">数列・統計的な推測</div>
+          </button>
+          <button class="drill-card-btn" style="border-color:#b91c1c; background:#fef2f2;" onclick="battleDrillSelectHighMath('m3', '♾️ 数学Ⅲ')">
+            <div style="font-size:1.9rem;">♾️</div>
+            <div style="font-weight:900; font-size:1.05rem; color:#b91c1c;">数学Ⅲ</div>
+            <div style="font-size:0.72rem; color:var(--text-sub);">極限・微分法・積分法</div>
+          </button>
+          <button class="drill-card-btn" style="border-color:#c2410c; background:#fff7ed;" onclick="battleDrillSelectHighMath('mc', '🎯 数学C')">
+            <div style="font-size:1.9rem;">🎯</div>
+            <div style="font-weight:900; font-size:1.05rem; color:#c2410c;">数学C</div>
+            <div style="font-size:0.72rem; color:var(--text-sub);">ベクトル・複素数平面・2次曲線</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- ステップ3：出撃・ルール設定（パーティ・レベル・単元・解答形式）＆ 対戦相手選択（オンライン / AI） -->
+      <div id="battleStepConfig" style="display:none;">
+        <div class="drill-breadcrumb">
+          <span id="battleConfigBreadcrumb" style="font-size:0.86rem; font-weight:900; color:#0369a1;">選択中の教科</span>
+          <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="battleDrillBackFromConfig()">◀ 教科選択へ戻る</button>
+        </div>
+
+        <!-- 高校理系 設定エリア（パーティ・レベル・単元・解答形式） -->
+        <div id="sciBattleSettingsArea" style="background:#f0f9ff; border:2px solid #7dd3fc; border-radius:14px; padding:12px; margin-bottom:14px;">
+          <div style="font-weight:900; font-size:0.95rem; color:#0369a1; margin-bottom:10px;">⚙️ 出撃・ルール設定</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px;">
+            <div>
+              <label style="font-size:0.76rem; font-weight:900; display:block; margin-bottom:3px;">🛡️ パーティ選択（出撃3体）</label>
+              <select id="battlePresetSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800;"></select>
+            </div>
+            <div>
+              <label style="font-size:0.76rem; font-weight:900; display:block; color:#0369a1; margin-bottom:3px;">📊 問題のレベル選択</label>
+              <select id="battleGradeSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800; border-color:#0284c7;">
+                <option value="all" selected>🌈 全難易度ミックス（基礎〜入試まで）</option>
+                <option value="textbook">🌱 教科書・基礎レベル（基本用語・公式確認）</option>
+                <option value="refbook">🏫 教科書・標準問題集レベル</option>
+                <option value="exam">🔬 大学入試・実戦難問レベル（東大・京大・共通テスト）</option>
+              </select>
+            </div>
+            <div style="display:none;">
+              <select id="battleSubjectSelect" onchange="updateUnitOptionsBySubject()"></select>
+            </div>
+            <div>
+              <label style="font-size:0.76rem; font-weight:900; display:block; color:#7c3aed; margin-bottom:3px;">📂 単元を選択</label>
+              <select id="battleUnitSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800; border-color:#7c3aed;"></select>
+            </div>
+            <div>
+              <label style="font-size:0.76rem; font-weight:900; display:block; margin-bottom:3px;">✍️ 解答形式の選択</label>
+              <select id="battleQuizTypeSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800;">
+                <option value="mix" selected>🎲 オールランダム（4択＋並び替え＋記述）</option>
+                <option value="choice">🔘 4択問題のみ</option>
+                <option value="anagram">🔤 文字・数字並び替えのみ</option>
+                <option value="typing">⌨️ 記述入力のみ【時間+18秒＆威力1.25倍！】</option>
+              </select>
             </div>
           </div>
         </div>
 
-        <!-- 3. 🤖 1人で特訓（AI対戦） -->
-        <div class="card" style="border-color:#bae6fd; background:#f8fafc;">
-          <h3 style="margin-bottom:8px; color:#0369a1;">🤖 1人で特訓（AI対戦）</h3>
+        <!-- 高校英語 設定エリア -->
+        <div id="engBattleSettingsArea" style="display:none; background:#faf5ff; border:2px solid #d8b4fe; border-radius:14px; padding:12px; margin-bottom:14px;">
+          <div style="font-weight:900; font-size:0.95rem; color:#6b21a8; margin-bottom:10px;">⚙️ 出撃・ルール設定（英語）</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px;">
+            <div>
+              <label style="font-size:0.76rem; font-weight:900; display:block; margin-bottom:3px;">🛡️ パーティ選択（出撃3体）</label>
+              <select id="engBattlePresetSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800;" onchange="document.getElementById('battlePresetSelect').value=this.value"></select>
+            </div>
+            <div style="display:none;">
+              <select id="engGenreSelect" onchange="updateEngUiState()">
+                <option value="eng_word" selected>🔤 英単語</option>
+                <option value="eng_idiom">🔗 英熟語・イディオム</option>
+                <option value="eng_gram">📚 英文法</option>
+                <option value="eng_all">🎲 オール</option>
+              </select>
+            </div>
+            <div id="engLevelRow" style="display:none;">
+              <label style="font-size:0.76rem; font-weight:900; display:block; color:#b45309; margin-bottom:3px;">📊 問題のレベル選択</label>
+              <select id="engLevelSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800; border-color:#f59e0b;">
+                <option value="all" selected>🌈 全レベルミックス</option>
+                <option value="elem">🌱 教科書・基礎レベル（定期テスト基礎）</option>
+                <option value="private">🏫 私学レベル（追手門・産近甲龍・関関同立の本物過去問！）</option>
+                <option value="national">🔬 難関・国公立・早慶レベル（東大・京大・早慶過去問！）</option>
+              </select>
+            </div>
+            <div id="engGramUnitRow" style="display:none;">
+              <label style="font-size:0.76rem; font-weight:900; display:block; color:#0369a1; margin-bottom:3px;">📂 単元を選択（全14単元）</label>
+              <select id="engGramUnitSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800; border-color:#0284c7;"></select>
+            </div>
+            <div>
+              <label style="font-size:0.76rem; font-weight:900; display:block; color:#be185d; margin-bottom:3px;">✍️ 解答形式の選択</label>
+              <select id="engAnswerStyleSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800; border-color:#ec4899;">
+                <option value="fast_choice" selected>⚡ 4択早押しバトル (制限時間10秒)</option>
+                <option value="unlimited_typing">✍️ スペル記述 (時間無制限)</option>
+              </select>
+            </div>
+          </div>
+        </div>
 
-          <div style="margin-bottom:8px;">
-            <label style="font-size:0.78rem; font-weight:800; display:block;">🤖 AI対戦相手のランク（Lv.30）</label>
-            <select id="battleDiffSelect" class="btn-outline" style="width:100%; padding:7px; border-radius:8px; font-weight:800;">
+        <!-- 中学生 設定エリア -->
+        <div id="juniorBattleSettingsArea" style="display:none; background:#fffbeb; border:2px solid #fde047; border-radius:14px; padding:12px; margin-bottom:14px;">
+          <div style="font-weight:900; font-size:0.95rem; color:#b45309; margin-bottom:10px;">⚙️ 出撃・ルール設定（中学用）</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px;">
+            <div>
+              <label style="font-size:0.76rem; font-weight:900; display:block; margin-bottom:3px;">🛡️ パーティ選択（出撃3体）</label>
+              <select id="juniorBattlePresetSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800;" onchange="document.getElementById('battlePresetSelect').value=this.value"></select>
+            </div>
+            <div>
+              <label style="font-size:0.76rem; font-weight:900; display:block; color:#0284c7; margin-bottom:3px;">📊 問題のレベル選択</label>
+              <select id="juniorGradeSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800; border-color:#0284c7;">
+                <option value="all" selected>🌈 全難易度ミックス（基礎〜難関高校入試）</option>
+                <option value="textbook">🔰 教科書・基礎レベル（定期テスト・基本用語・基本計算）</option>
+                <option value="refbook">📘 標準・公立高校入試レベル（標準問題集・公立高校入試頻出）</option>
+                <option value="exam">🏛️ 難関私立・国立高校入試レベル（開成・灘・早慶過去問）</option>
+              </select>
+            </div>
+            <div style="display:none;">
+              <select id="juniorSubjectSelect" onchange="updateJuniorUnitOptions()">
+                <option value="j_all">🌈 オール</option>
+                <option value="j_sci">🔬 中学理科</option>
+                <option value="j_math">📐 中学数学</option>
+                <option value="j_eng">📖 中学英語</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:0.76rem; font-weight:900; display:block; color:#d97706; margin-bottom:3px;">📂 単元を選択</label>
+              <select id="juniorUnitSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800; border-color:#d97706;">
+                <option value="all_units" selected>🌈 全単元ミックス</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:0.76rem; font-weight:900; display:block; color:#854d0e; margin-bottom:3px;">✍️ 解答形式の選択</label>
+              <select id="juniorQuizTypeSelect" class="btn-outline" style="width:100%; padding:8px; border-radius:8px; font-weight:800; border-color:#eab308;">
+                <option value="choice" selected>🔘 4択問題のみ (おすすめ)</option>
+                <option value="mix">🎲 オールランダム (4択＋並び替え＋記述)</option>
+                <option value="typing">⌨️ 記述入力のみ【時間+18秒＆威力1.25倍！】</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 対戦相手選択：オンライン対戦 vs AIと対戦 -->
+        <div class="card-title" style="margin-bottom:8px;">🚀 対戦相手を選択して出撃！</div>
+        <div class="drill-grid-2">
+          <button class="drill-card-btn" style="border-color:#10b981; background:linear-gradient(180deg, #f0fdf4 0%, #dcfce7 100%);" onclick="startRandomMatchmaking()">
+            <div style="font-size:2.3rem;">🌐</div>
+            <div style="font-weight:900; font-size:1.08rem; color:#15803d;">オンライン対戦</div>
+            <div style="font-size:0.74rem; color:#14532d; font-weight:700;">全国のプレイヤーとマッチング！（35秒でゴースト戦）</div>
+          </button>
+
+          <button class="drill-card-btn" style="border-color:#0284c7; background:linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);" onclick="battleDrillGoStep('cpu')">
+            <div style="font-size:2.3rem;">🤖</div>
+            <div style="font-weight:900; font-size:1.08rem; color:#0369a1;">AIと対戦</div>
+            <div style="font-size:0.74rem; color:#0c4a6e; font-weight:700;">初級〜上級AIと1人で特訓・ハンデ調整OK！</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- ステップ4：AIと対戦（難易度・ハンデ確認して即開始） -->
+      <div id="battleStepCpu" style="display:none;">
+        <div class="drill-breadcrumb">
+          <span style="font-size:0.86rem; font-weight:900; color:#0369a1;">🤖 AIと対戦（CPU特訓設定）</span>
+          <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="battleDrillGoStep('config')">◀ ルール設定へ戻る</button>
+        </div>
+        <div class="card" style="border-color:#bae6fd; background:#f8fafc;">
+          <div style="margin-bottom:10px;">
+            <label style="font-size:0.82rem; font-weight:900; display:block; margin-bottom:4px;">🤖 AI対戦相手のランク（Lv.30）</label>
+            <select id="battleDiffSelect" class="btn-outline" style="width:100%; padding:9px; border-radius:8px; font-weight:800;">
               <option value="easy">初級：見習い研究員（基礎ステータス）</option>
               <option value="normal" selected>中級：主任研究員（標準50pt配分）</option>
               <option value="hard">上級：狂気の教授（極限LR＆URチップ）</option>
             </select>
           </div>
-
-          <div style="background:#e0f2fe; padding:8px; border-radius:8px; margin-bottom:10px; display:flex; flex-direction:column; gap:5px;">
-            <div style="font-size:0.78rem; font-weight:900; color:#0369a1;">⚖️ 個人ハンデ数値カスタム</div>
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem; font-weight:800;">
+          <div style="background:#e0f2fe; padding:10px; border-radius:10px; margin-bottom:12px; display:flex; flex-direction:column; gap:6px;">
+            <div style="font-size:0.8rem; font-weight:900; color:#0369a1;">⚖️ 個人ハンデ数値カスタム</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; font-weight:800;">
               <span>HP倍率:</span>
-              <input type="number" id="hpHandicapInput" value="1.0" min="0.1" max="10.0" step="0.1" style="width:65px; padding:3px; border-radius:6px; border:1px solid #94a3b8; font-weight:800; text-align:center;">
+              <input type="number" id="hpHandicapInput" value="1.0" min="0.1" max="10.0" step="0.1" style="width:70px; padding:4px; border-radius:6px; border:1px solid #94a3b8; font-weight:800; text-align:center;">
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem; font-weight:800;">
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; font-weight:800;">
               <span>攻撃倍率:</span>
-              <input type="number" id="atkHandicapInput" value="1.0" min="0.1" max="10.0" step="0.1" style="width:65px; padding:3px; border-radius:6px; border:1px solid #94a3b8; font-weight:800; text-align:center;">
+              <input type="number" id="atkHandicapInput" value="1.0" min="0.1" max="10.0" step="0.1" style="width:70px; padding:4px; border-radius:6px; border:1px solid #94a3b8; font-weight:800; text-align:center;">
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem; font-weight:800;">
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; font-weight:800;">
               <span>制限時間ボーナス(秒):</span>
-              <input type="number" id="timeHandicapInput" value="0.0" min="-5.0" max="15.0" step="0.5" style="width:65px; padding:3px; border-radius:6px; border:1px solid #94a3b8; font-weight:800; text-align:center;">
+              <input type="number" id="timeHandicapInput" value="0.0" min="-5.0" max="15.0" step="0.5" style="width:70px; padding:4px; border-radius:6px; border:1px solid #94a3b8; font-weight:800; text-align:center;">
             </div>
           </div>
-
-          <button class="btn btn-primary" style="width:100%; padding:11px;" onclick="startCpuBattle()">⚔️ AI特訓バトル開始！</button>
+          <button class="btn btn-primary" style="width:100%; padding:13px; font-size:1rem; font-weight:900;" onclick="startCpuBattle()">⚔️ AI特訓バトル開始！</button>
         </div>
       </div>
+
     </div>
 
     <!-- 🏟️ ポケモンチャンピオンズ風：フレンド対戦ロビー画面（部屋の中） -->
@@ -2052,82 +2347,78 @@
     </div>
   </section>
 
-  <!-- 4.2 🤝 フレンド ＆ 🏅 ランキング統合画面（2大モード切替バナー） -->
+  <!-- 4.2 🤝 フレンド ＆ 🏅 ランキング統合画面（スッキリ2大モード切替） -->
   <section id="screen-friends" class="screen">
+    <div class="subscreen-back-bar">
+      <strong style="color:#b45309; font-size:0.95rem;">🤝 順位 ＆ フレンド</strong>
+      <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="switchScreen('home')">🏠 ホームへ戻る</button>
+    </div>
+
     <div class="card">
-      <!-- 🤝 フレンドリスト・申請 vs 🏅 全国＆フレンドランキング 2大モード切替バナー -->
+      <!-- 🤝 フレンド vs 🏅 ランキング 切替 -->
       <div class="battle-category-toggle">
         <button id="friendsModeBtnFriends" class="battle-cat-btn active" onclick="switchFriendsOrRankingMode('friends')">
-          🤝 フレンドリスト・申請
+          🤝 フレンド・申請
         </button>
         <button id="friendsModeBtnRanking" class="battle-cat-btn cat-eng" onclick="switchFriendsOrRankingMode('ranking')">
-          🏅 全国＆フレンドランキング
+          🏅 全国・フレンドランキング
         </button>
       </div>
 
       <!-- ① フレンド管理・申請パネル -->
       <div id="friendsSubPanelFriends">
-        <div class="card-title">🤝 フレンド申請・承認 ＆ フレンドリスト</div>
-        <div class="help-box">
-          💡 <strong>フレンド申請制度：</strong>友達のコードを入力して「📩 フレンド申請を送る」と、相手の画面に申請が届きます！<strong>相手が「✅ 承認」するとお互いのフレンドリストに正式登録</strong>されます！
-        </div>
-
-        <!-- 📡 フレンド通信ステータス ＆ バージョン常時診断バナー -->
-        <div id="friendSyncStatusBanner" style="background:#f0fdf4; border:2px solid #86efac; border-radius:10px; padding:8px 12px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
-          <div style="font-size:0.8rem; font-weight:900; color:#15803d; display:flex; align-items:center; gap:6px;">
+        <!-- タイトル＋コンパクト通信ステータス -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:10px;">
+          <div class="card-title" style="margin-bottom:0;">🤝 フレンド追加 ＆ リスト</div>
+          <div id="friendSyncStatusBanner" style="display:flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:800; color:#15803d; background:#f0fdf4; border:1px solid #86efac; padding:3px 10px; border-radius:999px;">
             <span id="friendStatusDot">🟢</span>
-            <span id="friendStatusText">📡 フレンド通信: リアルタイム同期中 (Ver 1.0)</span>
-          </div>
-          <div style="font-size:0.75rem; color:#166534; font-weight:800; display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-            <span id="friendMyCodeStatus">あなた: ---</span>
-            <span id="friendPendingCountStatus">届いた申請: 0件</span>
-            <button type="button" class="btn btn-outline" style="padding:2px 8px; font-size:0.72rem; border-color:#86efac; color:#15803d; background:white; font-weight:900;" onclick="runCloudDiagnostics(true)">🧪 通信テスト</button>
+            <span id="friendStatusText">同期中</span>
+            <span id="friendMyCodeStatus" style="display:none;">---</span>
+            <span id="friendPendingCountStatus" style="display:none;">0件</span>
+            <button type="button" class="btn btn-outline" style="padding:1px 6px; font-size:0.68rem; border-color:#86efac; color:#15803d; background:white;" onclick="runCloudDiagnostics(true)">🧪 診断</button>
           </div>
         </div>
 
-        <div style="background:#f8fafc; border:2px solid #bae6fd; padding:12px; border-radius:12px; margin-bottom:12px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-            <div>
-              <div style="font-size:0.75rem; color:var(--text-sub); font-weight:800;">あなたのフレンドコード（友達に教えてね！）</div>
-              <strong id="myFriendCodeFriendScreen" style="font-size:1.15rem; color:#0284c7;">BIO-XXXX</strong>
+        <!-- 自分のコード＆友達申請を1枚に集約 -->
+        <div style="background:#f8fafc; border:2px solid #bae6fd; padding:12px; border-radius:14px; margin-bottom:14px; display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; border-bottom:1px dashed #cbd5e1; padding-bottom:8px;">
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <span style="font-size:0.76rem; color:var(--text-sub); font-weight:800;">🔑 あなたのコード：</span>
+              <strong id="myFriendCodeFriendScreen" style="font-size:1.1rem; color:#0284c7;">BIO-XXXX</strong>
             </div>
-            <button class="btn btn-outline" style="padding:6px 14px;" onclick="copyFriendCode()">📋 コードをコピー</button>
+            <button class="btn btn-outline" style="padding:4px 12px; font-size:0.78rem;" onclick="copyFriendCode()">📋 コピー</button>
           </div>
-        </div>
-
-        <!-- フレンド申請送信フォーム -->
-        <div style="display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;">
-          <input type="text" id="friendSearchCodeInput" class="btn-outline" style="flex:1; min-width:180px; padding:10px 14px; border-radius:10px; font-weight:900;" placeholder="友達のコードを入力 (例: BIO-1234)">
-          <button id="sendFriendReqBtn" class="btn btn-primary" style="padding:10px 18px;" onclick="sendFriendRequestCloud()">📩 フレンド申請を送る</button>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <input type="text" id="friendSearchCodeInput" class="btn-outline" style="flex:1; min-width:160px; padding:9px 12px; border-radius:10px; font-weight:900; background:white;" placeholder="友達のコードを入力 (例: BIO-1234)">
+            <button id="sendFriendReqBtn" class="btn btn-primary" style="padding:9px 16px;" onclick="sendFriendRequestCloud()">📩 申請を送る</button>
+          </div>
         </div>
 
         <!-- 📬 届いているフレンド申請一覧（承認・拒否） -->
         <div id="incomingRequestsSection" style="margin-bottom:14px; display:none;">
-          <div style="font-weight:900; font-size:0.92rem; color:#db2777; margin-bottom:6px;">📬 あなたに届いているフレンド申請</div>
+          <div style="font-weight:900; font-size:0.92rem; color:#db2777; margin-bottom:6px;">📬 届いているフレンド申請</div>
           <div id="incomingRequestsContainer" style="display:flex; flex-direction:column; gap:8px;"></div>
         </div>
 
         <div style="font-weight:900; font-size:0.95rem; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
           <span>👥 フレンドリスト（<span id="friendCountText">0</span>人）</span>
-          <button class="btn btn-outline" style="padding:3px 8px; font-size:0.72rem;" onclick="syncFriendsFromCloud()">🔄 最新データ・申請を確認</button>
+          <button class="btn btn-outline" style="padding:4px 10px; font-size:0.74rem;" onclick="syncFriendsFromCloud()">🔄 最新更新</button>
         </div>
-        <div id="friendListContainer" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:10px;"></div>
+        <div id="friendListContainer" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:10px;"></div>
       </div>
 
       <!-- ② 全国＆フレンドランキングパネル -->
       <div id="friendsSubPanelRanking" style="display:none;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
-          <div class="card-title" style="margin-bottom:0;">🏅 全国リアルタイム研究員ランキング</div>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+          <div class="card-title" style="margin-bottom:0;">🏅 研究員ランキング</div>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <button id="rankTabGlobal" class="btn btn-primary" onclick="renderRankingBoard('global')">🌍 全国プレイヤーランキング</button>
-            <button id="rankTabFriend" class="btn btn-outline" onclick="renderRankingBoard('friend')">🤝 フレンド内ランキング</button>
-            <button class="btn btn-outline" style="padding:6px 10px; font-size:0.78rem;" onclick="renderRankingBoard()">🔄 最新更新</button>
+            <button id="rankTabGlobal" class="btn btn-primary" onclick="renderRankingBoard('global')">🌍 全国</button>
+            <button id="rankTabFriend" class="btn btn-outline" onclick="renderRankingBoard('friend')">🤝 フレンド</button>
+            <button class="btn btn-outline" style="padding:6px 10px; font-size:0.78rem;" onclick="renderRankingBoard()">🔄 更新</button>
           </div>
         </div>
-
-        <div class="help-box">
-          💡 <strong>ダミーAIは一切なし！</strong>このゲームを遊んだ<strong>実際の本物のプレイヤーだけ</strong>がリアルタイムで並びます！<br>
-          <strong>研究員レート(RP)：</strong>「勝利数 × 120 ＋ クイズ正解数 × 15 ＋ 最高育成Lv × 20」
+        <div style="font-size:0.74rem; color:var(--text-sub); font-weight:700; margin-bottom:10px;">
+          ※ダミーAIなし・実プレイヤーのみ｜レート計算：勝利×120 ＋ 正解×15 ＋ 最高Lv×20
         </div>
 
         <div id="rankingListArea"></div>
@@ -5472,6 +5763,16 @@ QUIZ_MASTER.forEach(q => {
 const NEWS_MASTER = [
   {
     ver: 'Ver 1.0',
+    date: '2026-11-26',
+    title: '✨ 新生『バイオ・ロジカ』画面UI全面リニューアル＆対戦ドリルダウン実装！',
+    items: [
+      '【🏠 タイトル・ホーム画面を新設】育てた自慢の相棒（第1パーティリーダー）が研究所でお出迎え！「育成」「対戦」「順位・フレンド」「ボックス編成」「メニュー」へ迷わず直行できるスッキリとしたホーム画面に刷新しました！',
+      '【⚔️ 対戦メニューをわかりやすい階層選択に一新】「理系科目」「英語」「フレンド対戦」の3つからスタートし、中学用／高校用 ➔ 教科・数学Ⅰ〜C／英語ジャンルとタップで段階的に絞り込める直感UIになりました！',
+      '【📱 メニューのカテゴリ整理＆共通ヘッダー】ヘッダーに「🏠 ホーム」ボタンと「🔊 音量ON/OFF」ボタン、「🎯 ミッション」を常時配置！メニュー内も「ゲノムタワー」「育成・ガチャ」「勉強・図鑑」「システム」に美しく整理しました！'
+    ]
+  },
+  {
+    ver: 'Ver 1.0',
     date: '2026-11-24',
     title: '🛡️ セキュリティ強化 ＆ 通信の安定性・最適化アップデート！',
     items: [
@@ -6860,6 +7161,7 @@ function loadData() {
   }
   if (!state.equippedTitleId) state.equippedTitleId = 't_rookie';
   if (state.autoEat === undefined) state.autoEat = true;
+  if (state.soundMuted === undefined) state.soundMuted = false;
   if (!state.activeId || !getMicrobeById(state.activeId)) {
     if (state.box && state.box.length > 0) {
       state.activeId = state.box[0].uid;
@@ -6895,6 +7197,8 @@ function loadData() {
     if (typeof updateMissionBadge === 'function') updateMissionBadge();
     if (typeof renderTutorialGuideBanner === 'function') renderTutorialGuideBanner();
     updateAutoEatButton();
+    if (typeof updateSoundMuteButton === 'function') updateSoundMuteButton();
+    if (typeof renderHomeScreen === 'function') renderHomeScreen();
     syncMyProfileToCloud();
     renderFriendList();
     listenToIncomingBattleInvites();
@@ -7151,6 +7455,7 @@ function finishWelcomeCeremony() {
   document.getElementById('welcomeCeremonyModal').classList.remove('active');
   renderPetriStatusCard();
   renderBoxAndParty();
+  if (typeof renderHomeScreen === 'function') renderHomeScreen();
   showToast(`🎉 ようこそ ${state.playerName} 研究員！Lv.30の相棒と一緒に冒険を始めよう！`);
   if (typeof startBeginnerTutorialGuide === 'function') {
     startBeginnerTutorialGuide();
@@ -7300,8 +7605,100 @@ function showToast(msg) {
   t._timer = setTimeout(() => { t.style.display = 'none'; }, 2600);
 }
 
-let currentScreen = 'petri';
+let currentScreen = 'home';
 let currentFriendsOrRankingMode = 'friends';
+
+let _uiAudioCtx = null;
+function playUiSound(type = 'click') {
+  if (state && state.soundMuted) return;
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    if (!_uiAudioCtx) _uiAudioCtx = new AudioCtx();
+    if (_uiAudioCtx.state === 'suspended') _uiAudioCtx.resume();
+    const osc = _uiAudioCtx.createOscillator();
+    const gain = _uiAudioCtx.createGain();
+    const now = _uiAudioCtx.currentTime;
+    osc.connect(gain);
+    gain.connect(_uiAudioCtx.destination);
+    if (type === 'ok') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25, now);
+      osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.12);
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+      osc.start(now);
+      osc.stop(now + 0.16);
+    } else if (type === 'ng') {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(220, now);
+      osc.frequency.exponentialRampToValueAtTime(140, now + 0.16);
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+      osc.start(now);
+      osc.stop(now + 0.18);
+    } else {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(660, now);
+      gain.gain.setValueAtTime(0.04, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+      osc.start(now);
+      osc.stop(now + 0.06);
+    }
+  } catch (e) {}
+}
+
+function updateSoundMuteButton() {
+  const btn = document.getElementById('soundMuteBtn');
+  if (!btn) return;
+  const muted = !!(state && state.soundMuted);
+  btn.textContent = muted ? '🔇' : '🔊';
+  btn.title = muted ? 'ミュート中（タップで音量をON）' : '音量ON（タップで消音）';
+  btn.style.borderColor = muted ? '#f87171' : '#cbd5e1';
+  btn.style.color = muted ? '#dc2626' : 'var(--text-main)';
+}
+
+function toggleSoundMute() {
+  state.soundMuted = !state.soundMuted;
+  saveData();
+  updateSoundMuteButton();
+  if (!state.soundMuted) playUiSound('ok');
+  showToast(state.soundMuted ? '🔇 効果音・サウンドを消音（ミュート）にしました。' : '🔊 効果音・サウンドをONにしました！');
+}
+
+function getHomeBuddyMicrobe() {
+  if (!state || !Array.isArray(state.box) || state.box.length === 0) return null;
+  const p0 = state.presets && state.presets[0] && Array.isArray(state.presets[0].ids) ? state.presets[0].ids[0] : null;
+  return (p0 && getMicrobeById(p0)) || getMicrobeById(state.activeId) || state.box[0];
+}
+
+function renderHomeScreen() {
+  const welcomeEl = document.getElementById('homeWelcomeText');
+  if (welcomeEl) {
+    welcomeEl.textContent = `おかえりなさい、${state.playerName || '研究員'}さん！`;
+  }
+  const buddy = getHomeBuddyMicrobe();
+  const badgesEl = document.getElementById('homeBuddyBadges');
+  const nameEl = document.getElementById('homeBuddyNameText');
+  const subEl = document.getElementById('homeBuddySubText');
+  if (buddy) {
+    const subj = getSubject(buddy.subjId);
+    const sp = getSpecies(buddy.speciesId);
+    if (badgesEl) {
+      badgesEl.innerHTML = `
+        <span class="rarity-tag rarity-${buddy.rarity}">${buddy.rarity}</span>
+        ${buddy.isMutant ? '<span class="mutant-badge">🌟突然変異種</span>' : ''}
+        <span class="subject-tag ${subj.cls}">${subj.icon} ${subj.name}</span>
+      `;
+    }
+    if (nameEl) {
+      nameEl.textContent = `${buddy.nickname} (Lv.${buddy.level}/${MAX_LEVEL})`;
+    }
+    if (subEl) {
+      subEl.textContent = `相棒「${sp.name}」が研究所でスタンバイ中！`;
+    }
+  }
+}
 
 function switchFriendsOrRankingMode(mode) {
   currentFriendsOrRankingMode = mode === 'ranking' ? 'ranking' : 'friends';
@@ -7334,8 +7731,8 @@ function switchScreen(screenId, btnEl) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     const fEl = document.getElementById('screen-friends');
     if (fEl) fEl.classList.add('active');
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('mainTabFriends')?.classList.add('active');
+    const homeBtn = document.getElementById('headerHomeBtn');
+    if (homeBtn) homeBtn.style.display = 'inline-flex';
     switchFriendsOrRankingMode('ranking');
     return;
   }
@@ -7345,19 +7742,17 @@ function switchScreen(screenId, btnEl) {
   const targetEl = document.getElementById('screen-' + screenId);
   if (targetEl) targetEl.classList.add('active');
 
-  // メインナビボタンのアクティブ同期
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  if (btnEl) {
-    btnEl.classList.add('active');
-  } else {
-    if (screenId === 'petri') document.getElementById('mainTabPetri')?.classList.add('active');
-    else if (screenId === 'battle') document.getElementById('mainTabBattle')?.classList.add('active');
-    else if (screenId === 'friends') document.getElementById('mainTabFriends')?.classList.add('active');
-    else if (['menu', 'tower', 'box', 'synthesis', 'shop', 'gacha', 'exchange', 'genome', 'pedia', 'mistakes', 'profile', 'settings', 'help', 'handbook'].includes(screenId)) {
-      document.getElementById('mainTabMenu')?.classList.add('active');
-    }
+  // ヘッダーの「🏠 ホーム」ボタン表示切替（ホーム画面以外で常に表示）
+  const homeBtn = document.getElementById('headerHomeBtn');
+  if (homeBtn) {
+    homeBtn.style.display = (screenId === 'home') ? 'none' : 'inline-flex';
   }
 
+  // メインナビボタンのアクティブ同期（互換維持）
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+
+  if (screenId === 'home') renderHomeScreen();
   if (screenId === 'petri') renderPetriStatusCard();
   if (screenId === 'tower') renderTowerLobby();
   if (screenId === 'box') renderBoxAndParty();
@@ -7382,6 +7777,7 @@ function switchScreen(screenId, btnEl) {
       if (lobby) lobby.style.display = 'none';
       const setup = document.getElementById('battleSetupPanel');
       if (setup) setup.style.display = 'block';
+      if (typeof battleDrillGoStep === 'function') battleDrillGoStep('top');
     }
     updateBattlePresetSelect(); updateSubjectOptionsByGrade(); updateUnitOptionsBySubject(); checkPendingBattleInvites();
   }
@@ -8084,6 +8480,17 @@ function petriLoop() {
 
   // ★ 他画面（もちもの・ゲノム合成・ガチャ・対戦など）を開いている時に、裏で60fpsの重いCanvas描画やステータスパネルDOM再構築が走って画面がカクつくのを完全防止！
   if (currentScreen !== 'petri') {
+    if (currentScreen === 'home') {
+      const homeCanvas = document.getElementById('homeBuddyCanvas');
+      if (homeCanvas) {
+        const hCtx = homeCanvas.getContext('2d');
+        const buddy = getHomeBuddyMicrobe();
+        if (hCtx && buddy) {
+          hCtx.clearRect(0, 0, homeCanvas.width, homeCanvas.height);
+          drawMicrobe(hCtx, homeCanvas.width / 2, homeCanvas.height / 2, 36, buddy, animTick);
+        }
+      }
+    }
     if (!isCeremonyBlocking && state.autoEat !== false && animTick % 50 === 0) {
       const mBg = getMicrobeById(state.activeId);
       if (mBg) {
@@ -8525,7 +8932,7 @@ function renderBoxAndParty() {
     const safeUidAttr = escapeJsAttr(m.uid);
 
     return `
-      <div class="box-item ${isTrain ? 'active-train' : ''} ${inPreset ? 'in-party' : ''} ${rarityCardCls}">
+      <div class="box-item ${isTrain ? 'active-train' : ''} ${inPreset ? 'in-party' : ''} ${rarityCardCls}" style="padding:12px; gap:7px;">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
           <div style="display:flex; gap:4px; align-items:center;">
             <span class="rarity-tag rarity-${m.rarity}">${m.rarity}</span>
@@ -8534,29 +8941,26 @@ function renderBoxAndParty() {
           </div>
           <span class="subject-tag ${subj.cls}">${subj.icon}${subj.name}</span>
         </div>
-        <div style="font-weight:900; display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-weight:900; display:flex; justify-content:space-between; align-items:center; font-size:0.95rem;">
           <span>${escapeHtml(m.nickname)} <small style="color:var(--primary);">Lv.${m.level}</small></span>
           <small style="color:#64748b; font-size:0.72rem;">総合:${getTotalStats(m)}</small>
         </div>
-        <div style="font-size:0.72rem; color:var(--text-sub);">
-          速:${m.stats.speed} 攻:${m.stats.size} 耐:${m.stats.defense} 燃:${m.stats.fuel} 感:${m.stats.sense}(会心${getCritRatePct(m)}%)
+        <div style="font-size:0.72rem; color:var(--text-sub); background:#f8fafc; padding:4px 7px; border-radius:6px;">
+          速:${m.stats.speed} 攻:${m.stats.size} 耐:${m.stats.defense} 燃:${m.stats.fuel} 感:${m.stats.sense}(${getCritRatePct(m)}%)
         </div>
         <div style="font-size:0.72rem; color:#0369a1; font-weight:800;">🎛️ 振分:${getUsedEffort(m)}/${MAX_EFFORT_PT}pt | ✨${skill.name}</div>
-        <div style="display:flex; gap:4px; margin-top:auto; flex-wrap:wrap;">
+        <div style="display:flex; gap:6px; margin-top:auto;">
           ${selectedPartySlotForSwap !== null ? `
-            <button class="btn btn-purple" style="padding:6px 10px; font-size:0.76rem; width:100%;" onclick="setPartyMember(${selectedPartySlotForSwap}, '${safeUidAttr}')">
-              🚩 このキャラを【${roles[selectedPartySlotForSwap]}】に編成する！
+            <button class="btn btn-purple" style="padding:7px 10px; font-size:0.78rem; width:100%;" onclick="setPartyMember(${selectedPartySlotForSwap}, '${safeUidAttr}')">
+              🚩 このキャラを【${roles[selectedPartySlotForSwap]}】に編成！
             </button>
           ` : `
-            <button class="btn btn-primary" style="padding:4px 8px; font-size:0.72rem; flex:1;" onclick="openMicrobeEditModal('${safeUidAttr}')">
-              ⚙️ 編集・強化
+            <button class="btn btn-primary" style="padding:6px 10px; font-size:0.76rem; flex:1;" onclick="openMicrobeEditModal('${safeUidAttr}')">
+              ⚙️ 編集・編成
             </button>
-            <button class="btn ${isTrain ? 'btn-secondary' : 'btn-outline'}" style="padding:4px 8px; font-size:0.72rem;" onclick="setTrainMicrobe('${safeUidAttr}')">
-              ${isTrain ? '🔬育成中' : '🔬育てる'}
+            <button class="btn ${isTrain ? 'btn-secondary' : 'btn-outline'}" style="padding:6px 10px; font-size:0.76rem;" onclick="setTrainMicrobe('${safeUidAttr}')">
+              ${isTrain ? '🔬 育成中' : '🔬 育てる'}
             </button>
-            <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="setPartyMember(0, '${safeUidAttr}')">先鋒</button>
-            <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="setPartyMember(1, '${safeUidAttr}')">中堅</button>
-            <button class="btn btn-outline" style="padding:4px 6px; font-size:0.7rem;" onclick="setPartyMember(2, '${safeUidAttr}')">大将</button>
           `}
         </div>
       </div>
@@ -10594,6 +10998,160 @@ function updateEngUiState() {
   if (lvlRow) lvlRow.style.display = isGram ? 'block' : 'none';
 }
 
+/* ============================================================================
+   ⚔️ 対戦階層ドリルダウン制御エンジン
+============================================================================ */
+let battleDrillState = {
+  mode: 'sci',     // 'sci' | 'eng'
+  grade: 'high',   // 'junior' | 'high'
+  subj: 'bio',
+  label: '🧬 生物'
+};
+
+function battleDrillGoStep(step) {
+  const ids = {
+    top: 'battleStepTop',
+    friend: 'battleStepFriend',
+    grade: 'battleStepGrade',
+    subject: 'battleStepSubject',
+    highmath: 'battleStepHighMath',
+    config: 'battleStepConfig',
+    cpu: 'battleStepCpu'
+  };
+  Object.keys(ids).forEach(k => {
+    const el = document.getElementById(ids[k]);
+    if (el) el.style.display = (k === step) ? 'block' : 'none';
+  });
+  if (step === 'friend' && typeof checkPendingBattleInvites === 'function') {
+    checkPendingBattleInvites();
+  }
+}
+
+function battleDrillSelectCategory(mode) {
+  battleDrillState.mode = mode === 'eng' ? 'eng' : 'sci';
+  const bc = document.getElementById('battleGradeBreadcrumb');
+  if (bc) {
+    bc.textContent = battleDrillState.mode === 'eng' ? '⚔️ 対戦 ＞ 📖 英語' : '⚔️ 対戦 ＞ 🧬 理系科目';
+  }
+  battleDrillGoStep('grade');
+}
+
+function battleDrillSelectGrade(grade) {
+  battleDrillState.grade = grade === 'junior' ? 'junior' : 'high';
+  const bc = document.getElementById('battleSubjectBreadcrumb');
+  if (bc) {
+    const modeTxt = battleDrillState.mode === 'eng' ? '📖 英語' : '🧬 理系科目';
+    const gradeTxt = battleDrillState.grade === 'junior' ? '🎒 中学用' : '🏛️ 高校用';
+    bc.textContent = `⚔️ 対戦 ＞ ${modeTxt} ＞ ${gradeTxt}`;
+  }
+  renderBattleDrillSubjects();
+  battleDrillGoStep('subject');
+}
+
+function renderBattleDrillSubjects() {
+  const grid = document.getElementById('battleSubjectGrid');
+  if (!grid) return;
+
+  let items = [];
+  if (battleDrillState.mode === 'sci') {
+    items = [
+      { key: 'chem', icon: '🧪', title: '化学', desc: battleDrillState.grade === 'junior' ? '中学理科 第1分野（化学変化・イオン）' : '理論化学・無機化学・有機・高分子', color: '#d97706', bg: '#fffbeb' },
+      { key: 'phys', icon: '⚡', title: '物理', desc: battleDrillState.grade === 'junior' ? '中学理科 第1分野（光・音・力・電流）' : '力学・熱力学・波動・電磁気・原子', color: '#0284c7', bg: '#f0f9ff' },
+      { key: 'bio', icon: '🧬', title: '生物', desc: battleDrillState.grade === 'junior' ? '中学理科 第2分野（細胞・植物・動物・地学）' : '細胞・代謝・遺伝・反応・生態（全7章）', color: '#059669', bg: '#f0fdf4' },
+      { key: 'math', icon: '📐', title: '数学', desc: battleDrillState.grade === 'junior' ? '中学数学（方程式・関数・図形・確率）' : '数Ⅰ・数A・数Ⅱ・数B・数Ⅲ・数C へ分岐！', color: '#7c3aed', bg: '#faf5ff' }
+    ];
+    grid.className = 'drill-grid-2';
+  } else {
+    items = [
+      { key: 'eng_word', icon: '🔤', title: '英単語', desc: battleDrillState.grade === 'junior' ? '中学必須英単語' : '大学入試 必須頻出英単語1900', color: '#0284c7', bg: '#f0f9ff' },
+      { key: 'eng_idiom', icon: '🔗', title: '英熟語・イディオム', desc: battleDrillState.grade === 'junior' ? '中学英語・重要表現' : '頻出英熟語・イディオム1000', color: '#9333ea', bg: '#faf5ff' },
+      { key: 'eng_gram', icon: '📚', title: '英文法', desc: battleDrillState.grade === 'junior' ? '中学英文法（時制・受動態・不定詞等）' : '大学入試 英文法・語法（全14単元）', color: '#d97706', bg: '#fffbeb' }
+    ];
+    grid.className = 'drill-grid-3';
+  }
+
+  grid.innerHTML = items.map(it => `
+    <button class="drill-card-btn" style="border-color:${it.color}; background:linear-gradient(180deg, #ffffff 0%, ${it.bg} 100%);" onclick="battleDrillSelectSubject('${it.key}', '${it.icon} ${it.title}')">
+      <div style="font-size:2.4rem;">${it.icon}</div>
+      <div style="font-weight:900; font-size:1.12rem; color:${it.color};">${it.title}</div>
+      <div style="font-size:0.74rem; color:var(--text-sub); font-weight:700;">${it.desc}</div>
+    </button>
+  `).join('');
+}
+
+function battleDrillSelectSubject(subjKey, label) {
+  if (battleDrillState.mode === 'sci' && battleDrillState.grade === 'high' && subjKey === 'math') {
+    battleDrillGoStep('highmath');
+    return;
+  }
+
+  battleDrillState.subj = subjKey;
+  battleDrillState.label = label;
+
+  const modeTxt = battleDrillState.mode === 'eng' ? '📖 英語' : '🧬 理系科目';
+  const gradeTxt = battleDrillState.grade === 'junior' ? '🎒 中学用' : '🏛️ 高校用';
+  const bc = document.getElementById('battleConfigBreadcrumb');
+  if (bc) {
+    bc.textContent = `${modeTxt} ＞ ${gradeTxt} ＞ ${label}`;
+  }
+
+  if (battleDrillState.grade === 'junior') {
+    switchBattleCategory('junior');
+    const jSubjEl = document.getElementById('juniorSubjectSelect');
+    const jUnitEl = document.getElementById('juniorUnitSelect');
+    if (battleDrillState.mode === 'sci') {
+      if (subjKey === 'math') {
+        if (jSubjEl) jSubjEl.value = 'j_math';
+        updateJuniorUnitOptions();
+      } else if (subjKey === 'bio') {
+        if (jSubjEl) jSubjEl.value = 'j_sci';
+        updateJuniorUnitOptions();
+        if (jUnitEl) jUnitEl.value = 'j_sci_p2';
+      } else {
+        if (jSubjEl) jSubjEl.value = 'j_sci';
+        updateJuniorUnitOptions();
+        if (jUnitEl) jUnitEl.value = 'j_sci_p1';
+      }
+    } else {
+      if (jSubjEl) jSubjEl.value = 'j_eng';
+      updateJuniorUnitOptions();
+      if (jUnitEl) {
+        if (subjKey === 'eng_word') jUnitEl.value = 'j_eng_word';
+        else if (subjKey === 'eng_gram') jUnitEl.value = 'j_eng_gram';
+        else jUnitEl.value = 'all_units';
+      }
+    }
+  } else if (battleDrillState.mode === 'eng') {
+    switchBattleCategory('eng');
+    const engGenreEl = document.getElementById('engGenreSelect');
+    if (engGenreEl) {
+      engGenreEl.value = subjKey;
+      updateEngUiState();
+    }
+  } else {
+    switchBattleCategory('sci');
+    const sciSubjEl = document.getElementById('battleSubjectSelect');
+    if (sciSubjEl) {
+      sciSubjEl.value = subjKey;
+      updateUnitOptionsBySubject();
+    }
+  }
+
+  battleDrillGoStep('config');
+}
+
+function battleDrillSelectHighMath(subjKey, label) {
+  battleDrillSelectSubject(subjKey, `📐 数学 ＞ ${label}`);
+}
+
+function battleDrillBackFromConfig() {
+  if (battleDrillState.mode === 'sci' && battleDrillState.grade === 'high' && ['m1', 'ma', 'm2', 'mb', 'm3', 'mc'].includes(battleDrillState.subj)) {
+    battleDrillGoStep('highmath');
+  } else {
+    battleDrillGoStep('subject');
+  }
+}
+
 /* 🎯 現在選択されているカテゴリ（高校理系 / 英語 / 中学生）に応じたルールオブジェクトを完全統一生成 */
 function getCurrentBattleRules() {
   const cat = currentBattleCategory || 'sci';
@@ -11687,6 +12245,7 @@ function submitTyping() {
 
 function executeAttack(who, isTypingBonus, speedMult) {
   if (!battle) return;
+  if (typeof playUiSound === 'function') playUiSound(who === 'p1' ? 'ok' : 'ng');
   const f1 = battle.p1Team[battle.p1Idx];
   const f2 = battle.p2Team[battle.p2Idx];
   if (!f1 || !f2) return;
@@ -18837,8 +19396,11 @@ try {
 try {
   spawnAtpFood(12);
   renderPetriStatusCard();
+  renderHomeScreen();
+  updateSoundMuteButton();
   petriLoop();
   switchBattleCategory('sci');
+  switchScreen('home');
 } catch (e) {
   console.error('Initial loop error:', e);
 }
@@ -19534,7 +20096,7 @@ function renderTutorialGuideBanner() {
         <span style="font-size:0.74rem; font-weight:900; color:#6ee7b7;">Step1 クリア済！</span>
       </div>
       <div style="font-size:0.84rem; font-weight:800; line-height:1.45;">
-        次は<strong>「⚔️ 対戦」</strong>画面の下にある<strong>「🤖 1人で特訓（初級）」</strong>で1勝してATPを稼ごう！
+        次は<strong>「⚔️ 対戦」</strong>から好きな科目を選んで<strong>「🤖 AIと対戦（初級）」</strong>で1勝してATPを稼ごう！
       </div>
       <div style="display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap;">
         ${skipBtn}
